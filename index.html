@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>Progress Bars</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #fafafa;
+      margin: 0;
+      padding: 20px;
+    }
+
+    h1 {
+      text-align: center;
+    }
+
+    .form-section {
+      display: flex;
+      justify-content: center;
+      margin: 10px 0;
+      gap: 10px;
+    }
+
+    input[type="text"], input[type="number"] {
+      padding: 5px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    button {
+      padding: 6px 12px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      background-color: #007BFF;
+      color: #fff;
+      font-weight: bold;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    .progress-container {
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .progress-item {
+      background: #fff;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      padding: 10px;
+      margin-bottom: 10px;
+    }
+
+    .progress-item h2 {
+      margin: 0 0 10px;
+      font-size: 1.1em;
+    }
+
+    .progress-bar {
+      position: relative;
+      background: #e0e0e0;
+      border-radius: 20px;
+      overflow: hidden;
+      height: 24px;
+      width: 100%;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: #007BFF;
+      width: 0%;
+      transition: width 0.3s ease;
+      color: #fff;
+      text-align: center;
+      line-height: 24px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <h1>Dynamic Progress Bars</h1>
+
+  <!-- Add a new name -->
+  <div class="form-section">
+    <input type="text" id="newName" placeholder="Name..." />
+    <button onclick="addName()">Add Name</button>
+  </div>
+
+  <!-- Update progress -->
+  <div class="form-section">
+    <input type="text" id="updateName" placeholder="Name to update..." />
+    <input type="number" id="updatePercent" placeholder="Percentage (0-100)" />
+    <button onclick="updateProgress()">Update Progress</button>
+  </div>
+
+  <!-- Where progress bars will appear -->
+  <div class="progress-container" id="progressContainer">
+  </div>
+
+  <script>
+    // Keep track of progress bars in a map { 'name': {element, fillElement}, ... }
+    const progressMap = {};
+
+    function addName() {
+      const nameInput = document.getElementById('newName');
+      const name = nameInput.value.trim();
+      if (!name) return;
+
+      // If the name already exists, just skip
+      if (progressMap[name]) {
+        alert('This name already has a progress bar!');
+        return;
+      }
+
+      // Create the container for the progress
+      const container = document.createElement('div');
+      container.className = 'progress-item';
+
+      // Create a title
+      const title = document.createElement('h2');
+      title.textContent = name;
+      container.appendChild(title);
+
+      // Create the progress bar elements
+      const progressBar = document.createElement('div');
+      progressBar.className = 'progress-bar';
+      const progressFill = document.createElement('div');
+      progressFill.className = 'progress-fill';
+      progressFill.textContent = '0%';
+
+      progressBar.appendChild(progressFill);
+      container.appendChild(progressBar);
+
+      // Add it to the main container
+      const progressContainer = document.getElementById('progressContainer');
+      progressContainer.appendChild(container);
+
+      // Store reference in progressMap
+      progressMap[name] = {
+        container: container,
+        fill: progressFill
+      };
+
+      // Clear the input
+      nameInput.value = '';
+    }
+
+    function updateProgress() {
+      const nameInput = document.getElementById('updateName');
+      const percentageInput = document.getElementById('updatePercent');
+
+      const name = nameInput.value.trim();
+      let percentage = parseInt(percentageInput.value);
+
+      if (!name || isNaN(percentage)) return;
+      if (percentage < 0) percentage = 0;
+      if (percentage > 100) percentage = 100;
+
+      if (!progressMap[name]) {
+        alert('No progress bar found for that name!');
+        return;
+      }
+
+      // Update the corresponding progress bar
+      const fillElement = progressMap[name].fill;
+      fillElement.style.width = percentage + '%';
+      fillElement.textContent = percentage + '%';
+
+      // Clear inputs
+      nameInput.value = '';
+      percentageInput.value = '';
+    }
+  </script>
+</body>
+</html>
