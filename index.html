@@ -1,179 +1,134 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Progress Bars</title>
+  <title>parhampboc</title>
+  <!-- Google Font -->
+  <link rel="preconnect" href="https://fonts.gstatic.com" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap"
+    rel="stylesheet"
+  />
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #fafafa;
+    /* Reset some default browser styles */
+    * {
       margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: #f5f5f5;
+      color: #333;
+      line-height: 1.6;
       padding: 20px;
     }
 
     h1 {
       text-align: center;
+      margin-bottom: 10px;
+      font-weight: 600;
     }
 
-    .form-section {
-      display: flex;
-      justify-content: center;
-      margin: 10px 0;
-      gap: 10px;
+    p.subtitle {
+      text-align: center;
+      margin-bottom: 40px;
+      color: #666;
     }
 
-    input[type="text"], input[type="number"] {
-      padding: 5px;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-    }
-
-    button {
-      padding: 6px 12px;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-      background-color: #007BFF;
-      color: #fff;
-      font-weight: bold;
-    }
-
-    button:hover {
-      background-color: #0056b3;
-    }
-
-    .progress-container {
-      max-width: 600px;
+    .skills-container {
+      max-width: 700px;
       margin: 0 auto;
     }
 
-    .progress-item {
-      background: #fff;
-      border: 1px solid #ddd;
-      border-radius: 8px;
-      padding: 10px;
-      margin-bottom: 10px;
+    .skill {
+      margin-bottom: 20px;
     }
 
-    .progress-item h2 {
-      margin: 0 0 10px;
-      font-size: 1.1em;
+    .skill-title {
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 5px;
+      display: block;
     }
 
     .progress-bar {
-      position: relative;
+      width: 100%;
       background: #e0e0e0;
       border-radius: 20px;
       overflow: hidden;
-      height: 24px;
-      width: 100%;
+      height: 25px;
     }
 
     .progress-fill {
+      background: #007bff;
       height: 100%;
-      background: #007BFF;
-      width: 0%;
-      transition: width 0.3s ease;
-      color: #fff;
+      border-radius: 20px 0 0 20px;
       text-align: center;
-      line-height: 24px;
-      font-weight: bold;
+      color: #fff;
+      font-weight: 600;
+      transition: width 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 40px;
+      font-size: 0.9rem;
+      color: #888;
     }
   </style>
 </head>
 <body>
-  <h1>Dynamic Progress Bars</h1>
 
-  <!-- Add a new name -->
-  <div class="form-section">
-    <input type="text" id="newName" placeholder="Name..." />
-    <button onclick="addName()">Add Name</button>
+  <h1>My Coding Progress</h1>
+  <p class="subtitle">parhampboc | Keep track of coding skills here</p>
+
+  <div class="skills-container">
+    <!-- Each skill has a title and a bar. Change or add more below. -->
+    <div class="skill">
+      <span class="skill-title">HTML</span>
+      <div class="progress-bar">
+        <!-- Change 'width: 80%' to adjust progress, and text content to match -->
+        <div class="progress-fill" style="width: 80%">80%</div>
+      </div>
+    </div>
+
+    <div class="skill">
+      <span class="skill-title">CSS</span>
+      <div class="progress-bar">
+        <div class="progress-fill" style="width: 70%">70%</div>
+      </div>
+    </div>
+
+    <div class="skill">
+      <span class="skill-title">JavaScript</span>
+      <div class="progress-bar">
+        <div class="progress-fill" style="width: 60%">60%</div>
+      </div>
+    </div>
+
+    <div class="skill">
+      <span class="skill-title">Python</span>
+      <div class="progress-bar">
+        <div class="progress-fill" style="width: 50%">50%</div>
+      </div>
+    </div>
+
+    <div class="skill">
+      <span class="skill-title">C++</span>
+      <div class="progress-bar">
+        <div class="progress-fill" style="width: 40%">40%</div>
+      </div>
+    </div>
   </div>
 
-  <!-- Update progress -->
-  <div class="form-section">
-    <input type="text" id="updateName" placeholder="Name to update..." />
-    <input type="number" id="updatePercent" placeholder="Percentage (0-100)" />
-    <button onclick="updateProgress()">Update Progress</button>
-  </div>
+  <footer>
+    parhampboc &mdash; &copy; 2025
+  </footer>
 
-  <!-- Where progress bars will appear -->
-  <div class="progress-container" id="progressContainer">
-  </div>
-
-  <script>
-    // Keep track of progress bars in a map { 'name': {element, fillElement}, ... }
-    const progressMap = {};
-
-    function addName() {
-      const nameInput = document.getElementById('newName');
-      const name = nameInput.value.trim();
-      if (!name) return;
-
-      // If the name already exists, just skip
-      if (progressMap[name]) {
-        alert('This name already has a progress bar!');
-        return;
-      }
-
-      // Create the container for the progress
-      const container = document.createElement('div');
-      container.className = 'progress-item';
-
-      // Create a title
-      const title = document.createElement('h2');
-      title.textContent = name;
-      container.appendChild(title);
-
-      // Create the progress bar elements
-      const progressBar = document.createElement('div');
-      progressBar.className = 'progress-bar';
-      const progressFill = document.createElement('div');
-      progressFill.className = 'progress-fill';
-      progressFill.textContent = '0%';
-
-      progressBar.appendChild(progressFill);
-      container.appendChild(progressBar);
-
-      // Add it to the main container
-      const progressContainer = document.getElementById('progressContainer');
-      progressContainer.appendChild(container);
-
-      // Store reference in progressMap
-      progressMap[name] = {
-        container: container,
-        fill: progressFill
-      };
-
-      // Clear the input
-      nameInput.value = '';
-    }
-
-    function updateProgress() {
-      const nameInput = document.getElementById('updateName');
-      const percentageInput = document.getElementById('updatePercent');
-
-      const name = nameInput.value.trim();
-      let percentage = parseInt(percentageInput.value);
-
-      if (!name || isNaN(percentage)) return;
-      if (percentage < 0) percentage = 0;
-      if (percentage > 100) percentage = 100;
-
-      if (!progressMap[name]) {
-        alert('No progress bar found for that name!');
-        return;
-      }
-
-      // Update the corresponding progress bar
-      const fillElement = progressMap[name].fill;
-      fillElement.style.width = percentage + '%';
-      fillElement.textContent = percentage + '%';
-
-      // Clear inputs
-      nameInput.value = '';
-      percentageInput.value = '';
-    }
-  </script>
 </body>
 </html>
