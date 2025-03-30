@@ -2,13 +2,14 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>parhampboc</title>
-  <!-- Google Font -->
+  <title>Parham's Coding Progress</title>
+  <!-- Google Font for styling -->
   <link rel="preconnect" href="https://fonts.gstatic.com" />
   <link
     href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap"
     rel="stylesheet"
   />
+
   <style>
     /* Reset some default browser styles */
     * {
@@ -25,16 +26,29 @@
       padding: 20px;
     }
 
-    h1 {
+    .header {
       text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .header img {
+      /* Ensures the image fits nicely */
+      max-width: 250px;
+      height: auto;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      margin-bottom: 20px;
+    }
+
+    h1 {
+      font-size: 2rem;
       margin-bottom: 10px;
       font-weight: 600;
     }
 
-    p.subtitle {
-      text-align: center;
-      margin-bottom: 40px;
+    .subtitle {
       color: #666;
+      margin-bottom: 40px;
     }
 
     .skills-container {
@@ -83,16 +97,22 @@
   </style>
 </head>
 <body>
-
-  <h1>My Coding Progress</h1>
-  <p class="subtitle">parhampboc | Keep track of coding skills here</p>
+  <div class="header">
+    <!-- This is your image from PostImages -->
+    <img
+      src="https://i.postimg.cc/qRLZSgGg/Chat-GPT-Image-Mar-30-2025-02-29-22-PM.png"
+      alt="Parham's photo"
+    />
+    <h1>Parham</h1>
+    <p class="subtitle">Tracking My Coding Progress</p>
+  </div>
 
   <div class="skills-container">
-    <!-- Each skill has a title and a bar. Change or add more below. -->
+    <!-- EXAMPLE SKILLS -->
     <div class="skill">
       <span class="skill-title">HTML</span>
       <div class="progress-bar">
-        <!-- Change 'width: 80%' to adjust progress, and text content to match -->
+        <!-- Change 'width: 80%' to adjust progress, and text to match (like '80%') -->
         <div class="progress-fill" style="width: 80%">80%</div>
       </div>
     </div>
@@ -111,24 +131,28 @@
       </div>
     </div>
 
+    <!-- ADD NEW LANGUAGES HERE (just copy & paste a block, change the title & width) -->
+    <!--
     <div class="skill">
       <span class="skill-title">Python</span>
       <div class="progress-bar">
         <div class="progress-fill" style="width: 50%">50%</div>
       </div>
     </div>
-
-    <div class="skill">
-      <span class="skill-title">C++</span>
-      <div class="progress-bar">
-        <div class="progress-fill" style="width: 40%">40%</div>
-      </div>
-    </div>
+    -->
   </div>
 
   <footer>
-    parhampboc &mdash; &copy; 2025
+    &copy; 2025 Parham
   </footer>
 
+  <!--
+    HOW TO UPDATE A PROGRESS BAR:
+    1. Find the <div class="skill"> that corresponds to the language you want to update.
+    2. In the <div class="progress-fill"> element, change:
+       style="width: XX%"  (like 90%, 100%, etc.)
+       and the text inside (like 90%)
+    3. Commit your changes to GitHub, and the live site will update.
+  -->
 </body>
 </html>
