@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Electrical Engineering Progress</title>
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <!-- Using a futuristic font for an electric feel -->
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Orbitron', sans-serif;
+      background: #0a0f2c;
+      color: #0ff;
+      padding: 20px;
+    }
+    nav {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    nav a {
+      margin: 0 10px;
+      text-decoration: none;
+      color: #0ff;
+      font-weight: 700;
+    }
+    .header {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .header img {
+      max-width: 220px;
+      border-radius: 10px;
+      margin-bottom: 20px;
+      box-shadow: 0 0 10px #0ff;
+    }
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 10px;
+      text-shadow: 0 0 10px #0ff;
+    }
+    .subtitle {
+      font-size: 1.2rem;
+      color: #ffc107;
+      margin-bottom: 40px;
+    }
+    .skills-container {
+      max-width: 700px;
+      margin: 0 auto;
+      background: #1a1f4c;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 0 15px rgba(0,255,255,0.3);
+    }
+    .skill {
+      margin-bottom: 20px;
+    }
+    .skill-title {
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 5px;
+      color: #0ff;
+    }
+    .progress-bar {
+      background: #0a0f2c;
+      border-radius: 10px;
+      overflow: hidden;
+      height: 25px;
+    }
+    .progress-fill {
+      height: 100%;
+      text-align: center;
+      color: #fff;
+      font-weight: 700;
+      transition: width 0.3s ease;
+    }
+    /* Custom gradients for different subjects */
+    .progress-fill.circuit { background: linear-gradient(90deg, #00f7ff, #00d4ff); }
+    .progress-fill.electronics { background: linear-gradient(90deg, #ffea00, #ffdd00); }
+    .progress-fill.control { background: linear-gradient(90deg, #ff006e, #ff8c00); }
+    .progress-fill.machines { background: linear-gradient(90deg, #007bff, #00bfff); }
+    .progress-fill.emagnet { background: linear-gradient(90deg, #00ffcc, #00b3b3); }
+    footer {
+      text-align: center;
+      margin-top: 40px;
+      font-size: 0.9rem;
+      color: #aaa;
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <a href="coding.html">Coding</a> |
+    <a href="electrical.html">Electrical Engineering</a> |
+    <a href="physics.html">Physics</a> |
+    <a href="math.html">Math</a>
+  </nav>
+  <div class="header">
+    <img src="https://i.postimg.cc/wv0tXn8H/Chat-GPT-Image-Apr-1-2025-04-55-36-PM.png" alt="Electrical Theme Image">
+    <h1>Electrical Engineering Progress</h1>
+    <p class="subtitle">Tracking Electrical Engineering subjects</p>
+  </div>
+  <div class="skills-container">
+    <div class="skill">
+      <span class="skill-title">Electric Circuit Analysis I</span>
+      <div class="progress-bar">
+        <div class="progress-fill circuit" style="width: 25%;">25%</div>
+      </div>
+    </div>
+    <div class="skill">
+      <span class="skill-title">Electric Circuit Analysis II</span>
+      <div class="progress-bar">
+        <div class="progress-fill circuit" style="width: 20%;">20%</div>
+      </div>
+    </div>
+    <div class="skill">
+      <span class="skill-title">Electronics I</span>
+      <div class="progress-bar">
+        <div class="progress-fill electronics" style="width: 35%;">35%</div>
+      </div>
+    </div>
+    <div class="skill">
+      <span class="skill-title">Electronics II</span>
+      <div class="progress-bar">
+        <div class="progress-fill electronics" style="width: 10%;">10%</div>
+      </div>
+    </div>
+    <div class="skill">
+      <span class="skill-title">Linear Control Systems</span>
+      <div class="progress-bar">
+        <div class="progress-fill control" style="width: 30%;">30%</div>
+      </div>
+    </div>
+    <div class="skill">
+      <span class="skill-title">Electric Machines I</span>
+      <div class="progress-bar">
+        <div class="progress-fill machines" style="width: 40%;">40%</div>
+      </div>
+    </div>
+    <div class="skill">
+      <span class="skill-title">Electric Machines II</span>
+      <div class="progress-bar">
+        <div class="progress-fill machines" style="width: 25%;">25%</div>
+      </div>
+    </div>
+    <div class="skill">
+      <span class="skill-title">Electromagnetics</span>
+      <div class="progress-bar">
+        <div class="progress-fill emagnet" style="width: 15%;">15%</div>
+      </div>
+    </div>
+  </div>
+  <footer>
+    &copy; 2025 Parham
+  </footer>
+</body>
+</html>
