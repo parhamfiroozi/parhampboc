@@ -12,37 +12,59 @@
       color: #333;
       padding: 20px;
     }
+
+    .header {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .header img {
+      width: 100%;
+      max-width: 280px;
+      border-radius: 10px;
+      margin-bottom: 20px;
+      box-shadow: 0 0 10px rgba(90, 42, 131, 0.3);
+    }
+
     h1 {
       font-family: 'Merriweather', serif;
       font-size: 2rem;
       margin-bottom: 10px;
       color: #5a2a83;
+      text-align: center;
     }
+
     .subtitle {
       font-size: 1.1rem;
       color: #7d5ba6;
       margin-bottom: 30px;
+      text-align: center;
     }
+
     .skills-container {
       max-width: 700px;
       margin: 0 auto;
       padding: 0 10px;
     }
+
     .skill {
       margin-bottom: 20px;
     }
+
     .skill-title {
       font-size: 1rem;
       font-weight: 600;
       margin-bottom: 5px;
       color: #5a2a83;
     }
+
     .progress-bar {
       background: #e0e0e0;
       border-radius: 10px;
       overflow: hidden;
       height: 25px;
     }
+
     .progress-fill {
       height: 100%;
       text-align: center;
@@ -52,6 +74,7 @@
       font-size: 0.9rem;
       line-height: 25px;
     }
+
     .progress-fill.linear { background: linear-gradient(90deg, #ff7e5f, #feb47b); }
     .progress-fill.analysis { background: linear-gradient(90deg, #6a11cb, #2575fc); }
     .progress-fill.algebra { background: linear-gradient(90deg, #43cea2, #185a9d); }
@@ -66,10 +89,13 @@
 </head>
 <body>
 
+  <div class="header">
+    <img src="https://i.postimg.cc/NFNbRFD4/Chat-GPT-Image-Apr-1-2025-07-18-33-PM.png" alt="Math Theme Image">
+  </div>
+
   <h1>Math Progress</h1>
   <p class="subtitle">Tracking my mathematical subjects</p>
 
-  <!-- Skills Progress Section -->
   <div class="skills-container">
     <div class="skill">
       <span class="skill-title">Linear Algebra</span>
