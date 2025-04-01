@@ -1,162 +1,131 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>Parham's Coding Progress</title>
-  <!-- Google Font for nice styling -->
-  <link rel="preconnect" href="https://fonts.gstatic.com" />
-  <link
-    href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap"
-    rel="stylesheet"
-  />
-
+  <meta charset="UTF-8">
+  <title>Coding Progress</title>
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
   <style>
-    /* Reset browser defaults */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
+    /* Reset and base styles */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
       font-family: 'Poppins', sans-serif;
-      background: #f5f5f5;
+      background: #e8f4fc;
       color: #333;
-      line-height: 1.6;
       padding: 20px;
     }
-
+    nav {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    nav a {
+      margin: 0 10px;
+      text-decoration: none;
+      color: #007acc;
+      font-weight: 600;
+    }
     .header {
       text-align: center;
       margin-bottom: 20px;
     }
-
     .header img {
-      /* Ensures the image fits nicely */
-      max-width: 250px;
-      height: auto;
-      border-radius: 12px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      max-width: 200px;
+      border-radius: 10px;
       margin-bottom: 20px;
     }
-
     h1 {
       font-size: 2rem;
       margin-bottom: 10px;
-      font-weight: 600;
     }
-
     .subtitle {
-      color: #666;
+      color: #555;
       margin-bottom: 40px;
     }
-
     .skills-container {
       max-width: 700px;
       margin: 0 auto;
     }
-
     .skill {
       margin-bottom: 20px;
     }
-
     .skill-title {
       font-size: 1rem;
       font-weight: 600;
       margin-bottom: 5px;
-      display: block;
     }
-
     .progress-bar {
-      width: 100%;
-      background: #e0e0e0;
-      border-radius: 20px;
+      background: #ccc;
+      border-radius: 10px;
       overflow: hidden;
       height: 25px;
     }
-
     .progress-fill {
-      background: #007bff;
+      background: #007acc;
       height: 100%;
-      border-radius: 20px 0 0 20px;
-      text-align: center;
+      width: 0;
+      line-height: 25px;
       color: #fff;
-      font-weight: 600;
+      text-align: center;
       transition: width 0.3s ease;
-      display: flex;
-      align-items: center;
-      justify-content: center;
     }
-
     footer {
       text-align: center;
       margin-top: 40px;
       font-size: 0.9rem;
-      color: #888;
+      color: #777;
     }
   </style>
 </head>
 <body>
+  <nav>
+    <a href="coding.html">Coding</a> |
+    <a href="electrical.html">Electrical Engineering</a> |
+    <a href="physics.html">Physics</a> |
+    <a href="math.html">Math</a>
+  </nav>
   <div class="header">
-    <!-- Your image from PostImages -->
-    <img
-      src="https://i.postimg.cc/qRLZSgGg/Chat-GPT-Image-Mar-30-2025-02-29-22-PM.png"
-      alt="Parham's photo"
-    />
-    <h1>Parham</h1>
-    <p class="subtitle">Tracking My Coding Progress</p>
+    <img src="https://i.postimg.cc/qRLZSgGg/Chat-GPT-Image-Mar-30-2025-02-29-22-PM.png" alt="Coding Image">
+    <h1>Coding Progress</h1>
+    <p class="subtitle">Tracking my coding skills</p>
   </div>
-
   <div class="skills-container">
-    <!-- C++: 70% (with label) -->
     <div class="skill">
       <span class="skill-title">C++</span>
       <div class="progress-bar">
-        <div class="progress-fill" style="width: 70%">70%</div>
+        <div class="progress-fill" style="width: 70%;">70%</div>
       </div>
     </div>
-
-    <!-- Python: 60% (no label) -->
     <div class="skill">
       <span class="skill-title">Python</span>
       <div class="progress-bar">
-        <div class="progress-fill" style="width: 60%">60%</div>
+        <div class="progress-fill" style="width: 60%;">60%</div>
       </div>
     </div>
-
-    <!-- HTML: 20% (with label) -->
     <div class="skill">
       <span class="skill-title">HTML</span>
       <div class="progress-bar">
-        <div class="progress-fill" style="width: 20%">20%</div>
+        <div class="progress-fill" style="width: 20%;">20%</div>
       </div>
     </div>
-
-    <!-- CSS: 10% (with label) -->
     <div class="skill">
       <span class="skill-title">CSS</span>
       <div class="progress-bar">
-        <div class="progress-fill" style="width: 10%">10%</div>
+        <div class="progress-fill" style="width: 10%;">10%</div>
       </div>
     </div>
-
-    <!-- JavaScript: 40% (with label) -->
     <div class="skill">
       <span class="skill-title">JavaScript</span>
       <div class="progress-bar">
-        <div class="progress-fill" style="width: 40%">40%</div>
+        <div class="progress-fill" style="width: 40%;">40%</div>
       </div>
     </div>
-
-    <!-- React.js: 0% (no label) -->
     <div class="skill">
       <span class="skill-title">React.js</span>
       <div class="progress-bar">
-        <div class="progress-fill" style="width: 0%"></div>
+        <div class="progress-fill" style="width: 0%;">0%</div>
       </div>
     </div>
   </div>
-
   <footer>
     &copy; 2025 Parham
   </footer>
