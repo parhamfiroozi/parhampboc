@@ -4,38 +4,13 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Math Progress</title>
-  <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Merriweather:wght@700&display=swap" rel="stylesheet">
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
       font-family: 'Poppins', sans-serif;
       background: #fdfdfd;
       color: #333;
       padding: 20px;
-    }
-    nav {
-      text-align: center;
-      margin-bottom: 30px;
-      flex-wrap: wrap;
-    }
-    nav a {
-      margin: 5px 8px;
-      text-decoration: none;
-      color: #5a2a83;
-      font-weight: 600;
-      display: inline-block;
-    }
-    .header {
-      text-align: center;
-      margin-bottom: 20px;
-    }
-    .header img {
-      width: 100%;
-      max-width: 280px;
-      border-radius: 10px;
-      margin-bottom: 20px;
-      box-shadow: 0 0 10px rgba(90,42,131,0.5);
     }
     h1 {
       font-family: 'Merriweather', serif;
@@ -67,15 +42,14 @@
       border-radius: 10px;
       overflow: hidden;
       height: 25px;
-      width: 100%;
     }
     .progress-fill {
       height: 100%;
       text-align: center;
       color: #fff;
       font-weight: 600;
-      font-size: 0.9rem;
       transition: width 0.3s ease;
+      font-size: 0.9rem;
       line-height: 25px;
     }
     .progress-fill.linear { background: linear-gradient(90deg, #ff7e5f, #feb47b); }
@@ -88,42 +62,14 @@
     .progress-fill.graph { background: linear-gradient(90deg, #11998e, #38ef7d); }
     .progress-fill.group { background: linear-gradient(90deg, #a8c0ff, #3f2b96); }
     .progress-fill.variational { background: linear-gradient(90deg, #fc5c7d, #6a82fb); }
-    footer {
-      text-align: center;
-      margin-top: 40px;
-      font-size: 0.85rem;
-      color: #777;
-    }
-
-    /* --- Responsive Tweaks --- */
-    @media (max-width: 480px) {
-      body {
-        padding: 12px;
-      }
-      h1 {
-        font-size: 1.6rem;
-      }
-      .subtitle {
-        font-size: 1rem;
-      }
-      .progress-fill {
-        font-size: 0.8rem;
-      }
-    }
   </style>
 </head>
 <body>
-  <nav>
-    <a href="index.html">Coding</a> |
-    <a href="electrical.html">Electrical Engineering</a> |
-    <a href="physics.html">Physics</a> |
-    <a href="math.html">Math</a>
-  </nav>
-  <div class="header">
-    <img src="https://i.postimg.cc/NFNbRFD4/Chat-GPT-Image-Apr-1-2025-07-18-33-PM.png" alt="Math Theme Image">
-    <h1>Math Progress</h1>
-    <p class="subtitle">Tracking my mathematical subjects</p>
-  </div>
+
+  <h1>Math Progress</h1>
+  <p class="subtitle">Tracking my mathematical subjects</p>
+
+  <!-- Skills Progress Section -->
   <div class="skills-container">
     <div class="skill">
       <span class="skill-title">Linear Algebra</span>
@@ -192,8 +138,23 @@
       </div>
     </div>
   </div>
-  <footer>
-    &copy; 2025 Parham
-  </footer>
+
+  <!-- Disqus Comment Section -->
+  <div id="disqus_thread"></div>
+  <script>
+    var disqus_config = function () {
+      this.page.url = window.location.href;  // Replace with your page's URL
+      this.page.identifier = window.location.pathname;  // Unique identifier for the Math page
+    };
+    
+    (function() {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://parhamfiroozidashtestani.disqus.com/embed.js';  // Replace with your Disqus shortname
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+  <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+
 </body>
 </html>
