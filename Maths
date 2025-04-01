@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Math Progress</title>
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <!-- Combining Poppins for body text and Merriweather for headings -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Merriweather:wght@700&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: #fdfdfd;
+      color: #333;
+      padding: 20px;
+    }
+    nav {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    nav a {
+      margin: 0 10px;
+      text-decoration: none;
+      color: #5a2a83;
+      font-weight: 600;
+    }
+    .header {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .header img {
+      max-width: 220px;
+      border-radius: 10px;
+      margin-bottom: 20px;
+      box-shadow: 0 0 10px rgba(90,42,131,0.5);
+    }
+    h1 {
+      font-family: 'Merriweather', serif;
+      font-size: 2.5rem;
+      margin-bottom: 10px;
+      color: #5a2a83;
+    }
+    .subtitle {
+      font-size: 1.2rem;
+      color: #7d5ba6;
+      margin-bottom: 40px;
+    }
+    .skills-container {
+      max-width: 700px;
+      margin: 0 auto;
+    }
+    .skill {
+      margin-bottom: 20px;
+    }
+    .skill-title {
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 5px;
+      color: #5a2a83;
+    }
+    .progress-bar {
+      background: #e0e0e0;
+      border-radius: 10px;
+      overflow: hidden;
+      height: 25px;
+    }
+    .progress-fill {
+      height: 100%;
+      text-align: center;
+      color: #fff;
+      font-weight: 600;
+      transition: width 0.3s ease;
+    }
+    /* Custom gradients for math subjects */
+    .progress-fill.linear { background: linear-gradient(90deg, #ff7e5f, #feb47b); }
+    .progress-fill.analysis { background: linear-gradient(90deg, #6a11cb, #2575fc); }
+    .progress-fill.algebra { background: linear-gradient(90deg, #43cea2, #185a9d); }
+    .progress-fill.topology { background: linear-gradient(90deg, #ff512f, #dd2476); }
+    .progress-fill.discrete { background: linear-gradient(90deg, #f7971e, #ffd200); }
+    .progress-fill.optimization { background: linear-gradient(90deg, #00b09b, #96c93d); }
+    .progress-fill.stochastic { background: linear-gradient(90deg, #833ab4, #fd1d1d, #fcb045); }
+    .progress-fill.graph { background: linear-gradient(90deg, #11998e, #38ef7d); }
+    .progress-fill.group { background: linear-gradient(90deg, #a8c0ff, #3f2b96); }
+    .progress-fill.variational { background: linear-gradient(90deg, #fc5c7d, #6a82fb); }
+    footer {
+      text-align: center;
+      margin-top: 40px;
+      font-size: 0.9rem;
+      color: #777;
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <a href="coding.html">Coding</a> |
+    <a href="electrical.html">Electrical Engineering</a> |
+    <a href="physics.html">Physics</a> |
+    <a href="math.html">Math</a>
+  </nav>
+  <div class="header">
+    <img src="https://i.postimg.cc/RC3W2sws/Chat-GPT-Image-Apr-1-2025-04-49-07-PM.png" alt="Math Theme Image">
+    <h1>Math Progress</h1>
+    <p class="subtitle">Tracking my mathematical subjects</p>
+  </div>
+  <div class="skills-container">
+    <div class="skill">
+      <span class="skill-title">Linear Algebra</span>
+      <div class="progress-bar">
+        <div class="progress-fill linear" style="width: 50%;">50%</div>
+      </div>
+    </div>
+    <div class="skill">
+      <span class="skill-title">Mathematical Analysis</span>
+      <div class="progress-bar">
+        <div class="progress-fill analysis" style="width: 40%;">40%</div>
+      </div>
+    </div>
+    <div class="skill">
+      <span class="skill-title">Algebra</span>
+      <div class="progress-bar">
+        <div class="progress-fill algebra" style="width: 60%;">60%</div>
+      </div>
+    </div>
+    <div class="skill">
+      <span class="skill-title">Topology</span>
+      <div class="progress-bar">
+        <div class="progress-fill topology" style="width: 20%;">20%</div>
+      </div>
+    </div>
+    <div class="skill">
+      <span class="skill-title">Discrete Math</span>
+      <div class="progress-bar">
+        <div class="progress-fill discrete" style="width: 30%;">30%</div>
+      </div>
+    </div>
+    <div class="skill">
+      <span class="skill-title">Linear Optimization</span>
+      <div class="progress-bar">
+        <div class="progress-fill optimization" style="width: 25%;">25%</div>
+      </div>
+    </div>
+    <div class="skill">
+      <span class="skill-title">Non-linear Optimization</span>
+      <div class="progress-bar">
+        <div class="progress-fill optimization" style="width: 15%;">15%</div>
+      </div>
+    </div>
+    <div class="skill">
+      <span class="skill-title">Stochastic Processes</span>
+      <div class="progress-bar">
+        <div class="progress-fill stochastic" style="width: 10%;">10%</div>
+      </div>
+    </div>
+    <div class="skill">
+      <span class="skill-title">Graph Theory</span>
+      <div class="progress-bar">
+        <div class="progress-fill graph" style="width: 35%;">35%</div>
+      </div>
+    </div>
+    <div class="skill">
+      <span class="skill-title">Group Theory</span>
+      <div class="progress-bar">
+        <div class="progress-fill group" style="width: 5%;">5%</div>
+      </div>
+    </div>
+    <div class="skill">
+      <span class="skill-title">Variational Calculus</span>
+      <div class="progress-bar">
+        <div class="progress-fill variational" style="width: 25%;">25%</div>
+      </div>
+    </div>
+  </div>
+  <footer>
+    &copy; 2025 Parham
+  </footer>
+</body>
+</html>
