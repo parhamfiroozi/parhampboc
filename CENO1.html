@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Code Explanation Number No. 1</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/vs2015.min.css" />
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: #0e1729;
+      color: #eee;
+      padding: 100px 40px 40px 180px;
+      line-height: 1.6;
+    }
+
+    nav.top-nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background: #1e1e1e;
+      padding: 10px 20px;
+      text-align: center;
+      z-index: 1000;
+    }
+    nav.top-nav a {
+      color: #00bfff;
+      margin: 0 10px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    nav.top-nav a:hover {
+      text-decoration: underline;
+    }
+
+    .sidebar-tab {
+      position: fixed;
+      top: 80px;
+      left: 0;
+      width: 150px;
+      background-color: #1a1a2e;
+      padding: 20px;
+      height: 100%;
+      box-shadow: 2px 0 5px rgba(0,0,0,0.5);
+    }
+    .sidebar-tab a {
+      display: block;
+      color: #00bfff;
+      text-decoration: none;
+      margin-bottom: 15px;
+      font-weight: 500;
+    }
+    .sidebar-tab a:hover {
+      text-decoration: underline;
+    }
+
+    h1, h2 {
+      color: #00bfff;
+      text-align: center;
+    }
+
+    .comment-box {
+      background: rgba(0, 191, 255, 0.1);
+      border-left: 3px solid #00bfff;
+      padding: 15px 20px;
+      margin: 30px auto;
+      border-radius: 8px;
+      max-width: 800px;
+    }
+    .code-label {
+      background: #007acc;
+      padding: 5px 10px;
+      border-radius: 5px;
+      display: inline-block;
+      margin-bottom: 10px;
+      color: #fff;
+      font-weight: bold;
+    }
+
+    .code-wrapper {
+      position: relative;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    .copy-btn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background-color: #007acc;
+      border: none;
+      color: white;
+      padding: 6px 12px;
+      border-radius: 5px;
+      font-size: 0.8rem;
+      cursor: pointer;
+      z-index: 10;
+      transition: background-color 0.2s ease;
+    }
+    .copy-btn:hover {
+      background-color: #005b99;
+    }
+    .copy-btn.copied::after {
+      content: "Copied!";
+      display: block;
+      position: absolute;
+      top: 100%;
+      right: 0;
+      background: #00bfff;
+      color: #fff;
+      padding: 3px 8px;
+      border-radius: 4px;
+      font-size: 0.7rem;
+      margin-top: 5px;
+    }
+
+    pre {
+      background: #1e1e1e;
+      border-radius: 8px;
+      padding: 20px;
+      overflow-x: auto;
+      position: relative;
+    }
+    code {
+      font-size: 0.95rem;
+    }
+    ul {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+    li {
+      margin-bottom: 10px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    li:hover {
+      color: #00bfff;
+    }
+    .highlight-line {
+      display: block;
+      transition: background-color 0.4s ease;
+    }
+    .flash-highlight {
+      background-color: rgba(0, 191, 255, 0.2);
+    }
+
+    @media (max-width: 768px) {
+      body {
+        padding: 140px 20px 40px 20px;
+      }
+      .sidebar-tab {
+        display: none;
+      }
+      .copy-btn {
+        top: 5px;
+        right: 5px;
+        padding: 5px 10px;
+        font-size: 0.75rem;
+      }
+      .code-wrapper pre {
+        font-size: 0.85rem;
+        padding: 15px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav class="top-nav">
+    <a href="index.html">Coding</a> |
+    <a href="electrical.html">Electrical Engineering</a> |
+    <a href="physics.html">Physics</a> |
+    <a href="math.html">Math</a>
+  </nav>
+
+  <div class="sidebar-tab">
+    <a href="startingtips.html">Starting Tips</a>
+    <a href="#">Code Explanation</a>
+  </div>
+
+  <h1>Code Explanation Number No. 1</h1>
+
+  <div class="comment-box">
+    <div class="code-label">HTML Code</div>
+    <div class="code-wrapper">
+      <button class="copy-btn" onclick="copyCode()">📋 Copy</button>
+      <pre><code id="code-block" class="language-html">
+<span id="line1" class="highlight-line">&lt;!DOCTYPE html&gt;</span>
+<span id="line2" class="highlight-line">&lt;html lang="fa" dir="rtl"&gt;</span>
+<span id="line3" class="highlight-line">  &lt;head&gt;</span>
+<span id="line4" class="highlight-line">    &lt;meta charset="UTF-8"&gt;</span>
+<span id="line5" class="highlight-line">    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;</span>
+<span id="line6" class="highlight-line">    &lt;title&gt;Persian Website&lt;/title&gt;</span>
+<span id="line7" class="highlight-line">    &lt;link href="https://cdn.fontcdn.ir/Font/Persian/Vazir/Vazir.css" rel="stylesheet" type="text/css"&gt;</span>
+<span id="line8" class="highlight-line">    &lt;style&gt;</span>
+<span id="line9" class="highlight-line">      body { font-family: 'Vazir', sans-serif; direction: rtl; text-align: right; background-color: #f9f9f9; color: #333; padding: 40px; line-height: 1.8; }</span>
+<span id="line10" class="highlight-line">      h1 { font-size: 2rem; color: #222; }</span>
+<span id="line11" class="highlight-line">      p { font-size: 1rem; max-width: 600px; }</span>
+<span id="line12" class="highlight-line">      a { color: #0077cc; text-decoration: none; }</span>
+<span id="line13" class="highlight-line">      a:hover { text-decoration: underline; }</span>
+<span id="line14" class="highlight-line">    &lt;/style&gt;</span>
+<span id="line15" class="highlight-line">  &lt;/head&gt;</span>
+<span id="line16" class="highlight-line">  &lt;body&gt;</span>
+<span id="line17" class="highlight-line">    &lt;h1&gt;سلام دنیا!&lt;/h1&gt;</span>
+<span id="line18" class="highlight-line">    &lt;p&gt;خب بسه دیگه چخبر بچه ها؟&lt;/p&gt;</span>
+<span id="line19" class="highlight-line">    &lt;p&gt;&lt;a href="#"&gt;اینجا کلیک کنید&lt;/a&gt; برای دیدن نمونه‌های بیشتر.&lt;/p&gt;</span>
+<span id="line20" class="highlight-line">  &lt;/body&gt;</span>
+<span id="line21" class="highlight-line">&lt;/html&gt;</span>
+</code></pre>
+    </div>
+  </div>
+
+  <h2>Explanation of the Code</h2>
+  <ul>
+    <li data-line="line1">&lt;!DOCTYPE html&gt; — Declares this is an HTML5 document.</li>
+    <li data-line="line2">&lt;html lang="fa" dir="rtl"&gt; — Sets the language to Persian and text direction to right-to-left.</li>
+    <li data-line="line4">&lt;meta charset="UTF-8"&gt; — Ensures Persian text is correctly displayed with UTF-8 encoding.</li>
+    <li data-line="line5">&lt;meta name="viewport" ... &gt; — Makes the layout responsive on mobile devices.</li>
+    <li data-line="line7">Vazir font — Loaded via CDN to apply a clean Persian font style.</li>
+    <li data-line="line9">&lt;style&gt; body, h1, p, a — Sets visual styles like background, text color, alignment, padding, and link hover effects.</li>
+    <li data-line="line17">&lt;h1&gt; — A large heading that says "سلام دنیا!" (Hello World!).</li>
+    <li data-line="line18">&lt;p&gt; — Paragraph with sample Persian text.</li>
+    <li data-line="line19">&lt;a&gt; — Clickable link for more examples.</li>
+  </ul>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+  <script>hljs.highlightAll();</script>
+  <script>
+    function copyCode() {
+      const code = document.getElementById('code-block');
+      const text = code.innerText;
+      navigator.clipboard.writeText(text).then(() => {
+        const btn = document.querySelector('.copy-btn');
+        btn.classList.add('copied');
+        setTimeout(() => {
+          btn.classList.remove('copied');
+        }, 2000);
+      });
+    }
+
+    document.querySelectorAll('li[data-line]').forEach(item => {
+      item.addEventListener('click', () => {
+        const target = document.getElementById(item.dataset.line);
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          target.classList.add('flash-highlight');
+          setTimeout(() => {
+            target.classList.remove('flash-highlight');
+          }, 2000);
+        }
+      });
+    });
+  </script>
+</body>
+</html>
