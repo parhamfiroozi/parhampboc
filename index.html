@@ -74,30 +74,36 @@
       font-size: 0.9rem;
       color: #777;
     }
-    details {
-      margin-bottom: 15px;
-      border-left: 4px solid #007acc;
-      padding-left: 10px;
+    .content-toggle {
+      margin-top: 40px;
     }
-    summary {
-      font-size: 1.1rem;
+    .content-toggle button {
+      background: #007acc;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
       cursor: pointer;
-      margin-bottom: 5px;
-      color: #007acc;
-    }
-    details[open] summary {
       font-weight: 600;
     }
-    ul {
-      margin-top: 8px;
-      margin-left: 20px;
+    .content-list {
+      margin-top: 15px;
+      display: none;
     }
-    a {
-      text-decoration: none;
-      color: #333;
+    .content-list ul {
+      list-style: none;
+      padding-left: 0;
     }
-    a:hover {
+    .content-list li {
+      margin-bottom: 8px;
+    }
+    .content-list a {
       color: #007acc;
+      text-decoration: none;
+      font-weight: 500;
+    }
+    .content-list a:hover {
+      text-decoration: underline;
     }
   </style>
 </head>
@@ -131,6 +137,15 @@
       <div class="progress-bar">
         <div class="progress-fill" style="width: 20%;">20%</div>
       </div>
+      <div class="content-toggle">
+        <button onclick="toggleContent('html-content')">Show HTML Content</button>
+        <div id="html-content" class="content-list">
+          <ul>
+            <li><a href="#">Starting Tips</a></li>
+            <li><a href="#">Code Explanation</a></li>
+          </ul>
+        </div>
+      </div>
     </div>
     <div class="skill">
       <span class="skill-title">CSS</span>
@@ -152,39 +167,19 @@
     </div>
   </div>
 
-  <hr style="margin: 40px 0;">
-  <h2 style="color: #007acc;">🧠 Coding Content</h2>
-  <p>Click a topic to explore what I've been learning:</p>
-
-  <details>
-    <summary><strong>🌐 HTML</strong></summary>
-    <ul>
-      <li><a href="coding/html-basics.html">HTML Basics</a></li>
-      <li><a href="coding/forms.html">Working with Forms</a></li>
-      <li><a href="coding/semantic.html">Semantic Elements</a></li>
-    </ul>
-  </details>
-
-  <details>
-    <summary><strong>🎨 CSS</strong></summary>
-    <ul>
-      <li><a href="coding/css-selectors.html">Selectors & Specificity</a></li>
-      <li><a href="coding/flexbox.html">Flexbox Layout</a></li>
-      <li><a href="coding/responsive.html">Responsive Design</a></li>
-    </ul>
-  </details>
-
-  <details>
-    <summary><strong>⚡ JavaScript</strong></summary>
-    <ul>
-      <li><a href="coding/variables.html">Variables & Data Types</a></li>
-      <li><a href="coding/functions.html">Functions</a></li>
-      <li><a href="coding/dom.html">DOM Manipulation</a></li>
-    </ul>
-  </details>
-
   <footer>
     &copy; 2025 Parham
   </footer>
+
+  <script>
+    function toggleContent(id) {
+      const content = document.getElementById(id);
+      if (content.style.display === 'block') {
+        content.style.display = 'none';
+      } else {
+        content.style.display = 'block';
+      }
+    }
+  </script>
 </body>
 </html>
