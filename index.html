@@ -12,43 +12,38 @@
       font-family: 'Poppins', sans-serif;
       background: #e8f4fc;
       color: #333;
-      padding: 16px;
+      padding: 20px;
     }
     nav {
       text-align: center;
-      margin-bottom: 24px;
-      flex-wrap: wrap;
+      margin-bottom: 30px;
     }
     nav a {
-      margin: 5px 8px;
+      margin: 0 10px;
       text-decoration: none;
       color: #007acc;
       font-weight: 600;
-      display: inline-block;
     }
     .header {
       text-align: center;
       margin-bottom: 20px;
     }
     .header img {
-      width: 100%;
-      max-width: 300px;
+      max-width: 200px;
       border-radius: 10px;
       margin-bottom: 20px;
     }
     h1 {
-      font-size: 1.8rem;
-      margin-bottom: 8px;
+      font-size: 2rem;
+      margin-bottom: 10px;
     }
     .subtitle {
       color: #555;
-      font-size: 1rem;
-      margin-bottom: 30px;
+      margin-bottom: 40px;
     }
     .skills-container {
       max-width: 700px;
       margin: 0 auto;
-      padding: 0 10px;
     }
     .skill {
       margin-bottom: 20px;
@@ -63,7 +58,6 @@
       border-radius: 10px;
       overflow: hidden;
       height: 25px;
-      width: 100%;
     }
     .progress-fill {
       background: #007acc;
@@ -73,29 +67,37 @@
       color: #fff;
       text-align: center;
       transition: width 0.3s ease;
-      font-size: 0.9rem;
     }
     footer {
       text-align: center;
       margin-top: 40px;
-      font-size: 0.85rem;
+      font-size: 0.9rem;
       color: #777;
     }
-
-    /* --- Responsive adjustments --- */
-    @media (max-width: 480px) {
-      body {
-        padding: 12px;
-      }
-      h1 {
-        font-size: 1.5rem;
-      }
-      .subtitle {
-        font-size: 0.95rem;
-      }
-      .progress-fill {
-        font-size: 0.8rem;
-      }
+    details {
+      margin-bottom: 15px;
+      border-left: 4px solid #007acc;
+      padding-left: 10px;
+    }
+    summary {
+      font-size: 1.1rem;
+      cursor: pointer;
+      margin-bottom: 5px;
+      color: #007acc;
+    }
+    details[open] summary {
+      font-weight: 600;
+    }
+    ul {
+      margin-top: 8px;
+      margin-left: 20px;
+    }
+    a {
+      text-decoration: none;
+      color: #333;
+    }
+    a:hover {
+      color: #007acc;
     }
   </style>
 </head>
@@ -110,59 +112,77 @@
     <img src="https://i.postimg.cc/qRLZSgGg/Chat-GPT-Image-Mar-30-2025-02-29-22-PM.png" alt="Coding Image">
     <h1>Coding Progress</h1>
     <p class="subtitle">Tracking my coding skills</p>
-  </div><div class="skills-container">
-  <div class="skill">
-    <span class="skill-title">C++</span>
-    <div class="progress-bar">
-      <div class="progress-fill" style="width: 70%;">70%</div>
+  </div>
+  <div class="skills-container">
+    <div class="skill">
+      <span class="skill-title">C++</span>
+      <div class="progress-bar">
+        <div class="progress-fill" style="width: 70%;">70%</div>
+      </div>
     </div>
-    <div class="comment-box">
-      I learned C++ as my first programming language at Shiraz University and received a total grade of 18.50/20, while studying electrical engineering.
+    <div class="skill">
+      <span class="skill-title">Python</span>
+      <div class="progress-bar">
+        <div class="progress-fill" style="width: 60%;">60%</div>
+      </div>
+    </div>
+    <div class="skill">
+      <span class="skill-title">HTML</span>
+      <div class="progress-bar">
+        <div class="progress-fill" style="width: 20%;">20%</div>
+      </div>
+    </div>
+    <div class="skill">
+      <span class="skill-title">CSS</span>
+      <div class="progress-bar">
+        <div class="progress-fill" style="width: 10%;">10%</div>
+      </div>
+    </div>
+    <div class="skill">
+      <span class="skill-title">JavaScript</span>
+      <div class="progress-bar">
+        <div class="progress-fill" style="width: 40%;">40%</div>
+      </div>
+    </div>
+    <div class="skill">
+      <span class="skill-title">React.js</span>
+      <div class="progress-bar">
+        <div class="progress-fill" style="width: 0%;">0%</div>
+      </div>
     </div>
   </div>
 
-  <div class="skill">
-    <span class="skill-title">Python</span>
-    <div class="progress-bar">
-      <div class="progress-fill" style="width: 60%;">60%</div>
-    </div>
-    <div class="comment-box">
-      I learned Python while studying numerical methods for solving equations at Shiraz University, alongside MATLAB. I also learned it at IAU while studying Computer Engineering and received a grade of 17.50/20.
-    </div>
-  </div>
+  <hr style="margin: 40px 0;">
+  <h2 style="color: #007acc;">🧠 Coding Content</h2>
+  <p>Click a topic to explore what I've been learning:</p>
 
-  <div class="skill">
-    <span class="skill-title">HTML</span>
-    <div class="progress-bar">
-      <div class="progress-fill" style="width: 20%;">20%</div>
-    </div>
-    <div class="comment-box">
-      I'm learning HTML with W3Schools, and I created a cool website for myself using it.
-    </div>
-  </div>
+  <details>
+    <summary><strong>🌐 HTML</strong></summary>
+    <ul>
+      <li><a href="coding/html-basics.html">HTML Basics</a></li>
+      <li><a href="coding/forms.html">Working with Forms</a></li>
+      <li><a href="coding/semantic.html">Semantic Elements</a></li>
+    </ul>
+  </details>
 
-  <div class="skill">
-    <span class="skill-title">CSS</span>
-    <div class="progress-bar">
-      <div class="progress-fill" style="width: 10%;">10%</div>
-    </div>
-  </div>
+  <details>
+    <summary><strong>🎨 CSS</strong></summary>
+    <ul>
+      <li><a href="coding/css-selectors.html">Selectors & Specificity</a></li>
+      <li><a href="coding/flexbox.html">Flexbox Layout</a></li>
+      <li><a href="coding/responsive.html">Responsive Design</a></li>
+    </ul>
+  </details>
 
-  <div class="skill">
-    <span class="skill-title">JavaScript</span>
-    <div class="progress-bar">
-      <div class="progress-fill" style="width: 40%;">40%</div>
-    </div>
-  </div>
+  <details>
+    <summary><strong>⚡ JavaScript</strong></summary>
+    <ul>
+      <li><a href="coding/variables.html">Variables & Data Types</a></li>
+      <li><a href="coding/functions.html">Functions</a></li>
+      <li><a href="coding/dom.html">DOM Manipulation</a></li>
+    </ul>
+  </details>
 
-  <div class="skill">
-    <span class="skill-title">React.js</span>
-    <div class="progress-bar">
-      <div class="progress-fill" style="width: 0%;">0%</div>
-    </div>
-  </div>
-</div>
-</div>
   <footer>
     &copy; 2025 Parham
   </footer>
