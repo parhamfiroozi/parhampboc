@@ -1,9 +1,8 @@
-<!-- FULLY FIXED PHYSICS PAGE -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Physics Progress</title>
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
@@ -80,7 +79,6 @@
       border-radius: 10px;
       overflow: hidden;
       height: 25px;
-      width: 100%;
       cursor: pointer;
     }
     .progress-fill {
@@ -91,12 +89,12 @@
       font-size: 0.9rem;
       line-height: 25px;
     }
-    .progress-fill.optics { background: linear-gradient(90deg, #00f260, #0575e6); }
-    .progress-fill.quantum { background: linear-gradient(90deg, #00c6ff, #0072ff); }
     .progress-fill.mathphys { background: linear-gradient(90deg, #6a11cb, #2575fc); }
     .progress-fill.analytical { background: linear-gradient(90deg, #ff512f, #dd2476); }
+    .progress-fill.quantum { background: linear-gradient(90deg, #00c6ff, #0072ff); }
     .progress-fill.thermo { background: linear-gradient(90deg, #f7971e, #ffd200); }
     .progress-fill.relativistic { background: linear-gradient(90deg, #e94057, #cf392e); }
+    .progress-fill.optics { background: linear-gradient(90deg, #00f260, #0575e6); }
     .progress-fill.solid { background: linear-gradient(90deg, #9d50bb, #6e48aa); }
     .last-updated {
       font-size: 0.8rem;
@@ -158,28 +156,44 @@
   </div>
 
   <div class="skills-container">
-    <!-- Example Skill Block -->
-    <div class="skill" data-id="optics">
-      <div class="skill-title" onclick="toggleSubcontent(this)">
-        <span>Optics</span>
-      </div>
-      <div class="progress-bar" onclick="toggleSubcontent(this.parentElement.querySelector('.skill-title'))">
-        <div class="progress-fill optics" style="width: 0%;">0%</div>
-      </div>
-      <div class="last-updated"></div>
-      <div class="content-list"></div>
-      <div class="comment-box">
-        Learning optics deepens my understanding of light–matter interactions, which is essential for advancing in both quantum technologies and optoelectronic systems.
-      </div>
-    </div>
-
-    <!-- ✅ REPEAT THE ABOVE BLOCK for other subjects with correct data-id values -->
-
+    <!-- Physics subjects will be dynamically inserted here -->
   </div>
 
   <footer>&copy; 2025 Parham</footer>
 
   <script>
+    const subjects = [
+      { id: 'optics', title: 'Optics', progress: 0, class: 'optics', comment: 'Learning optics deepens my understanding of light–matter interactions, which is essential for advancing in both quantum technologies and optoelectronic systems.' },
+      { id: 'quantum', title: 'Quantum Mechanics', progress: 20, class: 'quantum' },
+      { id: 'mathphys1', title: 'Mathematics of Physics I', progress: 40, class: 'mathphys' },
+      { id: 'mathphys2', title: 'Mathematics of Physics II', progress: 0, class: 'mathphys' },
+      { id: 'mathphys3', title: 'Mathematics of Physics III', progress: 0, class: 'mathphys' },
+      { id: 'analyticalmechanics', title: 'Analytical Mechanics', progress: 0, class: 'analytical' },
+      { id: 'thermodynamics', title: 'Thermodynamics', progress: 0, class: 'thermo' },
+      { id: 'relativity', title: 'Special & General Relativity', progress: 25, class: 'relativistic' },
+      { id: 'solidstate', title: 'Solid-State Physics', progress: 0, class: 'solid' },
+      { id: 'astrophysics', title: 'Astrophysics', progress: 0, class: 'solid' },
+    ];
+
+    const container = document.querySelector('.skills-container');
+    subjects.forEach(sub => {
+      const skill = document.createElement('div');
+      skill.className = 'skill';
+      skill.dataset.id = sub.id;
+      skill.innerHTML = `
+        <div class="skill-title" onclick="toggleSubcontent(this)">
+          <span>${sub.title}</span>
+        </div>
+        <div class="progress-bar" onclick="toggleSubcontent(this.parentElement.querySelector('.skill-title'))">
+          <div class="progress-fill ${sub.class}" style="width: ${sub.progress}%">${sub.progress}%</div>
+        </div>
+        <div class="last-updated"></div>
+        <div class="content-list"></div>
+        ${sub.comment ? `<div class="comment-box">${sub.comment}</div>` : ''}
+      `;
+      container.appendChild(skill);
+    });
+
     function toggleSubcontent(titleEl) {
       const skill = titleEl.closest('.skill');
       const list = skill.querySelector('.content-list');
@@ -216,25 +230,25 @@
         const updateData = await res.json();
         document.querySelectorAll('.skill').forEach(skill => {
           const id = skill.dataset.id;
-          const updateInfo = updateData?.[id];
+          const info = updateData?.[id];
           const tag = skill.querySelector('.last-updated');
-          if (updateInfo?.updated) {
-            const date = new Date(updateInfo.updated);
-            tag.textContent = "Updated " + formatRelativeTime(date);
-            tag.title = date.toLocaleString();
+          if (info?.updated) {
+            const dt = new Date(info.updated);
+            tag.textContent = 'Updated ' + formatRelativeTime(dt);
+            tag.title = dt.toLocaleString();
           }
 
           const contentList = skill.querySelector('.content-list');
-          if (updateInfo?.subcontent && Object.keys(updateInfo.subcontent).length > 0) {
+          if (info?.subcontent) {
             const ul = document.createElement('ul');
-            Object.entries(updateInfo.subcontent).forEach(([key, timestamp]) => {
+            Object.entries(info.subcontent).forEach(([key, ts]) => {
               const li = document.createElement('li');
               const a = document.createElement('a');
               a.href = `${key}.html`;
-              a.textContent = key.replace(id + "_", "").replace(/_/g, " ");
+              a.textContent = key.replace(id + '_', '').replace(/_/g, ' ');
               const time = document.createElement('span');
-              const dt = new Date(timestamp);
-              time.textContent = " - " + formatRelativeTime(dt);
+              const dt = new Date(ts);
+              time.textContent = ' - ' + formatRelativeTime(dt);
               time.title = dt.toLocaleString();
               li.appendChild(a);
               li.appendChild(time);
@@ -244,11 +258,11 @@
           }
         });
       } catch (e) {
-        console.error("⚠️ Failed to load updates.json", e);
+        console.error("updates.json failed", e);
       }
     }
 
-    document.addEventListener("DOMContentLoaded", fetchUpdates);
+    document.addEventListener('DOMContentLoaded', fetchUpdates);
   </script>
 </body>
 </html>
