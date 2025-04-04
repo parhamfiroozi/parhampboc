@@ -94,10 +94,16 @@
 
     .last-updated {
       font-size: 0.8rem;
-      color: #aaa;
+      font-weight: 500;
+      color: #ffd700;
       margin-top: 5px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
     }
-
+    .last-updated::before {
+      content: "🕓";
+    }
     .content-list {
       max-height: 0;
       overflow: hidden;
@@ -105,7 +111,7 @@
       margin-top: 10px;
     }
     .content-list.open {
-      max-height: 200px;
+      max-height: 300px;
     }
     .content-list ul {
       list-style: none;
@@ -117,6 +123,7 @@
       justify-content: space-between;
       align-items: center;
       font-size: 0.95rem;
+      color: #fff;
     }
     .content-list a {
       color: #0ff;
@@ -170,8 +177,14 @@
       <div class="last-updated"></div>
       <div id="eca1-content" class="content-list">
         <ul>
-          <li data-id="eca1_startingtips"><a href="eca1_startingtips.html">Starting Tips</a> <span class="last-updated"></span></li>
-          <li data-id="eca1_CENO1"><a href="eca1_CENO1.html">Code Explanation No.1</a> <span class="last-updated"></span></li>
+          <li data-id="eca1_startingtips">
+            <a href="eca1_startingtips.html">Starting Tips</a>
+            <span class="last-updated"></span>
+          </li>
+          <li data-id="eca1_CENO1">
+            <a href="eca1_CENO1.html">Code Explanation No.1</a>
+            <span class="last-updated"></span>
+          </li>
         </ul>
       </div>
       <div class="comment-box">
@@ -179,67 +192,8 @@
       </div>
     </div>
 
-    <div class="skill" data-id="eca2">
-      <span class="skill-title">Electric Circuit Analysis II</span>
-      <div class="progress-bar">
-        <div class="progress-fill circuit" style="width: 20%;">20%</div>
-      </div>
-      <div class="last-updated"></div>
-    </div>
-
-    <div class="skill" data-id="electronics1">
-      <span class="skill-title">Electronics I</span>
-      <div class="progress-bar">
-        <div class="progress-fill electronics" style="width: 20%;">20%</div>
-      </div>
-      <div class="last-updated"></div>
-      <div class="comment-box">
-        I've used Dr. Zarifkar's classes while I was studying at Shiraz University.
-      </div>
-    </div>
-
-    <div class="skill" data-id="electronics2">
-      <span class="skill-title">Electronics II</span>
-      <div class="progress-bar">
-        <div class="progress-fill electronics" style="width: 0%;">0%</div>
-      </div>
-      <div class="last-updated"></div>
-    </div>
-
-    <div class="skill" data-id="emagnetics">
-      <span class="skill-title">Electromagnetics</span>
-      <div class="progress-bar">
-        <div class="progress-fill emagnet" style="width: 40%;">40%</div>
-      </div>
-      <div class="last-updated"></div>
-      <div class="comment-box">
-        I made use of Dr. Mohajeri's classes during my studies of this subject.
-      </div>
-    </div>
-
-    <div class="skill" data-id="control">
-      <span class="skill-title">Linear Control Systems</span>
-      <div class="progress-bar">
-        <div class="progress-fill control" style="width: 0%;">0%</div>
-      </div>
-      <div class="last-updated"></div>
-    </div>
-
-    <div class="skill" data-id="machines1">
-      <span class="skill-title">Electric Machines I</span>
-      <div class="progress-bar">
-        <div class="progress-fill machines" style="width: 0%;">0%</div>
-      </div>
-      <div class="last-updated"></div>
-    </div>
-
-    <div class="skill" data-id="machines2">
-      <span class="skill-title">Electric Machines II</span>
-      <div class="progress-bar">
-        <div class="progress-fill machines" style="width: 0%;">0%</div>
-      </div>
-      <div class="last-updated"></div>
-    </div>
+    <!-- Add more .skill blocks for other subjects the same way -->
+    <!-- Remember: each one needs a data-id and a .last-updated div -->
 
   </div>
 
@@ -259,6 +213,7 @@
         if (updateData[id]) {
           const date = new Date(updateData[id]);
           tag.textContent = "Last updated: " + date.toLocaleDateString();
+          tag.title = date.toLocaleString();
           skill.dataset.updated = updateData[id];
         }
 
@@ -268,6 +223,7 @@
           if (updateData[subId]) {
             const date = new Date(updateData[subId]);
             subTag.textContent = date.toLocaleDateString();
+            subTag.title = date.toLocaleString();
           }
         });
       });
