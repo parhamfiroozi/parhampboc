@@ -1,34 +1,35 @@
-name: Update Content Timestamps
+name: Auto-update updates.json
 
 on:
   push:
-    branches:
-      - main
+    branches: [ main ]
 
 permissions:
   contents: write
 
 jobs:
-  generate-updates:
+  update-timestamps:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout Repository
+      - name: 📥 Checkout Repo
         uses: actions/checkout@v3
         with:
           fetch-depth: 0
 
-      - name: Setup Node.js
+      - name: 🟢 Setup Node.js
         uses: actions/setup-node@v3
         with:
           node-version: 18
 
-      - name: Run update script
-        run: node generate-updates-json.js
+      - name: 📁 Run Script
+        run: |
+          node generate-updates-json.js
 
-      - name: Commit and push updates.json
+      - name: ✅ Commit & Push updates.json
         run: |
           git config user.name github-actions
           git config user.email github-actions@github.com
           git add updates.json
-          git commit -m "📦 Auto-update content timestamps" || echo "No changes to commit"
+          git commit -m "🔄 Auto-update updates.json" || echo "No changes to commit"
           git push
