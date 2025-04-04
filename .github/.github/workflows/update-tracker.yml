@@ -1,0 +1,33 @@
+name: Update Content Timestamps
+
+on:
+  push:
+    branches:
+      - main  # Change this if your default branch has a different name
+
+jobs:
+  generate-updates:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0  # Needed to access full Git history
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: Run update script
+        run: |
+          node generate-updates-json.js
+
+      - name: Commit and Push updates.json
+        run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git add updates.json
+          git commit -m "📦 Auto-update content timestamps" || echo "No changes"
+          git push
