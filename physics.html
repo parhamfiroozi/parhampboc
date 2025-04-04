@@ -52,8 +52,11 @@
       margin: 0 auto;
       padding: 0 10px;
     }
+    /* Each subject block now has a data-id corresponding to its updates.json key */
     .skill {
       margin-bottom: 20px;
+      padding-bottom: 5px;
+      border-bottom: 1px solid #4a4a6a;
     }
     .skill-title {
       font-size: 1rem;
@@ -77,47 +80,42 @@
       font-size: 0.9rem;
       line-height: 25px;
     }
-    
-    .comment-box {
-  font-family: 'Georgia', 'Times New Roman', serif;
-  font-size: 0.95rem;
-  color: #e0e0e0;
-  background: rgba(255, 255, 255, 0.05);
-  border-left: 4px solid #6a11cb;
-  padding: 12px;
-  margin-top: 10px;
-  border-radius: 6px;
-  line-height: 1.6;
-    }
-
+    /* Color classes for different physics subjects */
+    .progress-fill.optics { background: linear-gradient(90deg, #00f260, #0575e6); }
+    .progress-fill.quantum { background: linear-gradient(90deg, #00c6ff, #0072ff); }
     .progress-fill.mathphys { background: linear-gradient(90deg, #6a11cb, #2575fc); }
     .progress-fill.analytical { background: linear-gradient(90deg, #ff512f, #dd2476); }
-    .progress-fill.quantum { background: linear-gradient(90deg, #00c6ff, #0072ff); }
     .progress-fill.thermo { background: linear-gradient(90deg, #f7971e, #ffd200); }
     .progress-fill.relativistic { background: linear-gradient(90deg, #e94057, #cf392e); }
-    .progress-fill.optics { background: linear-gradient(90deg, #00f260, #0575e6); }
     .progress-fill.solid { background: linear-gradient(90deg, #9d50bb, #6e48aa); }
+    /* Timestamp styling */
+    .last-updated {
+      font-size: 0.8rem;
+      color: #b0b0b0;
+      margin-top: 5px;
+    }
+    .comment-box {
+      font-family: 'Georgia', serif;
+      font-size: 0.95rem;
+      color: #e0e0e0;
+      background: rgba(255, 255, 255, 0.05);
+      border-left: 4px solid #6a11cb;
+      padding: 12px;
+      margin-top: 10px;
+      border-radius: 6px;
+      line-height: 1.6;
+    }
     footer {
       text-align: center;
       margin-top: 40px;
       font-size: 0.85rem;
       color: #b0b0b0;
     }
-
-    /* --- Responsive Tweaks --- */
     @media (max-width: 480px) {
-      body {
-        padding: 12px;
-      }
-      h1 {
-        font-size: 1.6rem;
-      }
-      .subtitle {
-        font-size: 1rem;
-      }
-      .progress-fill {
-        font-size: 0.8rem;
-      }
+      body { padding: 12px; }
+      h1 { font-size: 1.6rem; }
+      .subtitle { font-size: 1rem; }
+      .progress-fill { font-size: 0.8rem; }
     }
   </style>
 </head>
@@ -133,85 +131,122 @@
     <h1>Physics Progress</h1>
     <p class="subtitle">Tracking my physics subjects</p>
   </div>
- <div class="skills-container">
-
-  <div class="skill">
-    <span class="skill-title">Optics</span>
-    <div class="progress-bar">
-      <div class="progress-fill optics" style="width: 0%;">0%</div>
+  <div class="skills-container">
+    <!-- Each subject block includes a data-id attribute that corresponds to its key in updates.json -->
+    <div class="skill" data-id="optics">
+      <span class="skill-title">Optics</span>
+      <div class="progress-bar">
+        <div class="progress-fill optics" style="width: 0%;">0%</div>
+      </div>
+      <div class="last-updated"></div>
+      <div class="comment-box">
+        Learning optics deepens my understanding of light–matter interactions, which is essential for advancing in both quantum technologies and optoelectronic systems.
+      </div>
     </div>
-    <div class="comment-box">
-      Learning optics deepens my understanding of light–matter interactions, which is essential for advancing in both quantum technologies and optoelectronic systems.
+    <div class="skill" data-id="quantum">
+      <span class="skill-title">Quantum Mechanics</span>
+      <div class="progress-bar">
+        <div class="progress-fill quantum" style="width: 20%;">20%</div>
+      </div>
+      <div class="last-updated"></div>
+    </div>
+    <div class="skill" data-id="mathphys1">
+      <span class="skill-title">Mathematics of Physics I</span>
+      <div class="progress-bar">
+        <div class="progress-fill mathphys" style="width: 40%;">40%</div>
+      </div>
+      <div class="last-updated"></div>
+    </div>
+    <div class="skill" data-id="mathphys2">
+      <span class="skill-title">Mathematics of Physics II</span>
+      <div class="progress-bar">
+        <div class="progress-fill mathphys" style="width: 0%;">0%</div>
+      </div>
+      <div class="last-updated"></div>
+    </div>
+    <div class="skill" data-id="mathphys3">
+      <span class="skill-title">Mathematics of Physics III</span>
+      <div class="progress-bar">
+        <div class="progress-fill mathphys" style="width: 0%;">0%</div>
+      </div>
+      <div class="last-updated"></div>
+    </div>
+    <div class="skill" data-id="analyticalmechanics">
+      <span class="skill-title">Analytical Mechanics</span>
+      <div class="progress-bar">
+        <div class="progress-fill analytical" style="width: 0%;">0%</div>
+      </div>
+      <div class="last-updated"></div>
+    </div>
+    <div class="skill" data-id="thermodynamics">
+      <span class="skill-title">Thermodynamics</span>
+      <div class="progress-bar">
+        <div class="progress-fill thermo" style="width: 0%;">0%</div>
+      </div>
+      <div class="last-updated"></div>
+    </div>
+    <div class="skill" data-id="relativity">
+      <span class="skill-title">Special &amp; General Relativity</span>
+      <div class="progress-bar">
+        <div class="progress-fill relativistic" style="width: 25%;">25%</div>
+      </div>
+      <div class="last-updated"></div>
+    </div>
+    <div class="skill" data-id="solidstate">
+      <span class="skill-title">Solid-State Physics</span>
+      <div class="progress-bar">
+        <div class="progress-fill solid" style="width: 0%;">0%</div>
+      </div>
+      <div class="last-updated"></div>
+    </div>
+    <div class="skill" data-id="astrophysics">
+      <span class="skill-title">Astrophysics</span>
+      <div class="progress-bar">
+        <div class="progress-fill solid" style="width: 0%;">0%</div>
+      </div>
+      <div class="last-updated"></div>
     </div>
   </div>
- <div class="skill">
-    <span class="skill-title">Quantum Mechanics</span>
-    <div class="progress-bar">
-      <div class="progress-fill quantum" style="width: 20%;">20%</div>
-    </div>
- </div>
-  <div class="skill">
-    <span class="skill-title">Mathematics of Physics I</span>
-    <div class="progress-bar">
-      <div class="progress-fill mathphys" style="width: 40%;">40%</div>
-    </div>
-  </div>
-
-  <div class="skill">
-    <span class="skill-title">Mathematics of Physics II</span>
-    <div class="progress-bar">
-      <div class="progress-fill mathphys" style="width: 0%;">0%</div>
-    </div>
-  </div>
-
-  <div class="skill">
-    <span class="skill-title">Mathematics of Physics III</span>
-    <div class="progress-bar">
-      <div class="progress-fill mathphys" style="width: 0%;">0%</div>
-    </div>
-  </div>
-
-  <div class="skill">
-    <span class="skill-title">Analytical Mechanics</span>
-    <div class="progress-bar">
-      <div class="progress-fill analytical" style="width: 0%;">0%</div>
-    </div>
-  </div>
-
-
-
-  <div class="skill">
-    <span class="skill-title">Thermodynamics</span>
-    <div class="progress-bar">
-      <div class="progress-fill thermo" style="width: 0%;">0%</div>
-    </div>
-  </div>
-
-  <div class="skill">
-    <span class="skill-title">Special &amp; General Relativity</span>
-    <div class="progress-bar">
-      <div class="progress-fill relativistic" style="width: 25%;">25%</div>
-    </div>
-  </div>
-
-  <div class="skill">
-    <span class="skill-title">Solid-State Physics</span>
-    <div class="progress-bar">
-      <div class="progress-fill solid" style="width: 0%;">0%</div>
-    </div>
-  </div>
-
-  <div class="skill">
-    <span class="skill-title">Astrophysics</span>
-    <div class="progress-bar">
-      <div class="progress-fill solid" style="width: 0%;">0%</div>
-    </div>
-  </div>
-
-</div>
-
   <footer>
     &copy; 2025 Parham
   </footer>
+  <script>
+    // Helper: Format a Date as relative time (e.g., "5 minutes ago")
+    function formatRelativeTime(date) {
+      const now = new Date();
+      const diff = now - date;
+      const seconds = Math.floor(diff / 1000);
+      const minutes = Math.floor(diff / 60000);
+      const hours = Math.floor(diff / 3600000);
+      const days = Math.floor(diff / 86400000);
+      if (seconds < 60) return "just now";
+      if (minutes < 60) return `${minutes} minute${minutes !== 1 ? 's' : ''} ago`;
+      if (hours < 24) return `${hours} hour${hours !== 1 ? 's' : ''} ago`;
+      if (days < 30) return `${days} day${days !== 1 ? 's' : ''} ago`;
+      return date.toLocaleDateString();
+    }
+    
+    // Fetch updates.json and tag each subject with its latest update time.
+    async function fetchUpdates() {
+      try {
+        const res = await fetch('updates.json');
+        const updateData = await res.json();
+        document.querySelectorAll('.skill').forEach(skill => {
+          const id = skill.dataset.id;
+          const tag = skill.querySelector('.last-updated');
+          if (updateData[id]) {
+            const date = new Date(updateData[id].updated);
+            tag.textContent = "Updated " + formatRelativeTime(date);
+            tag.title = date.toLocaleString();
+            skill.dataset.updated = updateData[id].updated;
+          }
+        });
+      } catch (err) {
+        console.error("Failed to load updates.json:", err);
+      }
+    }
+    
+    document.addEventListener('DOMContentLoaded', fetchUpdates);
+  </script>
 </body>
 </html>
