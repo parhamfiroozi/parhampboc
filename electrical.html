@@ -266,14 +266,42 @@
   <footer>
     &copy; 2025 Parham
   </footer>
+<script>
+  async function sortContentSections() {
+    const container = document.querySelector('.skills-container');
+    if (!container) return;
 
-  <script>
-    function toggleContent(id, titleEl) {
-      const content = document.getElementById(id);
-      const chevron = titleEl.querySelector('.chevron');
-      content.classList.toggle('open');
-      chevron.classList.toggle('rotate');
+    const sections = Array.from(container.querySelectorAll('.skill'));
+
+    try {
+      const res = await fetch('updates.json');
+      const updateData = await res.json();
+
+      // Attach update time to each skill
+      sections.forEach(section => {
+        const id = section.dataset.id;
+        if (updateData[id]) {
+          section.dataset.updated = updateData[id];
+        }
+      });
+
+      // Sort by newest updated date
+      sections.sort((a, b) => {
+        const dateA = new Date(a.dataset.updated || 0);
+        const dateB = new Date(b.dataset.updated || 0);
+        return dateB - dateA;
+      });
+
+      // Reorder in the DOM
+      sections.forEach(section => container.appendChild(section));
+
+    } catch (err) {
+      console.error("⚠️ Could not load or sort update data:", err);
     }
-  </script>
+  }
+
+  document.addEventListener('DOMContentLoaded', sortContentSections);
+</script>
+
 </body>
 </html>
