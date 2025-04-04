@@ -4,7 +4,6 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Coding Progress</title>
-  <link rel="preconnect" href="https://fonts.gstatic.com" />
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -46,7 +45,7 @@
       margin: 0 auto;
     }
     .skill {
-      margin-bottom: 25px;
+      margin-bottom: 30px;
     }
     .skill-title {
       display: flex;
@@ -59,12 +58,7 @@
       cursor: pointer;
       transition: color 0.3s ease;
     }
-    .skill-title:hover {
-      color: #005f99;
-    }
     .chevron {
-      font-size: 0.85rem;
-      margin-left: 8px;
       transition: transform 0.3s ease;
     }
     .chevron.rotate {
@@ -78,10 +72,6 @@
       cursor: pointer;
       transition: all 0.3s ease;
     }
-    .progress-bar:hover {
-      box-shadow: 0 0 10px #007acc66;
-      transform: scale(1.02);
-    }
     .progress-fill {
       background: #007acc;
       height: 100%;
@@ -90,6 +80,11 @@
       color: #fff;
       text-align: center;
       transition: width 0.3s ease;
+    }
+    .last-updated {
+      font-size: 0.8rem;
+      color: #777;
+      margin-top: 5px;
     }
     .content-list {
       max-height: 0;
@@ -106,6 +101,10 @@
     }
     .content-list li {
       margin-bottom: 8px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.95rem;
     }
     .content-list a {
       color: #007acc;
@@ -135,32 +134,27 @@
     <h1>Coding Progress</h1>
     <p class="subtitle">Tracking my coding skills</p>
   </div>
+
   <div class="skills-container">
-    <div class="skill" data-id="cpp">
-      <span class="skill-title">C++</span>
-      <div class="progress-bar">
-        <div class="progress-fill" style="width: 70%;">70%</div>
-      </div>
-    </div>
 
-    <div class="skill" data-id="python">
-      <span class="skill-title">Python</span>
-      <div class="progress-bar">
-        <div class="progress-fill" style="width: 60%;">60%</div>
-      </div>
-    </div>
-
-    <div class="skill" data-id="starting-tips">
+    <div class="skill" data-id="html">
       <span class="skill-title" onclick="toggleContent('html-content', this)">
-        HTML – Starting Tips <span class="chevron">▼</span>
+        HTML <span class="chevron">▼</span>
       </span>
       <div class="progress-bar" onclick="toggleContent('html-content', this.parentElement.querySelector('.skill-title'))">
         <div class="progress-fill" style="width: 20%;">20%</div>
       </div>
+      <div class="last-updated"></div>
       <div id="html-content" class="content-list">
         <ul>
-          <li><a href="startingtips.html">Starting Tips</a></li>
-          <li><a href="CENO1.html">Code Explanation No.1</a></li>
+          <li data-id="startingtips">
+            <a href="startingtips.html">Starting Tips</a>
+            <span class="last-updated"></span>
+          </li>
+          <li data-id="CENO1">
+            <a href="CENO1.html">Code Explanation No.1</a>
+            <span class="last-updated"></span>
+          </li>
         </ul>
       </div>
     </div>
@@ -170,6 +164,7 @@
       <div class="progress-bar">
         <div class="progress-fill" style="width: 10%;">10%</div>
       </div>
+      <div class="last-updated"></div>
     </div>
 
     <div class="skill" data-id="javascript">
@@ -177,6 +172,7 @@
       <div class="progress-bar">
         <div class="progress-fill" style="width: 40%;">40%</div>
       </div>
+      <div class="last-updated"></div>
     </div>
 
     <div class="skill" data-id="react">
@@ -184,7 +180,9 @@
       <div class="progress-bar">
         <div class="progress-fill" style="width: 0%;">0%</div>
       </div>
+      <div class="last-updated"></div>
     </div>
+
   </div>
 
   <footer>
@@ -192,33 +190,39 @@
   </footer>
 
   <script>
-    async function sortContentSections() {
+    async function sortAndTagContent() {
       const container = document.querySelector('.skills-container');
-      if (!container) return;
+      const skills = Array.from(container.querySelectorAll('.skill'));
+      const updateData = await fetch('updates.json').then(res => res.json());
 
-      const sections = Array.from(container.querySelectorAll('.skill'));
-
-      try {
-        const res = await fetch('updates.json');
-        const updateData = await res.json();
-
-        sections.forEach(section => {
-          const id = section.dataset.id;
-          if (updateData[id]) {
-            section.dataset.updated = updateData[id];
+      // Add timestamps
+      skills.forEach(skill => {
+        const id = skill.dataset.id;
+        const tag = skill.querySelector('.last-updated');
+        if (updateData[id]) {
+          const date = new Date(updateData[id]);
+          tag.textContent = "Last updated: " + date.toLocaleDateString();
+          skill.dataset.updated = updateData[id];
+        }
+        // Subcontent items
+        skill.querySelectorAll('li').forEach(item => {
+          const subId = item.dataset.id;
+          const subTag = item.querySelector('.last-updated');
+          if (updateData[subId]) {
+            const date = new Date(updateData[subId]);
+            subTag.textContent = date.toLocaleDateString();
           }
         });
+      });
 
-        sections.sort((a, b) => {
-          const dateA = new Date(a.dataset.updated || 0);
-          const dateB = new Date(b.dataset.updated || 0);
-          return dateB - dateA;
-        });
+      // Sort by updated time
+      skills.sort((a, b) => {
+        const aTime = new Date(a.dataset.updated || 0);
+        const bTime = new Date(b.dataset.updated || 0);
+        return bTime - aTime;
+      });
 
-        sections.forEach(section => container.appendChild(section));
-      } catch (err) {
-        console.error("⚠️ Could not load or sort update data:", err);
-      }
+      skills.forEach(skill => container.appendChild(skill));
     }
 
     function toggleContent(id, titleEl) {
@@ -228,7 +232,7 @@
       chevron.classList.toggle('rotate');
     }
 
-    document.addEventListener('DOMContentLoaded', sortContentSections);
+    document.addEventListener('DOMContentLoaded', sortAndTagContent);
   </script>
 </body>
 </html>
