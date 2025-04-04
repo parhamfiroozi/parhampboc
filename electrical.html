@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Electrical Engineering Progress</title>
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet" />
   <style>
@@ -57,6 +57,8 @@
     /* Each subject block */
     .skill {
       margin-bottom: 30px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid rgba(255,255,255,0.2);
     }
     .skill-title {
       display: flex;
@@ -102,7 +104,6 @@
       font-weight: 500;
       color: #ffd700;
       margin-top: 6px;
-      /* This element will show relative update info */
     }
     /* Subcontent list styling */
     .content-list {
@@ -125,6 +126,7 @@
       align-items: center;
       font-size: 0.95rem;
       color: #fff;
+      cursor: pointer;
     }
     .content-list a {
       color: #0ff;
@@ -168,7 +170,7 @@
   </div>
 
   <div class="skills-container">
-    <!-- Subject: Electric Circuit Analysis I -->
+    <!-- Each subject block. The data-id corresponds to the subject key in updates.json -->
     <div class="skill" data-id="eca1">
       <span class="skill-title" onclick="toggleContent('eca1-content', this)">
         Electric Circuit Analysis I <span class="chevron">▼</span>
@@ -190,11 +192,10 @@
         </ul>
       </div>
       <div class="comment-box">
-            I had the opportunity to take classes with Dr. Zarifkar, Dr. Pakniat, and Dr. Arefi — experiences that deeply inspired my academic path. Although the challenges of online learning during the COVID pandemic impacted my performance at the time, I remained committed to my goals. I’ve maintained an 18.5 GPA in Computer Engineering at IAU, and I’m now channeling my focus into preparing for the Electrical Engineering Olympiads with renewed determination.
+        I had the opportunity to take classes with Dr. Zarifkar, Dr. Pakniat, and Dr. Arefi — experiences that deeply inspired my academic path.
       </div>
     </div>
 
-    <!-- Subject: Electric Circuit Analysis II -->
     <div class="skill" data-id="eca2">
       <span class="skill-title">Electric Circuit Analysis II</span>
       <div class="progress-bar">
@@ -203,7 +204,6 @@
       <div class="last-updated"></div>
     </div>
 
-    <!-- Subject: Electronics I -->
     <div class="skill" data-id="electronics1">
       <span class="skill-title">Electronics I</span>
       <div class="progress-bar">
@@ -215,7 +215,6 @@
       </div>
     </div>
 
-    <!-- Subject: Electronics II -->
     <div class="skill" data-id="electronics2">
       <span class="skill-title">Electronics II</span>
       <div class="progress-bar">
@@ -224,7 +223,6 @@
       <div class="last-updated"></div>
     </div>
 
-    <!-- Subject: Electromagnetics -->
     <div class="skill" data-id="emagnetics">
       <span class="skill-title">Electromagnetics</span>
       <div class="progress-bar">
@@ -236,7 +234,6 @@
       </div>
     </div>
 
-    <!-- Subject: Linear Control Systems -->
     <div class="skill" data-id="control">
       <span class="skill-title">Linear Control Systems</span>
       <div class="progress-bar">
@@ -245,7 +242,6 @@
       <div class="last-updated"></div>
     </div>
 
-    <!-- Subject: Electric Machines I -->
     <div class="skill" data-id="machines1">
       <span class="skill-title">Electric Machines I</span>
       <div class="progress-bar">
@@ -254,7 +250,6 @@
       <div class="last-updated"></div>
     </div>
 
-    <!-- Subject: Electric Machines II -->
     <div class="skill" data-id="machines2">
       <span class="skill-title">Electric Machines II</span>
       <div class="progress-bar">
@@ -269,7 +264,19 @@
   </footer>
 
   <script>
-    // Function to format a date as relative time
+    // Toggle the subcontent list visibility
+    function toggleContent(id, titleEl) {
+      const content = document.getElementById(id);
+      content.classList.toggle('open');
+      if (titleEl) {
+        const chevron = titleEl.querySelector('.chevron');
+        if (chevron) {
+          chevron.classList.toggle('rotate');
+        }
+      }
+    }
+
+    // Helper: format relative time
     function formatRelativeTime(date) {
       const now = new Date();
       const diff = now - date;
@@ -277,61 +284,54 @@
       const minutes = Math.floor(diff / 60000);
       const hours = Math.floor(diff / 3600000);
       const days = Math.floor(diff / 86400000);
-      
       if (seconds < 60) return "just now";
       if (minutes < 60) return `${minutes} minute${minutes !== 1 ? 's' : ''} ago`;
       if (hours < 24) return `${hours} hour${hours !== 1 ? 's' : ''} ago`;
       if (days < 30) return `${days} day${days !== 1 ? 's' : ''} ago`;
       return date.toLocaleDateString();
     }
-    
-    // Fetch updates from updates.json, tag elements with relative times, and sort subjects
+
+    // Fetch updates and apply update times to subjects and subcontent, then sort by updated time.
     async function sortAndTagContent() {
-      const container = document.querySelector('.skills-container');
-      const skills = Array.from(container.querySelectorAll('.skill'));
-      const updateData = await fetch('updates.json').then(res => res.json());
-      
-      skills.forEach(skill => {
-        const id = skill.dataset.id;
-        const tag = skill.querySelector('.last-updated');
-        if (updateData[id]) {
-          const date = new Date(updateData[id]);
-          tag.textContent = "Updated " + formatRelativeTime(date);
-          tag.title = date.toLocaleString();
-          skill.dataset.updated = updateData[id];
-        }
+      try {
+        const res = await fetch('updates.json');
+        const updateData = await res.json();
+        const container = document.querySelector('.skills-container');
+        const skills = Array.from(container.querySelectorAll('.skill'));
         
-        // Process subcontent items
-        skill.querySelectorAll('li').forEach(item => {
-          const subId = item.dataset.id;
-          const subTag = item.querySelector('.last-updated');
-          if (updateData[subId]) {
-            const date = new Date(updateData[subId]);
-            subTag.textContent = formatRelativeTime(date);
-            subTag.title = date.toLocaleString();
+        skills.forEach(skill => {
+          const id = skill.dataset.id;
+          const tag = skill.querySelector('.last-updated');
+          if (updateData[id]) {
+            const date = new Date(updateData[id].updated);
+            tag.textContent = "Updated " + formatRelativeTime(date);
+            tag.title = date.toLocaleString();
+            skill.dataset.updated = updateData[id].updated;
           }
+          // Process subcontent update times
+          skill.querySelectorAll('li').forEach(li => {
+            const subId = li.dataset.id;
+            if (updateData[id] && updateData[id].subcontent[subId]) {
+              const date = new Date(updateData[id].subcontent[subId]);
+              const subTag = li.querySelector('.last-updated');
+              subTag.textContent = formatRelativeTime(date);
+              subTag.title = date.toLocaleString();
+            }
+          });
         });
-      });
-      
-      // Sort subject blocks by updated timestamp (newest first)
-      skills.sort((a, b) => {
-        const aTime = new Date(a.dataset.updated || 0);
-        const bTime = new Date(b.dataset.updated || 0);
-        return bTime - aTime;
-      });
-      
-      // Reorder the subjects in the DOM
-      skills.forEach(skill => container.appendChild(skill));
+        
+        // Sort subjects by updated timestamp (newest first)
+        skills.sort((a, b) => {
+          const aTime = new Date(a.dataset.updated || 0);
+          const bTime = new Date(b.dataset.updated || 0);
+          return bTime - aTime;
+        });
+        skills.forEach(skill => container.appendChild(skill));
+      } catch (err) {
+        console.error("Failed to load updates.json:", err);
+      }
     }
-    
-    // Toggle subcontent visibility
-    function toggleContent(id, titleEl) {
-      const content = document.getElementById(id);
-      const chevron = titleEl.querySelector('.chevron');
-      content.classList.toggle('open');
-      chevron.classList.toggle('rotate');
-    }
-    
+
     document.addEventListener('DOMContentLoaded', sortAndTagContent);
   </script>
 </body>
