@@ -4,7 +4,6 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Electrical Engineering Progress</title>
-  <link rel="preconnect" href="https://fonts.gstatic.com" />
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet" />
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -23,7 +22,6 @@
       text-decoration: none;
       color: #0ff;
       font-weight: 700;
-      display: inline-block;
     }
     .header {
       text-align: center;
@@ -55,7 +53,7 @@
       box-shadow: 0 0 15px rgba(0,255,255,0.3);
     }
     .skill {
-      margin-bottom: 25px;
+      margin-bottom: 30px;
     }
     .skill-title {
       display: flex;
@@ -66,14 +64,8 @@
       margin-bottom: 5px;
       color: #0ff;
       cursor: pointer;
-      transition: color 0.3s ease;
-    }
-    .skill-title:hover {
-      color: #00ffff;
     }
     .chevron {
-      font-size: 0.85rem;
-      margin-left: 8px;
       transition: transform 0.3s ease;
     }
     .chevron.rotate {
@@ -85,18 +77,12 @@
       overflow: hidden;
       height: 25px;
       cursor: pointer;
-      transition: all 0.3s ease;
-    }
-    .progress-bar:hover {
-      box-shadow: 0 0 10px #0ff, 0 0 20px #0ff;
-      transform: scale(1.02);
     }
     .progress-fill {
       height: 100%;
       text-align: center;
       color: #fff;
       font-weight: 700;
-      transition: width 0.3s ease;
       font-size: 0.9rem;
       line-height: 25px;
     }
@@ -106,16 +92,10 @@
     .progress-fill.machines { background: linear-gradient(90deg, #007bff, #00bfff); }
     .progress-fill.emagnet { background: linear-gradient(90deg, #00ffcc, #00b3b3); }
 
-    .comment-box {
-      font-family: 'Segoe UI', 'Open Sans', sans-serif;
-      font-size: 0.95rem;
-      color: #c6f9ff;
-      background: rgba(0, 255, 255, 0.05);
-      border-left: 4px solid #00f7ff;
-      padding: 12px;
-      margin-top: 10px;
-      border-radius: 6px;
-      line-height: 1.6;
+    .last-updated {
+      font-size: 0.8rem;
+      color: #aaa;
+      margin-top: 5px;
     }
 
     .content-list {
@@ -133,6 +113,10 @@
     }
     .content-list li {
       margin-bottom: 8px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.95rem;
     }
     .content-list a {
       color: #0ff;
@@ -142,7 +126,16 @@
     .content-list a:hover {
       text-decoration: underline;
     }
-
+    .comment-box {
+      font-family: 'Segoe UI', 'Open Sans', sans-serif;
+      font-size: 0.95rem;
+      color: #c6f9ff;
+      background: rgba(0, 255, 255, 0.05);
+      border-left: 4px solid #00f7ff;
+      padding: 12px;
+      margin-top: 10px;
+      border-radius: 6px;
+    }
     footer {
       text-align: center;
       margin-top: 40px;
@@ -167,17 +160,18 @@
 
   <div class="skills-container">
 
-    <div class="skill" data-id="eca1_startingtips">
+    <div class="skill" data-id="eca1">
       <span class="skill-title" onclick="toggleContent('eca1-content', this)">
         Electric Circuit Analysis I <span class="chevron">▼</span>
       </span>
       <div class="progress-bar" onclick="toggleContent('eca1-content', this.parentElement.querySelector('.skill-title'))">
         <div class="progress-fill circuit" style="width: 50%;">50%</div>
       </div>
+      <div class="last-updated"></div>
       <div id="eca1-content" class="content-list">
         <ul>
-          <li><a href="eca1_startingtips.html">Starting Tips</a></li>
-          <li><a href="eca1_CENO1.html">Code Explanation No.1</a></li>
+          <li data-id="eca1_startingtips"><a href="eca1_startingtips.html">Starting Tips</a> <span class="last-updated"></span></li>
+          <li data-id="eca1_CENO1"><a href="eca1_CENO1.html">Code Explanation No.1</a> <span class="last-updated"></span></li>
         </ul>
       </div>
       <div class="comment-box">
@@ -190,6 +184,7 @@
       <div class="progress-bar">
         <div class="progress-fill circuit" style="width: 20%;">20%</div>
       </div>
+      <div class="last-updated"></div>
     </div>
 
     <div class="skill" data-id="electronics1">
@@ -197,6 +192,7 @@
       <div class="progress-bar">
         <div class="progress-fill electronics" style="width: 20%;">20%</div>
       </div>
+      <div class="last-updated"></div>
       <div class="comment-box">
         I've used Dr. Zarifkar's classes while I was studying at Shiraz University.
       </div>
@@ -207,6 +203,7 @@
       <div class="progress-bar">
         <div class="progress-fill electronics" style="width: 0%;">0%</div>
       </div>
+      <div class="last-updated"></div>
     </div>
 
     <div class="skill" data-id="emagnetics">
@@ -214,6 +211,7 @@
       <div class="progress-bar">
         <div class="progress-fill emagnet" style="width: 40%;">40%</div>
       </div>
+      <div class="last-updated"></div>
       <div class="comment-box">
         I made use of Dr. Mohajeri's classes during my studies of this subject.
       </div>
@@ -224,6 +222,7 @@
       <div class="progress-bar">
         <div class="progress-fill control" style="width: 0%;">0%</div>
       </div>
+      <div class="last-updated"></div>
     </div>
 
     <div class="skill" data-id="machines1">
@@ -231,6 +230,7 @@
       <div class="progress-bar">
         <div class="progress-fill machines" style="width: 0%;">0%</div>
       </div>
+      <div class="last-updated"></div>
     </div>
 
     <div class="skill" data-id="machines2">
@@ -238,6 +238,7 @@
       <div class="progress-bar">
         <div class="progress-fill machines" style="width: 0%;">0%</div>
       </div>
+      <div class="last-updated"></div>
     </div>
 
   </div>
@@ -247,33 +248,37 @@
   </footer>
 
   <script>
-    async function sortContentSections() {
+    async function sortAndTagContent() {
       const container = document.querySelector('.skills-container');
-      if (!container) return;
+      const skills = Array.from(container.querySelectorAll('.skill'));
+      const updateData = await fetch('updates.json').then(res => res.json());
 
-      const sections = Array.from(container.querySelectorAll('.skill'));
+      skills.forEach(skill => {
+        const id = skill.dataset.id;
+        const tag = skill.querySelector('.last-updated');
+        if (updateData[id]) {
+          const date = new Date(updateData[id]);
+          tag.textContent = "Last updated: " + date.toLocaleDateString();
+          skill.dataset.updated = updateData[id];
+        }
 
-      try {
-        const res = await fetch('updates.json');
-        const updateData = await res.json();
-
-        sections.forEach(section => {
-          const id = section.dataset.id;
-          if (updateData[id]) {
-            section.dataset.updated = updateData[id];
+        skill.querySelectorAll('li').forEach(item => {
+          const subId = item.dataset.id;
+          const subTag = item.querySelector('.last-updated');
+          if (updateData[subId]) {
+            const date = new Date(updateData[subId]);
+            subTag.textContent = date.toLocaleDateString();
           }
         });
+      });
 
-        sections.sort((a, b) => {
-          const dateA = new Date(a.dataset.updated || 0);
-          const dateB = new Date(b.dataset.updated || 0);
-          return dateB - dateA;
-        });
+      skills.sort((a, b) => {
+        const aTime = new Date(a.dataset.updated || 0);
+        const bTime = new Date(b.dataset.updated || 0);
+        return bTime - aTime;
+      });
 
-        sections.forEach(section => container.appendChild(section));
-      } catch (err) {
-        console.error("⚠️ Could not load or sort update data:", err);
-      }
+      skills.forEach(skill => container.appendChild(skill));
     }
 
     function toggleContent(id, titleEl) {
@@ -283,7 +288,7 @@
       chevron.classList.toggle('rotate');
     }
 
-    document.addEventListener('DOMContentLoaded', sortContentSections);
+    document.addEventListener('DOMContentLoaded', sortAndTagContent);
   </script>
 </body>
 </html>
