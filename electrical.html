@@ -17,7 +17,6 @@
     nav {
       text-align: center;
       margin-bottom: 30px;
-      flex-wrap: wrap;
     }
     nav a {
       margin: 5px 8px;
@@ -85,7 +84,6 @@
       border-radius: 10px;
       overflow: hidden;
       height: 25px;
-      width: 100%;
       cursor: pointer;
       transition: all 0.3s ease;
     }
@@ -151,24 +149,6 @@
       font-size: 0.85rem;
       color: #aaa;
     }
-
-    @media (max-width: 480px) {
-      body {
-        padding: 12px;
-      }
-      h1 {
-        font-size: 1.6rem;
-      }
-      .subtitle {
-        font-size: 1rem;
-      }
-      .progress-fill {
-        font-size: 0.8rem;
-      }
-      .skills-container {
-        padding: 15px;
-      }
-    }
   </style>
 </head>
 <body>
@@ -185,10 +165,9 @@
     <p class="subtitle">Tracking Electrical Engineering subjects</p>
   </div>
 
-  <!-- ✅ FIXED: Wrap all skills inside the container -->
   <div class="skills-container">
 
-    <div class="skill">
+    <div class="skill" data-id="eca1_startingtips">
       <span class="skill-title" onclick="toggleContent('eca1-content', this)">
         Electric Circuit Analysis I <span class="chevron">▼</span>
       </span>
@@ -206,14 +185,14 @@
       </div>
     </div>
 
-    <div class="skill">
+    <div class="skill" data-id="eca2">
       <span class="skill-title">Electric Circuit Analysis II</span>
       <div class="progress-bar">
         <div class="progress-fill circuit" style="width: 20%;">20%</div>
       </div>
     </div>
 
-    <div class="skill">
+    <div class="skill" data-id="electronics1">
       <span class="skill-title">Electronics I</span>
       <div class="progress-bar">
         <div class="progress-fill electronics" style="width: 20%;">20%</div>
@@ -223,14 +202,14 @@
       </div>
     </div>
 
-    <div class="skill">
+    <div class="skill" data-id="electronics2">
       <span class="skill-title">Electronics II</span>
       <div class="progress-bar">
         <div class="progress-fill electronics" style="width: 0%;">0%</div>
       </div>
     </div>
 
-    <div class="skill">
+    <div class="skill" data-id="emagnetics">
       <span class="skill-title">Electromagnetics</span>
       <div class="progress-bar">
         <div class="progress-fill emagnet" style="width: 40%;">40%</div>
@@ -240,68 +219,71 @@
       </div>
     </div>
 
-    <div class="skill">
+    <div class="skill" data-id="control">
       <span class="skill-title">Linear Control Systems</span>
       <div class="progress-bar">
         <div class="progress-fill control" style="width: 0%;">0%</div>
       </div>
     </div>
 
-    <div class="skill">
+    <div class="skill" data-id="machines1">
       <span class="skill-title">Electric Machines I</span>
       <div class="progress-bar">
         <div class="progress-fill machines" style="width: 0%;">0%</div>
       </div>
     </div>
 
-    <div class="skill">
+    <div class="skill" data-id="machines2">
       <span class="skill-title">Electric Machines II</span>
       <div class="progress-bar">
         <div class="progress-fill machines" style="width: 0%;">0%</div>
       </div>
     </div>
 
-  </div> <!-- END .skills-container -->
+  </div>
 
   <footer>
     &copy; 2025 Parham
   </footer>
-<script>
-  async function sortContentSections() {
-    const container = document.querySelector('.skills-container');
-    if (!container) return;
 
-    const sections = Array.from(container.querySelectorAll('.skill'));
+  <script>
+    async function sortContentSections() {
+      const container = document.querySelector('.skills-container');
+      if (!container) return;
 
-    try {
-      const res = await fetch('updates.json');
-      const updateData = await res.json();
+      const sections = Array.from(container.querySelectorAll('.skill'));
 
-      // Attach update time to each skill
-      sections.forEach(section => {
-        const id = section.dataset.id;
-        if (updateData[id]) {
-          section.dataset.updated = updateData[id];
-        }
-      });
+      try {
+        const res = await fetch('updates.json');
+        const updateData = await res.json();
 
-      // Sort by newest updated date
-      sections.sort((a, b) => {
-        const dateA = new Date(a.dataset.updated || 0);
-        const dateB = new Date(b.dataset.updated || 0);
-        return dateB - dateA;
-      });
+        sections.forEach(section => {
+          const id = section.dataset.id;
+          if (updateData[id]) {
+            section.dataset.updated = updateData[id];
+          }
+        });
 
-      // Reorder in the DOM
-      sections.forEach(section => container.appendChild(section));
+        sections.sort((a, b) => {
+          const dateA = new Date(a.dataset.updated || 0);
+          const dateB = new Date(b.dataset.updated || 0);
+          return dateB - dateA;
+        });
 
-    } catch (err) {
-      console.error("⚠️ Could not load or sort update data:", err);
+        sections.forEach(section => container.appendChild(section));
+      } catch (err) {
+        console.error("⚠️ Could not load or sort update data:", err);
+      }
     }
-  }
 
-  document.addEventListener('DOMContentLoaded', sortContentSections);
-</script>
+    function toggleContent(id, titleEl) {
+      const content = document.getElementById(id);
+      const chevron = titleEl.querySelector('.chevron');
+      content.classList.toggle('open');
+      chevron.classList.toggle('rotate');
+    }
 
+    document.addEventListener('DOMContentLoaded', sortContentSections);
+  </script>
 </body>
 </html>
