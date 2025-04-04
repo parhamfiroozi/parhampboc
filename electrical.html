@@ -2,10 +2,11 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Electrical Engineering Progress</title>
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet" />
   <style>
+    /* Reset and basic styling */
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
       font-family: 'Orbitron', sans-serif;
@@ -18,7 +19,7 @@
       margin-bottom: 30px;
     }
     nav a {
-      margin: 0 10px;
+      margin: 5px 8px;
       text-decoration: none;
       color: #0ff;
       font-weight: 700;
@@ -44,6 +45,7 @@
       color: #ffc107;
       margin-bottom: 30px;
     }
+    /* Container for the subject blocks */
     .skills-container {
       max-width: 700px;
       margin: 0 auto;
@@ -52,30 +54,65 @@
       border-radius: 12px;
       box-shadow: 0 0 15px rgba(0,255,255,0.3);
     }
+    /* Each subject block */
     .skill {
       margin-bottom: 30px;
     }
     .skill-title {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
       font-size: 1rem;
       font-weight: 700;
       margin-bottom: 5px;
       color: #0ff;
+      cursor: pointer;
+    }
+    .chevron {
+      transition: transform 0.3s ease;
+    }
+    .chevron.rotate {
+      transform: rotate(180deg);
     }
     .progress-bar {
       background: #0a0f2c;
       border-radius: 10px;
       overflow: hidden;
       height: 25px;
-      margin-bottom: 10px;
+      cursor: pointer;
     }
     .progress-fill {
-      background: linear-gradient(90deg, #00f7ff, #00d4ff);
       height: 100%;
-      line-height: 25px;
-      color: #fff;
       text-align: center;
+      color: #fff;
       font-weight: 700;
       font-size: 0.9rem;
+      line-height: 25px;
+      transition: width 0.3s ease;
+    }
+    /* Example color classes for different subjects */
+    .progress-fill.circuit { background: linear-gradient(90deg, #00f7ff, #00d4ff); }
+    .progress-fill.electronics { background: linear-gradient(90deg, #ffea00, #ffdd00); }
+    .progress-fill.control { background: linear-gradient(90deg, #ff006e, #ff8c00); }
+    .progress-fill.machines { background: linear-gradient(90deg, #007bff, #00bfff); }
+    .progress-fill.emagnet { background: linear-gradient(90deg, #00ffcc, #00b3b3); }
+    
+    .last-updated {
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: #ffd700;
+      margin-top: 6px;
+      /* This element will show relative update info */
+    }
+    /* Subcontent list styling */
+    .content-list {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease;
+      margin-top: 10px;
+    }
+    .content-list.open {
+      max-height: 300px;
     }
     .content-list ul {
       list-style: none;
@@ -87,15 +124,26 @@
       justify-content: space-between;
       align-items: center;
       font-size: 0.95rem;
+      color: #fff;
     }
     .content-list a {
       color: #0ff;
       text-decoration: none;
       font-weight: 500;
     }
-    .last-updated {
-      font-size: 0.8rem;
-      color: #ffd700;
+    .content-list a:hover {
+      text-decoration: underline;
+    }
+    .comment-box {
+      font-family: 'Segoe UI', 'Open Sans', sans-serif;
+      font-size: 0.95rem;
+      color: #c6f9ff;
+      background: rgba(0, 255, 255, 0.05);
+      border-left: 4px solid #00f7ff;
+      padding: 12px;
+      margin-top: 10px;
+      border-radius: 6px;
+      line-height: 1.6;
     }
     footer {
       text-align: center;
@@ -112,65 +160,179 @@
     <a href="physics.html">Physics</a> |
     <a href="math.html">Math</a>
   </nav>
+
   <div class="header">
     <img src="https://i.postimg.cc/cHz79wRv/Chat-GPT-Image-Apr-1-2025-07-06-14-PM.png" alt="Electrical Theme Image" />
     <h1>Electrical Engineering Progress</h1>
     <p class="subtitle">Tracking Electrical Engineering subjects</p>
   </div>
-  <div class="skills-container" id="subject-container">
-    <!-- Dynamic subjects load here -->
+
+  <div class="skills-container">
+    <!-- Subject: Electric Circuit Analysis I -->
+    <div class="skill" data-id="eca1">
+      <span class="skill-title" onclick="toggleContent('eca1-content', this)">
+        Electric Circuit Analysis I <span class="chevron">▼</span>
+      </span>
+      <div class="progress-bar" onclick="toggleContent('eca1-content', this.parentElement.querySelector('.skill-title'))">
+        <div class="progress-fill circuit" style="width: 50%;">50%</div>
+      </div>
+      <div class="last-updated"></div>
+      <div id="eca1-content" class="content-list">
+        <ul>
+          <li data-id="eca1_startingtips">
+            <a href="eca1_startingtips.html">Starting Tips</a>
+            <span class="last-updated"></span>
+          </li>
+          <li data-id="eca1_CENO1">
+            <a href="eca1_CENO1.html">Code Explanation No.1</a>
+            <span class="last-updated"></span>
+          </li>
+        </ul>
+      </div>
+      <div class="comment-box">
+            I had the opportunity to take classes with Dr. Zarifkar, Dr. Pakniat, and Dr. Arefi — experiences that deeply inspired my academic path. Although the challenges of online learning during the COVID pandemic impacted my performance at the time, I remained committed to my goals. I’ve maintained an 18.5 GPA in Computer Engineering at IAU, and I’m now channeling my focus into preparing for the Electrical Engineering Olympiads with renewed determination.
+      </div>
+    </div>
+
+    <!-- Subject: Electric Circuit Analysis II -->
+    <div class="skill" data-id="eca2">
+      <span class="skill-title">Electric Circuit Analysis II</span>
+      <div class="progress-bar">
+        <div class="progress-fill circuit" style="width: 20%;">20%</div>
+      </div>
+      <div class="last-updated"></div>
+    </div>
+
+    <!-- Subject: Electronics I -->
+    <div class="skill" data-id="electronics1">
+      <span class="skill-title">Electronics I</span>
+      <div class="progress-bar">
+        <div class="progress-fill electronics" style="width: 20%;">20%</div>
+      </div>
+      <div class="last-updated"></div>
+      <div class="comment-box">
+        I've used Dr. Zarifkar's classes while I was studying at Shiraz University.
+      </div>
+    </div>
+
+    <!-- Subject: Electronics II -->
+    <div class="skill" data-id="electronics2">
+      <span class="skill-title">Electronics II</span>
+      <div class="progress-bar">
+        <div class="progress-fill electronics" style="width: 0%;">0%</div>
+      </div>
+      <div class="last-updated"></div>
+    </div>
+
+    <!-- Subject: Electromagnetics -->
+    <div class="skill" data-id="emagnetics">
+      <span class="skill-title">Electromagnetics</span>
+      <div class="progress-bar">
+        <div class="progress-fill emagnet" style="width: 40%;">40%</div>
+      </div>
+      <div class="last-updated"></div>
+      <div class="comment-box">
+        I made use of Dr. Mohajeri's classes during my studies of this subject.
+      </div>
+    </div>
+
+    <!-- Subject: Linear Control Systems -->
+    <div class="skill" data-id="control">
+      <span class="skill-title">Linear Control Systems</span>
+      <div class="progress-bar">
+        <div class="progress-fill control" style="width: 0%;">0%</div>
+      </div>
+      <div class="last-updated"></div>
+    </div>
+
+    <!-- Subject: Electric Machines I -->
+    <div class="skill" data-id="machines1">
+      <span class="skill-title">Electric Machines I</span>
+      <div class="progress-bar">
+        <div class="progress-fill machines" style="width: 0%;">0%</div>
+      </div>
+      <div class="last-updated"></div>
+    </div>
+
+    <!-- Subject: Electric Machines II -->
+    <div class="skill" data-id="machines2">
+      <span class="skill-title">Electric Machines II</span>
+      <div class="progress-bar">
+        <div class="progress-fill machines" style="width: 0%;">0%</div>
+      </div>
+      <div class="last-updated"></div>
+    </div>
   </div>
+
   <footer>
     &copy; 2025 Parham
   </footer>
 
   <script>
-    const subjectKey = 'electrical';
-
+    // Function to format a date as relative time
     function formatRelativeTime(date) {
       const now = new Date();
       const diff = now - date;
-      const mins = Math.floor(diff / 60000);
+      const seconds = Math.floor(diff / 1000);
+      const minutes = Math.floor(diff / 60000);
       const hours = Math.floor(diff / 3600000);
       const days = Math.floor(diff / 86400000);
-      if (mins < 1) return "just now";
-      if (mins < 60) return `${mins} min${mins !== 1 ? 's' : ''} ago`;
+      
+      if (seconds < 60) return "just now";
+      if (minutes < 60) return `${minutes} minute${minutes !== 1 ? 's' : ''} ago`;
       if (hours < 24) return `${hours} hour${hours !== 1 ? 's' : ''} ago`;
-      return `${days} day${days !== 1 ? 's' : ''} ago`;
+      if (days < 30) return `${days} day${days !== 1 ? 's' : ''} ago`;
+      return date.toLocaleDateString();
     }
-
-    async function loadUpdates() {
-      const res = await fetch('updates.json');
-      const updates = await res.json();
-      const subjects = updates[subjectKey] || {};
-      const container = document.getElementById('subject-container');
-
-      const entries = Object.entries(subjects).sort((a, b) => new Date(b[1]) - new Date(a[1]));
-
-      entries.forEach(([filename, timestamp]) => {
-        const relTime = formatRelativeTime(new Date(timestamp));
-        const title = filename.replace(/_/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
-        const url = `${subjectKey}/${filename}.html`;
-
-        const block = document.createElement('div');
-        block.className = 'skill';
-        block.innerHTML = `
-          <span class="skill-title">${title}</span>
-          <div class="progress-bar">
-            <div class="progress-fill" style="width: 40%;">40%</div>
-          </div>
-          <div class="content-list">
-            <ul>
-              <li><a href="${url}">${title}</a><span class="last-updated">Updated ${relTime}</span></li>
-            </ul>
-          </div>
-        `;
-
-        container.appendChild(block);
+    
+    // Fetch updates from updates.json, tag elements with relative times, and sort subjects
+    async function sortAndTagContent() {
+      const container = document.querySelector('.skills-container');
+      const skills = Array.from(container.querySelectorAll('.skill'));
+      const updateData = await fetch('updates.json').then(res => res.json());
+      
+      skills.forEach(skill => {
+        const id = skill.dataset.id;
+        const tag = skill.querySelector('.last-updated');
+        if (updateData[id]) {
+          const date = new Date(updateData[id]);
+          tag.textContent = "Updated " + formatRelativeTime(date);
+          tag.title = date.toLocaleString();
+          skill.dataset.updated = updateData[id];
+        }
+        
+        // Process subcontent items
+        skill.querySelectorAll('li').forEach(item => {
+          const subId = item.dataset.id;
+          const subTag = item.querySelector('.last-updated');
+          if (updateData[subId]) {
+            const date = new Date(updateData[subId]);
+            subTag.textContent = formatRelativeTime(date);
+            subTag.title = date.toLocaleString();
+          }
+        });
       });
+      
+      // Sort subject blocks by updated timestamp (newest first)
+      skills.sort((a, b) => {
+        const aTime = new Date(a.dataset.updated || 0);
+        const bTime = new Date(b.dataset.updated || 0);
+        return bTime - aTime;
+      });
+      
+      // Reorder the subjects in the DOM
+      skills.forEach(skill => container.appendChild(skill));
     }
-
-    document.addEventListener('DOMContentLoaded', loadUpdates);
+    
+    // Toggle subcontent visibility
+    function toggleContent(id, titleEl) {
+      const content = document.getElementById(id);
+      const chevron = titleEl.querySelector('.chevron');
+      content.classList.toggle('open');
+      chevron.classList.toggle('rotate');
+    }
+    
+    document.addEventListener('DOMContentLoaded', sortAndTagContent);
   </script>
 </body>
 </html>
