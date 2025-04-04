@@ -160,7 +160,30 @@
       </div>
     </div>
 
-    <!-- Repeat the above structure for other subjects -->
+    <div class="skill" data-id="css">
+      <span class="skill-title">CSS</span>
+      <div class="progress-bar">
+        <div class="progress-fill" style="width: 10%;">10%</div>
+      </div>
+      <div class="last-updated"></div>
+    </div>
+
+    <div class="skill" data-id="javascript">
+      <span class="skill-title">JavaScript</span>
+      <div class="progress-bar">
+        <div class="progress-fill" style="width: 40%;">40%</div>
+      </div>
+      <div class="last-updated"></div>
+    </div>
+
+    <div class="skill" data-id="react">
+      <span class="skill-title">React.js</span>
+      <div class="progress-bar">
+        <div class="progress-fill" style="width: 0%;">0%</div>
+      </div>
+      <div class="last-updated"></div>
+    </div>
+
   </div>
 
   <footer>
@@ -168,14 +191,14 @@
   </footer>
 
   <script>
-    // Format the "relative" time (e.g., "5 minutes ago")
     function formatRelativeTime(date) {
       const now = new Date();
       const diff = now - date;
+
       const seconds = Math.floor(diff / 1000);
       const minutes = Math.floor(diff / 60000);
-      const hours = Math.floor(diff / 3600000);
-      const days = Math.floor(diff / 86400000);
+      const hours   = Math.floor(diff / 3600000);
+      const days    = Math.floor(diff / 86400000);
 
       if (seconds < 60) return "just now";
       if (minutes < 60) return `${minutes} minute${minutes !== 1 ? 's' : ''} ago`;
@@ -184,7 +207,6 @@
       return date.toLocaleDateString();
     }
 
-    // Fetch data and apply to page
     async function sortAndTagContent() {
       const container = document.querySelector('.skills-container');
       const skills = Array.from(container.querySelectorAll('.skill'));
