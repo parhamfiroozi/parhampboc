@@ -2,10 +2,13 @@ name: Auto-update updates.json
 
 on:
   push:
-    branches: [ main ]
+    branches: [ main ]         # Runs on every push to main
+
+  schedule:
+    - cron: '*/15 * * * *'     # Also runs every 15 minutes (UTC)
 
 permissions:
-  contents: write
+  contents: write              # Allows this workflow to push changes
 
 jobs:
   update-timestamps:
@@ -22,14 +25,14 @@ jobs:
         with:
           node-version: 18
 
-      - name: 📁 Run Script
-        run: |
-          node generate-updates-json.js
+      - name: 🧮 Run Timestamp Script
+        run: node generate-updates-json.js
 
       - name: ✅ Commit & Push updates.json
         run: |
           git config user.name github-actions
           git config user.email github-actions@github.com
+          git pull origin main --rebase  # ⚠️ Pull changes before pushing
           git add updates.json
           git commit -m "🔄 Auto-update updates.json" || echo "No changes to commit"
-          git push
+          git push origin main
