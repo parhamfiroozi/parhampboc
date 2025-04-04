@@ -56,7 +56,6 @@
       margin-bottom: 5px;
       color: #007acc;
       cursor: pointer;
-      transition: color 0.3s ease;
     }
     .chevron {
       transition: transform 0.3s ease;
@@ -70,21 +69,27 @@
       overflow: hidden;
       height: 25px;
       cursor: pointer;
-      transition: all 0.3s ease;
     }
     .progress-fill {
       background: #007acc;
       height: 100%;
-      width: 0;
       line-height: 25px;
       color: #fff;
       text-align: center;
       transition: width 0.3s ease;
+      font-weight: 600;
     }
     .last-updated {
       font-size: 0.8rem;
-      color: #777;
-      margin-top: 5px;
+      font-weight: 500;
+      color: #333;
+      margin-top: 6px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .last-updated::before {
+      content: "🕓";
     }
     .content-list {
       max-height: 0;
@@ -93,7 +98,7 @@
       margin-top: 10px;
     }
     .content-list.open {
-      max-height: 400px;
+      max-height: 300px;
     }
     .content-list ul {
       list-style: none;
@@ -105,6 +110,7 @@
       justify-content: space-between;
       align-items: center;
       font-size: 0.95rem;
+      color: #333;
     }
     .content-list a {
       color: #007acc;
@@ -129,6 +135,7 @@
     <a href="physics.html">Physics</a> |
     <a href="math.html">Math</a>
   </nav>
+
   <div class="header">
     <img src="https://i.postimg.cc/qRLZSgGg/Chat-GPT-Image-Mar-30-2025-02-29-22-PM.png" alt="Coding Image" />
     <h1>Coding Progress</h1>
@@ -195,27 +202,27 @@
       const skills = Array.from(container.querySelectorAll('.skill'));
       const updateData = await fetch('updates.json').then(res => res.json());
 
-      // Add timestamps
       skills.forEach(skill => {
         const id = skill.dataset.id;
         const tag = skill.querySelector('.last-updated');
         if (updateData[id]) {
           const date = new Date(updateData[id]);
           tag.textContent = "Last updated: " + date.toLocaleDateString();
+          tag.title = date.toLocaleString();
           skill.dataset.updated = updateData[id];
         }
-        // Subcontent items
+
         skill.querySelectorAll('li').forEach(item => {
           const subId = item.dataset.id;
           const subTag = item.querySelector('.last-updated');
           if (updateData[subId]) {
             const date = new Date(updateData[subId]);
             subTag.textContent = date.toLocaleDateString();
+            subTag.title = date.toLocaleString();
           }
         });
       });
 
-      // Sort by updated time
       skills.sort((a, b) => {
         const aTime = new Date(a.dataset.updated || 0);
         const bTime = new Date(b.dataset.updated || 0);
