@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Math Progress</title>
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Merriweather:wght@700&display=swap" rel="stylesheet">
@@ -17,14 +17,12 @@
     nav {
       text-align: center;
       margin-bottom: 30px;
-      flex-wrap: wrap;
     }
     nav a {
       margin: 5px 8px;
       text-decoration: none;
       color: #5a2a83;
       font-weight: 600;
-      display: inline-block;
     }
     .header {
       text-align: center;
@@ -51,15 +49,12 @@
     .skills-container {
       max-width: 700px;
       margin: 0 auto;
-      padding: 0 10px;
     }
     .skill {
       margin-bottom: 20px;
       padding-bottom: 5px;
       border-bottom: 1px solid #ccc;
-      position: relative;
     }
-    /* Subject title styles with toggle chevron if subcontent exists */
     .skill-title {
       font-size: 1rem;
       font-weight: 600;
@@ -73,7 +68,6 @@
     .chevron {
       transition: transform 0.3s ease;
       font-size: 0.8rem;
-      margin-left: 5px;
     }
     .chevron.rotate {
       transform: rotate(180deg);
@@ -83,7 +77,7 @@
       border-radius: 10px;
       overflow: hidden;
       height: 25px;
-      width: 100%;
+      cursor: pointer;
     }
     .progress-fill {
       height: 100%;
@@ -91,10 +85,8 @@
       color: #fff;
       font-weight: 600;
       font-size: 0.9rem;
-      transition: width 0.3s ease;
       line-height: 25px;
     }
-    /* Example color classes for math subjects */
     .progress-fill.linear { background: linear-gradient(90deg, #ff7e5f, #feb47b); }
     .progress-fill.analysis { background: linear-gradient(90deg, #6a11cb, #2575fc); }
     .progress-fill.algebra { background: linear-gradient(90deg, #43cea2, #185a9d); }
@@ -105,15 +97,13 @@
     .progress-fill.graph { background: linear-gradient(90deg, #11998e, #38ef7d); }
     .progress-fill.group { background: linear-gradient(90deg, #a8c0ff, #3f2b96); }
     .progress-fill.variational { background: linear-gradient(90deg, #fc5c7d, #6a82fb); }
-    /* Last updated text styling */
     .last-updated {
       font-size: 0.8rem;
       color: #777;
       margin-top: 5px;
     }
-    /* Content list for subcontents; hidden by default */
     .content-list {
-      margin-top: 8px;
+      margin-top: 10px;
       display: none;
     }
     .content-list.open {
@@ -125,8 +115,6 @@
     }
     .content-list li {
       margin-bottom: 5px;
-      font-size: 0.9rem;
-      color: #5a2a83;
     }
     .content-list a {
       text-decoration: none;
@@ -142,12 +130,6 @@
       font-size: 0.85rem;
       color: #777;
     }
-    @media (max-width: 480px) {
-      body { padding: 12px; }
-      h1 { font-size: 1.6rem; }
-      .subtitle { font-size: 1rem; }
-      .progress-fill { font-size: 0.8rem; }
-    }
   </style>
 </head>
 <body>
@@ -162,132 +144,46 @@
     <h1>Math Progress</h1>
     <p class="subtitle">Tracking my mathematical subjects</p>
   </div>
-  <div class="skills-container">
-    <!-- Each .skill element represents a math subject. The data-id must match the backend grouping key. -->
-    <div class="skill" data-id="linearalgebra">
-      <div class="skill-title" onclick="toggleSubcontent(this)">
-        <span>Linear Algebra</span>
-        <!-- The chevron will be added dynamically if subcontent exists -->
-      </div>
-      <div class="progress-bar">
-        <div class="progress-fill linear" style="width: 50%;">50%</div>
-      </div>
-      <div class="last-updated"></div>
-      <!-- An empty content-list that will be populated if subcontent pages exist -->
-      <div class="content-list"></div>
-    </div>
-    <div class="skill" data-id="mathematicalanalysis">
-      <div class="skill-title" onclick="toggleSubcontent(this)">
-        <span>Mathematical Analysis</span>
-      </div>
-      <div class="progress-bar">
-        <div class="progress-fill analysis" style="width: 0%;">0%</div>
-      </div>
-      <div class="last-updated"></div>
-      <div class="content-list"></div>
-    </div>
-    <div class="skill" data-id="algebra">
-      <div class="skill-title" onclick="toggleSubcontent(this)">
-        <span>Algebra</span>
-      </div>
-      <div class="progress-bar">
-        <div class="progress-fill algebra" style="width: 10%;">10%</div>
-      </div>
-      <div class="last-updated"></div>
-      <div class="content-list"></div>
-    </div>
-    <div class="skill" data-id="topology">
-      <div class="skill-title" onclick="toggleSubcontent(this)">
-        <span>Topology</span>
-      </div>
-      <div class="progress-bar">
-        <div class="progress-fill topology" style="width: 0%;">0%</div>
-      </div>
-      <div class="last-updated"></div>
-      <div class="content-list"></div>
-    </div>
-    <div class="skill" data-id="discretemath">
-      <div class="skill-title" onclick="toggleSubcontent(this)">
-        <span>Discrete Math</span>
-      </div>
-      <div class="progress-bar">
-        <div class="progress-fill discrete" style="width: 90%;">90%</div>
-      </div>
-      <div class="last-updated"></div>
-      <div class="content-list"></div>
-    </div>
-    <div class="skill" data-id="linearoptimization">
-      <div class="skill-title" onclick="toggleSubcontent(this)">
-        <span>Linear Optimization</span>
-      </div>
-      <div class="progress-bar">
-        <div class="progress-fill optimization" style="width: 0%;">0%</div>
-      </div>
-      <div class="last-updated"></div>
-      <div class="content-list"></div>
-    </div>
-    <div class="skill" data-id="nonlinearoptimization">
-      <div class="skill-title" onclick="toggleSubcontent(this)">
-        <span>Non-linear Optimization</span>
-      </div>
-      <div class="progress-bar">
-        <div class="progress-fill optimization" style="width: 0%;">0%</div>
-      </div>
-      <div class="last-updated"></div>
-      <div class="content-list"></div>
-    </div>
-    <div class="skill" data-id="stochasticprocesses">
-      <div class="skill-title" onclick="toggleSubcontent(this)">
-        <span>Stochastic Processes</span>
-      </div>
-      <div class="progress-bar">
-        <div class="progress-fill stochastic" style="width: 30%;">30%</div>
-      </div>
-      <div class="last-updated"></div>
-      <div class="content-list"></div>
-    </div>
-    <div class="skill" data-id="graphtheory">
-      <div class="skill-title" onclick="toggleSubcontent(this)">
-        <span>Graph Theory</span>
-      </div>
-      <div class="progress-bar">
-        <div class="progress-fill graph" style="width: 0%;">0%</div>
-      </div>
-      <div class="last-updated"></div>
-      <div class="content-list"></div>
-    </div>
-    <div class="skill" data-id="grouptheory">
-      <div class="skill-title" onclick="toggleSubcontent(this)">
-        <span>Group Theory</span>
-      </div>
-      <div class="progress-bar">
-        <div class="progress-fill group" style="width: 5%;">5%</div>
-      </div>
-      <div class="last-updated"></div>
-      <div class="content-list"></div>
-    </div>
-    <div class="skill" data-id="variationalcalculus">
-      <div class="skill-title" onclick="toggleSubcontent(this)">
-        <span>Variational Calculus</span>
-      </div>
-      <div class="progress-bar">
-        <div class="progress-fill variational" style="width: 0%;">0%</div>
-      </div>
-      <div class="last-updated"></div>
-      <div class="content-list"></div>
-    </div>
-  </div>
-  <footer>
-    &copy; 2025 Parham
-  </footer>
+  <div class="skills-container"></div>
+  <footer>&copy; 2025 Parham</footer>
   <script>
-    // Toggle subcontent list visibility when subject title is clicked.
+    const subjects = [
+      { id: 'linearalgebra', title: 'Linear Algebra', progress: 50, class: 'linear' },
+      { id: 'analysis', title: 'Mathematical Analysis', progress: 0, class: 'analysis' },
+      { id: 'algebra', title: 'Algebra', progress: 10, class: 'algebra' },
+      { id: 'topology', title: 'Topology', progress: 0, class: 'topology' },
+      { id: 'discrete', title: 'Discrete Math', progress: 90, class: 'discrete' },
+      { id: 'linearopt', title: 'Linear Optimization', progress: 0, class: 'optimization' },
+      { id: 'nonlinearopt', title: 'Non-linear Optimization', progress: 0, class: 'optimization' },
+      { id: 'stochastic', title: 'Stochastic Processes', progress: 30, class: 'stochastic' },
+      { id: 'graph', title: 'Graph Theory', progress: 0, class: 'graph' },
+      { id: 'group', title: 'Group Theory', progress: 5, class: 'group' },
+      { id: 'variational', title: 'Variational Calculus', progress: 0, class: 'variational' }
+    ];
+
+    const container = document.querySelector('.skills-container');
+    subjects.forEach(sub => {
+      const skill = document.createElement('div');
+      skill.className = 'skill';
+      skill.dataset.id = sub.id;
+      skill.innerHTML = `
+        <div class="skill-title" onclick="toggleSubcontent(this)">
+          <span>${sub.title}</span>
+        </div>
+        <div class="progress-bar" onclick="toggleSubcontent(this.parentElement.querySelector('.skill-title'))">
+          <div class="progress-fill ${sub.class}" style="width: ${sub.progress}%">${sub.progress}%</div>
+        </div>
+        <div class="last-updated"></div>
+        <div class="content-list"></div>
+      `;
+      container.appendChild(skill);
+    });
+
     function toggleSubcontent(titleEl) {
-      const parentSkill = titleEl.closest('.skill');
-      const contentList = parentSkill.querySelector('.content-list');
-      if (!contentList) return;
-      contentList.classList.toggle('open');
-      // Toggle chevron (add one if not present)
+      const skill = titleEl.closest('.skill');
+      const list = skill.querySelector('.content-list');
+      if (!list) return;
+      list.classList.toggle('open');
       let chevron = titleEl.querySelector('.chevron');
       if (!chevron) {
         chevron = document.createElement('span');
@@ -298,8 +194,7 @@
         chevron.classList.toggle('rotate');
       }
     }
-    
-    // Format a date as relative time (e.g., "5 minutes ago")
+
     function formatRelativeTime(date) {
       const now = new Date();
       const diff = now - date;
@@ -313,62 +208,44 @@
       if (days < 30) return `${days} day${days !== 1 ? 's' : ''} ago`;
       return date.toLocaleDateString();
     }
-    
-    // Fetch updates.json and apply update times.
+
     async function fetchUpdates() {
       try {
         const res = await fetch('updates.json');
         const updateData = await res.json();
-        
         document.querySelectorAll('.skill').forEach(skill => {
-          const subjectId = skill.dataset.id;
-          const updateInfo = updateData[subjectId];
-          const lastUpdatedEl = skill.querySelector('.last-updated');
-          if (updateInfo) {
-            // Set subject's last updated time.
-            const subjectDate = new Date(updateInfo.updated);
-            lastUpdatedEl.textContent = "Updated " + formatRelativeTime(subjectDate);
-            lastUpdatedEl.title = subjectDate.toLocaleString();
-            
-            // If there are subcontents (even if none exist in the static HTML), dynamically build the list.
-            const subcontents = updateInfo.subcontent;
-            const contentList = skill.querySelector('.content-list');
-            // Clear any existing content.
-            contentList.innerHTML = "";
-            if (subcontents && Object.keys(subcontents).length > 0) {
-              const ul = document.createElement('ul');
-              Object.keys(subcontents).forEach(subKey => {
-                const li = document.createElement('li');
-                // Assume the URL for subcontent is the subKey plus ".html"
-                const a = document.createElement('a');
-                a.href = subKey + ".html";
-                a.textContent = subKey.replace(subjectId + "_", "").replace(/_/g, " ");
-                li.appendChild(a);
-                const span = document.createElement('span');
-                const subDate = new Date(subcontents[subKey]);
-                span.textContent = " - " + formatRelativeTime(subDate);
-                span.title = subDate.toLocaleString();
-                li.appendChild(span);
-                ul.appendChild(li);
-              });
-              contentList.appendChild(ul);
-              // If there is subcontent, ensure the chevron is visible (initially not rotated)
-              const titleEl = skill.querySelector('.skill-title');
-              let chevron = titleEl.querySelector('.chevron');
-              if (!chevron) {
-                chevron = document.createElement('span');
-                chevron.className = 'chevron';
-                chevron.textContent = '▼';
-                titleEl.appendChild(chevron);
-              }
-            }
+          const id = skill.dataset.id;
+          const info = updateData?.[id];
+          const tag = skill.querySelector('.last-updated');
+          if (info?.updated) {
+            const dt = new Date(info.updated);
+            tag.textContent = 'Updated ' + formatRelativeTime(dt);
+            tag.title = dt.toLocaleString();
+          }
+          const contentList = skill.querySelector('.content-list');
+          if (info?.subcontent) {
+            const ul = document.createElement('ul');
+            Object.entries(info.subcontent).forEach(([key, ts]) => {
+              const li = document.createElement('li');
+              const a = document.createElement('a');
+              a.href = `${key}.html`;
+              a.textContent = key.replace(id + '_', '').replace(/_/g, ' ');
+              const time = document.createElement('span');
+              const dt = new Date(ts);
+              time.textContent = ' - ' + formatRelativeTime(dt);
+              time.title = dt.toLocaleString();
+              li.appendChild(a);
+              li.appendChild(time);
+              ul.appendChild(li);
+            });
+            contentList.appendChild(ul);
           }
         });
-      } catch (err) {
-        console.error("Failed to load updates.json:", err);
+      } catch (e) {
+        console.error("updates.json failed", e);
       }
     }
-    
+
     document.addEventListener('DOMContentLoaded', fetchUpdates);
   </script>
 </body>
