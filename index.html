@@ -1,15 +1,16 @@
+<!-- MASTER TEMPLATE - For coding.html, electrical.html, physics.html, math.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Coding Progress</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Progress Tracker</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
       font-family: 'Poppins', sans-serif;
-      background: #e8f4fc;
+      background: #f0f4fa;
       color: #333;
       padding: 20px;
     }
@@ -69,29 +70,25 @@
       text-align: center;
       transition: width 0.3s ease;
     }
-    .content-list {
-      margin-top: 10px;
-      display: none;
-    }
     .content-list ul {
       list-style: none;
       padding-left: 0;
+      margin-top: 10px;
     }
     .content-list li {
       margin-bottom: 8px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
     }
     .content-list a {
       color: #007acc;
       text-decoration: none;
       font-weight: 500;
     }
-    .content-list a:hover {
-      text-decoration: underline;
-    }
     .last-updated {
       font-size: 0.8rem;
       color: #888;
-      margin-top: 5px;
     }
     footer {
       text-align: center;
@@ -102,70 +99,20 @@
   </style>
 </head>
 <body>
-
   <nav>
     <a href="index.html">Coding</a> |
     <a href="electrical.html">Electrical Engineering</a> |
     <a href="physics.html">Physics</a> |
     <a href="math.html">Math</a>
   </nav>
-
   <div class="header">
-    <img src="https://i.postimg.cc/qRLZSgGg/Chat-GPT-Image-Mar-30-2025-02-29-22-PM.png" alt="Coding Image">
-    <h1>Coding Progress</h1>
-    <p class="subtitle">Tracking my coding skills</p>
+    <img src="https://i.postimg.cc/8PbqS6hv/progress.png" alt="Subject Image">
+    <h1 id="page-title">Subject Progress</h1>
+    <p class="subtitle">Tracking learning across subjects</p>
   </div>
 
-  <div class="skills-container">
-
-    <!-- HTML (including CSS/JS as frontend bundle) -->
-    <div class="skill" id="html">
-      <span class="skill-title" onclick="toggleContent('html-content')">HTML + CSS + JavaScript</span>
-      <div class="progress-bar" onclick="toggleContent('html-content')">
-        <div class="progress-fill" style="width: 20%;">20%</div>
-      </div>
-      <div class="last-updated"></div>
-      <div id="html-content" class="content-list">
-        <ul>
-          <li data-id="startingtips">
-            <a href="startingtips.html">Starting Tips</a>
-            <span class="last-updated"></span>
-          </li>
-          <li data-id="CENO1">
-            <a href="CENO1.html">Code Explanation No.1</a>
-            <span class="last-updated"></span>
-          </li>
-        </ul>
-      </div>
-    </div>
-
-    <!-- Python -->
-    <div class="skill" id="python">
-      <span class="skill-title">Python</span>
-      <div class="progress-bar">
-        <div class="progress-fill" style="width: 60%;">60%</div>
-      </div>
-      <div class="last-updated"></div>
-    </div>
-
-    <!-- C++ -->
-    <div class="skill" id="cpp">
-      <span class="skill-title">C++</span>
-      <div class="progress-bar">
-        <div class="progress-fill" style="width: 70%;">70%</div>
-      </div>
-      <div class="last-updated"></div>
-    </div>
-
-    <!-- React (optional) -->
-    <div class="skill" id="react">
-      <span class="skill-title">React.js</span>
-      <div class="progress-bar">
-        <div class="progress-fill" style="width: 0%;">0%</div>
-      </div>
-      <div class="last-updated"></div>
-    </div>
-
+  <div class="skills-container" id="subject-container">
+    <!-- Dynamically loaded subjects will go here -->
   </div>
 
   <footer>
@@ -173,57 +120,55 @@
   </footer>
 
   <script>
-    function toggleContent(id) {
-      const content = document.getElementById(id);
-      content.style.display = content.style.display === 'block' ? 'none' : 'block';
-    }
+    const subjectKey = window.location.pathname.split('/').pop().replace('.html', '') || 'index';
 
     function formatRelativeTime(date) {
       const now = new Date();
       const diff = now - date;
-      const seconds = Math.floor(diff / 1000);
-      const minutes = Math.floor(diff / 60000);
+      const mins = Math.floor(diff / 60000);
       const hours = Math.floor(diff / 3600000);
       const days = Math.floor(diff / 86400000);
-      if (seconds < 60) return "just now";
-      if (minutes < 60) return `${minutes} minute${minutes !== 1 ? 's' : ''} ago`;
+      if (mins < 1) return "just now";
+      if (mins < 60) return `${mins} min${mins !== 1 ? 's' : ''} ago`;
       if (hours < 24) return `${hours} hour${hours !== 1 ? 's' : ''} ago`;
-      if (days < 30) return `${days} day${days !== 1 ? 's' : ''} ago`;
-      return date.toLocaleDateString();
+      return `${days} day${days !== 1 ? 's' : ''} ago`;
     }
 
-    async function fetchUpdates() {
-      try {
-        const res = await fetch('updates.json');
-        const updates = await res.json();
+    async function loadUpdates() {
+      const res = await fetch('updates.json');
+      const updates = await res.json();
+      const subjectContent = updates[subjectKey] || {};
+      const container = document.getElementById('subject-container');
 
-        document.querySelectorAll('.skill').forEach(skill => {
-          const id = skill.id;
-          const tag = skill.querySelector('.last-updated');
-          if (updates[id]) {
-            const date = new Date(updates[id]);
-            tag.textContent = "Updated " + formatRelativeTime(date);
-            tag.title = date.toLocaleString();
-            skill.dataset.updated = updates[id];
-          }
+      const files = Object.entries(subjectContent).sort((a, b) => new Date(b[1]) - new Date(a[1]));
 
-          // Subcontent updates
-          skill.querySelectorAll('li').forEach(li => {
-            const subId = li.dataset.id;
-            const subTag = li.querySelector('.last-updated');
-            if (updates[subId]) {
-              const date = new Date(updates[subId]);
-              subTag.textContent = formatRelativeTime(date);
-              subTag.title = date.toLocaleString();
-            }
-          });
-        });
-      } catch (err) {
-        console.error("Failed to load updates.json:", err);
-      }
+      files.forEach(([filename, time]) => {
+        const relTime = formatRelativeTime(new Date(time));
+        const title = filename.replace(/_/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
+        const url = `${subjectKey}/${filename}.html`;
+
+        const block = document.createElement('div');
+        block.className = 'skill';
+        block.innerHTML = `
+          <span class="skill-title">${title}</span>
+          <div class="progress-bar">
+            <div class="progress-fill" style="width: 30%;">30%</div>
+          </div>
+          <div class="content-list">
+            <ul>
+              <li><a href="${url}">${title}</a><span class="last-updated">Updated ${relTime}</span></li>
+            </ul>
+          </div>
+        `;
+
+        container.appendChild(block);
+      });
     }
 
-    document.addEventListener('DOMContentLoaded', fetchUpdates);
+    document.addEventListener('DOMContentLoaded', () => {
+      document.getElementById('page-title').textContent = subjectKey.charAt(0).toUpperCase() + subjectKey.slice(1) + ' Progress';
+      loadUpdates();
+    });
   </script>
 </body>
 </html>
