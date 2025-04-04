@@ -126,6 +126,9 @@
       transition: max-height 0.4s ease;
       margin-top: 10px;
     }
+    .content-list.open {
+      max-height: 200px;
+    }
     .content-list ul {
       list-style: none;
       padding-left: 0;
@@ -140,9 +143,6 @@
     }
     .content-list a:hover {
       text-decoration: underline;
-    }
-    .content-list.open {
-      max-height: 200px;
     }
 
     footer {
@@ -178,30 +178,33 @@
     <a href="physics.html">Physics</a> |
     <a href="math.html">Math</a>
   </nav>
+
   <div class="header">
     <img src="https://i.postimg.cc/cHz79wRv/Chat-GPT-Image-Apr-1-2025-07-06-14-PM.png" alt="Electrical Theme Image" />
     <h1>Electrical Engineering Progress</h1>
     <p class="subtitle">Tracking Electrical Engineering subjects</p>
   </div>
 
- <div class="skill">
-  <span class="skill-title" onclick="toggleContent('eca1-content', this)">
-    Electric Circuit Analysis I <span class="chevron">▼</span>
-  </span>
-  <div class="progress-bar" onclick="toggleContent('eca1-content', this.parentElement.querySelector('.skill-title'))">
-    <div class="progress-fill circuit" style="width: 50%;">50%</div>
-  </div>
-  <div id="eca1-content" class="content-list">
-    <ul>
-      <li><a href="eca1_startingtips.html">Starting Tips</a></li>
-      <li><a href="eca1_CENO1.html">Code Explanation No.1</a></li>
-    </ul>
-  </div>
-  <div class="comment-box">
-    I had the opportunity to take classes with Dr. Zarifkar, Dr. Pakniat, and Dr. Arefi...
-  </div>
-</div>
+  <!-- ✅ FIXED: Wrap all skills inside the container -->
+  <div class="skills-container">
 
+    <div class="skill">
+      <span class="skill-title" onclick="toggleContent('eca1-content', this)">
+        Electric Circuit Analysis I <span class="chevron">▼</span>
+      </span>
+      <div class="progress-bar" onclick="toggleContent('eca1-content', this.parentElement.querySelector('.skill-title'))">
+        <div class="progress-fill circuit" style="width: 50%;">50%</div>
+      </div>
+      <div id="eca1-content" class="content-list">
+        <ul>
+          <li><a href="eca1_startingtips.html">Starting Tips</a></li>
+          <li><a href="eca1_CENO1.html">Code Explanation No.1</a></li>
+        </ul>
+      </div>
+      <div class="comment-box">
+        I had the opportunity to take classes with Dr. Zarifkar, Dr. Pakniat, and Dr. Arefi...
+      </div>
+    </div>
 
     <div class="skill">
       <span class="skill-title">Electric Circuit Analysis II</span>
@@ -257,7 +260,8 @@
         <div class="progress-fill machines" style="width: 0%;">0%</div>
       </div>
     </div>
-  </div>
+
+  </div> <!-- END .skills-container -->
 
   <footer>
     &copy; 2025 Parham
