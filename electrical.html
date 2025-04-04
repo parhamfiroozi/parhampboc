@@ -45,7 +45,6 @@
       color: #ffc107;
       margin-bottom: 30px;
     }
-    /* Container for the subject blocks */
     .skills-container {
       max-width: 700px;
       margin: 0 auto;
@@ -54,7 +53,6 @@
       border-radius: 12px;
       box-shadow: 0 0 15px rgba(0,255,255,0.3);
     }
-    /* Each subject block */
     .skill {
       margin-bottom: 30px;
     }
@@ -90,21 +88,12 @@
       line-height: 25px;
       transition: width 0.3s ease;
     }
-    /* Example color classes for different subjects */
-    .progress-fill.circuit { background: linear-gradient(90deg, #00f7ff, #00d4ff); }
-    .progress-fill.electronics { background: linear-gradient(90deg, #ffea00, #ffdd00); }
-    .progress-fill.control { background: linear-gradient(90deg, #ff006e, #ff8c00); }
-    .progress-fill.machines { background: linear-gradient(90deg, #007bff, #00bfff); }
-    .progress-fill.emagnet { background: linear-gradient(90deg, #00ffcc, #00b3b3); }
-    
     .last-updated {
       font-size: 0.8rem;
       font-weight: 500;
       color: #ffd700;
       margin-top: 6px;
-      /* This element will show relative update info */
     }
-    /* Subcontent list styling */
     .content-list {
       max-height: 0;
       overflow: hidden;
@@ -134,17 +123,6 @@
     .content-list a:hover {
       text-decoration: underline;
     }
-    .comment-box {
-      font-family: 'Segoe UI', 'Open Sans', sans-serif;
-      font-size: 0.95rem;
-      color: #c6f9ff;
-      background: rgba(0, 255, 255, 0.05);
-      border-left: 4px solid #00f7ff;
-      padding: 12px;
-      margin-top: 10px;
-      border-radius: 6px;
-      line-height: 1.6;
-    }
     footer {
       text-align: center;
       margin-top: 40px;
@@ -168,15 +146,16 @@
   </div>
 
   <div class="skills-container">
-    <!-- Subject: Electric Circuit Analysis I -->
-    <div class="skill" data-id="eca1">
+
+    <!-- Electric Circuit Analysis I -->
+    <div class="skill" data-id="eca1" id="eca1">
       <span class="skill-title" onclick="toggleContent('eca1-content', this)">
         Electric Circuit Analysis I <span class="chevron">▼</span>
       </span>
-      <div class="progress-bar" onclick="toggleContent('eca1-content', this.parentElement.querySelector('.skill-title'))">
+      <div class="progress-bar">
         <div class="progress-fill circuit" style="width: 50%;">50%</div>
       </div>
-      <div class="last-updated"></div>
+      <div class="last-updated"></div> <!-- Last updated timestamp will be shown here -->
       <div id="eca1-content" class="content-list">
         <ul>
           <li data-id="eca1_startingtips">
@@ -189,79 +168,62 @@
           </li>
         </ul>
       </div>
-      <div class="comment-box">
-            I had the opportunity to take classes with Dr. Zarifkar, Dr. Pakniat, and Dr. Arefi — experiences that deeply inspired my academic path. Although the challenges of online learning during the COVID pandemic impacted my performance at the time, I remained committed to my goals. I’ve maintained an 18.5 GPA in Computer Engineering at IAU, and I’m now channeling my focus into preparing for the Electrical Engineering Olympiads with renewed determination.
-      </div>
     </div>
 
-    <!-- Subject: Electric Circuit Analysis II -->
-    <div class="skill" data-id="eca2">
+    <!-- Electric Circuit Analysis II -->
+    <div class="skill" data-id="eca2" id="eca2">
       <span class="skill-title">Electric Circuit Analysis II</span>
       <div class="progress-bar">
         <div class="progress-fill circuit" style="width: 20%;">20%</div>
       </div>
-      <div class="last-updated"></div>
+      <div class="last-updated"></div> <!-- Last updated timestamp will be shown here -->
     </div>
 
-    <!-- Subject: Electronics I -->
-    <div class="skill" data-id="electronics1">
+    <!-- Electronics I -->
+    <div class="skill" data-id="electronics1" id="electronics1">
       <span class="skill-title">Electronics I</span>
       <div class="progress-bar">
         <div class="progress-fill electronics" style="width: 20%;">20%</div>
       </div>
-      <div class="last-updated"></div>
-      <div class="comment-box">
-        I've used Dr. Zarifkar's classes while I was studying at Shiraz University.
-      </div>
+      <div class="last-updated"></div> <!-- Last updated timestamp will be shown here -->
     </div>
 
-    <!-- Subject: Electronics II -->
-    <div class="skill" data-id="electronics2">
+    <!-- Electronics II -->
+    <div class="skill" data-id="electronics2" id="electronics2">
       <span class="skill-title">Electronics II</span>
       <div class="progress-bar">
         <div class="progress-fill electronics" style="width: 0%;">0%</div>
       </div>
-      <div class="last-updated"></div>
+      <div class="last-updated"></div> <!-- Last updated timestamp will be shown here -->
     </div>
 
-    <!-- Subject: Electromagnetics -->
-    <div class="skill" data-id="emagnetics">
+    <!-- Electromagnetics -->
+    <div class="skill" data-id="emagnetics" id="emagnetics">
       <span class="skill-title">Electromagnetics</span>
       <div class="progress-bar">
         <div class="progress-fill emagnet" style="width: 40%;">40%</div>
       </div>
-      <div class="last-updated"></div>
-      <div class="comment-box">
-        I made use of Dr. Mohajeri's classes during my studies of this subject.
-      </div>
+      <div class="last-updated"></div> <!-- Last updated timestamp will be shown here -->
     </div>
 
-    <!-- Subject: Linear Control Systems -->
-    <div class="skill" data-id="control">
+    <!-- Control Systems -->
+    <div class="skill" data-id="control" id="control">
       <span class="skill-title">Linear Control Systems</span>
       <div class="progress-bar">
         <div class="progress-fill control" style="width: 0%;">0%</div>
       </div>
-      <div class="last-updated"></div>
+      <div class="last-updated"></div> <!-- Last updated timestamp will be shown here -->
     </div>
 
-    <!-- Subject: Electric Machines I -->
-    <div class="skill" data-id="machines1">
+    <!-- Electric Machines -->
+    <div class="skill" data-id="machines1" id="machines1">
       <span class="skill-title">Electric Machines I</span>
       <div class="progress-bar">
         <div class="progress-fill machines" style="width: 0%;">0%</div>
       </div>
-      <div class="last-updated"></div>
+      <div class="last-updated"></div> <!-- Last updated timestamp will be shown here -->
     </div>
 
-    <!-- Subject: Electric Machines II -->
-    <div class="skill" data-id="machines2">
-      <span class="skill-title">Electric Machines II</span>
-      <div class="progress-bar">
-        <div class="progress-fill machines" style="width: 0%;">0%</div>
-      </div>
-      <div class="last-updated"></div>
-    </div>
   </div>
 
   <footer>
@@ -269,7 +231,31 @@
   </footer>
 
   <script>
-    // Function to format a date as relative time
+    // Function to fetch the latest commit date for a specific file from GitHub API
+    async function fetchCommitDate(filePath) {
+      const repoOwner = 'parhamfiroozi';  // GitHub username
+      const repoName = 'parhampboc';  // GitHub repository name
+      const apiUrl = `https://api.github.com/repos/${repoOwner}/${repoName}/commits?path=${filePath}`;
+
+      try {
+        const response = await fetch(apiUrl);
+        const data = await response.json();
+        
+        // Check if there's at least one commit (returns array of commits)
+        if (data.length > 0) {
+          const lastCommitDate = data[0].commit.author.date;
+          return new Date(lastCommitDate);  // Return date object
+        } else {
+          console.log(`No commits found for ${filePath}`);
+          return null;
+        }
+      } catch (error) {
+        console.error("Error fetching commit data:", error);
+        return null;
+      }
+    }
+
+    // Function to format the relative time (e.g., "Updated 5 minutes ago")
     function formatRelativeTime(date) {
       const now = new Date();
       const diff = now - date;
@@ -277,62 +263,36 @@
       const minutes = Math.floor(diff / 60000);
       const hours = Math.floor(diff / 3600000);
       const days = Math.floor(diff / 86400000);
-      
+
       if (seconds < 60) return "just now";
       if (minutes < 60) return `${minutes} minute${minutes !== 1 ? 's' : ''} ago`;
       if (hours < 24) return `${hours} hour${hours !== 1 ? 's' : ''} ago`;
       if (days < 30) return `${days} day${days !== 1 ? 's' : ''} ago`;
       return date.toLocaleDateString();
     }
-    
-    // Fetch updates from updates.json, tag elements with relative times, and sort subjects
-    async function sortAndTagContent() {
-      const container = document.querySelector('.skills-container');
-      const skills = Array.from(container.querySelectorAll('.skill'));
-      const updateData = await fetch('updates.json').then(res => res.json());
-      
-      skills.forEach(skill => {
-        const id = skill.dataset.id;
-        const tag = skill.querySelector('.last-updated');
-        if (updateData[id]) {
-          const date = new Date(updateData[id]);
-          tag.textContent = "Updated " + formatRelativeTime(date);
-          tag.title = date.toLocaleString();
-          skill.dataset.updated = updateData[id];
+
+    // Function to update the "last updated" time on the page
+    async function updateLastUpdatedTime(filePath, elementId) {
+      const commitDate = await fetchCommitDate(filePath);
+      if (commitDate) {
+        const formattedTime = formatRelativeTime(commitDate);
+        const element = document.querySelector(`#${elementId} .last-updated`);
+        if (element) {
+          element.textContent = `Updated ${formattedTime}`;
+          element.title = commitDate.toLocaleString();  // Full timestamp as tooltip
         }
-        
-        // Process subcontent items
-        skill.querySelectorAll('li').forEach(item => {
-          const subId = item.dataset.id;
-          const subTag = item.querySelector('.last-updated');
-          if (updateData[subId]) {
-            const date = new Date(updateData[subId]);
-            subTag.textContent = formatRelativeTime(date);
-            subTag.title = date.toLocaleString();
-          }
-        });
-      });
-      
-      // Sort subject blocks by updated timestamp (newest first)
-      skills.sort((a, b) => {
-        const aTime = new Date(a.dataset.updated || 0);
-        const bTime = new Date(b.dataset.updated || 0);
-        return bTime - aTime;
-      });
-      
-      // Reorder the subjects in the DOM
-      skills.forEach(skill => container.appendChild(skill));
+      }
     }
-    
-    // Toggle subcontent visibility
-    function toggleContent(id, titleEl) {
-      const content = document.getElementById(id);
-      const chevron = titleEl.querySelector('.chevron');
-      content.classList.toggle('open');
-      chevron.classList.toggle('rotate');
-    }
-    
-    document.addEventListener('DOMContentLoaded', sortAndTagContent);
+
+    // Update "last updated" for each subject
+    updateLastUpdatedTime('electrical.html', 'eca1');
+    updateLastUpdatedTime('index.html', 'index');
+    updateLastUpdatedTime('eca2', 'eca2');
+    updateLastUpdatedTime('electronics1', 'electronics1');
+    updateLastUpdatedTime('electronics2', 'electronics2');
+    updateLastUpdatedTime('emagnetics', 'emagnetics');
+    updateLastUpdatedTime('control', 'control');
+    updateLastUpdatedTime('machines1', 'machines1');
   </script>
 </body>
 </html>
