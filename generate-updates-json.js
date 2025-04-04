@@ -1,34 +1,44 @@
 const fs = require('fs');
 const { execSync } = require('child_process');
 
+// Define your groups and the related files (adjust paths as needed)
 const groups = {
-  html: ['./content/html'],
-  css: ['./content/css'],
-  js: ['./content/js'],
-  eca1: ['./content/electrical/eca1_startingtips.html', './content/electrical/eca1_CENO1.html'],
-  electronics1: ['./content/electrical/electronics1.html'],
-  // Add more subjects and their related files
+  html: [
+    './content/html/startingtips.html',
+    './content/html/CENO1.html'
+  ],
+  css: [
+    './content/css/basics.html'
+  ],
+  javascript: [
+    './content/js/intro.html'
+  ]
 };
 
 let updates = {};
 
-Object.entries(groups).forEach(([id, files]) => {
-  let latest = 0;
+// For each group, determine the most recent update
+Object.entries(groups).forEach(([groupId, files]) => {
+  let latestTimestamp = 0;
   files.forEach(filePath => {
     try {
-      const log = execSync(`git log -1 --format="%ct" "${filePath}"`).toString().trim(); // epoch
+      const log = execSync(`git log -1 --format="%ct" "${filePath}"`).toString().trim(); // Unix epoch time
       const timestamp = parseInt(log);
-      if (timestamp > latest) latest = timestamp;
-
-      // Also save subcontent update
+      // Save individual subcontent update
       const fileName = filePath.split('/').pop().replace('.html', '');
       updates[fileName] = new Date(timestamp * 1000).toISOString();
+
+      if (timestamp > latestTimestamp) {
+        latestTimestamp = timestamp;
+      }
     } catch (err) {
-      console.error(`❌ Couldn't read: ${filePath}`);
+      console.error(`Error fetching git log for ${filePath}:`, err);
     }
   });
-  if (latest) updates[id] = new Date(latest * 1000).toISOString();
+  if (latestTimestamp) {
+    updates[groupId] = new Date(latestTimestamp * 1000).toISOString();
+  }
 });
 
 fs.writeFileSync('./updates.json', JSON.stringify(updates, null, 2));
-console.log('✅ updates.json written!');
+console.log('updates.json created:', updates);
