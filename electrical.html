@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Electrical Engineering Progress</title>
-  <link rel="preconnect" href="https://fonts.gstatic.com">
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.gstatic.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet" />
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
@@ -56,13 +56,29 @@
       box-shadow: 0 0 15px rgba(0,255,255,0.3);
     }
     .skill {
-      margin-bottom: 20px;
+      margin-bottom: 25px;
     }
     .skill-title {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
       font-size: 1rem;
       font-weight: 700;
       margin-bottom: 5px;
       color: #0ff;
+      cursor: pointer;
+      transition: color 0.3s ease;
+    }
+    .skill-title:hover {
+      color: #00ffff;
+    }
+    .chevron {
+      font-size: 0.85rem;
+      margin-left: 8px;
+      transition: transform 0.3s ease;
+    }
+    .chevron.rotate {
+      transform: rotate(180deg);
     }
     .progress-bar {
       background: #0a0f2c;
@@ -70,6 +86,12 @@
       overflow: hidden;
       height: 25px;
       width: 100%;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    .progress-bar:hover {
+      box-shadow: 0 0 10px #0ff, 0 0 20px #0ff;
+      transform: scale(1.02);
     }
     .progress-fill {
       height: 100%;
@@ -96,6 +118,31 @@
       margin-top: 10px;
       border-radius: 6px;
       line-height: 1.6;
+    }
+
+    .content-list {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease;
+      margin-top: 10px;
+    }
+    .content-list ul {
+      list-style: none;
+      padding-left: 0;
+    }
+    .content-list li {
+      margin-bottom: 8px;
+    }
+    .content-list a {
+      color: #0ff;
+      text-decoration: none;
+      font-weight: 500;
+    }
+    .content-list a:hover {
+      text-decoration: underline;
+    }
+    .content-list.open {
+      max-height: 200px;
     }
 
     footer {
@@ -132,78 +179,97 @@
     <a href="math.html">Math</a>
   </nav>
   <div class="header">
-    <img src="https://i.postimg.cc/cHz79wRv/Chat-GPT-Image-Apr-1-2025-07-06-14-PM.png" alt="Electrical Theme Image">
+    <img src="https://i.postimg.cc/cHz79wRv/Chat-GPT-Image-Apr-1-2025-07-06-14-PM.png" alt="Electrical Theme Image" />
     <h1>Electrical Engineering Progress</h1>
     <p class="subtitle">Tracking Electrical Engineering subjects</p>
   </div>
- <div class="skills-container">
-  <div class="skill">
-    <span class="skill-title">Electric Circuit Analysis I</span>
-    <div class="progress-bar">
-      <div class="progress-fill circuit" style="width: 50%;">50%</div>
-    </div>
-    <div class="comment-box">
-     I had the opportunity to take classes with Dr. Zarifkar, Dr. Pakniat, and Dr. Arefi — experiences that deeply inspired my academic path. Although the challenges of online learning during the COVID pandemic impacted my performance at the time, I remained committed to my goals. I’ve maintained an 18.5 GPA in Computer Engineering at IAU, and I’m now channeling my focus into preparing for the Electrical Engineering Olympiads with renewed determination.
-  </div>
 
-  <div class="skill">
-    <span class="skill-title">Electric Circuit Analysis II</span>
-    <div class="progress-bar">
-      <div class="progress-fill circuit" style="width: 20%;">20%</div>
+  <div class="skills-container">
+    <div class="skill">
+      <span class="skill-title" onclick="toggleContent('eca1-content', this)">
+        Electric Circuit Analysis I <span class="chevron">▼</span>
+      </span>
+      <div class="progress-bar">
+        <div class="progress-fill circuit" style="width: 50%;">50%</div>
+      </div>
+      <div id="eca1-content" class="content-list">
+        <ul>
+          <li><a href="eca1_startingtips.html">Starting Tips</a></li>
+          <li><a href="eca1_CENO1.html">Code Explanation No.1</a></li>
+        </ul>
+      </div>
+      <div class="comment-box">
+        I had the opportunity to take classes with Dr. Zarifkar, Dr. Pakniat, and Dr. Arefi — experiences that deeply inspired my academic path. Although the challenges of online learning during the COVID pandemic impacted my performance at the time, I remained committed to my goals. I’ve maintained an 18.5 GPA in Computer Engineering at IAU, and I’m now channeling my focus into preparing for the Electrical Engineering Olympiads with renewed determination.
+      </div>
     </div>
-  </div>
 
-  <div class="skill">
-    <span class="skill-title">Electronics I</span>
-    <div class="progress-bar">
-      <div class="progress-fill electronics" style="width: 20%;">20%</div>
+    <div class="skill">
+      <span class="skill-title">Electric Circuit Analysis II</span>
+      <div class="progress-bar">
+        <div class="progress-fill circuit" style="width: 20%;">20%</div>
+      </div>
     </div>
-    <div class="comment-box">
-      I've used Dr. Zarifkar's classes while I was studying at Shiraz University.
-    </div>
-  </div>
 
-  <div class="skill">
-    <span class="skill-title">Electronics II</span>
-    <div class="progress-bar">
-      <div class="progress-fill electronics" style="width: 0%;">0%</div>
+    <div class="skill">
+      <span class="skill-title">Electronics I</span>
+      <div class="progress-bar">
+        <div class="progress-fill electronics" style="width: 20%;">20%</div>
+      </div>
+      <div class="comment-box">
+        I've used Dr. Zarifkar's classes while I was studying at Shiraz University.
+      </div>
     </div>
-  </div>
 
-  <div class="skill">
-    <span class="skill-title">Electromagnetics</span>
-    <div class="progress-bar">
-      <div class="progress-fill emagnet" style="width: 40%;">40%</div>
+    <div class="skill">
+      <span class="skill-title">Electronics II</span>
+      <div class="progress-bar">
+        <div class="progress-fill electronics" style="width: 0%;">0%</div>
+      </div>
     </div>
-    <div class="comment-box">
-      I made use of Dr. Mohajeri's classes during my studies of this subject
-    </div>
-  </div>
 
-  <div class="skill">
-    <span class="skill-title">Linear Control Systems</span>
-    <div class="progress-bar">
-      <div class="progress-fill control" style="width: 0%;">0%</div>
+    <div class="skill">
+      <span class="skill-title">Electromagnetics</span>
+      <div class="progress-bar">
+        <div class="progress-fill emagnet" style="width: 40%;">40%</div>
+      </div>
+      <div class="comment-box">
+        I made use of Dr. Mohajeri's classes during my studies of this subject.
+      </div>
     </div>
-  </div>
 
-  <div class="skill">
-    <span class="skill-title">Electric Machines I</span>
-    <div class="progress-bar">
-      <div class="progress-fill machines" style="width: 0%;">0%</div>
+    <div class="skill">
+      <span class="skill-title">Linear Control Systems</span>
+      <div class="progress-bar">
+        <div class="progress-fill control" style="width: 0%;">0%</div>
+      </div>
     </div>
-  </div>
 
-  <div class="skill">
-    <span class="skill-title">Electric Machines II</span>
-    <div class="progress-bar">
-      <div class="progress-fill machines" style="width: 0%;">0%</div>
+    <div class="skill">
+      <span class="skill-title">Electric Machines I</span>
+      <div class="progress-bar">
+        <div class="progress-fill machines" style="width: 0%;">0%</div>
+      </div>
+    </div>
+
+    <div class="skill">
+      <span class="skill-title">Electric Machines II</span>
+      <div class="progress-bar">
+        <div class="progress-fill machines" style="width: 0%;">0%</div>
+      </div>
     </div>
   </div>
-</div>
 
   <footer>
     &copy; 2025 Parham
   </footer>
+
+  <script>
+    function toggleContent(id, titleEl) {
+      const content = document.getElementById(id);
+      const chevron = titleEl.querySelector('.chevron');
+      content.classList.toggle('open');
+      chevron.classList.toggle('rotate');
+    }
+  </script>
 </body>
 </html>
