@@ -5,15 +5,17 @@ on:
     branches:
       - main
 
+permissions:
+  contents: write
+
 jobs:
   generate-updates:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v3
         with:
-          fetch-depth: 0  # This ensures full git history is available
+          fetch-depth: 0
 
       - name: Setup Node.js
         uses: actions/setup-node@v3
