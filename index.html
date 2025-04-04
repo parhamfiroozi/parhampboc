@@ -99,7 +99,7 @@
       margin-top: 10px;
     }
     .content-list.open {
-      max-height: 200px;
+      max-height: 400px;
     }
     .content-list ul {
       list-style: none;
@@ -152,32 +152,18 @@
     </div>
 
     <div class="skill">
-  <span class="skill-title" onclick="toggleContent('html-content', this)">
-    HTML <span class="chevron">▼</span>
-  </span>
-  <div class="progress-bar" onclick="toggleContent('html-content', this.parentElement.querySelector('.skill-title'))">
-    <div class="progress-fill" style="width: 20%;">20%</div>
-  </div>
-  <div id="html-content" class="content-list">
-    <ul>
-      <li><a href="startingtips.html">Starting Tips</a></li>
-      <li><a href="CENO1.html">Code Explanation No.1</a></li>
-    </ul>
-  </div>
-</div>
-
-
-    <div class="skill">
-      <span class="skill-title">CSS</span>
-      <div class="progress-bar">
-        <div class="progress-fill" style="width: 10%;">10%</div>
-      </div>
-    </div>
-
-    <div class="skill">
-      <span class="skill-title">JavaScript</span>
-      <div class="progress-bar">
+      <span class="skill-title" onclick="toggleContent('webdev-content', this)">
+        Website Building (HTML, CSS, JavaScript) <span class="chevron">▼</span>
+      </span>
+      <div class="progress-bar" onclick="toggleContent('webdev-content', this.parentElement.querySelector('.skill-title'))">
         <div class="progress-fill" style="width: 40%;">40%</div>
+      </div>
+      <div id="webdev-content" class="content-list">
+        <ul>
+          <li><a href="startingtips.html">Starting Tips</a></li>
+          <li><a href="CENO1.html">Code Explanation No.1</a></li>
+
+        </ul>
       </div>
     </div>
 
