@@ -4,9 +4,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Coding Progress</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
   <style>
-    /* Basic resets and layout */
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
       font-family: 'Poppins', sans-serif;
@@ -45,26 +44,14 @@
       max-width: 700px;
       margin: 0 auto;
     }
-    /* Each subject block */
     .skill {
-      margin-bottom: 30px;
-      /* data-id attribute on each skill must match an entry in updates.json */
+      margin-bottom: 25px;
     }
     .skill-title {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
       font-size: 1rem;
       font-weight: 600;
       margin-bottom: 5px;
-      color: #007acc;
       cursor: pointer;
-    }
-    .chevron {
-      transition: transform 0.3s ease;
-    }
-    .chevron.rotate {
-      transform: rotate(180deg);
     }
     .progress-bar {
       background: #ccc;
@@ -76,28 +63,15 @@
     .progress-fill {
       background: #007acc;
       height: 100%;
+      width: 0;
       line-height: 25px;
       color: #fff;
       text-align: center;
       transition: width 0.3s ease;
-      font-weight: 600;
     }
-    .last-updated {
-      font-size: 0.8rem;
-      font-weight: 500;
-      color: #777;
-      margin-top: 6px;
-      /* Tooltip will show full timestamp */
-    }
-    /* Collapsible subcontent styling */
     .content-list {
-      max-height: 0;
-      overflow: hidden;
-      transition: max-height 0.4s ease;
       margin-top: 10px;
-    }
-    .content-list.open {
-      max-height: 300px;
+      display: none;
     }
     .content-list ul {
       list-style: none;
@@ -105,12 +79,6 @@
     }
     .content-list li {
       margin-bottom: 8px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-size: 0.95rem;
-      color: #333;
-      /* Each li has its own data-id matching its file key */
     }
     .content-list a {
       color: #007acc;
@@ -119,6 +87,11 @@
     }
     .content-list a:hover {
       text-decoration: underline;
+    }
+    .last-updated {
+      font-size: 0.8rem;
+      color: #888;
+      margin-top: 5px;
     }
     footer {
       text-align: center;
@@ -129,6 +102,7 @@
   </style>
 </head>
 <body>
+
   <nav>
     <a href="index.html">Coding</a> |
     <a href="electrical.html">Electrical Engineering</a> |
@@ -137,18 +111,17 @@
   </nav>
 
   <div class="header">
-    <img src="https://i.postimg.cc/qRLZSgGg/Chat-GPT-Image-Mar-30-2025-02-29-22-PM.png" alt="Coding Image" />
+    <img src="https://i.postimg.cc/qRLZSgGg/Chat-GPT-Image-Mar-30-2025-02-29-22-PM.png" alt="Coding Image">
     <h1>Coding Progress</h1>
     <p class="subtitle">Tracking my coding skills</p>
   </div>
 
   <div class="skills-container">
-    <!-- HTML Subject Block -->
-    <div class="skill" data-id="html">
-      <span class="skill-title" onclick="toggleContent('html-content', this)">
-        HTML <span class="chevron">▼</span>
-      </span>
-      <div class="progress-bar" onclick="toggleContent('html-content', this.parentElement.querySelector('.skill-title'))">
+
+    <!-- HTML (including CSS/JS as frontend bundle) -->
+    <div class="skill" id="html">
+      <span class="skill-title" onclick="toggleContent('html-content')">HTML + CSS + JavaScript</span>
+      <div class="progress-bar" onclick="toggleContent('html-content')">
         <div class="progress-fill" style="width: 20%;">20%</div>
       </div>
       <div class="last-updated"></div>
@@ -166,32 +139,33 @@
       </div>
     </div>
 
-    <!-- CSS Subject Block -->
-    <div class="skill" data-id="css">
-      <span class="skill-title">CSS</span>
+    <!-- Python -->
+    <div class="skill" id="python">
+      <span class="skill-title">Python</span>
       <div class="progress-bar">
-        <div class="progress-fill" style="width: 10%;">10%</div>
+        <div class="progress-fill" style="width: 60%;">60%</div>
       </div>
       <div class="last-updated"></div>
     </div>
 
-    <!-- JavaScript Subject Block -->
-    <div class="skill" data-id="javascript">
-      <span class="skill-title">JavaScript</span>
+    <!-- C++ -->
+    <div class="skill" id="cpp">
+      <span class="skill-title">C++</span>
       <div class="progress-bar">
-        <div class="progress-fill" style="width: 40%;">40%</div>
+        <div class="progress-fill" style="width: 70%;">70%</div>
       </div>
       <div class="last-updated"></div>
     </div>
 
-    <!-- React Subject Block -->
-    <div class="skill" data-id="react">
+    <!-- React (optional) -->
+    <div class="skill" id="react">
       <span class="skill-title">React.js</span>
       <div class="progress-bar">
         <div class="progress-fill" style="width: 0%;">0%</div>
       </div>
       <div class="last-updated"></div>
     </div>
+
   </div>
 
   <footer>
@@ -199,7 +173,11 @@
   </footer>
 
   <script>
-    // Format relative time (e.g., "5 minutes ago")
+    function toggleContent(id) {
+      const content = document.getElementById(id);
+      content.style.display = content.style.display === 'block' ? 'none' : 'block';
+    }
+
     function formatRelativeTime(date) {
       const now = new Date();
       const diff = now - date;
@@ -207,63 +185,45 @@
       const minutes = Math.floor(diff / 60000);
       const hours = Math.floor(diff / 3600000);
       const days = Math.floor(diff / 86400000);
-      
       if (seconds < 60) return "just now";
       if (minutes < 60) return `${minutes} minute${minutes !== 1 ? 's' : ''} ago`;
       if (hours < 24) return `${hours} hour${hours !== 1 ? 's' : ''} ago`;
       if (days < 30) return `${days} day${days !== 1 ? 's' : ''} ago`;
       return date.toLocaleDateString();
     }
-    
-    // Fetch updates.json, tag elements, and sort subjects
-    async function sortAndTagContent() {
-      const container = document.querySelector('.skills-container');
-      const skills = Array.from(container.querySelectorAll('.skill'));
-      
-      // Fetch update data (ensure updates.json is in the same folder or adjust path)
-      const updateData = await fetch('updates.json').then(res => res.json());
-      
-      skills.forEach(skill => {
-        const id = skill.dataset.id;
-        const tag = skill.querySelector('.last-updated');
-        if (updateData[id]) {
-          const date = new Date(updateData[id]);
-          tag.textContent = "Updated " + formatRelativeTime(date);
-          tag.title = date.toLocaleString();
-          skill.dataset.updated = updateData[id];
-        }
-        
-        // Tag subcontent items
-        skill.querySelectorAll('li').forEach(item => {
-          const subId = item.dataset.id;
-          const subTag = item.querySelector('.last-updated');
-          if (updateData[subId]) {
-            const date = new Date(updateData[subId]);
-            subTag.textContent = formatRelativeTime(date);
-            subTag.title = date.toLocaleString();
+
+    async function fetchUpdates() {
+      try {
+        const res = await fetch('updates.json');
+        const updates = await res.json();
+
+        document.querySelectorAll('.skill').forEach(skill => {
+          const id = skill.id;
+          const tag = skill.querySelector('.last-updated');
+          if (updates[id]) {
+            const date = new Date(updates[id]);
+            tag.textContent = "Updated " + formatRelativeTime(date);
+            tag.title = date.toLocaleString();
+            skill.dataset.updated = updates[id];
           }
+
+          // Subcontent updates
+          skill.querySelectorAll('li').forEach(li => {
+            const subId = li.dataset.id;
+            const subTag = li.querySelector('.last-updated');
+            if (updates[subId]) {
+              const date = new Date(updates[subId]);
+              subTag.textContent = formatRelativeTime(date);
+              subTag.title = date.toLocaleString();
+            }
+          });
         });
-      });
-      
-      // Sort the subject blocks by updated timestamp (newest first)
-      skills.sort((a, b) => {
-        const aTime = new Date(a.dataset.updated || 0);
-        const bTime = new Date(b.dataset.updated || 0);
-        return bTime - aTime;
-      });
-      
-      skills.forEach(skill => container.appendChild(skill));
+      } catch (err) {
+        console.error("Failed to load updates.json:", err);
+      }
     }
-    
-    // Toggle the visibility of subcontent
-    function toggleContent(id, titleEl) {
-      const content = document.getElementById(id);
-      const chevron = titleEl.querySelector('.chevron');
-      content.classList.toggle('open');
-      chevron.classList.toggle('rotate');
-    }
-    
-    document.addEventListener('DOMContentLoaded', sortAndTagContent);
+
+    document.addEventListener('DOMContentLoaded', fetchUpdates);
   </script>
 </body>
 </html>
