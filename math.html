@@ -53,8 +53,11 @@
       margin: 0 auto;
       padding: 0 10px;
     }
+    /* Each subject block now carries a data-id that should correspond to its backend key */
     .skill {
       margin-bottom: 20px;
+      padding-bottom: 5px;
+      border-bottom: 1px solid #ccc;
     }
     .skill-title {
       font-size: 1rem;
@@ -78,6 +81,7 @@
       transition: width 0.3s ease;
       line-height: 25px;
     }
+    /* Color classes for different subjects */
     .progress-fill.linear { background: linear-gradient(90deg, #ff7e5f, #feb47b); }
     .progress-fill.analysis { background: linear-gradient(90deg, #6a11cb, #2575fc); }
     .progress-fill.algebra { background: linear-gradient(90deg, #43cea2, #185a9d); }
@@ -88,27 +92,24 @@
     .progress-fill.graph { background: linear-gradient(90deg, #11998e, #38ef7d); }
     .progress-fill.group { background: linear-gradient(90deg, #a8c0ff, #3f2b96); }
     .progress-fill.variational { background: linear-gradient(90deg, #fc5c7d, #6a82fb); }
+    /* Update timestamp styling */
+    .last-updated {
+      font-size: 0.8rem;
+      color: #777;
+      margin-top: 5px;
+    }
     footer {
       text-align: center;
       margin-top: 40px;
       font-size: 0.85rem;
       color: #777;
     }
-
-    /* --- Responsive Tweaks --- */
+    /* Responsive tweaks */
     @media (max-width: 480px) {
-      body {
-        padding: 12px;
-      }
-      h1 {
-        font-size: 1.6rem;
-      }
-      .subtitle {
-        font-size: 1rem;
-      }
-      .progress-fill {
-        font-size: 0.8rem;
-      }
+      body { padding: 12px; }
+      h1 { font-size: 1.6rem; }
+      .subtitle { font-size: 1rem; }
+      .progress-fill { font-size: 0.8rem; }
     }
   </style>
 </head>
@@ -125,75 +126,127 @@
     <p class="subtitle">Tracking my mathematical subjects</p>
   </div>
   <div class="skills-container">
-    <div class="skill">
+    <!-- Each .skill block includes a data-id that matches the key in updates.json.
+         For example, if you later create a subcontent file named "linearalgebra_intro.html",
+         the backend will group it under the "linearalgebra" key. -->
+    <div class="skill" data-id="linearalgebra">
       <span class="skill-title">Linear Algebra</span>
       <div class="progress-bar">
         <div class="progress-fill linear" style="width: 50%;">50%</div>
       </div>
+      <div class="last-updated"></div>
     </div>
-    <div class="skill">
+    <div class="skill" data-id="mathematicalanalysis">
       <span class="skill-title">Mathematical Analysis</span>
       <div class="progress-bar">
         <div class="progress-fill analysis" style="width: 0%;">0%</div>
       </div>
+      <div class="last-updated"></div>
     </div>
-    <div class="skill">
+    <div class="skill" data-id="algebra">
       <span class="skill-title">Algebra</span>
       <div class="progress-bar">
         <div class="progress-fill algebra" style="width: 10%;">10%</div>
       </div>
+      <div class="last-updated"></div>
     </div>
-    <div class="skill">
+    <div class="skill" data-id="topology">
       <span class="skill-title">Topology</span>
       <div class="progress-bar">
         <div class="progress-fill topology" style="width: 0%;">0%</div>
       </div>
+      <div class="last-updated"></div>
     </div>
-    <div class="skill">
+    <div class="skill" data-id="discretemath">
       <span class="skill-title">Discrete Math</span>
       <div class="progress-bar">
         <div class="progress-fill discrete" style="width: 90%;">90%</div>
       </div>
+      <div class="last-updated"></div>
     </div>
-    <div class="skill">
+    <div class="skill" data-id="linearoptimization">
       <span class="skill-title">Linear Optimization</span>
       <div class="progress-bar">
         <div class="progress-fill optimization" style="width: 0%;">0%</div>
       </div>
+      <div class="last-updated"></div>
     </div>
-    <div class="skill">
+    <div class="skill" data-id="nonlinearoptimization">
       <span class="skill-title">Non-linear Optimization</span>
       <div class="progress-bar">
         <div class="progress-fill optimization" style="width: 0%;">0%</div>
       </div>
+      <div class="last-updated"></div>
     </div>
-    <div class="skill">
+    <div class="skill" data-id="stochasticprocesses">
       <span class="skill-title">Stochastic Processes</span>
       <div class="progress-bar">
         <div class="progress-fill stochastic" style="width: 30%;">30%</div>
       </div>
+      <div class="last-updated"></div>
     </div>
-    <div class="skill">
+    <div class="skill" data-id="graphtheory">
       <span class="skill-title">Graph Theory</span>
       <div class="progress-bar">
         <div class="progress-fill graph" style="width: 0%;">0%</div>
       </div>
+      <div class="last-updated"></div>
     </div>
-    <div class="skill">
+    <div class="skill" data-id="grouptheory">
       <span class="skill-title">Group Theory</span>
       <div class="progress-bar">
         <div class="progress-fill group" style="width: 5%;">5%</div>
       </div>
+      <div class="last-updated"></div>
     </div>
-    <div class="skill">
+    <div class="skill" data-id="variationalcalculus">
       <span class="skill-title">Variational Calculus</span>
       <div class="progress-bar">
         <div class="progress-fill variational" style="width: 0%;">0%</div>
       </div>
+      <div class="last-updated"></div>
     </div>
   </div>
   <footer>
     &copy; 2025 Parham
   </footer>
+  <script>
+    // Helper: format a date as relative time (e.g., "5 minutes ago")
+    function formatRelativeTime(date) {
+      const now = new Date();
+      const diff = now - date;
+      const seconds = Math.floor(diff / 1000);
+      const minutes = Math.floor(diff / 60000);
+      const hours = Math.floor(diff / 3600000);
+      const days = Math.floor(diff / 86400000);
+      if (seconds < 60) return "just now";
+      if (minutes < 60) return `${minutes} minute${minutes !== 1 ? 's' : ''} ago`;
+      if (hours < 24) return `${hours} hour${hours !== 1 ? 's' : ''} ago`;
+      if (days < 30) return `${days} day${days !== 1 ? 's' : ''} ago`;
+      return date.toLocaleDateString();
+    }
+    
+    // Fetch the updates.json file and update each subject's timestamp.
+    async function fetchUpdates() {
+      try {
+        const res = await fetch('updates.json');
+        const updateData = await res.json();
+        document.querySelectorAll('.skill').forEach(skill => {
+          const id = skill.dataset.id;
+          const tag = skill.querySelector('.last-updated');
+          if (updateData[id]) {
+            const date = new Date(updateData[id].updated);
+            tag.textContent = "Updated " + formatRelativeTime(date);
+            tag.title = date.toLocaleString();
+            skill.dataset.updated = updateData[id].updated;
+          }
+        });
+      } catch (err) {
+        console.error("Failed to load updates.json:", err);
+      }
+    }
+    
+    document.addEventListener('DOMContentLoaded', fetchUpdates);
+  </script>
 </body>
 </html>
