@@ -190,66 +190,73 @@
     &copy; 2025 Parham
   </footer>
 
-  <script>
-    function formatRelativeTime(date) {
-      const now = new Date();
-      const diff = now - date;
-
-      const seconds = Math.floor(diff / 1000);
-      const minutes = Math.floor(diff / 60000);
-      const hours   = Math.floor(diff / 3600000);
-      const days    = Math.floor(diff / 86400000);
-
-      if (seconds < 60) return "just now";
-      if (minutes < 60) return `${minutes} minute${minutes !== 1 ? 's' : ''} ago`;
-      if (hours < 24) return `${hours} hour${hours !== 1 ? 's' : ''} ago`;
-      if (days < 30) return `${days} day${days !== 1 ? 's' : ''} ago`;
-      return date.toLocaleDateString();
-    }
-
-    async function sortAndTagContent() {
-      const container = document.querySelector('.skills-container');
-      const skills = Array.from(container.querySelectorAll('.skill'));
-      const updateData = await fetch('updates.json').then(res => res.json());
-
-      skills.forEach(skill => {
-        const id = skill.dataset.id;
-        const tag = skill.querySelector('.last-updated');
-        if (updateData[id]) {
-          const date = new Date(updateData[id]);
-          tag.textContent = "Updated " + formatRelativeTime(date);
-          tag.title = date.toLocaleString();
-          skill.dataset.updated = updateData[id];
+<script>
+  // Function to calculate relative time (e.g., "5 minutes ago")
+  function formatRelativeTime(date) {
+    const now = new Date();
+    const diff = now - date;
+    const seconds = Math.floor(diff / 1000);
+    const minutes = Math.floor(diff / 60000);
+    const hours = Math.floor(diff / 3600000);
+    const days = Math.floor(diff / 86400000);
+    
+    if (seconds < 60) return "just now";
+    if (minutes < 60) return `${minutes} minute${minutes !== 1 ? 's' : ''} ago`;
+    if (hours < 24) return `${hours} hour${hours !== 1 ? 's' : ''} ago`;
+    if (days < 30) return `${days} day${days !== 1 ? 's' : ''} ago`;
+    return date.toLocaleDateString();
+  }
+  
+  async function sortAndTagContent() {
+    const container = document.querySelector('.skills-container');
+    const skills = Array.from(container.querySelectorAll('.skill'));
+    
+    // Fetch update data from updates.json (make sure it's in the same folder or adjust the path)
+    const updateData = await fetch('updates.json').then(res => res.json());
+    
+    // Update each subject (and subcontent) with relative timestamps
+    skills.forEach(skill => {
+      const id = skill.dataset.id;
+      const tag = skill.querySelector('.last-updated');
+      if (updateData[id]) {
+        const date = new Date(updateData[id]);
+        tag.textContent = "Updated " + formatRelativeTime(date);
+        tag.title = date.toLocaleString();
+        skill.dataset.updated = updateData[id];
+      }
+      
+      // Process each subcontent item
+      skill.querySelectorAll('li').forEach(item => {
+        const subId = item.dataset.id;
+        const subTag = item.querySelector('.last-updated');
+        if (updateData[subId]) {
+          const date = new Date(updateData[subId]);
+          subTag.textContent = formatRelativeTime(date);
+          subTag.title = date.toLocaleString();
         }
-
-        skill.querySelectorAll('li').forEach(item => {
-          const subId = item.dataset.id;
-          const subTag = item.querySelector('.last-updated');
-          if (updateData[subId]) {
-            const date = new Date(updateData[subId]);
-            subTag.textContent = formatRelativeTime(date);
-            subTag.title = date.toLocaleString();
-          }
-        });
       });
+    });
+    
+    // Sort the subjects so that the most recently updated appear at the top
+    skills.sort((a, b) => {
+      const aTime = new Date(a.dataset.updated || 0);
+      const bTime = new Date(b.dataset.updated || 0);
+      return bTime - aTime;
+    });
+    
+    // Reorder the DOM elements based on the new sort order
+    skills.forEach(skill => container.appendChild(skill));
+  }
+  
+  function toggleContent(id, titleEl) {
+    const content = document.getElementById(id);
+    const chevron = titleEl.querySelector('.chevron');
+    content.classList.toggle('open');
+    chevron.classList.toggle('rotate');
+  }
+  
+  document.addEventListener('DOMContentLoaded', sortAndTagContent);
+</script>
 
-      skills.sort((a, b) => {
-        const aTime = new Date(a.dataset.updated || 0);
-        const bTime = new Date(b.dataset.updated || 0);
-        return bTime - aTime;
-      });
-
-      skills.forEach(skill => container.appendChild(skill));
-    }
-
-    function toggleContent(id, titleEl) {
-      const content = document.getElementById(id);
-      const chevron = titleEl.querySelector('.chevron');
-      content.classList.toggle('open');
-      chevron.classList.toggle('rotate');
-    }
-
-    document.addEventListener('DOMContentLoaded', sortAndTagContent);
-  </script>
 </body>
 </html>
