@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Coding Progress</title>
-  <link rel="preconnect" href="https://fonts.gstatic.com">
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.gstatic.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
@@ -17,6 +17,7 @@
     nav {
       text-align: center;
       margin-bottom: 30px;
+      flex-wrap: wrap;
     }
     nav a {
       margin: 0 10px;
@@ -46,12 +47,29 @@
       margin: 0 auto;
     }
     .skill {
-      margin-bottom: 20px;
+      margin-bottom: 25px;
     }
     .skill-title {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
       font-size: 1rem;
       font-weight: 600;
       margin-bottom: 5px;
+      color: #007acc;
+      cursor: pointer;
+      transition: color 0.3s ease;
+    }
+    .skill-title:hover {
+      color: #005f99;
+    }
+    .chevron {
+      font-size: 0.85rem;
+      margin-left: 8px;
+      transition: transform 0.3s ease;
+    }
+    .chevron.rotate {
+      transform: rotate(180deg);
     }
     .progress-bar {
       background: #ccc;
@@ -59,6 +77,11 @@
       overflow: hidden;
       height: 25px;
       cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    .progress-bar:hover {
+      box-shadow: 0 0 10px #007acc66;
+      transform: scale(1.02);
     }
     .progress-fill {
       background: #007acc;
@@ -70,8 +93,13 @@
       transition: width 0.3s ease;
     }
     .content-list {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease;
       margin-top: 10px;
-      display: none;
+    }
+    .content-list.open {
+      max-height: 200px;
     }
     .content-list ul {
       list-style: none;
@@ -104,7 +132,7 @@
     <a href="math.html">Math</a>
   </nav>
   <div class="header">
-    <img src="https://i.postimg.cc/qRLZSgGg/Chat-GPT-Image-Mar-30-2025-02-29-22-PM.png" alt="Coding Image">
+    <img src="https://i.postimg.cc/qRLZSgGg/Chat-GPT-Image-Mar-30-2025-02-29-22-PM.png" alt="Coding Image" />
     <h1>Coding Progress</h1>
     <p class="subtitle">Tracking my coding skills</p>
   </div>
@@ -115,15 +143,19 @@
         <div class="progress-fill" style="width: 70%;">70%</div>
       </div>
     </div>
+
     <div class="skill">
       <span class="skill-title">Python</span>
       <div class="progress-bar">
         <div class="progress-fill" style="width: 60%;">60%</div>
       </div>
     </div>
+
     <div class="skill">
-      <span class="skill-title">HTML</span>
-      <div class="progress-bar" onclick="toggleContent('html-content')">
+      <span class="skill-title" onclick="toggleContent('html-content', this)">
+        HTML <span class="chevron">▼</span>
+      </span>
+      <div class="progress-bar">
         <div class="progress-fill" style="width: 20%;">20%</div>
       </div>
       <div id="html-content" class="content-list">
@@ -133,18 +165,21 @@
         </ul>
       </div>
     </div>
+
     <div class="skill">
       <span class="skill-title">CSS</span>
       <div class="progress-bar">
         <div class="progress-fill" style="width: 10%;">10%</div>
       </div>
     </div>
+
     <div class="skill">
       <span class="skill-title">JavaScript</span>
       <div class="progress-bar">
         <div class="progress-fill" style="width: 40%;">40%</div>
       </div>
     </div>
+
     <div class="skill">
       <span class="skill-title">React.js</span>
       <div class="progress-bar">
@@ -152,19 +187,15 @@
       </div>
     </div>
   </div>
-
   <footer>
     &copy; 2025 Parham
   </footer>
-
   <script>
-    function toggleContent(id) {
+    function toggleContent(id, titleEl) {
       const content = document.getElementById(id);
-      if (content.style.display === 'block') {
-        content.style.display = 'none';
-      } else {
-        content.style.display = 'block';
-      }
+      const chevron = titleEl.querySelector('.chevron');
+      content.classList.toggle('open');
+      chevron.classList.toggle('rotate');
     }
   </script>
 </body>
