@@ -82,14 +82,8 @@
     .last-updated {
       font-size: 0.8rem;
       font-weight: 500;
-      color: #333;
+      color: #777;
       margin-top: 6px;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-    .last-updated::before {
-      content: "🕓";
     }
     .content-list {
       max-height: 0;
@@ -197,6 +191,22 @@
   </footer>
 
   <script>
+    function formatRelativeTime(date) {
+      const now = new Date();
+      const diff = now - date;
+
+      const seconds = Math.floor(diff / 1000);
+      const minutes = Math.floor(diff / 60000);
+      const hours   = Math.floor(diff / 3600000);
+      const days    = Math.floor(diff / 86400000);
+
+      if (seconds < 60) return "just now";
+      if (minutes < 60) return `${minutes} minute${minutes !== 1 ? 's' : ''} ago`;
+      if (hours < 24) return `${hours} hour${hours !== 1 ? 's' : ''} ago`;
+      if (days < 30) return `${days} day${days !== 1 ? 's' : ''} ago`;
+      return date.toLocaleDateString();
+    }
+
     async function sortAndTagContent() {
       const container = document.querySelector('.skills-container');
       const skills = Array.from(container.querySelectorAll('.skill'));
@@ -207,7 +217,7 @@
         const tag = skill.querySelector('.last-updated');
         if (updateData[id]) {
           const date = new Date(updateData[id]);
-          tag.textContent = "Last updated: " + date.toLocaleDateString();
+          tag.textContent = "Updated " + formatRelativeTime(date);
           tag.title = date.toLocaleString();
           skill.dataset.updated = updateData[id];
         }
@@ -217,7 +227,7 @@
           const subTag = item.querySelector('.last-updated');
           if (updateData[subId]) {
             const date = new Date(updateData[subId]);
-            subTag.textContent = date.toLocaleDateString();
+            subTag.textContent = formatRelativeTime(date);
             subTag.title = date.toLocaleString();
           }
         });
