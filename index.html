@@ -6,6 +6,7 @@
   <title>Coding Progress</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
   <style>
+    /* Basic resets and layout */
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
       font-family: 'Poppins', sans-serif;
@@ -44,8 +45,10 @@
       max-width: 700px;
       margin: 0 auto;
     }
+    /* Each subject block */
     .skill {
       margin-bottom: 30px;
+      /* data-id attribute on each skill must match an entry in updates.json */
     }
     .skill-title {
       display: flex;
@@ -84,7 +87,9 @@
       font-weight: 500;
       color: #777;
       margin-top: 6px;
+      /* Tooltip will show full timestamp */
     }
+    /* Collapsible subcontent styling */
     .content-list {
       max-height: 0;
       overflow: hidden;
@@ -105,6 +110,7 @@
       align-items: center;
       font-size: 0.95rem;
       color: #333;
+      /* Each li has its own data-id matching its file key */
     }
     .content-list a {
       color: #007acc;
@@ -137,7 +143,7 @@
   </div>
 
   <div class="skills-container">
-
+    <!-- HTML Subject Block -->
     <div class="skill" data-id="html">
       <span class="skill-title" onclick="toggleContent('html-content', this)">
         HTML <span class="chevron">▼</span>
@@ -160,6 +166,7 @@
       </div>
     </div>
 
+    <!-- CSS Subject Block -->
     <div class="skill" data-id="css">
       <span class="skill-title">CSS</span>
       <div class="progress-bar">
@@ -168,6 +175,7 @@
       <div class="last-updated"></div>
     </div>
 
+    <!-- JavaScript Subject Block -->
     <div class="skill" data-id="javascript">
       <span class="skill-title">JavaScript</span>
       <div class="progress-bar">
@@ -176,6 +184,7 @@
       <div class="last-updated"></div>
     </div>
 
+    <!-- React Subject Block -->
     <div class="skill" data-id="react">
       <span class="skill-title">React.js</span>
       <div class="progress-bar">
@@ -183,80 +192,78 @@
       </div>
       <div class="last-updated"></div>
     </div>
-
   </div>
 
   <footer>
     &copy; 2025 Parham
   </footer>
 
-<script>
-  // Function to calculate relative time (e.g., "5 minutes ago")
-  function formatRelativeTime(date) {
-    const now = new Date();
-    const diff = now - date;
-    const seconds = Math.floor(diff / 1000);
-    const minutes = Math.floor(diff / 60000);
-    const hours = Math.floor(diff / 3600000);
-    const days = Math.floor(diff / 86400000);
-    
-    if (seconds < 60) return "just now";
-    if (minutes < 60) return `${minutes} minute${minutes !== 1 ? 's' : ''} ago`;
-    if (hours < 24) return `${hours} hour${hours !== 1 ? 's' : ''} ago`;
-    if (days < 30) return `${days} day${days !== 1 ? 's' : ''} ago`;
-    return date.toLocaleDateString();
-  }
-  
-  async function sortAndTagContent() {
-    const container = document.querySelector('.skills-container');
-    const skills = Array.from(container.querySelectorAll('.skill'));
-    
-    // Fetch update data from updates.json (make sure it's in the same folder or adjust the path)
-    const updateData = await fetch('updates.json').then(res => res.json());
-    
-    // Update each subject (and subcontent) with relative timestamps
-    skills.forEach(skill => {
-      const id = skill.dataset.id;
-      const tag = skill.querySelector('.last-updated');
-      if (updateData[id]) {
-        const date = new Date(updateData[id]);
-        tag.textContent = "Updated " + formatRelativeTime(date);
-        tag.title = date.toLocaleString();
-        skill.dataset.updated = updateData[id];
-      }
+  <script>
+    // Format relative time (e.g., "5 minutes ago")
+    function formatRelativeTime(date) {
+      const now = new Date();
+      const diff = now - date;
+      const seconds = Math.floor(diff / 1000);
+      const minutes = Math.floor(diff / 60000);
+      const hours = Math.floor(diff / 3600000);
+      const days = Math.floor(diff / 86400000);
       
-      // Process each subcontent item
-      skill.querySelectorAll('li').forEach(item => {
-        const subId = item.dataset.id;
-        const subTag = item.querySelector('.last-updated');
-        if (updateData[subId]) {
-          const date = new Date(updateData[subId]);
-          subTag.textContent = formatRelativeTime(date);
-          subTag.title = date.toLocaleString();
+      if (seconds < 60) return "just now";
+      if (minutes < 60) return `${minutes} minute${minutes !== 1 ? 's' : ''} ago`;
+      if (hours < 24) return `${hours} hour${hours !== 1 ? 's' : ''} ago`;
+      if (days < 30) return `${days} day${days !== 1 ? 's' : ''} ago`;
+      return date.toLocaleDateString();
+    }
+    
+    // Fetch updates.json, tag elements, and sort subjects
+    async function sortAndTagContent() {
+      const container = document.querySelector('.skills-container');
+      const skills = Array.from(container.querySelectorAll('.skill'));
+      
+      // Fetch update data (ensure updates.json is in the same folder or adjust path)
+      const updateData = await fetch('updates.json').then(res => res.json());
+      
+      skills.forEach(skill => {
+        const id = skill.dataset.id;
+        const tag = skill.querySelector('.last-updated');
+        if (updateData[id]) {
+          const date = new Date(updateData[id]);
+          tag.textContent = "Updated " + formatRelativeTime(date);
+          tag.title = date.toLocaleString();
+          skill.dataset.updated = updateData[id];
         }
+        
+        // Tag subcontent items
+        skill.querySelectorAll('li').forEach(item => {
+          const subId = item.dataset.id;
+          const subTag = item.querySelector('.last-updated');
+          if (updateData[subId]) {
+            const date = new Date(updateData[subId]);
+            subTag.textContent = formatRelativeTime(date);
+            subTag.title = date.toLocaleString();
+          }
+        });
       });
-    });
+      
+      // Sort the subject blocks by updated timestamp (newest first)
+      skills.sort((a, b) => {
+        const aTime = new Date(a.dataset.updated || 0);
+        const bTime = new Date(b.dataset.updated || 0);
+        return bTime - aTime;
+      });
+      
+      skills.forEach(skill => container.appendChild(skill));
+    }
     
-    // Sort the subjects so that the most recently updated appear at the top
-    skills.sort((a, b) => {
-      const aTime = new Date(a.dataset.updated || 0);
-      const bTime = new Date(b.dataset.updated || 0);
-      return bTime - aTime;
-    });
+    // Toggle the visibility of subcontent
+    function toggleContent(id, titleEl) {
+      const content = document.getElementById(id);
+      const chevron = titleEl.querySelector('.chevron');
+      content.classList.toggle('open');
+      chevron.classList.toggle('rotate');
+    }
     
-    // Reorder the DOM elements based on the new sort order
-    skills.forEach(skill => container.appendChild(skill));
-  }
-  
-  function toggleContent(id, titleEl) {
-    const content = document.getElementById(id);
-    const chevron = titleEl.querySelector('.chevron');
-    content.classList.toggle('open');
-    chevron.classList.toggle('rotate');
-  }
-  
-  document.addEventListener('DOMContentLoaded', sortAndTagContent);
-</script>
-
+    document.addEventListener('DOMContentLoaded', sortAndTagContent);
+  </script>
 </body>
 </html>
