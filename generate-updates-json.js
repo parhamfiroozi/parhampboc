@@ -1,3 +1,4 @@
+// generate-updates-json.js
 const fs = require('fs');
 const path = require('path');
 
@@ -6,6 +7,7 @@ const updates = {};
 
 function walk(dir) {
   const entries = fs.readdirSync(dir, { withFileTypes: true });
+
   for (const entry of entries) {
     const fullPath = path.join(dir, entry.name);
 
@@ -13,8 +15,8 @@ function walk(dir) {
       walk(fullPath);
     } else if (entry.isFile() && entry.name.endsWith('.html')) {
       const stats = fs.statSync(fullPath);
-      const key = path.basename(entry.name, '.html'); // e.g. "index"
-      updates[key] = stats.mtime.toISOString();       // e.g. "2025-04-04T12:00:00Z"
+      const key = path.relative('.', fullPath).replace(/\\/g, '/').replace(/\.html$/, '');
+      updates[key] = stats.mtime.toISOString();
     }
   }
 }
