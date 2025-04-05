@@ -79,7 +79,6 @@
     }
     .content-list li {
       margin-bottom: 8px;
-      cursor: pointer;
     }
     .content-list a {
       color: #007acc;
@@ -118,9 +117,8 @@
   </div>
 
   <div class="skills-container">
-    <!-- Each subject is represented as a .skill div.
-         The subject id should match the prefix used in your subcontent filenames.
-         For example, the subcontent for HTML should be named as "html_startingtips.html", "html_CENO1.html", etc. -->
+
+    <!-- HTML (including CSS/JS as frontend bundle) -->
     <div class="skill" id="html">
       <span class="skill-title" onclick="toggleContent('html-content')">HTML + CSS + JavaScript</span>
       <div class="progress-bar" onclick="toggleContent('html-content')">
@@ -129,11 +127,11 @@
       <div class="last-updated"></div>
       <div id="html-content" class="content-list">
         <ul>
-          <li data-id="html_startingtips">
+          <li data-id="startingtips">
             <a href="startingtips.html">Starting Tips</a>
             <span class="last-updated"></span>
           </li>
-          <li data-id="html_CENO1">
+          <li data-id="CENO1">
             <a href="CENO1.html">Code Explanation No.1</a>
             <span class="last-updated"></span>
           </li>
@@ -141,7 +139,7 @@
       </div>
     </div>
 
-    <!-- Python subject -->
+    <!-- Python -->
     <div class="skill" id="python">
       <span class="skill-title">Python</span>
       <div class="progress-bar">
@@ -150,7 +148,7 @@
       <div class="last-updated"></div>
     </div>
 
-    <!-- C++ subject -->
+    <!-- C++ -->
     <div class="skill" id="cpp">
       <span class="skill-title">C++</span>
       <div class="progress-bar">
@@ -159,7 +157,7 @@
       <div class="last-updated"></div>
     </div>
 
-    <!-- React.js subject -->
+    <!-- React (optional) -->
     <div class="skill" id="react">
       <span class="skill-title">React.js</span>
       <div class="progress-bar">
@@ -167,6 +165,7 @@
       </div>
       <div class="last-updated"></div>
     </div>
+
   </div>
 
   <footer>
@@ -174,13 +173,11 @@
   </footer>
 
   <script>
-    // Toggle the visibility of subcontent lists
     function toggleContent(id) {
       const content = document.getElementById(id);
       content.style.display = content.style.display === 'block' ? 'none' : 'block';
     }
 
-    // Helper function to format a date as relative time
     function formatRelativeTime(date) {
       const now = new Date();
       const diff = now - date;
@@ -195,29 +192,27 @@
       return date.toLocaleDateString();
     }
 
-    // Fetch and process updates.json to tag subjects and subcontent with update times.
     async function fetchUpdates() {
       try {
         const res = await fetch('updates.json');
-        const updateData = await res.json();
+        const updates = await res.json();
 
         document.querySelectorAll('.skill').forEach(skill => {
           const id = skill.id;
           const tag = skill.querySelector('.last-updated');
-          if (updateData[id]) {
-            // Use the overall "updated" timestamp from the backend group
-            const date = new Date(updateData[id].updated);
+          if (updates[id]) {
+            const date = new Date(updates[id]);
             tag.textContent = "Updated " + formatRelativeTime(date);
             tag.title = date.toLocaleString();
-            skill.dataset.updated = updateData[id].updated;
+            skill.dataset.updated = updates[id];
           }
 
-          // Update each subcontent item within the subject
+          // Subcontent updates
           skill.querySelectorAll('li').forEach(li => {
             const subId = li.dataset.id;
-            if (updateData[id] && updateData[id].subcontent[subId]) {
-              const date = new Date(updateData[id].subcontent[subId]);
-              const subTag = li.querySelector('.last-updated');
+            const subTag = li.querySelector('.last-updated');
+            if (updates[subId]) {
+              const date = new Date(updates[subId]);
               subTag.textContent = formatRelativeTime(date);
               subTag.title = date.toLocaleString();
             }
