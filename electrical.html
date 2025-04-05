@@ -59,8 +59,7 @@
       margin-bottom: 30px;
     }
     .skill-title {
-      display: flex;
-      justify-content: space-between;
+      display: inline-flex;
       align-items: center;
       font-size: 1rem;
       font-weight: 700;
@@ -69,6 +68,7 @@
       cursor: pointer;
     }
     .chevron {
+      margin-left: 5px;
       transition: transform 0.3s ease;
     }
     .chevron.rotate {
@@ -102,7 +102,12 @@
       font-weight: 500;
       color: #ffd700;
       margin-top: 6px;
-      /* This element will show relative update info */
+    }
+    .last-updated-inline {
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: #ffd700;
+      margin-left: 8px;
     }
     /* Subcontent list styling */
     .content-list {
@@ -171,7 +176,9 @@
     <!-- Subject: Electric Circuit Analysis I -->
     <div class="skill" data-id="eca1">
       <span class="skill-title" onclick="toggleContent('eca1-content', this)">
-        Electric Circuit Analysis I <span class="chevron">▼</span>
+        Electric Circuit Analysis I 
+        <span class="chevron">▼</span>
+        <span class="last-updated-inline"></span>
       </span>
       <div class="progress-bar" onclick="toggleContent('eca1-content', this.parentElement.querySelector('.skill-title'))">
         <div class="progress-fill circuit" style="width: 50%;">50%</div>
@@ -190,13 +197,16 @@
         </ul>
       </div>
       <div class="comment-box">
-            I had the opportunity to take classes with Dr. Zarifkar, Dr. Pakniat, and Dr. Arefi — experiences that deeply inspired my academic path. Although the challenges of online learning during the COVID pandemic impacted my performance at the time, I remained committed to my goals. I’ve maintained an 18.5 GPA in Computer Engineering at IAU, and I’m now channeling my focus into preparing for the Electrical Engineering Olympiads with renewed determination.
+        I had the opportunity to take classes with Dr. Zarifkar, Dr. Pakniat, and Dr. Arefi — experiences that deeply inspired my academic path. Although the challenges of online learning during the COVID pandemic impacted my performance at the time, I remained committed to my goals. I’ve maintained an 18.5 GPA in Computer Engineering at IAU, and I’m now channeling my focus into preparing for the Electrical Engineering Olympiads with renewed determination.
       </div>
     </div>
 
     <!-- Subject: Electric Circuit Analysis II -->
     <div class="skill" data-id="eca2">
-      <span class="skill-title">Electric Circuit Analysis II</span>
+      <span class="skill-title">
+        Electric Circuit Analysis II 
+        <span class="last-updated-inline"></span>
+      </span>
       <div class="progress-bar">
         <div class="progress-fill circuit" style="width: 20%;">20%</div>
       </div>
@@ -205,7 +215,10 @@
 
     <!-- Subject: Electronics I -->
     <div class="skill" data-id="electronics1">
-      <span class="skill-title">Electronics I</span>
+      <span class="skill-title">
+        Electronics I 
+        <span class="last-updated-inline"></span>
+      </span>
       <div class="progress-bar">
         <div class="progress-fill electronics" style="width: 20%;">20%</div>
       </div>
@@ -217,7 +230,10 @@
 
     <!-- Subject: Electronics II -->
     <div class="skill" data-id="electronics2">
-      <span class="skill-title">Electronics II</span>
+      <span class="skill-title">
+        Electronics II
+        <span class="last-updated-inline"></span>
+      </span>
       <div class="progress-bar">
         <div class="progress-fill electronics" style="width: 0%;">0%</div>
       </div>
@@ -226,7 +242,10 @@
 
     <!-- Subject: Electromagnetics -->
     <div class="skill" data-id="emagnetics">
-      <span class="skill-title">Electromagnetics</span>
+      <span class="skill-title">
+        Electromagnetics
+        <span class="last-updated-inline"></span>
+      </span>
       <div class="progress-bar">
         <div class="progress-fill emagnet" style="width: 40%;">40%</div>
       </div>
@@ -238,7 +257,10 @@
 
     <!-- Subject: Linear Control Systems -->
     <div class="skill" data-id="control">
-      <span class="skill-title">Linear Control Systems</span>
+      <span class="skill-title">
+        Linear Control Systems
+        <span class="last-updated-inline"></span>
+      </span>
       <div class="progress-bar">
         <div class="progress-fill control" style="width: 0%;">0%</div>
       </div>
@@ -247,7 +269,10 @@
 
     <!-- Subject: Electric Machines I -->
     <div class="skill" data-id="machines1">
-      <span class="skill-title">Electric Machines I</span>
+      <span class="skill-title">
+        Electric Machines I
+        <span class="last-updated-inline"></span>
+      </span>
       <div class="progress-bar">
         <div class="progress-fill machines" style="width: 0%;">0%</div>
       </div>
@@ -256,7 +281,10 @@
 
     <!-- Subject: Electric Machines II -->
     <div class="skill" data-id="machines2">
-      <span class="skill-title">Electric Machines II</span>
+      <span class="skill-title">
+        Electric Machines II
+        <span class="last-updated-inline"></span>
+      </span>
       <div class="progress-bar">
         <div class="progress-fill machines" style="width: 0%;">0%</div>
       </div>
@@ -268,54 +296,91 @@
     &copy; 2025 Parham
   </footer>
 
-<script>
-  function formatRelativeTime(date) {
-    const now = new Date();
-    const diff = now - date;
-    const seconds = Math.floor(diff / 1000);
-    const minutes = Math.floor(diff / 60000);
-    const hours = Math.floor(diff / 3600000);
-    const days = Math.floor(diff / 86400000);
-    if (seconds < 60) return "just now";
-    if (minutes < 60) return `${minutes} minute${minutes !== 1 ? 's' : ''} ago`;
-    if (hours < 24) return `${hours} hour${hours !== 1 ? 's' : ''} ago`;
-    if (days < 30) return `${days} day${days !== 1 ? 's' : ''} ago`;
-    return date.toLocaleDateString();
-  }
-
-  async function applyUpdateTags() {
-    try {
-      const res = await fetch('updates.json');
-      const updates = await res.json();
-
-      document.querySelectorAll('.skill').forEach(skill => {
-        const id = skill.id || skill.dataset.id;
-        const tag = skill.querySelector('.last-updated');
-
-        if (updates[id]) {
-          const date = new Date(updates[id]);
-          tag.textContent = "Updated " + formatRelativeTime(date);
-          tag.title = date.toLocaleString();
-        }
-
-        // Sub-items
-        skill.querySelectorAll('li').forEach(li => {
-          const subId = li.dataset.id;
-          const subTag = li.querySelector('.last-updated');
-          if (updates[subId]) {
-            const date = new Date(updates[subId]);
-            subTag.textContent = formatRelativeTime(date);
-            subTag.title = date.toLocaleString();
-          }
-        });
-      });
-    } catch (e) {
-      console.error("Update fetch failed:", e);
+  <script>
+    // Format a date as relative time
+    function formatRelativeTime(date) {
+      const now = new Date();
+      const diff = now - date;
+      const seconds = Math.floor(diff / 1000);
+      const minutes = Math.floor(diff / 60000);
+      const hours = Math.floor(diff / 3600000);
+      const days = Math.floor(diff / 86400000);
+      
+      if (seconds < 60) return "just now";
+      if (minutes < 60) return `${minutes} minute${minutes !== 1 ? 's' : ''} ago`;
+      if (hours < 24) return `${hours} hour${hours !== 1 ? 's' : ''} ago`;
+      if (days < 30) return `${days} day${days !== 1 ? 's' : ''} ago`;
+      return date.toLocaleDateString();
     }
-  }
+    
+    // Fetch updates from updates.json, tag elements with relative times, and sort subjects
+    async function sortAndTagContent() {
+      try {
+        const res = await fetch('updates.json');
+        const updateData = await res.json();
 
-  document.addEventListener('DOMContentLoaded', applyUpdateTags);
-</script>
+        const container = document.querySelector('.skills-container');
+        const skills = Array.from(container.querySelectorAll('.skill'));
 
+        // Fill times
+        skills.forEach(skill => {
+          const id = skill.dataset.id;
+          const inlineTag = skill.querySelector('.last-updated-inline');
+          const boxTag = skill.querySelector('.last-updated');
+
+          if (updateData[id]) {
+            const date = new Date(updateData[id]);
+            const relative = formatRelativeTime(date);
+
+            if (inlineTag) {
+              inlineTag.textContent = `(Updated ${relative})`;
+              inlineTag.title = date.toLocaleString();
+            }
+            if (boxTag) {
+              boxTag.textContent = "Updated " + relative;
+              boxTag.title = date.toLocaleString();
+            }
+          }
+
+          // Subcontent items
+          skill.querySelectorAll('li').forEach(item => {
+            const subId = item.dataset.id;
+            const subTag = item.querySelector('.last-updated');
+            if (updateData[subId]) {
+              const d = new Date(updateData[subId]);
+              subTag.textContent = formatRelativeTime(d);
+              subTag.title = d.toLocaleString();
+            }
+          });
+        });
+
+        // Sort subject blocks by updated timestamp (newest first)
+        skills.sort((a, b) => {
+          const aTime = new Date(updateData[a.dataset.id] || 0);
+          const bTime = new Date(updateData[b.dataset.id] || 0);
+          return bTime - aTime;
+        });
+        
+        // Reorder the subjects in the DOM
+        skills.forEach(skill => container.appendChild(skill));
+
+      } catch (err) {
+        console.error("Failed to load or parse updates.json:", err);
+      }
+    }
+    
+    // Toggle subcontent visibility
+    function toggleContent(id, titleEl) {
+      const content = document.getElementById(id);
+      if (!content) return;
+      const chevron = titleEl.querySelector('.chevron');
+      content.classList.toggle('open');
+      if (chevron) {
+        chevron.classList.toggle('rotate');
+      }
+    }
+    
+    document.addEventListener('DOMContentLoaded', sortAndTagContent);
+  </script>
 </body>
 </html>
