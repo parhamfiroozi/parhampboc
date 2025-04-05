@@ -53,7 +53,8 @@
       margin-bottom: 5px;
       cursor: pointer;
       color: #007acc;
-      display: inline-block;
+      display: inline-flex;
+      align-items: center;
     }
     .progress-bar {
       background: #ccc;
@@ -61,6 +62,7 @@
       overflow: hidden;
       height: 25px;
       cursor: pointer;
+      margin-bottom: 5px;
     }
     .progress-fill {
       background: #007acc;
@@ -72,15 +74,14 @@
       transition: width 0.3s ease;
     }
     .content-list {
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height 0.4s ease;
-  margin-top: 10px;
-}
-.content-list.open {
-  max-height: 300px; /* or more */
-}
-
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease;
+      margin-top: 10px;
+    }
+    .content-list.open {
+      max-height: 300px; /* or more if you prefer */
+    }
     .content-list ul {
       list-style: none;
       padding-left: 0;
@@ -96,6 +97,14 @@
     .content-list a:hover {
       text-decoration: underline;
     }
+    .chevron {
+      margin-left: 5px;
+      font-size: 0.9rem;
+      transition: transform 0.3s ease;
+    }
+    .chevron.rotate {
+      transform: rotate(180deg);
+    }
     .last-updated {
       font-size: 0.8rem;
       color: #888;
@@ -106,15 +115,6 @@
       color: #888;
       margin-left: 6px;
       font-weight: 500;
-    }
-    /* Optional chevron for sub-lists (HTML skill only) */
-    .chevron {
-      margin-left: 5px;
-      font-size: 0.8rem;
-      transition: transform 0.3s ease;
-    }
-    .chevron.rotate {
-      transform: rotate(180deg);
     }
     footer {
       text-align: center;
@@ -155,7 +155,8 @@
     <!-- HTML (has sub-lists) -->
     <div class="skill" data-id="html">
       <span class="skill-title" onclick="toggleContent('html-content', this)">
-        HTML + CSS + JavaScript <span class="chevron">▼</span>
+        HTML + CSS + JavaScript
+        <span class="chevron">▼</span>
         <span class="last-updated-inline"></span>
       </span>
       <div class="progress-bar" onclick="toggleContent('html-content', this.parentElement.querySelector('.skill-title'))">
@@ -175,7 +176,7 @@
         </ul>
       </div>
       <div class="comment-box">
-        I began learning HTML, CSS, and JavaScript as part of my journey into web development. These technologies helped me build interactive and responsive user interfaces and also understand how front-end systems work.
+        I began learning HTML, CSS, and JavaScript as part of my journey into web development. These technologies helped me build interactive, responsive interfaces and understand how front-end systems work.
       </div>
     </div>
 
@@ -189,7 +190,7 @@
       </div>
       <div class="last-updated"></div>
       <div class="comment-box">
-        During my Numerical Analysis course with Dr. Hooman BahmanSoltani, I had the honor of learning MATLAB alongside Python. Currently, as a Computer Engineering student at IAU, I received a score of 17.5/20 in my Python course.
+        During my Numerical Analysis course with Dr. Hooman BahmanSoltani, I learned MATLAB alongside Python. Currently, as a Computer Engineering student at IAU, I scored 17.5/20 in my Python course.
       </div>
     </div>
 
@@ -203,7 +204,7 @@
       </div>
       <div class="last-updated"></div>
       <div class="comment-box">
-        C++ was one of the first programming languages I studied during my time at Shiraz University. I scored 18.50/20 in this course, which helped develop my passion for programming and problem-solving.
+        C++ was one of the first programming languages I studied at Shiraz University. I scored 18.50/20, which helped develop my passion for programming and problem-solving.
       </div>
     </div>
 
@@ -224,76 +225,84 @@
     &copy; 2025 Parham
   </footer>
 
-<script>
-  // Format a date as relative time
-  function formatRelativeTime(date) {
-    const now = new Date();
-    const diff = now - date;
-    const seconds = Math.floor(diff / 1000);
-    const minutes = Math.floor(diff / 60000);
-    const hours = Math.floor(diff / 3600000);
-    const days = Math.floor(diff / 86400000);
+  <script>
+    // Toggle subcontent visibility using .open class
+    function toggleContent(contentId, titleEl) {
+      const content = document.getElementById(contentId);
+      if (!content) return;
+      const chevron = titleEl.querySelector('.chevron');
 
-    if (seconds < 60) return "just now";
-    if (minutes < 60) return `${minutes} minute${minutes !== 1 ? 's' : ''} ago`;
-    if (hours < 24) return `${hours} hour${hours !== 1 ? 's' : ''} ago`;
-    if (days < 30) return `${days} day${days !== 1 ? 's' : ''} ago`;
-    return date.toLocaleDateString();
-  }
+      content.classList.toggle('open');
+      if (chevron) {
+        chevron.classList.toggle('rotate');
+      }
+    }
 
-  async function sortAndTagContent() {
-    try {
-      const res = await fetch('updates.json');
-      const updates = await res.json();
+    // Format date as relative time
+    function formatRelativeTime(date) {
+      const now = new Date();
+      const diff = now - date;
+      const seconds = Math.floor(diff / 1000);
+      const minutes = Math.floor(diff / 60000);
+      const hours = Math.floor(diff / 3600000);
+      const days = Math.floor(diff / 86400000);
 
-      const container = document.querySelector('.skills-container');
-      const skills = Array.from(container.querySelectorAll('.skill'));
+      if (seconds < 60) return "just now";
+      if (minutes < 60) return `${minutes} minute${minutes !== 1 ? 's' : ''} ago`;
+      if (hours < 24) return `${hours} hour${hours !== 1 ? 's' : ''} ago`;
+      if (days < 30) return `${days} day${days !== 1 ? 's' : ''} ago`;
+      return date.toLocaleDateString();
+    }
 
-      skills.forEach(skill => {
-        const subjectId = skill.dataset.id;
-        const inlineTag = skill.querySelector('.last-updated-inline');
-        const boxTag = skill.querySelector('.last-updated');
+    // "Smart" approach: subject's inline last-updated is newest among subject + subcontents
+    async function sortAndTagContent() {
+      try {
+        const res = await fetch('updates.json');
+        const updates = await res.json();
 
-        // 1) Start with the subject's own time (if it exists)
-        let subjectTime = updates[subjectId] ? new Date(updates[subjectId]) : new Date(0);
+        const container = document.querySelector('.skills-container');
+        const skills = Array.from(container.querySelectorAll('.skill'));
 
-        // 2) Check subcontents
-        skill.querySelectorAll('li').forEach(li => {
-          const subId = li.dataset.id;
-          const subTag = li.querySelector('.last-updated');
-          if (updates[subId]) {
-            const subDate = new Date(updates[subId]);
+        // Fill subject and subcontent times
+        skills.forEach(skill => {
+          const subjectId = skill.dataset.id;
+          const inlineTag = skill.querySelector('.last-updated-inline');
+          const boxTag = skill.querySelector('.last-updated');
 
-            // Update the subcontent's time display
-            subTag.textContent = formatRelativeTime(subDate);
-            subTag.title = subDate.toLocaleString();
+          // Start with subject's own time
+          let subjectTime = updates[subjectId] ? new Date(updates[subjectId]) : new Date(0);
 
-            // If subcontent is newer, update subjectTime
-            if (subDate > subjectTime) {
-              subjectTime = subDate;
+          // Subcontents
+          skill.querySelectorAll('li').forEach(li => {
+            const subId = li.dataset.id;
+            const subTag = li.querySelector('.last-updated');
+            if (updates[subId]) {
+              const subDate = new Date(updates[subId]);
+              subTag.textContent = formatRelativeTime(subDate);
+              subTag.title = subDate.toLocaleString();
+
+              // If subcontent is newer, update subjectTime
+              if (subDate > subjectTime) {
+                subjectTime = subDate;
+              }
+            }
+          });
+
+          // Now subjectTime = newest among subject + subcontents
+          if (subjectTime.getTime() > 0) {
+            const relative = formatRelativeTime(subjectTime);
+            if (inlineTag) {
+              inlineTag.textContent = `(Updated ${relative})`;
+              inlineTag.title = subjectTime.toLocaleString();
+            }
+            if (boxTag) {
+              boxTag.textContent = "Updated " + relative;
+              boxTag.title = subjectTime.toLocaleString();
             }
           }
         });
 
-        // 3) Now subjectTime = the newest among the subject + subcontents
-        if (subjectTime.getTime() > 0) {
-          const relative = formatRelativeTime(subjectTime);
-
-          if (inlineTag) {
-            inlineTag.textContent = `(Updated ${relative})`;
-            inlineTag.title = subjectTime.toLocaleString();
-          }
-          if (boxTag) {
-            boxTag.textContent = "Updated " + relative;
-            boxTag.title = subjectTime.toLocaleString();
-          }
-        }
-      });
-
-      // 4) Sort by newest overall subjectTime
-      // We must re-derive the final subjectTime for each skill
-      skills.sort((a, b) => {
-        // Helper to get the 'max time' for each skill
+        // Sort them by newest
         function getMaxTime(skillEl) {
           const sid = skillEl.dataset.id;
           let maxT = updates[sid] ? new Date(updates[sid]) : new Date(0);
@@ -310,18 +319,19 @@
           return maxT.getTime();
         }
 
-        return getMaxTime(b) - getMaxTime(a); // newest first
-      });
+        skills.sort((a, b) => {
+          return getMaxTime(b) - getMaxTime(a);
+        });
 
-      skills.forEach(skill => container.appendChild(skill));
-    } catch (err) {
-      console.error("Failed to fetch or parse updates.json:", err);
+        skills.forEach(skill => container.appendChild(skill));
+
+      } catch (err) {
+        console.error("Failed to fetch or parse updates.json:", err);
+      }
     }
-  }
 
-  document.addEventListener('DOMContentLoaded', sortAndTagContent);
-</script>
-
+    document.addEventListener('DOMContentLoaded', sortAndTagContent);
+  </script>
 
 </body>
 </html>
