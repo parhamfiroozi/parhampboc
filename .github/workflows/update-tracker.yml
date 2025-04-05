@@ -27,12 +27,14 @@ jobs:
 
       - name: 🧮 Run Timestamp Script
         run: node generate-updates-json.js
-
       - name: ✅ Commit & Push updates.json
         run: |
           git config user.name github-actions
           git config user.email github-actions@github.com
-          git pull origin main --rebase  # ⚠️ Pull changes before pushing
+          git stash --include-untracked
+          git pull origin main
+          git stash pop || true
           git add updates.json
           git commit -m "🔄 Auto-update updates.json" || echo "No changes to commit"
           git push origin main
+
