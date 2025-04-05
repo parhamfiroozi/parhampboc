@@ -1,5 +1,6 @@
 {
   "CENO1": {
+<<<<<<< Updated upstream
     "updated": "2025-04-05T18:45:06.370Z",
     "subject": "2025-04-05T18:45:06.370Z",
     "subcontent": {}
@@ -27,6 +28,35 @@
   "startingtips": {
     "updated": "2025-04-05T18:45:06.370Z",
     "subject": "2025-04-05T18:45:06.370Z",
+=======
+    "updated": "2025-04-05T18:45:06.917Z",
+    "subject": "2025-04-05T18:45:06.917Z",
+    "subcontent": {}
+  },
+  "electrical": {
+    "updated": "2025-04-05T18:45:06.917Z",
+    "subject": "2025-04-05T18:45:06.917Z",
+    "subcontent": {}
+  },
+  "index": {
+    "updated": "2025-04-05T18:45:06.917Z",
+    "subject": "2025-04-05T18:45:06.917Z",
+    "subcontent": {}
+  },
+  "math": {
+    "updated": "2025-04-05T18:45:06.918Z",
+    "subject": "2025-04-05T18:45:06.918Z",
+    "subcontent": {}
+  },
+  "physics": {
+    "updated": "2025-04-05T18:45:06.918Z",
+    "subject": "2025-04-05T18:45:06.918Z",
+    "subcontent": {}
+  },
+  "startingtips": {
+    "updated": "2025-04-05T18:45:06.918Z",
+    "subject": "2025-04-05T18:45:06.918Z",
+>>>>>>> Stashed changes
     "subcontent": {}
   }
 }
