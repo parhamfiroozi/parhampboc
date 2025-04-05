@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Physics Progress</title>
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
@@ -54,41 +54,42 @@
     }
     .skill {
       margin-bottom: 20px;
-      padding-bottom: 5px;
-      border-bottom: 1px solid #4a4a6a;
     }
     .skill-title {
       font-size: 1rem;
       font-weight: 600;
       margin-bottom: 5px;
       color: #f5f5f5;
-      cursor: pointer;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    .chevron {
-      transition: transform 0.3s ease;
-      font-size: 0.8rem;
-    }
-    .chevron.rotate {
-      transform: rotate(180deg);
     }
     .progress-bar {
       background: #4a4a6a;
       border-radius: 10px;
       overflow: hidden;
       height: 25px;
-      cursor: pointer;
+      width: 100%;
     }
     .progress-fill {
       height: 100%;
       text-align: center;
       color: #fff;
       font-weight: 600;
+      transition: width 0.3s ease;
       font-size: 0.9rem;
       line-height: 25px;
     }
+    
+    .comment-box {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  font-size: 0.95rem;
+  color: #e0e0e0;
+  background: rgba(255, 255, 255, 0.05);
+  border-left: 4px solid #6a11cb;
+  padding: 12px;
+  margin-top: 10px;
+  border-radius: 6px;
+  line-height: 1.6;
+    }
+
     .progress-fill.mathphys { background: linear-gradient(90deg, #6a11cb, #2575fc); }
     .progress-fill.analytical { background: linear-gradient(90deg, #ff512f, #dd2476); }
     .progress-fill.quantum { background: linear-gradient(90deg, #00c6ff, #0072ff); }
@@ -96,49 +97,27 @@
     .progress-fill.relativistic { background: linear-gradient(90deg, #e94057, #cf392e); }
     .progress-fill.optics { background: linear-gradient(90deg, #00f260, #0575e6); }
     .progress-fill.solid { background: linear-gradient(90deg, #9d50bb, #6e48aa); }
-    .last-updated {
-      font-size: 0.8rem;
-      color: #b0b0b0;
-      margin-top: 5px;
-    }
-    .content-list {
-      margin-top: 10px;
-      display: none;
-    }
-    .content-list.open {
-      display: block;
-    }
-    .content-list ul {
-      list-style: none;
-      padding-left: 15px;
-    }
-    .content-list li {
-      margin-bottom: 5px;
-    }
-    .content-list a {
-      text-decoration: none;
-      color: #f5f5f5;
-      font-weight: 500;
-    }
-    .content-list a:hover {
-      text-decoration: underline;
-    }
-    .comment-box {
-      font-family: 'Georgia', serif;
-      font-size: 0.95rem;
-      color: #e0e0e0;
-      background: rgba(255, 255, 255, 0.05);
-      border-left: 4px solid #6a11cb;
-      padding: 12px;
-      margin-top: 10px;
-      border-radius: 6px;
-      line-height: 1.6;
-    }
     footer {
       text-align: center;
       margin-top: 40px;
       font-size: 0.85rem;
       color: #b0b0b0;
+    }
+
+    /* --- Responsive Tweaks --- */
+    @media (max-width: 480px) {
+      body {
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.6rem;
+      }
+      .subtitle {
+        font-size: 1rem;
+      }
+      .progress-fill {
+        font-size: 0.8rem;
+      }
     }
   </style>
 </head>
@@ -154,115 +133,85 @@
     <h1>Physics Progress</h1>
     <p class="subtitle">Tracking my physics subjects</p>
   </div>
+ <div class="skills-container">
 
-  <div class="skills-container">
-    <!-- Physics subjects will be dynamically inserted here -->
+  <div class="skill">
+    <span class="skill-title">Optics</span>
+    <div class="progress-bar">
+      <div class="progress-fill optics" style="width: 0%;">0%</div>
+    </div>
+    <div class="comment-box">
+      Learning optics deepens my understanding of light–matter interactions, which is essential for advancing in both quantum technologies and optoelectronic systems.
+    </div>
+  </div>
+ <div class="skill">
+    <span class="skill-title">Quantum Mechanics</span>
+    <div class="progress-bar">
+      <div class="progress-fill quantum" style="width: 20%;">20%</div>
+    </div>
+ </div>
+  <div class="skill">
+    <span class="skill-title">Mathematics of Physics I</span>
+    <div class="progress-bar">
+      <div class="progress-fill mathphys" style="width: 40%;">40%</div>
+    </div>
   </div>
 
-  <footer>&copy; 2025 Parham</footer>
+  <div class="skill">
+    <span class="skill-title">Mathematics of Physics II</span>
+    <div class="progress-bar">
+      <div class="progress-fill mathphys" style="width: 0%;">0%</div>
+    </div>
+  </div>
 
-  <script>
-    const subjects = [
-      { id: 'optics', title: 'Optics', progress: 0, class: 'optics', comment: 'Learning optics deepens my understanding of light–matter interactions, which is essential for advancing in both quantum technologies and optoelectronic systems.' },
-      { id: 'quantum', title: 'Quantum Mechanics', progress: 20, class: 'quantum' },
-      { id: 'mathphys1', title: 'Mathematics of Physics I', progress: 40, class: 'mathphys' },
-      { id: 'mathphys2', title: 'Mathematics of Physics II', progress: 0, class: 'mathphys' },
-      { id: 'mathphys3', title: 'Mathematics of Physics III', progress: 0, class: 'mathphys' },
-      { id: 'analyticalmechanics', title: 'Analytical Mechanics', progress: 0, class: 'analytical' },
-      { id: 'thermodynamics', title: 'Thermodynamics', progress: 0, class: 'thermo' },
-      { id: 'relativity', title: 'Special & General Relativity', progress: 25, class: 'relativistic' },
-      { id: 'solidstate', title: 'Solid-State Physics', progress: 0, class: 'solid' },
-      { id: 'astrophysics', title: 'Astrophysics', progress: 0, class: 'solid' },
-    ];
+  <div class="skill">
+    <span class="skill-title">Mathematics of Physics III</span>
+    <div class="progress-bar">
+      <div class="progress-fill mathphys" style="width: 0%;">0%</div>
+    </div>
+  </div>
 
-    const container = document.querySelector('.skills-container');
-    subjects.forEach(sub => {
-      const skill = document.createElement('div');
-      skill.className = 'skill';
-      skill.dataset.id = sub.id;
-      skill.innerHTML = `
-        <div class="skill-title" onclick="toggleSubcontent(this)">
-          <span>${sub.title}</span>
-        </div>
-        <div class="progress-bar" onclick="toggleSubcontent(this.parentElement.querySelector('.skill-title'))">
-          <div class="progress-fill ${sub.class}" style="width: ${sub.progress}%">${sub.progress}%</div>
-        </div>
-        <div class="last-updated"></div>
-        <div class="content-list"></div>
-        ${sub.comment ? `<div class="comment-box">${sub.comment}</div>` : ''}
-      `;
-      container.appendChild(skill);
-    });
+  <div class="skill">
+    <span class="skill-title">Analytical Mechanics</span>
+    <div class="progress-bar">
+      <div class="progress-fill analytical" style="width: 0%;">0%</div>
+    </div>
+  </div>
 
-    function toggleSubcontent(titleEl) {
-      const skill = titleEl.closest('.skill');
-      const list = skill.querySelector('.content-list');
-      if (!list) return;
-      list.classList.toggle('open');
-      let chevron = titleEl.querySelector('.chevron');
-      if (!chevron) {
-        chevron = document.createElement('span');
-        chevron.className = 'chevron';
-        chevron.textContent = '▼';
-        titleEl.appendChild(chevron);
-      } else {
-        chevron.classList.toggle('rotate');
-      }
-    }
 
-    function formatRelativeTime(date) {
-      const now = new Date();
-      const diff = now - date;
-      const seconds = Math.floor(diff / 1000);
-      const minutes = Math.floor(diff / 60000);
-      const hours = Math.floor(diff / 3600000);
-      const days = Math.floor(diff / 86400000);
-      if (seconds < 60) return "just now";
-      if (minutes < 60) return `${minutes} minute${minutes !== 1 ? 's' : ''} ago`;
-      if (hours < 24) return `${hours} hour${hours !== 1 ? 's' : ''} ago`;
-      if (days < 30) return `${days} day${days !== 1 ? 's' : ''} ago`;
-      return date.toLocaleDateString();
-    }
 
-    async function fetchUpdates() {
-      try {
-        const res = await fetch('updates.json');
-        const updateData = await res.json();
-        document.querySelectorAll('.skill').forEach(skill => {
-          const id = skill.dataset.id;
-          const info = updateData?.[id];
-          const tag = skill.querySelector('.last-updated');
-          if (info?.updated) {
-            const dt = new Date(info.updated);
-            tag.textContent = 'Updated ' + formatRelativeTime(dt);
-            tag.title = dt.toLocaleString();
-          }
+  <div class="skill">
+    <span class="skill-title">Thermodynamics</span>
+    <div class="progress-bar">
+      <div class="progress-fill thermo" style="width: 0%;">0%</div>
+    </div>
+  </div>
 
-          const contentList = skill.querySelector('.content-list');
-          if (info?.subcontent) {
-            const ul = document.createElement('ul');
-            Object.entries(info.subcontent).forEach(([key, ts]) => {
-              const li = document.createElement('li');
-              const a = document.createElement('a');
-              a.href = `${key}.html`;
-              a.textContent = key.replace(id + '_', '').replace(/_/g, ' ');
-              const time = document.createElement('span');
-              const dt = new Date(ts);
-              time.textContent = ' - ' + formatRelativeTime(dt);
-              time.title = dt.toLocaleString();
-              li.appendChild(a);
-              li.appendChild(time);
-              ul.appendChild(li);
-            });
-            contentList.appendChild(ul);
-          }
-        });
-      } catch (e) {
-        console.error("updates.json failed", e);
-      }
-    }
+  <div class="skill">
+    <span class="skill-title">Special &amp; General Relativity</span>
+    <div class="progress-bar">
+      <div class="progress-fill relativistic" style="width: 25%;">25%</div>
+    </div>
+  </div>
 
-    document.addEventListener('DOMContentLoaded', fetchUpdates);
-  </script>
+  <div class="skill">
+    <span class="skill-title">Solid-State Physics</span>
+    <div class="progress-bar">
+      <div class="progress-fill solid" style="width: 0%;">0%</div>
+    </div>
+  </div>
+
+  <div class="skill">
+    <span class="skill-title">Astrophysics</span>
+    <div class="progress-bar">
+      <div class="progress-fill solid" style="width: 0%;">0%</div>
+    </div>
+  </div>
+
+</div>
+
+  <footer>
+    &copy; 2025 Parham
+  </footer>
 </body>
 </html>
