@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Math Progress</title>
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Merriweather:wght@700&display=swap" rel="stylesheet">
@@ -17,12 +17,14 @@
     nav {
       text-align: center;
       margin-bottom: 30px;
+      flex-wrap: wrap;
     }
     nav a {
       margin: 5px 8px;
       text-decoration: none;
       color: #5a2a83;
       font-weight: 600;
+      display: inline-block;
     }
     .header {
       text-align: center;
@@ -49,35 +51,23 @@
     .skills-container {
       max-width: 700px;
       margin: 0 auto;
+      padding: 0 10px;
     }
     .skill {
       margin-bottom: 20px;
-      padding-bottom: 5px;
-      border-bottom: 1px solid #ccc;
     }
     .skill-title {
       font-size: 1rem;
       font-weight: 600;
       margin-bottom: 5px;
       color: #5a2a83;
-      cursor: pointer;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    .chevron {
-      transition: transform 0.3s ease;
-      font-size: 0.8rem;
-    }
-    .chevron.rotate {
-      transform: rotate(180deg);
     }
     .progress-bar {
       background: #e0e0e0;
       border-radius: 10px;
       overflow: hidden;
       height: 25px;
-      cursor: pointer;
+      width: 100%;
     }
     .progress-fill {
       height: 100%;
@@ -85,6 +75,7 @@
       color: #fff;
       font-weight: 600;
       font-size: 0.9rem;
+      transition: width 0.3s ease;
       line-height: 25px;
     }
     .progress-fill.linear { background: linear-gradient(90deg, #ff7e5f, #feb47b); }
@@ -97,38 +88,27 @@
     .progress-fill.graph { background: linear-gradient(90deg, #11998e, #38ef7d); }
     .progress-fill.group { background: linear-gradient(90deg, #a8c0ff, #3f2b96); }
     .progress-fill.variational { background: linear-gradient(90deg, #fc5c7d, #6a82fb); }
-    .last-updated {
-      font-size: 0.8rem;
-      color: #777;
-      margin-top: 5px;
-    }
-    .content-list {
-      margin-top: 10px;
-      display: none;
-    }
-    .content-list.open {
-      display: block;
-    }
-    .content-list ul {
-      list-style: none;
-      padding-left: 15px;
-    }
-    .content-list li {
-      margin-bottom: 5px;
-    }
-    .content-list a {
-      text-decoration: none;
-      color: #5a2a83;
-      font-weight: 500;
-    }
-    .content-list a:hover {
-      text-decoration: underline;
-    }
     footer {
       text-align: center;
       margin-top: 40px;
       font-size: 0.85rem;
       color: #777;
+    }
+
+    /* --- Responsive Tweaks --- */
+    @media (max-width: 480px) {
+      body {
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.6rem;
+      }
+      .subtitle {
+        font-size: 1rem;
+      }
+      .progress-fill {
+        font-size: 0.8rem;
+      }
     }
   </style>
 </head>
@@ -144,109 +124,76 @@
     <h1>Math Progress</h1>
     <p class="subtitle">Tracking my mathematical subjects</p>
   </div>
-  <div class="skills-container"></div>
-  <footer>&copy; 2025 Parham</footer>
-  <script>
-    const subjects = [
-      { id: 'linearalgebra', title: 'Linear Algebra', progress: 50, class: 'linear' },
-      { id: 'analysis', title: 'Mathematical Analysis', progress: 0, class: 'analysis' },
-      { id: 'algebra', title: 'Algebra', progress: 10, class: 'algebra' },
-      { id: 'topology', title: 'Topology', progress: 0, class: 'topology' },
-      { id: 'discrete', title: 'Discrete Math', progress: 90, class: 'discrete' },
-      { id: 'linearopt', title: 'Linear Optimization', progress: 0, class: 'optimization' },
-      { id: 'nonlinearopt', title: 'Non-linear Optimization', progress: 0, class: 'optimization' },
-      { id: 'stochastic', title: 'Stochastic Processes', progress: 30, class: 'stochastic' },
-      { id: 'graph', title: 'Graph Theory', progress: 0, class: 'graph' },
-      { id: 'group', title: 'Group Theory', progress: 5, class: 'group' },
-      { id: 'variational', title: 'Variational Calculus', progress: 0, class: 'variational' }
-    ];
-
-    const container = document.querySelector('.skills-container');
-    subjects.forEach(sub => {
-      const skill = document.createElement('div');
-      skill.className = 'skill';
-      skill.dataset.id = sub.id;
-      skill.innerHTML = `
-        <div class="skill-title" onclick="toggleSubcontent(this)">
-          <span>${sub.title}</span>
-        </div>
-        <div class="progress-bar" onclick="toggleSubcontent(this.parentElement.querySelector('.skill-title'))">
-          <div class="progress-fill ${sub.class}" style="width: ${sub.progress}%">${sub.progress}%</div>
-        </div>
-        <div class="last-updated"></div>
-        <div class="content-list"></div>
-      `;
-      container.appendChild(skill);
-    });
-
-    function toggleSubcontent(titleEl) {
-      const skill = titleEl.closest('.skill');
-      const list = skill.querySelector('.content-list');
-      if (!list) return;
-      list.classList.toggle('open');
-      let chevron = titleEl.querySelector('.chevron');
-      if (!chevron) {
-        chevron = document.createElement('span');
-        chevron.className = 'chevron';
-        chevron.textContent = '▼';
-        titleEl.appendChild(chevron);
-      } else {
-        chevron.classList.toggle('rotate');
-      }
-    }
-
-    function formatRelativeTime(date) {
-      const now = new Date();
-      const diff = now - date;
-      const seconds = Math.floor(diff / 1000);
-      const minutes = Math.floor(diff / 60000);
-      const hours = Math.floor(diff / 3600000);
-      const days = Math.floor(diff / 86400000);
-      if (seconds < 60) return "just now";
-      if (minutes < 60) return `${minutes} minute${minutes !== 1 ? 's' : ''} ago`;
-      if (hours < 24) return `${hours} hour${hours !== 1 ? 's' : ''} ago`;
-      if (days < 30) return `${days} day${days !== 1 ? 's' : ''} ago`;
-      return date.toLocaleDateString();
-    }
-
-    async function fetchUpdates() {
-      try {
-        const res = await fetch('updates.json');
-        const updateData = await res.json();
-        document.querySelectorAll('.skill').forEach(skill => {
-          const id = skill.dataset.id;
-          const info = updateData?.[id];
-          const tag = skill.querySelector('.last-updated');
-          if (info?.updated) {
-            const dt = new Date(info.updated);
-            tag.textContent = 'Updated ' + formatRelativeTime(dt);
-            tag.title = dt.toLocaleString();
-          }
-          const contentList = skill.querySelector('.content-list');
-          if (info?.subcontent) {
-            const ul = document.createElement('ul');
-            Object.entries(info.subcontent).forEach(([key, ts]) => {
-              const li = document.createElement('li');
-              const a = document.createElement('a');
-              a.href = `${key}.html`;
-              a.textContent = key.replace(id + '_', '').replace(/_/g, ' ');
-              const time = document.createElement('span');
-              const dt = new Date(ts);
-              time.textContent = ' - ' + formatRelativeTime(dt);
-              time.title = dt.toLocaleString();
-              li.appendChild(a);
-              li.appendChild(time);
-              ul.appendChild(li);
-            });
-            contentList.appendChild(ul);
-          }
-        });
-      } catch (e) {
-        console.error("updates.json failed", e);
-      }
-    }
-
-    document.addEventListener('DOMContentLoaded', fetchUpdates);
-  </script>
+  <div class="skills-container">
+    <div class="skill">
+      <span class="skill-title">Linear Algebra</span>
+      <div class="progress-bar">
+        <div class="progress-fill linear" style="width: 50%;">50%</div>
+      </div>
+    </div>
+    <div class="skill">
+      <span class="skill-title">Mathematical Analysis</span>
+      <div class="progress-bar">
+        <div class="progress-fill analysis" style="width: 0%;">0%</div>
+      </div>
+    </div>
+    <div class="skill">
+      <span class="skill-title">Algebra</span>
+      <div class="progress-bar">
+        <div class="progress-fill algebra" style="width: 10%;">10%</div>
+      </div>
+    </div>
+    <div class="skill">
+      <span class="skill-title">Topology</span>
+      <div class="progress-bar">
+        <div class="progress-fill topology" style="width: 0%;">0%</div>
+      </div>
+    </div>
+    <div class="skill">
+      <span class="skill-title">Discrete Math</span>
+      <div class="progress-bar">
+        <div class="progress-fill discrete" style="width: 90%;">90%</div>
+      </div>
+    </div>
+    <div class="skill">
+      <span class="skill-title">Linear Optimization</span>
+      <div class="progress-bar">
+        <div class="progress-fill optimization" style="width: 0%;">0%</div>
+      </div>
+    </div>
+    <div class="skill">
+      <span class="skill-title">Non-linear Optimization</span>
+      <div class="progress-bar">
+        <div class="progress-fill optimization" style="width: 0%;">0%</div>
+      </div>
+    </div>
+    <div class="skill">
+      <span class="skill-title">Stochastic Processes</span>
+      <div class="progress-bar">
+        <div class="progress-fill stochastic" style="width: 30%;">30%</div>
+      </div>
+    </div>
+    <div class="skill">
+      <span class="skill-title">Graph Theory</span>
+      <div class="progress-bar">
+        <div class="progress-fill graph" style="width: 0%;">0%</div>
+      </div>
+    </div>
+    <div class="skill">
+      <span class="skill-title">Group Theory</span>
+      <div class="progress-bar">
+        <div class="progress-fill group" style="width: 5%;">5%</div>
+      </div>
+    </div>
+    <div class="skill">
+      <span class="skill-title">Variational Calculus</span>
+      <div class="progress-bar">
+        <div class="progress-fill variational" style="width: 0%;">0%</div>
+      </div>
+    </div>
+  </div>
+  <footer>
+    &copy; 2025 Parham
+  </footer>
 </body>
 </html>
