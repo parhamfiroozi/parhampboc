@@ -60,6 +60,8 @@
       font-weight: 600;
       margin-bottom: 5px;
       color: #f5f5f5;
+      cursor: pointer;
+      display: inline-block;
     }
     .progress-bar {
       background: #4a4a6a;
@@ -67,6 +69,7 @@
       overflow: hidden;
       height: 25px;
       width: 100%;
+      cursor: pointer;
     }
     .progress-fill {
       height: 100%;
@@ -77,17 +80,17 @@
       font-size: 0.9rem;
       line-height: 25px;
     }
-    
+
     .comment-box {
-  font-family: 'Georgia', 'Times New Roman', serif;
-  font-size: 0.95rem;
-  color: #e0e0e0;
-  background: rgba(255, 255, 255, 0.05);
-  border-left: 4px solid #6a11cb;
-  padding: 12px;
-  margin-top: 10px;
-  border-radius: 6px;
-  line-height: 1.6;
+      font-family: 'Georgia', 'Times New Roman', serif;
+      font-size: 0.95rem;
+      color: #e0e0e0;
+      background: rgba(255, 255, 255, 0.05);
+      border-left: 4px solid #6a11cb;
+      padding: 12px;
+      margin-top: 10px;
+      border-radius: 6px;
+      line-height: 1.6;
     }
 
     .progress-fill.mathphys { background: linear-gradient(90deg, #6a11cb, #2575fc); }
@@ -97,11 +100,36 @@
     .progress-fill.relativistic { background: linear-gradient(90deg, #e94057, #cf392e); }
     .progress-fill.optics { background: linear-gradient(90deg, #00f260, #0575e6); }
     .progress-fill.solid { background: linear-gradient(90deg, #9d50bb, #6e48aa); }
+
     footer {
       text-align: center;
       margin-top: 40px;
       font-size: 0.85rem;
       color: #b0b0b0;
+    }
+
+    .last-updated {
+      font-size: 0.8rem;
+      color: #bbb;
+      margin-top: 6px;
+    }
+    .last-updated-inline {
+      font-size: 0.8rem;
+      color: #bbb;
+      margin-left: 8px;
+      font-weight: 500;
+    }
+    .chevron {
+      margin-left: 5px;
+      transition: transform 0.3s ease;
+      font-size: 0.8rem;
+    }
+    .chevron.rotate {
+      transform: rotate(180deg);
+    }
+    .content-list {
+      display: none; /* For sub-lists if needed in the future */
+      margin-top: 10px;
     }
 
     /* --- Responsive Tweaks --- */
@@ -133,85 +161,186 @@
     <h1>Physics Progress</h1>
     <p class="subtitle">Tracking my physics subjects</p>
   </div>
- <div class="skills-container">
 
-  <div class="skill">
-    <span class="skill-title">Optics</span>
-    <div class="progress-bar">
-      <div class="progress-fill optics" style="width: 0%;">0%</div>
+  <div class="skills-container">
+
+    <div class="skill" data-id="optics">
+      <span class="skill-title">
+        Optics <span class="last-updated-inline"></span>
+      </span>
+      <div class="progress-bar">
+        <div class="progress-fill optics" style="width: 0%;">0%</div>
+      </div>
+      <div class="last-updated"></div>
+      <div class="comment-box">
+        Learning optics deepens my understanding of light–matter interactions, essential for quantum technologies and optoelectronic systems.
+      </div>
     </div>
-    <div class="comment-box">
-      Learning optics deepens my understanding of light–matter interactions, which is essential for advancing in both quantum technologies and optoelectronic systems.
+
+    <div class="skill" data-id="quantum_mechanics">
+      <span class="skill-title">
+        Quantum Mechanics <span class="last-updated-inline"></span>
+      </span>
+      <div class="progress-bar">
+        <div class="progress-fill quantum" style="width: 20%;">20%</div>
+      </div>
+      <div class="last-updated"></div>
     </div>
+
+    <div class="skill" data-id="math_physics_I">
+      <span class="skill-title">
+        Mathematics of Physics I <span class="last-updated-inline"></span>
+      </span>
+      <div class="progress-bar">
+        <div class="progress-fill mathphys" style="width: 40%;">40%</div>
+      </div>
+      <div class="last-updated"></div>
+    </div>
+
+    <div class="skill" data-id="math_physics_II">
+      <span class="skill-title">
+        Mathematics of Physics II <span class="last-updated-inline"></span>
+      </span>
+      <div class="progress-bar">
+        <div class="progress-fill mathphys" style="width: 0%;">0%</div>
+      </div>
+      <div class="last-updated"></div>
+    </div>
+
+    <div class="skill" data-id="math_physics_III">
+      <span class="skill-title">
+        Mathematics of Physics III <span class="last-updated-inline"></span>
+      </span>
+      <div class="progress-bar">
+        <div class="progress-fill mathphys" style="width: 0%;">0%</div>
+      </div>
+      <div class="last-updated"></div>
+    </div>
+
+    <div class="skill" data-id="analytical_mechanics">
+      <span class="skill-title">
+        Analytical Mechanics <span class="last-updated-inline"></span>
+      </span>
+      <div class="progress-bar">
+        <div class="progress-fill analytical" style="width: 0%;">0%</div>
+      </div>
+      <div class="last-updated"></div>
+    </div>
+
+    <div class="skill" data-id="thermodynamics">
+      <span class="skill-title">
+        Thermodynamics <span class="last-updated-inline"></span>
+      </span>
+      <div class="progress-bar">
+        <div class="progress-fill thermo" style="width: 0%;">0%</div>
+      </div>
+      <div class="last-updated"></div>
+    </div>
+
+    <div class="skill" data-id="relativity">
+      <span class="skill-title">
+        Special &amp; General Relativity <span class="last-updated-inline"></span>
+      </span>
+      <div class="progress-bar">
+        <div class="progress-fill relativistic" style="width: 25%;">25%</div>
+      </div>
+      <div class="last-updated"></div>
+    </div>
+
+    <div class="skill" data-id="solid_state_physics">
+      <span class="skill-title">
+        Solid-State Physics <span class="last-updated-inline"></span>
+      </span>
+      <div class="progress-bar">
+        <div class="progress-fill solid" style="width: 0%;">0%</div>
+      </div>
+      <div class="last-updated"></div>
+    </div>
+
+    <div class="skill" data-id="astrophysics">
+      <span class="skill-title">
+        Astrophysics <span class="last-updated-inline"></span>
+      </span>
+      <div class="progress-bar">
+        <div class="progress-fill solid" style="width: 0%;">0%</div>
+      </div>
+      <div class="last-updated"></div>
+    </div>
+
   </div>
- <div class="skill">
-    <span class="skill-title">Quantum Mechanics</span>
-    <div class="progress-bar">
-      <div class="progress-fill quantum" style="width: 20%;">20%</div>
-    </div>
- </div>
-  <div class="skill">
-    <span class="skill-title">Mathematics of Physics I</span>
-    <div class="progress-bar">
-      <div class="progress-fill mathphys" style="width: 40%;">40%</div>
-    </div>
-  </div>
-
-  <div class="skill">
-    <span class="skill-title">Mathematics of Physics II</span>
-    <div class="progress-bar">
-      <div class="progress-fill mathphys" style="width: 0%;">0%</div>
-    </div>
-  </div>
-
-  <div class="skill">
-    <span class="skill-title">Mathematics of Physics III</span>
-    <div class="progress-bar">
-      <div class="progress-fill mathphys" style="width: 0%;">0%</div>
-    </div>
-  </div>
-
-  <div class="skill">
-    <span class="skill-title">Analytical Mechanics</span>
-    <div class="progress-bar">
-      <div class="progress-fill analytical" style="width: 0%;">0%</div>
-    </div>
-  </div>
-
-
-
-  <div class="skill">
-    <span class="skill-title">Thermodynamics</span>
-    <div class="progress-bar">
-      <div class="progress-fill thermo" style="width: 0%;">0%</div>
-    </div>
-  </div>
-
-  <div class="skill">
-    <span class="skill-title">Special &amp; General Relativity</span>
-    <div class="progress-bar">
-      <div class="progress-fill relativistic" style="width: 25%;">25%</div>
-    </div>
-  </div>
-
-  <div class="skill">
-    <span class="skill-title">Solid-State Physics</span>
-    <div class="progress-bar">
-      <div class="progress-fill solid" style="width: 0%;">0%</div>
-    </div>
-  </div>
-
-  <div class="skill">
-    <span class="skill-title">Astrophysics</span>
-    <div class="progress-bar">
-      <div class="progress-fill solid" style="width: 0%;">0%</div>
-    </div>
-  </div>
-
-</div>
 
   <footer>
     &copy; 2025 Parham
   </footer>
+
+  <script>
+    function toggleContent(id, titleEl) {
+      const content = document.getElementById(id);
+      if (!content) return;
+      const chevron = titleEl.querySelector('.chevron');
+      content.style.display = (content.style.display === 'block') ? 'none' : 'block';
+      if (chevron) {
+        chevron.classList.toggle('rotate');
+      }
+    }
+
+    function formatRelativeTime(date) {
+      const now = new Date();
+      const diff = now - date;
+      const seconds = Math.floor(diff / 1000);
+      const minutes = Math.floor(diff / 60000);
+      const hours = Math.floor(diff / 3600000);
+      const days = Math.floor(diff / 86400000);
+
+      if (seconds < 60) return "just now";
+      if (minutes < 60) return `${minutes} minute${minutes !== 1 ? 's' : ''} ago`;
+      if (hours < 24) return `${hours} hour${hours !== 1 ? 's' : ''} ago`;
+      if (days < 30) return `${days} day${days !== 1 ? 's' : ''} ago`;
+      return date.toLocaleDateString();
+    }
+
+    async function sortAndTagContent() {
+      try {
+        const res = await fetch('updates.json');
+        const updates = await res.json();
+
+        const container = document.querySelector('.skills-container');
+        const skills = Array.from(container.querySelectorAll('.skill'));
+
+        skills.forEach(skill => {
+          const id = skill.dataset.id;
+          const inlineTag = skill.querySelector('.last-updated-inline');
+          const boxTag = skill.querySelector('.last-updated');
+
+          if (updates[id]) {
+            const date = new Date(updates[id]);
+            const relative = formatRelativeTime(date);
+            if (inlineTag) {
+              inlineTag.textContent = `(Updated ${relative})`;
+              inlineTag.title = date.toLocaleString();
+            }
+            if (boxTag) {
+              boxTag.textContent = "Updated " + relative;
+              boxTag.title = date.toLocaleString();
+            }
+          }
+        });
+
+        // Sort them
+        skills.sort((a, b) => {
+          const aTime = new Date(updates[a.dataset.id] || 0);
+          const bTime = new Date(updates[b.dataset.id] || 0);
+          return bTime - aTime;
+        });
+
+        skills.forEach(skill => container.appendChild(skill));
+      } catch (err) {
+        console.error("Failed to load updates.json:", err);
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', sortAndTagContent);
+  </script>
+
 </body>
 </html>
