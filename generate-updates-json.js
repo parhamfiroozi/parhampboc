@@ -1,6 +1,6 @@
-// generate-updates-json.js
 const fs = require('fs');
 const path = require('path');
+const { execSync } = require('child_process');
 
 const scanDir = './';
 const updates = {};
@@ -11,19 +11,20 @@ function walk(dir) {
   for (const entry of entries) {
     const fullPath = path.join(dir, entry.name);
 
-    // Ignore these directories
     if (entry.isDirectory() && !['node_modules', '.git', '.github'].includes(entry.name)) {
       walk(fullPath);
-    } 
-    else if (entry.isFile() && entry.name.endsWith('.html')) {
-      const stats = fs.statSync(fullPath);
-      // e.g. "electrical/eca1_CENO1.html" => "electrical/eca1_CENO1"
-      const key = path
-        .relative('.', fullPath)
-        .replace(/\\/g, '/')    // Handle Windows backslashes
-        .replace(/\.html$/, '');
-      
-      updates[key] = stats.mtime.toISOString();
+    } else if (entry.isFile() && entry.name.endsWith('.html')) {
+      const relativePath = path.relative('.', fullPath).replace(/\\/g, '/');
+      const key = relativePath.replace(/\.html$/, '');
+
+      try {
+        const lastCommitDate = execSync(
+          `git log -1 --format="%cI" -- "${relativePath}"`
+        ).toString().trim();
+        updates[key] = lastCommitDate;
+      } catch (err) {
+        console.warn(`⚠️ Could not get date for ${relativePath}`);
+      }
     }
   }
 }
@@ -31,4 +32,4 @@ function walk(dir) {
 walk(scanDir);
 
 fs.writeFileSync('updates.json', JSON.stringify(updates, null, 2));
-console.log('✅ updates.json generated.');
+console.log('✅ updates.json generated from git history');
