@@ -215,18 +215,33 @@
 
     <!-- Subject: Electronics I -->
     <div class="skill" data-id="electronics1">
-      <span class="skill-title">
-        Electronics I 
-        <span class="last-updated-inline"></span>
-      </span>
-      <div class="progress-bar">
-        <div class="progress-fill electronics" style="width: 20%;">20%</div>
-      </div>
-      <div class="last-updated"></div>
-      <div class="comment-box">
-        I've used Dr. Zarifkar's classes while I was studying at Shiraz University.
-      </div>
-    </div>
+  <span class="skill-title" onclick="toggleContent('electronics1-content', this)">
+    Electronics I 
+    <span class="chevron">▼</span>
+    <span class="last-updated-inline"></span>
+  </span>
+
+  <div class="progress-bar" onclick="toggleContent('electronics1-content', this.parentElement.querySelector('.skill-title'))">
+    <div class="progress-fill electronics" style="width: 20%;">20%</div>
+  </div>
+
+  <div class="last-updated"></div>
+
+  <!-- Subcontent list -->
+  <div id="electronics1-content" class="content-list">
+    <ul>
+      <li data-id="electronics_basics">
+        <a href="electronics_basics.html">Electronics Basics</a>
+        <span class="last-updated"></span>
+      </li>
+    </ul>
+  </div>
+
+  <div class="comment-box">
+    I've used Dr. Zarifkar's classes while I was studying at Shiraz University.
+  </div>
+</div>
+
 
     <!-- Subject: Electronics II -->
     <div class="skill" data-id="electronics2">
