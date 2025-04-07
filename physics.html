@@ -7,14 +7,11 @@
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
   <style>
-    /* Reset and box-sizing */
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-
-    /* Make page fill screen so footer can stick to bottom if short */
-    html, body {
-      height: 100%;
-      display: flex;
-      flex-direction: column;
+    /* Reset & box-sizing */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
     }
 
     body {
@@ -27,7 +24,6 @@
     nav {
       text-align: center;
       margin-bottom: 30px;
-      flex-wrap: wrap;
     }
     nav a {
       margin: 5px 8px;
@@ -59,33 +55,56 @@
       margin-bottom: 30px;
     }
 
-    /* The main container with flex:1 so the footer is pushed down */
     .skills-container {
       max-width: 700px;
       margin: 0 auto;
-      padding: 0 10px;
-      flex: 1; /* key line to push footer down */
+      /* Provide a slight top/bottom space from the page edges */
+      margin-top: 10px;
+      margin-bottom: 30px;
     }
 
+    /* Subject blocks styled as mild "cards" */
     .skill {
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 6px;
+      padding: 16px;
       margin-bottom: 20px;
+      box-shadow: 0 0 6px rgba(0, 0, 0, 0.2);
     }
+
     .skill-title {
       font-size: 1rem;
       font-weight: 600;
-      margin-bottom: 5px;
+      margin-bottom: 6px;
       color: #f5f5f5;
       cursor: pointer;
       display: inline-flex;
       align-items: center;
     }
+
+    .last-updated-inline {
+      font-size: 0.8rem;
+      color: #bbb;
+      margin-left: 8px;
+      font-weight: 500;
+    }
+
+    .chevron {
+      margin-left: 5px;
+      transition: transform 0.3s ease;
+      font-size: 0.8rem;
+    }
+    .chevron.rotate {
+      transform: rotate(180deg);
+    }
+
     .progress-bar {
       background: #4a4a6a;
       border-radius: 10px;
       overflow: hidden;
       height: 25px;
-      width: 100%;
       cursor: pointer;
+      margin-bottom: 8px; /* a bit of gap below the bar */
     }
     .progress-fill {
       height: 100%;
@@ -97,20 +116,7 @@
       line-height: 25px;
     }
 
-    /* Example comment box style (if needed) */
-    .comment-box {
-      font-family: 'Georgia', 'Times New Roman', serif;
-      font-size: 0.95rem;
-      color: #e0e0e0;
-      background: rgba(255, 255, 255, 0.05);
-      border-left: 4px solid #6a11cb;
-      padding: 12px;
-      margin-top: 10px;
-      border-radius: 6px;
-      line-height: 1.6;
-    }
-
-    /* Colors for progress-fill */
+    /* Example color classes for different subjects */
     .progress-fill.mathphys { background: linear-gradient(90deg, #6a11cb, #2575fc); }
     .progress-fill.analytical { background: linear-gradient(90deg, #ff512f, #dd2476); }
     .progress-fill.quantum { background: linear-gradient(90deg, #00c6ff, #0072ff); }
@@ -119,6 +125,17 @@
     .progress-fill.optics { background: linear-gradient(90deg, #00f260, #0575e6); }
     .progress-fill.solid { background: linear-gradient(90deg, #9d50bb, #6e48aa); }
 
+    /* Expand/collapse approach: max-height transitions */
+    .content-list {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease;
+      margin-top: 8px;
+    }
+    .content-list.open {
+      max-height: 300px;
+    }
+
     footer {
       text-align: center;
       margin-top: 40px;
@@ -126,33 +143,7 @@
       color: #b0b0b0;
     }
 
-    .last-updated-inline {
-      font-size: 0.8rem;
-      color: #bbb;
-      margin-left: 8px;
-      font-weight: 500;
-    }
-    .chevron {
-      margin-left: 5px;
-      transition: transform 0.3s ease;
-      font-size: 0.8rem;
-    }
-    .chevron.rotate {
-      transform: rotate(180deg);
-    }
-
-    /* The 'max-height' approach for subcontent toggle */
-    .content-list {
-      max-height: 0;
-      overflow: hidden;
-      transition: max-height 0.4s ease;
-      margin-top: 10px;
-    }
-    .content-list.open {
-      max-height: 300px;
-    }
-
-    /* --- Responsive Tweaks --- */
+    /* Optional: tweak for mobile screens */
     @media (max-width: 480px) {
       body {
         padding: 12px;
@@ -186,183 +177,183 @@
 
   <div class="skills-container">
 
-    <!-- Just inline updated, no bottom last-updated -->
-   <!-- Optics -->
-<div class="skill" data-id="optics">
-  <span class="skill-title" onclick="toggleContent('optics-content', this)">
-    Optics
-    <span class="chevron">▼</span>
-    <span class="last-updated-inline"></span>
-  </span>
-  <div class="progress-bar" onclick="toggleContent('optics-content', this.parentElement.querySelector('.skill-title'))">
-    <div class="progress-fill optics" style="width: 0%;">0%</div>
-  </div>
-  <div id="optics-content" class="content-list">
-    <ul>
-      <li>No subcontent yet</li>
-    </ul>
-  </div>
-</div>
+    <!-- Optics -->
+    <div class="skill" data-id="optics">
+      <span class="skill-title" onclick="toggleContent('optics-content', this)">
+        Optics
+        <span class="chevron">▼</span>
+        <span class="last-updated-inline"></span>
+      </span>
+      <div class="progress-bar" onclick="toggleContent('optics-content', this.parentElement.querySelector('.skill-title'))">
+        <div class="progress-fill optics" style="width: 0%;">0%</div>
+      </div>
+      <div id="optics-content" class="content-list">
+        <ul>
+          <li>No subcontent yet</li>
+        </ul>
+      </div>
+    </div>
 
-<!-- Quantum Mechanics -->
-<div class="skill" data-id="quantum_mechanics">
-  <span class="skill-title" onclick="toggleContent('quantum_mechanics-content', this)">
-    Quantum Mechanics
-    <span class="chevron">▼</span>
-    <span class="last-updated-inline"></span>
-  </span>
-  <div class="progress-bar" onclick="toggleContent('quantum_mechanics-content', this.parentElement.querySelector('.skill-title'))">
-    <div class="progress-fill quantum" style="width: 20%;">20%</div>
-  </div>
-  <div id="quantum_mechanics-content" class="content-list">
-    <ul>
-      <li>No subcontent yet</li>
-    </ul>
-  </div>
-</div>
+    <!-- Quantum Mechanics -->
+    <div class="skill" data-id="quantum_mechanics">
+      <span class="skill-title" onclick="toggleContent('quantum_mechanics-content', this)">
+        Quantum Mechanics
+        <span class="chevron">▼</span>
+        <span class="last-updated-inline"></span>
+      </span>
+      <div class="progress-bar" onclick="toggleContent('quantum_mechanics-content', this.parentElement.querySelector('.skill-title'))">
+        <div class="progress-fill quantum" style="width: 20%;">20%</div>
+      </div>
+      <div id="quantum_mechanics-content" class="content-list">
+        <ul>
+          <li>No subcontent yet</li>
+        </ul>
+      </div>
+    </div>
 
-<!-- Mathematics of Physics I -->
-<div class="skill" data-id="math_physics_I">
-  <span class="skill-title" onclick="toggleContent('math_physics_I-content', this)">
-    Mathematics of Physics I
-    <span class="chevron">▼</span>
-    <span class="last-updated-inline"></span>
-  </span>
-  <div class="progress-bar" onclick="toggleContent('math_physics_I-content', this.parentElement.querySelector('.skill-title'))">
-    <div class="progress-fill mathphys" style="width: 40%;">40%</div>
-  </div>
-  <div id="math_physics_I-content" class="content-list">
-    <ul>
-      <li>No subcontent yet</li>
-    </ul>
-  </div>
-</div>
+    <!-- Math of Physics I -->
+    <div class="skill" data-id="math_physics_I">
+      <span class="skill-title" onclick="toggleContent('math_physics_I-content', this)">
+        Mathematics of Physics I
+        <span class="chevron">▼</span>
+        <span class="last-updated-inline"></span>
+      </span>
+      <div class="progress-bar" onclick="toggleContent('math_physics_I-content', this.parentElement.querySelector('.skill-title'))">
+        <div class="progress-fill mathphys" style="width: 40%;">40%</div>
+      </div>
+      <div id="math_physics_I-content" class="content-list">
+        <ul>
+          <li>No subcontent yet</li>
+        </ul>
+      </div>
+    </div>
 
-<!-- Mathematics of Physics II -->
-<div class="skill" data-id="math_physics_II">
-  <span class="skill-title" onclick="toggleContent('math_physics_II-content', this)">
-    Mathematics of Physics II
-    <span class="chevron">▼</span>
-    <span class="last-updated-inline"></span>
-  </span>
-  <div class="progress-bar" onclick="toggleContent('math_physics_II-content', this.parentElement.querySelector('.skill-title'))">
-    <div class="progress-fill mathphys" style="width: 0%;">0%</div>
-  </div>
-  <div id="math_physics_II-content" class="content-list">
-    <ul>
-      <li>No subcontent yet</li>
-    </ul>
-  </div>
-</div>
+    <!-- Math of Physics II -->
+    <div class="skill" data-id="math_physics_II">
+      <span class="skill-title" onclick="toggleContent('math_physics_II-content', this)">
+        Mathematics of Physics II
+        <span class="chevron">▼</span>
+        <span class="last-updated-inline"></span>
+      </span>
+      <div class="progress-bar" onclick="toggleContent('math_physics_II-content', this.parentElement.querySelector('.skill-title'))">
+        <div class="progress-fill mathphys" style="width: 0%;">0%</div>
+      </div>
+      <div id="math_physics_II-content" class="content-list">
+        <ul>
+          <li>No subcontent yet</li>
+        </ul>
+      </div>
+    </div>
 
-<!-- Mathematics of Physics III -->
-<div class="skill" data-id="math_physics_III">
-  <span class="skill-title" onclick="toggleContent('math_physics_III-content', this)">
-    Mathematics of Physics III
-    <span class="chevron">▼</span>
-    <span class="last-updated-inline"></span>
-  </span>
-  <div class="progress-bar" onclick="toggleContent('math_physics_III-content', this.parentElement.querySelector('.skill-title'))">
-    <div class="progress-fill mathphys" style="width: 0%;">0%</div>
-  </div>
-  <div id="math_physics_III-content" class="content-list">
-    <ul>
-      <li>No subcontent yet</li>
-    </ul>
-  </div>
-</div>
+    <!-- Math of Physics III -->
+    <div class="skill" data-id="math_physics_III">
+      <span class="skill-title" onclick="toggleContent('math_physics_III-content', this)">
+        Mathematics of Physics III
+        <span class="chevron">▼</span>
+        <span class="last-updated-inline"></span>
+      </span>
+      <div class="progress-bar" onclick="toggleContent('math_physics_III-content', this.parentElement.querySelector('.skill-title'))">
+        <div class="progress-fill mathphys" style="width: 0%;">0%</div>
+      </div>
+      <div id="math_physics_III-content" class="content-list">
+        <ul>
+          <li>No subcontent yet</li>
+        </ul>
+      </div>
+    </div>
 
-<!-- Analytical Mechanics -->
-<div class="skill" data-id="analytical_mechanics">
-  <span class="skill-title" onclick="toggleContent('analytical_mechanics-content', this)">
-    Analytical Mechanics
-    <span class="chevron">▼</span>
-    <span class="last-updated-inline"></span>
-  </span>
-  <div class="progress-bar" onclick="toggleContent('analytical_mechanics-content', this.parentElement.querySelector('.skill-title'))">
-    <div class="progress-fill analytical" style="width: 0%;">0%</div>
-  </div>
-  <div id="analytical_mechanics-content" class="content-list">
-    <ul>
-      <li>No subcontent yet</li>
-    </ul>
-  </div>
-</div>
+    <!-- Analytical Mechanics -->
+    <div class="skill" data-id="analytical_mechanics">
+      <span class="skill-title" onclick="toggleContent('analytical_mechanics-content', this)">
+        Analytical Mechanics
+        <span class="chevron">▼</span>
+        <span class="last-updated-inline"></span>
+      </span>
+      <div class="progress-bar" onclick="toggleContent('analytical_mechanics-content', this.parentElement.querySelector('.skill-title'))">
+        <div class="progress-fill analytical" style="width: 0%;">0%</div>
+      </div>
+      <div id="analytical_mechanics-content" class="content-list">
+        <ul>
+          <li>No subcontent yet</li>
+        </ul>
+      </div>
+    </div>
 
-<!-- Thermodynamics -->
-<div class="skill" data-id="thermodynamics">
-  <span class="skill-title" onclick="toggleContent('thermodynamics-content', this)">
-    Thermodynamics
-    <span class="chevron">▼</span>
-    <span class="last-updated-inline"></span>
-  </span>
-  <div class="progress-bar" onclick="toggleContent('thermodynamics-content', this.parentElement.querySelector('.skill-title'))">
-    <div class="progress-fill thermo" style="width: 0%;">0%</div>
-  </div>
-  <div id="thermodynamics-content" class="content-list">
-    <ul>
-      <li>No subcontent yet</li>
-    </ul>
-  </div>
-</div>
+    <!-- Thermodynamics -->
+    <div class="skill" data-id="thermodynamics">
+      <span class="skill-title" onclick="toggleContent('thermodynamics-content', this)">
+        Thermodynamics
+        <span class="chevron">▼</span>
+        <span class="last-updated-inline"></span>
+      </span>
+      <div class="progress-bar" onclick="toggleContent('thermodynamics-content', this.parentElement.querySelector('.skill-title'))">
+        <div class="progress-fill thermo" style="width: 0%;">0%</div>
+      </div>
+      <div id="thermodynamics-content" class="content-list">
+        <ul>
+          <li>No subcontent yet</li>
+        </ul>
+      </div>
+    </div>
 
-<!-- Special & General Relativity -->
-<div class="skill" data-id="relativity">
-  <span class="skill-title" onclick="toggleContent('relativity-content', this)">
-    Special &amp; General Relativity
-    <span class="chevron">▼</span>
-    <span class="last-updated-inline"></span>
-  </span>
-  <div class="progress-bar" onclick="toggleContent('relativity-content', this.parentElement.querySelector('.skill-title'))">
-    <div class="progress-fill relativistic" style="width: 25%;">25%</div>
-  </div>
-  <div id="relativity-content" class="content-list">
-    <ul>
-      <li>No subcontent yet</li>
-    </ul>
-  </div>
-</div>
+    <!-- Special & General Relativity -->
+    <div class="skill" data-id="relativity">
+      <span class="skill-title" onclick="toggleContent('relativity-content', this)">
+        Special &amp; General Relativity
+        <span class="chevron">▼</span>
+        <span class="last-updated-inline"></span>
+      </span>
+      <div class="progress-bar" onclick="toggleContent('relativity-content', this.parentElement.querySelector('.skill-title'))">
+        <div class="progress-fill relativistic" style="width: 25%;">25%</div>
+      </div>
+      <div id="relativity-content" class="content-list">
+        <ul>
+          <li>No subcontent yet</li>
+        </ul>
+      </div>
+    </div>
 
-<!-- Solid-State Physics -->
-<div class="skill" data-id="solid_state_physics">
-  <span class="skill-title" onclick="toggleContent('solid_state_physics-content', this)">
-    Solid-State Physics
-    <span class="chevron">▼</span>
-    <span class="last-updated-inline"></span>
-  </span>
-  <div class="progress-bar" onclick="toggleContent('solid_state_physics-content', this.parentElement.querySelector('.skill-title'))">
-    <div class="progress-fill solid" style="width: 0%;">0%</div>
-  </div>
-  <div id="solid_state_physics-content" class="content-list">
-    <ul>
-      <li>No subcontent yet</li>
-    </ul>
-  </div>
-</div>
+    <!-- Solid-State Physics -->
+    <div class="skill" data-id="solid_state_physics">
+      <span class="skill-title" onclick="toggleContent('solid_state_physics-content', this)">
+        Solid-State Physics
+        <span class="chevron">▼</span>
+        <span class="last-updated-inline"></span>
+      </span>
+      <div class="progress-bar" onclick="toggleContent('solid_state_physics-content', this.parentElement.querySelector('.skill-title'))">
+        <div class="progress-fill solid" style="width: 0%;">0%</div>
+      </div>
+      <div id="solid_state_physics-content" class="content-list">
+        <ul>
+          <li>No subcontent yet</li>
+        </ul>
+      </div>
+    </div>
 
-<!-- Astrophysics -->
-<div class="skill" data-id="astrophysics">
-  <span class="skill-title" onclick="toggleContent('astrophysics-content', this)">
-    Astrophysics
-    <span class="chevron">▼</span>
-    <span class="last-updated-inline"></span>
-  </span>
-  <div class="progress-bar" onclick="toggleContent('astrophysics-content', this.parentElement.querySelector('.skill-title'))">
-    <div class="progress-fill solid" style="width: 0%;">0%</div>
-  </div>
-  <div id="astrophysics-content" class="content-list">
-    <ul>
-      <li>No subcontent yet</li>
-    </ul>
-  </div>
-</div>
+    <!-- Astrophysics -->
+    <div class="skill" data-id="astrophysics">
+      <span class="skill-title" onclick="toggleContent('astrophysics-content', this)">
+        Astrophysics
+        <span class="chevron">▼</span>
+        <span class="last-updated-inline"></span>
+      </span>
+      <div class="progress-bar" onclick="toggleContent('astrophysics-content', this.parentElement.querySelector('.skill-title'))">
+        <div class="progress-fill solid" style="width: 0%;">0%</div>
+      </div>
+      <div id="astrophysics-content" class="content-list">
+        <ul>
+          <li>No subcontent yet</li>
+        </ul>
+      </div>
+    </div>
 
+  </div>
 
   <footer>
     &copy; 2025 Parham
   </footer>
 
-  <!-- Link your existing update-handler here -->
+  <!-- Link to your toggle logic + update timestamps -->
   <script src="update-handler.js" defer></script>
 </body>
 </html>
