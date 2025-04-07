@@ -7,18 +7,22 @@
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
   <style>
+    /* Reset and box-sizing */
     * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    /* Make page fill screen so footer can stick to bottom if short */
+    html, body {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+
     body {
       font-family: 'Poppins', sans-serif;
       background: linear-gradient(135deg, #1c1c3c, #32325d);
       color: #e0e0e0;
       padding: 20px;
     }
-    html, body {
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-}
 
     nav {
       text-align: center;
@@ -32,6 +36,7 @@
       font-weight: 600;
       display: inline-block;
     }
+
     .header {
       text-align: center;
       margin-bottom: 20px;
@@ -53,14 +58,15 @@
       color: #b0b0b0;
       margin-bottom: 30px;
     }
-  .skills-container {
-  max-width: 700px;
-  margin: 0 auto;
-  padding: 0 10px;
-  flex: 1; /* 💥 this is the key line */
-}
 
+    /* The main container with flex:1 so the footer is pushed down */
+    .skills-container {
+      max-width: 700px;
+      margin: 0 auto;
+      padding: 0 10px;
+      flex: 1; /* key line to push footer down */
     }
+
     .skill {
       margin-bottom: 20px;
     }
@@ -91,6 +97,7 @@
       line-height: 25px;
     }
 
+    /* Example comment box style (if needed) */
     .comment-box {
       font-family: 'Georgia', 'Times New Roman', serif;
       font-size: 0.95rem;
@@ -103,6 +110,7 @@
       line-height: 1.6;
     }
 
+    /* Colors for progress-fill */
     .progress-fill.mathphys { background: linear-gradient(90deg, #6a11cb, #2575fc); }
     .progress-fill.analytical { background: linear-gradient(90deg, #ff512f, #dd2476); }
     .progress-fill.quantum { background: linear-gradient(90deg, #00c6ff, #0072ff); }
@@ -133,22 +141,16 @@
       transform: rotate(180deg);
     }
 
-    /* Replace the old .content-list CSS with these lines */
-.content-list {
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height 0.4s ease;
-  margin-top: 10px;
-}
-
-.content-list.open {
-  max-height: 300px;
-}
-
-.chevron.rotate {
-  transform: rotate(180deg);
-}
-
+    /* The 'max-height' approach for subcontent toggle */
+    .content-list {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease;
+      margin-top: 10px;
+    }
+    .content-list.open {
+      max-height: 300px;
+    }
 
     /* --- Responsive Tweaks --- */
     @media (max-width: 480px) {
