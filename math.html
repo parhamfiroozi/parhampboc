@@ -2,15 +2,16 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Math Progress</title>
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet" />
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Merriweather:wght@700&display=swap" rel="stylesheet">
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
-      font-family: 'Orbitron', sans-serif;
-      background: #0a0f2c;
-      color: #0ff;
+      font-family: 'Poppins', sans-serif;
+      background: #fdfdfd;
+      color: #333;
       padding: 20px;
     }
     nav {
@@ -20,8 +21,8 @@
     nav a {
       margin: 5px 8px;
       text-decoration: none;
-      color: #0ff;
-      font-weight: 700;
+      color: #5a2a83;
+      font-weight: 600;
     }
     .header {
       text-align: center;
@@ -29,125 +30,75 @@
     }
     .header img {
       width: 100%;
-      max-width: 260px;
+      max-width: 280px;
       border-radius: 10px;
       margin-bottom: 20px;
-      box-shadow: 0 0 10px #0ff;
+      box-shadow: 0 0 10px rgba(90,42,131,0.5);
     }
     h1 {
+      font-family: 'Merriweather', serif;
       font-size: 2rem;
       margin-bottom: 10px;
-      text-shadow: 0 0 10px #0ff;
+      color: #5a2a83;
     }
     .subtitle {
       font-size: 1.1rem;
-      color: #ffc107;
+      color: #7d5ba6;
       margin-bottom: 30px;
     }
     .skills-container {
       max-width: 700px;
       margin: 0 auto;
-      background: #1a1f4c;
-      padding: 20px;
-      border-radius: 12px;
-      box-shadow: 0 0 15px rgba(0,255,255,0.3);
+      padding: 0 10px;
     }
     .skill {
-      margin-bottom: 30px;
+      margin-bottom: 25px;
     }
     .skill-title {
-      display: inline-flex;
-      align-items: center;
       font-size: 1rem;
-      font-weight: 700;
+      font-weight: 600;
       margin-bottom: 5px;
-      color: #0ff;
-      cursor: pointer;
+      color: #5a2a83;
+      display: inline-block;
     }
-    .chevron {
-      margin-left: 5px;
-      transition: transform 0.3s ease;
-    }
-    .chevron.rotate {
-      transform: rotate(180deg);
+    .last-updated-inline {
+      font-size: 0.8rem;
+      color: #a95ec7;
+      margin-left: 8px;
+      font-weight: 500;
     }
     .progress-bar {
-      background: #0a0f2c;
+      background: #e0e0e0;
       border-radius: 10px;
       overflow: hidden;
       height: 25px;
-      cursor: pointer;
-      margin-bottom: 5px;
+      width: 100%;
     }
     .progress-fill {
       height: 100%;
       text-align: center;
       color: #fff;
-      font-weight: 700;
+      font-weight: 600;
       font-size: 0.9rem;
-      line-height: 25px;
       transition: width 0.3s ease;
+      line-height: 25px;
     }
-    .progress-fill.math { background: linear-gradient(90deg, #00ffcc, #00b3b3); }
+    .progress-fill.linear { background: linear-gradient(90deg, #ff7e5f, #feb47b); }
+    .progress-fill.analysis { background: linear-gradient(90deg, #6a11cb, #2575fc); }
+    .progress-fill.algebra { background: linear-gradient(90deg, #43cea2, #185a9d); }
+    .progress-fill.topology { background: linear-gradient(90deg, #ff512f, #dd2476); }
+    .progress-fill.discrete { background: linear-gradient(90deg, #f7971e, #ffd200); }
+    .progress-fill.optimization { background: linear-gradient(90deg, #00b09b, #96c93d); }
+    .progress-fill.stochastic { background: linear-gradient(90deg, #833ab4, #fd1d1d, #fcb045); }
+    .progress-fill.graph { background: linear-gradient(90deg, #11998e, #38ef7d); }
+    .progress-fill.group { background: linear-gradient(90deg, #a8c0ff, #3f2b96); }
+    .progress-fill.variational { background: linear-gradient(90deg, #fc5c7d, #6a82fb); }
 
-    .last-updated {
-      font-size: 0.8rem;
-      font-weight: 500;
-      color: #ffd700;
-      margin-top: 6px;
-    }
-    .last-updated-inline {
-      font-size: 0.8rem;
-      font-weight: 500;
-      color: #ffd700;
-      margin-left: 8px;
-    }
-
-    .content-list {
-      max-height: 0;
-      overflow: hidden;
-      transition: max-height 0.4s ease;
-      margin-top: 10px;
-    }
-    .content-list.open {
-      max-height: 300px;
-    }
-    .content-list ul {
-      list-style: none;
-      padding-left: 0;
-    }
-    .content-list li {
-      margin-bottom: 8px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-size: 0.95rem;
-      color: #fff;
-    }
-    .content-list a {
-      color: #0ff;
-      text-decoration: none;
-      font-weight: 500;
-    }
-    .content-list a:hover {
-      text-decoration: underline;
-    }
-    .comment-box {
-      font-family: 'Segoe UI', 'Open Sans', sans-serif;
-      font-size: 0.95rem;
-      color: #c6f9ff;
-      background: rgba(0, 255, 255, 0.05);
-      border-left: 4px solid #00f7ff;
-      padding: 12px;
-      margin-top: 10px;
-      border-radius: 6px;
-      line-height: 1.6;
-    }
     footer {
       text-align: center;
       margin-top: 40px;
       font-size: 0.85rem;
-      color: #aaa;
+      color: #777;
     }
   </style>
 </head>
@@ -161,50 +112,118 @@
   </nav>
 
   <div class="header">
-    <img src="https://i.postimg.cc/qvMZjsjk/Chat-GPT-Image-Apr-1-2025-07-32-22-PM.png" alt="Math Theme Image" />
+    <img src="https://i.postimg.cc/NFNbRFD4/Chat-GPT-Image-Apr-1-2025-07-18-33-PM.png" alt="Math Theme Image">
     <h1>Math Progress</h1>
-    <p class="subtitle">Tracking progress across core math subjects</p>
+    <p class="subtitle">Tracking my mathematical subjects</p>
   </div>
 
   <div class="skills-container">
-    <!-- Example Math Subject -->
-    <div class="skill" data-id="calculus1">
-      <span class="skill-title" onclick="toggleContent('calculus1-content', this)">
-        Calculus I 
-        <span class="chevron">▼</span>
-        <span class="last-updated-inline"></span>
+    <div class="skill" data-id="linear_algebra">
+      <span class="skill-title">
+        Linear Algebra <span class="last-updated-inline"></span>
       </span>
-      <div class="progress-bar" onclick="toggleContent('calculus1-content', this.parentElement.querySelector('.skill-title'))">
-        <div class="progress-fill math" style="width: 60%;">60%</div>
-      </div>
-      <div class="last-updated"></div>
-      <div id="calculus1-content" class="content-list">
-        <ul>
-          <li data-id="calculus_startingtips">
-            <a href="calculus_startingtips.html">Starting Tips</a>
-            <span class="last-updated"></span>
-          </li>
-          <li data-id="limits101">
-            <a href="limits101.html">Limits 101</a>
-            <span class="last-updated"></span>
-          </li>
-        </ul>
-      </div>
-      <div class="comment-box">
-        My foundation in calculus began during my early college semesters. I focused on both intuition and rigor, with special attention to limits and derivatives.
+      <div class="progress-bar">
+        <div class="progress-fill linear" style="width: 50%;">50%</div>
       </div>
     </div>
 
-    <!-- Add more subjects below using same structure -->
+    <div class="skill" data-id="mathematical_analysis">
+      <span class="skill-title">
+        Mathematical Analysis <span class="last-updated-inline"></span>
+      </span>
+      <div class="progress-bar">
+        <div class="progress-fill analysis" style="width: 0%;">0%</div>
+      </div>
+    </div>
 
+    <div class="skill" data-id="algebra">
+      <span class="skill-title">
+        Algebra <span class="last-updated-inline"></span>
+      </span>
+      <div class="progress-bar">
+        <div class="progress-fill algebra" style="width: 10%;">10%</div>
+      </div>
+    </div>
+
+    <div class="skill" data-id="topology">
+      <span class="skill-title">
+        Topology <span class="last-updated-inline"></span>
+      </span>
+      <div class="progress-bar">
+        <div class="progress-fill topology" style="width: 0%;">0%</div>
+      </div>
+    </div>
+
+    <div class="skill" data-id="discrete_math">
+      <span class="skill-title">
+        Discrete Math <span class="last-updated-inline"></span>
+      </span>
+      <div class="progress-bar">
+        <div class="progress-fill discrete" style="width: 90%;">90%</div>
+      </div>
+    </div>
+
+    <div class="skill" data-id="linear_optimization">
+      <span class="skill-title">
+        Linear Optimization <span class="last-updated-inline"></span>
+      </span>
+      <div class="progress-bar">
+        <div class="progress-fill optimization" style="width: 0%;">0%</div>
+      </div>
+    </div>
+
+    <div class="skill" data-id="nonlinear_optimization">
+      <span class="skill-title">
+        Non-linear Optimization <span class="last-updated-inline"></span>
+      </span>
+      <div class="progress-bar">
+        <div class="progress-fill optimization" style="width: 0%;">0%</div>
+      </div>
+    </div>
+
+    <div class="skill" data-id="stochastic_processes">
+      <span class="skill-title">
+        Stochastic Processes <span class="last-updated-inline"></span>
+      </span>
+      <div class="progress-bar">
+        <div class="progress-fill stochastic" style="width: 30%;">30%</div>
+      </div>
+    </div>
+
+    <div class="skill" data-id="graph_theory">
+      <span class="skill-title">
+        Graph Theory <span class="last-updated-inline"></span>
+      </span>
+      <div class="progress-bar">
+        <div class="progress-fill graph" style="width: 0%;">0%</div>
+      </div>
+    </div>
+
+    <div class="skill" data-id="group_theory">
+      <span class="skill-title">
+        Group Theory <span class="last-updated-inline"></span>
+      </span>
+      <div class="progress-bar">
+        <div class="progress-fill group" style="width: 5%;">5%</div>
+      </div>
+    </div>
+
+    <div class="skill" data-id="variational_calculus">
+      <span class="skill-title">
+        Variational Calculus <span class="last-updated-inline"></span>
+      </span>
+      <div class="progress-bar">
+        <div class="progress-fill variational" style="width: 0%;">0%</div>
+      </div>
+    </div>
   </div>
 
   <footer>
     &copy; 2025 Parham
   </footer>
 
-  <!-- External script for update handling -->
-  <script src="update-handler.js"></script>
+  <!-- 🔗 This does sorting and timestamps -->
+  <script src="update-handler.js" defer></script>
 
 </body>
 </html>
