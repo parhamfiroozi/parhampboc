@@ -124,14 +124,22 @@
       transform: rotate(180deg);
     }
 
-    /* Optional if you add sub-lists in the future */
-    .content-list {
-      display: none;
-      margin-top: 10px;
-    }
-    .content-list.open {
-      max-height: 300px;
-    }
+    /* Replace the old .content-list CSS with these lines */
+.content-list {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease;
+  margin-top: 10px;
+}
+
+.content-list.open {
+  max-height: 300px;
+}
+
+.chevron.rotate {
+  transform: rotate(180deg);
+}
+
 
     /* --- Responsive Tweaks --- */
     @media (max-width: 480px) {
