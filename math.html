@@ -258,75 +258,7 @@
     &copy; 2025 Parham
   </footer>
 
-  <script>
-    // Toggle content placeholder (no sub-lists here, but let's keep the same function)
-    function toggleContent(id, titleEl) {
-      const content = document.getElementById(id);
-      if (!content) return;
-      const chevron = titleEl.querySelector('.chevron');
-      content.style.display = (content.style.display === 'block') ? 'none' : 'block';
-      if (chevron) {
-        chevron.classList.toggle('rotate');
-      }
-    }
+ <script src="update-handler.js" defer></script>
 
-    function formatRelativeTime(date) {
-      const now = new Date();
-      const diff = now - date;
-      const seconds = Math.floor(diff / 1000);
-      const minutes = Math.floor(diff / 60000);
-      const hours = Math.floor(diff / 3600000);
-      const days = Math.floor(diff / 86400000);
-
-      if (seconds < 60) return "just now";
-      if (minutes < 60) return `${minutes} minute${minutes !== 1 ? 's' : ''} ago`;
-      if (hours < 24) return `${hours} hour${hours !== 1 ? 's' : ''} ago`;
-      if (days < 30) return `${days} day${days !== 1 ? 's' : ''} ago`;
-      return date.toLocaleDateString();
-    }
-
-    async function sortAndTagContent() {
-      try {
-        const res = await fetch('updates.json');
-        const updates = await res.json();
-
-        const container = document.querySelector('.skills-container');
-        const skills = Array.from(container.querySelectorAll('.skill'));
-
-        // Fill in times
-        skills.forEach(skill => {
-          const id = skill.dataset.id;
-          const inlineTag = skill.querySelector('.last-updated-inline');
-          const boxTag = skill.querySelector('.last-updated');
-
-          if (updates[id]) {
-            const date = new Date(updates[id]);
-            const relative = formatRelativeTime(date);
-            if (inlineTag) {
-              inlineTag.textContent = `(Updated ${relative})`;
-              inlineTag.title = date.toLocaleString();
-            }
-            if (boxTag) {
-              boxTag.textContent = "Updated " + relative;
-              boxTag.title = date.toLocaleString();
-            }
-          }
-        });
-
-        // Sort by newest
-        skills.sort((a, b) => {
-          const aTime = new Date(updates[a.dataset.id] || 0);
-          const bTime = new Date(updates[b.dataset.id] || 0);
-          return bTime - aTime;
-        });
-
-        skills.forEach(skill => container.appendChild(skill));
-      } catch (err) {
-        console.error("Failed to fetch updates.json:", err);
-      }
-    }
-
-    document.addEventListener('DOMContentLoaded', sortAndTagContent);
-  </script>
 </body>
 </html>
