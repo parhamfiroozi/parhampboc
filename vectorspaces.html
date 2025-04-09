@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script>
+    window.MathJax = {
+      tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] },
+      svg: { fontCache: 'global' }
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Vector Spaces</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: #fdfdfd;
+      color: #333;
+      padding: 20px;
+      max-width: 900px;
+      margin: auto;
+    }
+    h1 {
+      color: #5a2a83;
+      font-size: 2.2rem;
+      margin-bottom: 10px;
+    }
+    h2 {
+      color: #7d5ba6;
+      margin-top: 30px;
+      font-size: 1.4rem;
+    }
+    h3, h4 {
+      margin-top: 20px;
+    }
+    p, ul {
+      margin-top: 10px;
+      line-height: 1.6;
+    }
+    nav {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    nav a {
+      margin: 0 10px;
+      text-decoration: none;
+      color: #007acc;
+      font-weight: 600;
+    }
+    .content-links {
+      background: #f1f1f1;
+      padding: 15px 20px;
+      margin-bottom: 30px;
+      border-left: 4px solid #5a2a83;
+      border-radius: 5px;
+    }
+    .content-links ul {
+      list-style: none;
+      padding: 0;
+    }
+    .content-links li {
+      margin-bottom: 8px;
+    }
+    .content-links a {
+      color: #5a2a83;
+      text-decoration: none;
+      font-weight: 500;
+    }
+    .content-links a:hover {
+      text-decoration: underline;
+    }
+    a.back {
+      display: inline-block;
+      margin-bottom: 20px;
+      color: #5a2a83;
+      font-size: 0.95rem;
+      text-decoration: none;
+    }
+    a.back:hover {
+      text-decoration: underline;
+    }
+    footer {
+      text-align: center;
+      margin-top: 40px;
+      font-size: 0.85rem;
+      color: #777;
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html">Coding</a> |
+  <a href="electrical.html">Electrical Engineering</a> |
+  <a href="physics.html">Physics</a> |
+  <a href="math.html">Math</a>
+</nav>
+
+<h1>Vector Spaces</h1>
+
+<div class="content-links">
+  <strong>Contents</strong>
+  <ul>
+    <li><a href="#vector-spaces">Vector Spaces</a></li>
+    <li><a href="#subspace">Subspace</a></li>
+    <li><a href="#span">Span</a></li>
+    <li><a href="#linear-independence">Linear Independence</a></li>
+    <li><a href="#basis">Basis</a></li>
+    <li><a href="#dimension">Dimension</a></li>
+  </ul>
+</div>
+
+<!-- existing sections continue below... -->
+
+
+<div id="vector-spaces">
+  <h2>Vector Spaces</h2>
+  <p>Okay, so the first topic: vector spaces. Doesn’t need an explanation — you already know what it is. I try to learn it through examples.</p>
+  <p>A vector space is a set of objects (called vectors) that can be added together and multiplied by scalars, with the result still belonging to the set. These operations must satisfy eight specific rules, such as associativity and distributivity.</p>
+</div>
+
+<div id="subspace">
+  <h2>Subspace</h2>
+  <p>A subspace is a subset of a vector space that is itself a vector space. It must be closed under vector addition and scalar multiplication.</p>
+  <h3>Example</h3>
+  <p>Let <strong>V = ℝ³</strong>. Define the set:</p>
+  <p><strong>W = { (x, y, z) ∈ ℝ³ | x + y + z = 0 }</strong></p>
+  <ul>
+    <li><strong>Closed under addition:</strong> If <em>x₁ + y₁ + z₁ = 0</em> and <em>x₂ + y₂ + z₂ = 0</em>, then:<br> (x₁ + x₂) + (y₁ + y₂) + (z₁ + z₂) = 0.</li>
+    <li><strong>Closed under scalar multiplication:</strong> For scalar <em>a</em>, a(x + y + z) = a ⋅ 0 = 0.</li>
+  </ul>
+  <p>Therefore, <em>W</em> is a subspace of ℝ³.</p>
+</div>
+
+<div id="span">
+  <h2>Span</h2>
+  <h3>Example in ℝ³</h3>
+  <p>Let <em>v₁ = (1, 1, 0)</em>, <em>v₂ = (0, 1, 1)</em>.</p>
+  <p>Take a linear combination:</p>
+  <p><em>a ⋅ v₁ + b ⋅ v₂ = a ⋅ (1, 1, 0) + b ⋅ (0, 1, 1)</em></p>
+  <ul>
+    <li>First component: a</li>
+    <li>Second component: a + b</li>
+    <li>Third component: b</li>
+  </ul>
+  <p>Result: <strong>(a, a + b, b)</strong></p>
+
+  <h3>Example in ℝ⁴</h3>
+  <p>Let:</p>
+  <ul>
+    <li>v₁ = (1, 2, 0, 1)</li>
+    <li>v₂ = (0, 1, 1, 1)</li>
+    <li>v₃ = (1, 3, 1, 2)</li>
+  </ul>
+  <p>Check if v₃ ∈ span{v₁, v₂}</p>
+  <p>Set: <em>a ⋅ v₁ + b ⋅ v₂ = v₃</em></p>
+  <p>Left side: <em>(a, 2a + b, b, a + b)</em> = (1, 3, 1, 2)</p>
+  <ul>
+    <li>a = 1</li>
+    <li>b = 1</li>
+  </ul>
+  <p>So v₃ ∈ span{v₁, v₂}</p>
+  <p>Span means all combinations of given vectors. You're asking: "Can I build this using only those?" If yes, it's in the span.</p>
+</div>
+
+<div id="linear-independence">
+  <h2>Linear Independence</h2>
+  <p>Imagine you have some sticks. If no stick can be made by mixing the others, they are independent. But if you can make one stick by using the others, they are dependent.</p>
+
+  <h3>Example</h3>
+  <p>Given:</p>
+  <ul>
+    <li>v₁ = (1, 2, 3, 4)</li>
+    <li>v₂ = (2, 4, 6, 8)</li>
+    <li>v₃ = (1, 0, 1, 0)</li>
+  </ul>
+  <p>Solve: <em>a ⋅ v₁ + b ⋅ v₂ + c ⋅ v₃ = 0</em></p>
+  <p>Leads to system:</p>
+  <ul>
+    <li>a + 2b + c = 0</li>
+    <li>2a + 4b = 0</li>
+    <li>3a + 6b + c = 0</li>
+    <li>4a + 8b = 0</li>
+  </ul>
+  <p>Solving gives: a = -2b, b = free, c = 0 ⇒ nontrivial solution exists ⇒ linearly dependent.</p>
+</div>
+
+<div id="basis">
+  <h2>Basis</h2>
+  <p>A basis is like a set of special building blocks. You only need a few of them to build everything in your space.</p>
+  <p>They must satisfy two conditions:</p>
+  <ul>
+    <li>No vector in the set can be written as a combination of the others (they are linearly independent).</li>
+    <li>The set can be used to generate every vector in the space (they span the space).</li>
+  </ul>
+
+  <h3>Example in ℝ²</h3>
+  <p>Basis: <strong>{ (1, 0), (0, 1) }</strong></p>
+
+  <h3>Determine Basis</h3>
+  <p>Check if <strong>B = { (1, 0), (0, 1) }</strong> is a basis of ℝ²:</p>
+  <h4>Step 1: Linear Independence</h4>
+  <p>Solve: <em>a(1, 0) + b(0, 1) = (0, 0)</em> ⇒ a = 0, b = 0 ⇒ independent.</p>
+
+  <h4>Step 2: Spanning</h4>
+  <p>Any (x, y) ∈ ℝ² can be written as x(1, 0) + y(0, 1) ⇒ spans ℝ².</p>
+
+  <h4>Step 3: Conclusion</h4>
+  <p>Linearly independent and spans ℝ² ⇒ it is a basis.</p>
+</div>
+
+<div id="dimension">
+  <h2>Dimension</h2>
+  <p>The dimension tells you how many basis vectors (or "special blocks") are needed to describe the entire space.</p>
+  <p>Examples:</p>
+  <ul>
+    <li>ℝ² (a flat table world): needs 2 blocks — forward and sideways</li>
+    <li>ℝ³ (full 3D space): needs 3 blocks — forward, sideways, and up</li>
+  </ul>
+  <p>So:</p>
+  <ul>
+    <li>Flat world ⇒ dimension = 2</li>
+    <li>Space world ⇒ dimension = 3</li>
+  </ul>
+</div>
+
+<footer>
+  &copy; 2025 Parham — Linear Algebra Notes
+</footer>
+
+</body>
+</html>
