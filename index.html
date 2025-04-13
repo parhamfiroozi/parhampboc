@@ -179,46 +179,62 @@
         I began learning HTML, CSS, and JavaScript as part of my journey into web development. These technologies helped me build interactive, responsive interfaces and understand how front-end systems work.
       </div>
     </div>
-
+    
     <!-- Python -->
     <div class="skill" data-id="python">
-      <span class="skill-title">
-        Python <span class="last-updated-inline"></span>
+      <span class="skill-title" onclick="toggleContent('python-content', this)">
+        Python
+        <span class="chevron">▼</span>
+        <span class="last-updated-inline"></span>
       </span>
-      <div class="progress-bar">
+      <div class="progress-bar" onclick="toggleContent('python-content', this.parentElement.querySelector('.skill-title'))">
         <div class="progress-fill" style="width: 60%;">60%</div>
       </div>
-      <div class="last-updated"></div>
+      <div id="python-content" class="content-list">
+        <!-- Empty content list -->
+      </div>
       <div class="comment-box">
         During my Numerical Analysis course with Dr. Hooman BahmanSoltani, I learned MATLAB alongside Python. Currently, as a Computer Engineering student at IAU, I scored 17.5/20 in my Python course.
       </div>
     </div>
 
-    <!-- C++ -->
+
+   <!-- C++ -->
     <div class="skill" data-id="cpp">
-      <span class="skill-title">
-        C++ <span class="last-updated-inline"></span>
+      <span class="skill-title" onclick="toggleContent('cpp-content', this)">
+        C++
+        <span class="chevron">▼</span>
+        <span class="last-updated-inline"></span>
       </span>
-      <div class="progress-bar">
+      <div class="progress-bar" onclick="toggleContent('cpp-content', this.parentElement.querySelector('.skill-title'))">
         <div class="progress-fill" style="width: 70%;">70%</div>
       </div>
-      <div class="last-updated"></div>
+      <div id="cpp-content" class="content-list">
+        <!-- Empty content list -->
+      </div>
       <div class="comment-box">
-        C++ was one of the first programming languages I studied at Shiraz University. I scored 18.50/20, which helped develop my passion for programming and problem-solving.
+    C++ was one of the first programming languages I studied at Shiraz University. I scored 18.50/20, which helped develop my passion for programming and problem-solving.
+      </div>
       </div>
     </div>
 
-      <!-- react.js -->
+
+   <!-- React.js -->
     <div class="skill" data-id="React">
-      <span class="skill-title">
-        React.Js <span class="last-updated-inline"></span>
+      <span class="skill-title" onclick="toggleContent('React-content', this)">
+        React.Js
+        <span class="chevron">▼</span>
+        <span class="last-updated-inline"></span>
       </span>
-      <div class="progress-bar">
+      <div class="progress-bar" onclick="toggleContent('React-content', this.parentElement.querySelector('.skill-title'))">
         <div class="progress-fill" style="width: 70%;">70%</div>
       </div>
-      <div class="last-updated"></div>
+      <div id="React-content" class="content-list">
+        <!-- Empty content list -->
+      </div>
       <div class="comment-box">
-      
+        <!-- Empty comment box -->
+      </div>
     </div>
 
   </div>
