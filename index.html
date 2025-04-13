@@ -80,7 +80,7 @@
       margin-top: 10px;
     }
     .content-list.open {
-      max-height: 300px; /* or more if you prefer */
+      max-height: 300px;
     }
     .content-list ul {
       list-style: none;
@@ -152,7 +152,7 @@
 
   <div class="skills-container">
 
-    <!-- HTML (has sub-lists) -->
+    <!-- HTML + CSS + JavaScript -->
     <div class="skill" data-id="html">
       <span class="skill-title" onclick="toggleContent('html-content', this)">
         HTML + CSS + JavaScript
@@ -162,7 +162,6 @@
       <div class="progress-bar" onclick="toggleContent('html-content', this.parentElement.querySelector('.skill-title'))">
         <div class="progress-fill" style="width: 20%;">20%</div>
       </div>
-      
       <div id="html-content" class="content-list">
         <ul>
           <li data-id="startingtips">
@@ -179,7 +178,7 @@
         I began learning HTML, CSS, and JavaScript as part of my journey into web development. These technologies helped me build interactive, responsive interfaces and understand how front-end systems work.
       </div>
     </div>
-    
+
     <!-- Python -->
     <div class="skill" data-id="python">
       <span class="skill-title" onclick="toggleContent('python-content', this)">
@@ -191,15 +190,14 @@
         <div class="progress-fill" style="width: 60%;">60%</div>
       </div>
       <div id="python-content" class="content-list">
-        <!-- Empty content list -->
+        <!-- Content can be added here later -->
       </div>
       <div class="comment-box">
         During my Numerical Analysis course with Dr. Hooman BahmanSoltani, I learned MATLAB alongside Python. Currently, as a Computer Engineering student at IAU, I scored 17.5/20 in my Python course.
       </div>
     </div>
 
-
-   <!-- C++ -->
+    <!-- C++ -->
     <div class="skill" data-id="cpp">
       <span class="skill-title" onclick="toggleContent('cpp-content', this)">
         C++
@@ -210,16 +208,14 @@
         <div class="progress-fill" style="width: 70%;">70%</div>
       </div>
       <div id="cpp-content" class="content-list">
-        <!-- Empty content list -->
+        <!-- Content can be added here later -->
       </div>
       <div class="comment-box">
-    C++ was one of the first programming languages I studied at Shiraz University. I scored 18.50/20, which helped develop my passion for programming and problem-solving.
-      </div>
+        C++ was one of the first programming languages I studied at Shiraz University. I scored 18.50/20, which helped develop my passion for programming and problem-solving.
       </div>
     </div>
 
-
-   <!-- React.js -->
+    <!-- React.js -->
     <div class="skill" data-id="React">
       <span class="skill-title" onclick="toggleContent('React-content', this)">
         React.Js
@@ -233,17 +229,25 @@
         <!-- Empty content list -->
       </div>
       <div class="comment-box">
-        <!-- Empty comment box -->
+        <!-- Comment can be added here later -->
       </div>
     </div>
 
-  </div>
+  </div> <!-- Close skills-container -->
 
   <footer>
     &copy; 2025 Parham
   </footer>
 
-  <!-- Move your external JS reference here -->
-  <script src="update-handler.js"></script>
+  <script>
+    function toggleContent(contentId, element) {
+      const content = document.getElementById(contentId);
+      const chevron = element.querySelector('.chevron');
+      
+      content.classList.toggle('open');
+      chevron.classList.toggle('rotate');
+    }
+  </script>
+
 </body>
 </html>
