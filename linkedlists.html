@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Linked Lists</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/github-dark.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: #121212;
+      color: #f0f0f0;
+      padding: 100px 40px 40px 180px;
+      line-height: 1.6;
+    }
+    nav {
+  font-family: 'Poppins', sans-serif;
+}
+    nav.top-nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background: #1e1e1e;
+      padding: 10px 20px;
+      text-align: center;
+      z-index: 1000;
+    }
+    nav.top-nav a {
+      color: #66d9ef;
+      margin: 0 10px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    nav.top-nav a:hover {
+      text-decoration: underline;
+    }
+
+    .sidebar-tab {
+      position: fixed;
+      top: 80px;
+      left: 0;
+      width: 150px;
+      background-color: #1c1c1c;
+      padding: 20px;
+      height: 100%;
+      box-shadow: 2px 0 5px rgba(0,0,0,0.4);
+    }
+    .sidebar-tab a {
+      display: block;
+      color: #66d9ef;
+      text-decoration: none;
+      margin-bottom: 15px;
+      font-weight: 500;
+    }
+    .sidebar-tab a:hover {
+      text-decoration: underline;
+    }
+
+    h1, h2 {
+      color: #66d9ef;
+      text-align: center;
+    }
+
+    .comment-box {
+      background: rgba(102, 217, 239, 0.08);
+      border-left: 3px solid #66d9ef;
+      padding: 15px 20px;
+      margin: 30px auto;
+      border-radius: 8px;
+      max-width: 800px;
+    }
+    .code-label {
+      background: #66d9ef;
+      padding: 5px 10px;
+      border-radius: 5px;
+      display: inline-block;
+      margin-bottom: 10px;
+      color: #121212;
+      font-weight: bold;
+    }
+
+    .code-wrapper {
+      position: relative;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    .copy-btn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background-color: #66d9ef;
+      border: none;
+      color: #121212;
+      padding: 6px 12px;
+      border-radius: 5px;
+      font-size: 0.8rem;
+      cursor: pointer;
+      z-index: 10;
+      transition: background-color 0.2s ease;
+    }
+    .copy-btn:hover {
+      background-color: #42bcd4;
+    }
+    .copy-btn.copied::after {
+      content: "Copied!";
+      display: block;
+      position: absolute;
+      top: 100%;
+      right: 0;
+      background: #66d9ef;
+      color: #121212;
+      padding: 3px 8px;
+      border-radius: 4px;
+      font-size: 0.7rem;
+      margin-top: 5px;
+    }
+
+    pre {
+      background: #1e1e1e;
+      border-radius: 8px;
+      padding: 20px;
+      overflow-x: auto;
+      position: relative;
+    }
+    code {
+      font-size: 0.95rem;
+    }
+    ul {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+    li {
+      margin-bottom: 10px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    li:hover {
+      color: #66d9ef;
+    }
+    .highlight-line {
+      display: block;
+      transition: background-color 0.4s ease;
+    }
+    .flash-highlight {
+      background-color: rgba(102, 217, 239, 0.2);
+    }
+
+    @media (max-width: 768px) {
+      body {
+        padding: 140px 20px 40px 20px;
+      }
+      .sidebar-tab {
+        display: none;
+      }
+      .copy-btn {
+        top: 5px;
+        right: 5px;
+        padding: 5px 10px;
+        font-size: 0.75rem;
+      }
+      .code-wrapper pre {
+        font-size: 0.85rem;
+        padding: 15px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav class="top-nav">
+    <a href="index.html">Coding</a> |
+    <a href="electrical.html">Electrical Engineering</a> |
+    <a href="physics.html">Physics</a> |
+    <a href="math.html">Math</a>
+  </nav>
+
+  <div class="sidebar-tab">
+  
+    <a href="#">Linked Lists</a>
+  </div>
+
+  <h1>Linked Lists</h1>
+
+  <div class="comment-box">
+    <div class="code-label">Python Code</div>
+    <div class="code-wrapper">
+      <button class="copy-btn" onclick="copyCode()">📋 Copy</button>
+      <pre><code id="code-block" class="language-python">
+class Car:
+    def __init__(self, brand, model):
+        self.brand = brand
+        self.model = model
+
+    def drive(self):
+        print(f"{self.brand} {self.model} is driving.")
+
+    def stop(self):
+        print(f"{self.brand} {self.model} has stopped.")
+
+# Usage
+my_car = Car("Toyota", "Corolla")
+my_car.drive()
+my_car.stop()
+
+friend_car = Car("Honda", "Civic")
+friend_car.drive()
+</code></pre>
+    </div>
+  </div>
+  <h2>Explanation of the Code</h2>
+  <ul>
+    <li>We create a class called Car. It’s a blueprint for making car objects.</li>
+    <li>The __init__ method is a constructor. It runs when a new Car is made.</li>
+    <li>It takes brand and model as input, and stores them in self.brand and self.model.</li>
+    <li>drive() is a method that prints \"{brand} {model} is driving.\" using the car's data.</li>
+    <li>stop() is another method that prints \"{brand} {model} has stopped.\".</li>
+    <li>We make a car called my_car using Car(\"Toyota\", \"Corolla\").</li>
+    <li>my_car.drive() calls the drive method and prints the message.</li>
+    <li>my_car.stop() calls the stop method and prints the stop message.</li>
+    <li>Then we make another car called friend_car with Car(\"Honda\", \"Civic\").</li>
+    <li>friend_car.drive() calls drive for the Honda Civic and prints that it is driving.</li>
+    <li>print(f") is called an f-string, short for formatted string literal. It’s a way to insert variables inside a string without using + or .format().</li>
+  </ul>
+  
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+  <script>hljs.highlightAll();</script>
+  <script>
+    function copyCode() {
+      const code = document.getElementById('code-block');
+      const text = code.innerText;
+      navigator.clipboard.writeText(text).then(() => {
+        const btn = document.querySelector('.copy-btn');
+        btn.classList.add('copied');
+        setTimeout(() => {
+          btn.classList.remove('copied');
+        }, 2000);
+      });
+    }
+  </script>
+</body>
+</html>
