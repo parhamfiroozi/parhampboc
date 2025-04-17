@@ -223,6 +223,183 @@ friend_car.drive()
     <li>friend_car.drive() calls drive for the Honda Civic and prints that it is driving.</li>
     <li>print(f") is called an f-string, short for formatted string literal. It’s a way to insert variables inside a string without using + or .format().</li>
   </ul>
+
+  <h1>Linked Lists</h1>
+
+  <div class="comment-box">
+    <h2>What is a Linked List?</h2>
+    <p>A Linked List is a linear data structure where each element (called a <strong>node</strong>) contains:</p>
+    <ul>
+      <li>Data</li>
+      <li>A pointer (or reference) to the next node in the sequence</li>
+    </ul>
+
+    <h2>Types of Linked Lists:</h2>
+    <ul>
+      <li>Singly Linked List</li>
+      <li>Doubly Linked List</li>
+      <li>Circular Linked List (Singly or Doubly)</li>
+    </ul>
+  </div>
+  <div class="comment-box">
+    <h2>Singly Linked List</h2>
+    <h3>Structure:</h3>
+    <p>Each node contains two parts: the data and a reference to the next node in the list.</p>
+
+    <div class="code-label">Visual</div>
+    <div class="code-wrapper">
+      <button class="copy-btn" onclick="copyLinkedList()">📋 Copy</button>
+      <pre><code id="linked-list-structure" class="language-text">
+[Data | Next] -> [Data | Next] -> [Data | Next] -> NULL
+</code></pre>
+    </div>
+  </div>
+
+   
+  <div class="comment-box">
+    <h2>Concepts:</h2>
+    <ul>
+      <li><strong>Node:</strong> A container that stores data and the next reference.</li>
+      <li><strong>Head:</strong> Starting point of the list.</li>
+      <li><strong>Traverse:</strong> Move through each node.</li>
+    </ul>
+
+    <h3>Goal 1: Create a list with 3 nodes: Apple → Banana → Grape</h3>
+
+    <div class="code-label">Python:</div>
+    <div class="code-wrapper">
+      <button class="copy-btn" onclick="copyGoal1()">📋 Copy</button>
+      <pre><code id="goal1-code" class="language-python">
+class Node:
+    def __init__(self, data):
+        self.data = data
+        self.next = None
+
+# Create nodes
+n1 = Node("Apple")
+n2 = Node("Banana")
+n3 = Node("Grape")
+
+# Link them
+n1.next = n2
+n2.next = n3
+
+# Traverse and print
+temp = n1
+while temp:
+    print(temp.data, end=" -> ")
+    temp = temp.next
+print("None")
+</code></pre>
+    </div>
+
+    <div class="code-label">Output:</div>
+    <div class="code-wrapper">
+      <button class="copy-btn" onclick="copyGoal1Output()">📋 Copy</button>
+      <pre><code id="goal1-output" class="language-text">
+Apple -> Banana -> Grape -> None
+</code></pre>
+    </div>
+  </div>
+
+  <div class="comment-box">
+    <h2>Simple Analogy:</h2>
+    <p>Imagine a train — each coach is a node, and it knows where the next coach is, but not the previous one.</p>
+  </div>
+  <div class="comment-box">
+    <h2>Step 1: Define a Node</h2>
+
+    <div class="code-label">Python</div>
+    <div class="code-wrapper">
+      <button class="copy-btn" onclick="copyStep1()">📋 Copy</button>
+      <pre><code id="step1" class="language-python">
+class Node:
+    def __init__(self, data):
+        self.data = data       # store the value (like "Apple")
+        self.next = None       # points to the next node (default is None)
+</code></pre>
+    </div>
+
+    <p>We’re creating a blueprint called Node.</p>
+    <p>Each node holds some data (in our case, a fruit name).</p>
+    <p><code>.next</code> is a pointer to the next node in the list.</p>
+
+    <h2>Step 2: Create Nodes</h2>
+
+    <div class="code-label">Python</div>
+    <div class="code-wrapper">
+      <button class="copy-btn" onclick="copyStep2()">📋 Copy</button>
+      <pre><code id="step2" class="language-python">
+n1 = Node("Apple")
+n2 = Node("Banana")
+n3 = Node("Grape")
+</code></pre>
+    </div>
+
+    <p>Here we're creating 3 nodes, each with a fruit name as its data.</p>
+    <p>Right now, these are just floating nodes. They’re not connected yet.</p>
+
+    <h2>Step 3: Link the Nodes</h2>
+
+    <div class="code-label">Python</div>
+    <div class="code-wrapper">
+      <button class="copy-btn" onclick="copyStep3()">📋 Copy</button>
+      <pre><code id="step3" class="language-python">
+n1.next = n2
+n2.next = n3
+</code></pre>
+    </div>
+
+    <p>We make n1 point to n2, so now Apple → Banana.</p>
+    <p>Then n2 points to n3, so Banana → Grape.</p>
+    <p>n3.next is still None, meaning it's the end of the line.</p>
+    <p>Now the chain looks like this:</p>
+
+    <div class="code-label">Visual</div>
+    <div class="code-wrapper">
+      <button class="copy-btn" onclick="copyVisual()">📋 Copy</button>
+      <pre><code id="visual" class="language-text">
+n1 → n2 → n3 → None
+Apple → Banana → Grape → None
+</code></pre>
+    </div>
+
+    <h2>Step 4: Traverse the List</h2>
+
+    <div class="code-label">Python</div>
+    <div class="code-wrapper">
+      <button class="copy-btn" onclick="copyStep4()">📋 Copy</button>
+      <pre><code id="step4" class="language-python">
+temp = n1
+while temp:
+    print(temp.data, end=" -> ")
+    temp = temp.next
+print("None")
+</code></pre>
+    </div>
+
+    <p><code>temp = n1</code>: Start from the head (first node).</p>
+    <p><code>while temp:</code> Loop until we reach None.</p>
+    <p><code>print(temp.data, end=" -> ")</code>: Print each fruit.</p>
+    <p><code>temp = temp.next</code>: Move to the next node.</p>
+    <p>After the loop, we print "None" to show the list ends.</p>
+
+    <h2>Output</h2>
+
+    <div class="code-label">Output</div>
+    <div class="code-wrapper">
+      <button class="copy-btn" onclick="copyOutput()">📋 Copy</button>
+      <pre><code id="output-text" class="language-text">
+Apple -> Banana -> Grape -> None
+</code></pre>
+    </div>
+
+    <h2>Summary</h2>
+    <p>A linked list is just a bunch of Node objects connected together.</p>
+    <p><code>.next</code> tells us where to go next.</p>
+    <p>You can add, remove, and travel through the list.</p>
+  </div>
+
   
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
