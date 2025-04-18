@@ -136,6 +136,8 @@
     }
     .progress-fill.topology {
       background: linear-gradient(90deg, #ff512f, #dd2476);
+       .progress-fill.gmath {
+      background: linear-gradient(90deg, #ff512f, #dd2476);
     }
     .progress-fill.discrete {
       background: linear-gradient(90deg, #f7971e, #ffd200);
@@ -317,6 +319,29 @@
         <div class="progress-fill topology" style="width: 0%;">0%</div>
       </div>
       <div id="topology-content" class="content-list">
+        <ul>
+          <li>No subcontent yet</li>
+        </ul>
+      </div>
+    </div>
+
+        <!-- gmath -->
+    <div class="skill" data-id="gmath">
+      <span 
+        class="skill-title" 
+        onclick="toggleContent('gmath-content', this)"
+      >
+        gmath
+        <span class="chevron">▼</span>
+        <span class="last-updated-inline"></span>
+      </span>
+      <div 
+        class="progress-bar" 
+        onclick="toggleContent('gmath-content', this.parentElement.querySelector('.skill-title'))"
+      >
+        <div class="progress-fill gmath" style="width: 0%;">0%</div>
+      </div>
+      <div id="gmath-content" class="content-list">
         <ul>
           <li>No subcontent yet</li>
         </ul>
