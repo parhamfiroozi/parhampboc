@@ -1,0 +1,2031 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>My Math Notes</title>
+
+  <!-- MathJax for equations -->
+  <script>
+    window.MathJax = {
+      tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] },
+      svg: { fontCache: 'global' }
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+
+  <!-- Style -->
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: #fdfdfd;
+      color: #333;
+      padding: 20px;
+      max-width: 900px;
+      margin: auto;
+      text-align: center;
+    }
+    h1 {
+      color: #5a2a83;
+      font-size: 2.2rem;
+      margin-bottom: 10px;
+    }
+    h2 {
+      color: #7d5ba6;
+      margin-top: 30px;
+      font-size: 1.4rem;
+    }
+    h3, h4 {
+      margin-top: 20px;
+    }
+    p, ul {
+      margin-top: 10px;
+      line-height: 1.6;
+      text-align: left;
+    }
+    nav {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    nav a {
+      margin: 0 10px;
+      text-decoration: none;
+      color: #007acc;
+      font-weight: 600;
+    }
+    .content-links {
+      background: #f1f1f1;
+      padding: 15px 20px;
+      margin-bottom: 30px;
+      border-left: 4px solid #5a2a83;
+      border-radius: 5px;
+      text-align: left;
+    }
+    .content-links ul {
+      list-style: none;
+      padding: 0;
+    }
+    .content-links li {
+      margin-bottom: 8px;
+    }
+    .content-links a {
+      color: #5a2a83;
+      text-decoration: none;
+      font-weight: 500;
+    }
+    .content-links a:hover {
+      text-decoration: underline;
+    }
+    a.back {
+      display: inline-block;
+      margin-bottom: 20px;
+      color: #5a2a83;
+      font-size: 0.95rem;
+      text-decoration: none;
+    }
+    a.back:hover {
+      text-decoration: underline;
+    }
+    footer {
+      text-align: center;
+      margin-top: 40px;
+      font-size: 0.85rem;
+      color: #777;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+      margin-top: 15px;
+      border-radius: 5px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+  </style>
+</head>
+<body>
+
+<!-- Navigation -->
+<nav>
+  <a href="index.html">Coding</a> |
+  <a href="electrical.html">Electrical Engineering</a> |
+  <a href="physics.html">Physics</a> |
+  <a href="math.html">Math</a>
+</nav>
+
+<!-- Page Title -->
+<h1>Complex Variables</h1>
+
+<!-- Table of Contents -->
+<div class="content-links">
+  <strong>Contents</strong>
+  <ul>
+    <li><a href="#section-1">Section Title</a></li>
+    <li><a href="#section-2">Another Section</a></li>
+    <li><a href="#images">Images</a></li>
+    <li><a href="#math">Math Examples</a></li>
+  </ul>
+</div>
+
+<div id="complex-variables">
+  <h2>Complex Variables</h2>
+
+  <p>We know that: $$i^2 + 1 = 0$$</p>
+  <p>Therefore, $$i \triangleq \sqrt{-1}$$</p>
+
+  <p>Let a complex number be written as: $$z = x + iy$$</p>
+  <p>Then the real and imaginary parts are: $$x = \mathrm{Re}\{z\}, \quad y = \mathrm{Im}\{z\}$$</p>
+
+  <p>Visualized on the complex plane:</p>
+  <img src="https://i.postimg.cc/vZzhDrQc/Screenshot-2025-04-18-at-11-35-36-AM.png" alt="Complex Plane Representation of z = x + iy">
+</div>
+
+<h3>Example</h3>
+<p>Let’s divide two complex numbers:</p>
+<p>$$\frac{3 + 4i}{1 - 2i}$$</p>
+
+<p>Multiply numerator and denominator by the conjugate of the denominator:</p>
+<p>$$
+  \frac{3 + 4i}{1 - 2i} \cdot \frac{1 + 2i}{1 + 2i} = 
+  \frac{(3 + 4i)(1 + 2i)}{(1 - 2i)(1 + 2i)}
+$$</p>
+
+<p>Compute numerator:</p>
+<p>$$
+  (3 + 4i)(1 + 2i) = 3 + 6i + 4i + 8i^2 = 3 + 10i - 8 = -5 + 10i
+$$</p>
+
+<p>Compute denominator:</p>
+<p>$$
+  (1 - 2i)(1 + 2i) = 1^2 - (2i)^2 = 1 - (-4) = 5
+$$</p>
+
+<p>Final result:</p>
+<p>$$
+  \frac{-5 + 10i}{5} = -1 + 2i
+$$</p>
+
+<h3>Matrix Representation of Complex Multiplication</h3>
+<p>If we write two complex numbers as $z = x + iy$ and $w = c + id$, then their product $zw$ can be expressed using matrix multiplication:</p>
+
+<p>
+  $$
+  \begin{bmatrix}
+  a \\
+  b
+  \end{bmatrix}
+  =
+  \begin{bmatrix}
+  c & -d \\
+  d & \ \ c
+  \end{bmatrix}
+  \begin{bmatrix}
+  x \\
+  y
+  \end{bmatrix}
+  $$
+</p>
+
+<p>This gives us:</p>
+<ul>
+  <li>$a = cx - dy$</li>
+  <li>$b = dx + cy$</li>
+</ul>
+
+<h3>General Formula for Complex Division</h3>
+<p>If $z_1 = a + ib$ and $z_2 = c + id$, then the division is:</p>
+
+<p>
+  $$
+  \frac{a + ib}{c + id} =
+  \frac{(a + ib)(c - id)}{(c + id)(c - id)} =
+  \frac{ac + bd}{c^2 + d^2} + i \cdot \frac{bc - ad}{c^2 + d^2}
+  $$
+</p>
+
+<p>So the result is a complex number with:</p>
+<ul>
+  <li><strong>Real part:</strong> $\frac{ac + bd}{c^2 + d^2}$</li>
+  <li><strong>Imaginary part:</strong> $\frac{bc - ad}{c^2 + d^2}$</li>
+</ul>
+<h3>Complex Conjugate</h3>
+<p>The <strong>complex conjugate</strong> of a complex number $z = x + iy$ is denoted by $\bar{z}$ and is defined as:</p>
+<p>$$
+\bar{z} = x - iy
+$$</p>
+<p>This reflects the complex number across the real axis in the complex plane.</p>
+
+<h4>Example</h4>
+<p>If $z = 3 + 4i$, then its conjugate is:</p>
+<p>$$
+\bar{z} = 3 - 4i
+$$</p>
+<p>Multiplying a complex number by its conjugate gives a real number:</p>
+<p>$$
+z \cdot \bar{z} = (3 + 4i)(3 - 4i) = 9 + 16 = 25
+$$</p>
+<h3>Polar Representation of Complex Numbers</h3>
+<p>Imagine you're on a map. You're starting at the center (like the number 0). If someone says:</p>
+<p><em>"Walk 5 steps at an angle of 45 degrees"</em>, then:</p>
+<ul>
+  <li><strong>5</strong> is how far you go — that's the <strong>magnitude</strong> (or <code>r</code>).</li>
+  <li><strong>45°</strong> is the direction — that's the <strong>angle</strong> (or <code>θ</code>).</li>
+</ul>
+
+<p>This new spot on the map is a complex number. Instead of saying <code>x + iy</code>, we say:</p>
+
+<p>
+  $$ z = r(\cos\theta + i\sin\theta) $$
+</p>
+
+<p>Or using Euler’s beautiful shortcut:</p>
+
+<p>
+  $$ z = re^{i\theta} $$
+</p>
+
+<h4>Example</h4>
+<p>If you go 1 step straight up (that’s 90°), then:</p>
+<ul>
+  <li><code>r = 1</code></li>
+  <li><code>θ = 90°</code> or <code>π/2</code> radians</li>
+</ul>
+
+<p>
+  $$ z = 1(\cos\frac{\pi}{2} + i\sin\frac{\pi}{2}) = 0 + i(1) = i $$
+</p>
+
+<p>So, <strong>i</strong> is just one step straight up from 0.</p>
+<h3>Euler's Formula via Taylor Series</h3>
+
+<p>Euler's formula is a beautiful and fundamental identity in complex analysis, given by:</p>
+
+<p>
+  $$
+  e^{ix} = \cos x + i \sin x
+  $$
+</p>
+
+<p>There are several ways to prove it, but one of the cleanest methods is via <strong>Taylor series expansion</strong>. Here's the proof using that approach.</p>
+
+<hr>
+
+<h4>Step-by-step Proof using Taylor Series</h4>
+
+<h5>1. Taylor series for \( e^{ix} \), \( \cos x \), and \( \sin x \)</h5>
+
+<p>We use the Maclaurin (Taylor at 0) series expansions:</p>
+
+<ul>
+  <li>
+    Exponential:
+    $$
+    e^{ix} = \sum_{n=0}^{\infty} \frac{(ix)^n}{n!}
+    $$
+  </li>
+  <li>
+    Cosine:
+    $$
+    \cos x = \sum_{n=0}^{\infty} \frac{(-1)^n x^{2n}}{(2n)!}
+    $$
+  </li>
+  <li>
+    Sine:
+    $$
+    \sin x = \sum_{n=0}^{\infty} \frac{(-1)^n x^{2n+1}}{(2n+1)!}
+    $$
+  </li>
+</ul>
+
+<h5>2. Expand \( e^{ix} \)</h5>
+
+<p>Let’s compute the terms of \( e^{ix} \):</p>
+
+<p>
+  $$
+  e^{ix} = \sum_{n=0}^{\infty} \frac{(ix)^n}{n!}
+  = \sum_{n=0}^{\infty} \frac{i^n x^n}{n!}
+  $$
+</p>
+
+<p>Now split the sum into even and odd powers:</p>
+
+<ul>
+  <li>Even \( n = 2k \): \( i^{2k} = (-1)^k \)</li>
+  <li>Odd \( n = 2k+1 \): \( i^{2k+1} = i \cdot (-1)^k \)</li>
+</ul>
+
+<p>So:</p>
+
+<p>
+  $$
+  e^{ix} = \sum_{k=0}^{\infty} \frac{(-1)^k x^{2k}}{(2k)!} 
+  + i \sum_{k=0}^{\infty} \frac{(-1)^k x^{2k+1}}{(2k+1)!}
+  $$
+</p>
+
+<h5>3. Recognize the series</h5>
+
+<ul>
+  <li>The first sum is exactly \( \cos x \)</li>
+  <li>The second sum is \( \sin x \)</li>
+</ul>
+
+<p>Thus:</p>
+
+<p>
+  $$
+  e^{ix} = \cos x + i \sin x
+  $$
+</p>
+
+<hr>
+
+<h4>Conclusion</h4>
+
+<p>
+  $$
+  \boxed{e^{ix} = \cos x + i \sin x}
+  $$
+</p>
+
+<p>This identity works for all real \( x \), and it's the cornerstone of many beautiful results in math and engineering — including Euler's identity:</p>
+
+<p>
+  $$
+  e^{i\pi} + 1 = 0
+  $$
+</p>
+<h3>Computing the Argument (Angle) of a Complex Number</h3>
+
+<p>Given a complex number \( z = x + iy \), we want to compute the angle \( \theta \) that the number makes with the positive real axis. This angle is also called the <strong>argument</strong> of the complex number.</p>
+
+<h4>Step-by-Step Method</h4>
+
+<ol>
+  <li><strong>Identify real and imaginary parts:</strong><br>
+      From \( z = x + iy \), take:<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;\( x = \mathrm{Re}(z) \)<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;\( y = \mathrm{Im}(z) \)
+  </li>
+  <li><strong>Use the function:</strong><br>
+      $$
+      \theta = \arg(z) = \mathrm{atan2}(y, x)
+      $$
+      This version of arctangent correctly handles all quadrants and division by zero.
+  </li>
+  <li><strong>Convert to degrees (if needed):</strong><br>
+      $$
+      \theta_{\text{deg}} = \theta \cdot \frac{180}{\pi}
+      $$
+  </li>
+</ol>
+
+<h4>Why <code>atan2</code> is Better Than <code>\tan^{-1}(y/x)</code></h4>
+<ul>
+  <li>It handles all four quadrants correctly.</li>
+  <li>It avoids division by zero when \( x = 0 \).</li>
+  <li>It returns an angle in radians in the range \( (-\pi, \pi] \).</li>
+</ul>
+
+<h4>Examples</h4>
+
+<p><strong>Example 1:</strong> \( z = 1 + i \)</p>
+<p>
+  $$
+  \theta = \mathrm{atan2}(1, 1) = \frac{\pi}{4}
+  $$
+</p>
+
+<p><strong>Example 2:</strong> \( z = -1 - \sqrt{3}i \)</p>
+<p>
+  $$
+  \theta = \mathrm{atan2}(-\sqrt{3}, -1) = -\frac{2\pi}{3}
+  $$
+</p>
+
+<h4>Visualization Tip</h4>
+<p>Think of \( z = x + iy \) as a point \( (x, y) \) on the plane. The angle \( \theta \) is the direction of the vector from the origin to that point.</p>
+<h3>Complex Number Operations Using <code>r cos(θ)</code> and <code>r sin(θ)</code></h3>
+
+<p>Let a complex number be written as:</p>
+<p>
+  $$
+  z = r \cos\theta + i r \sin\theta
+  $$
+</p>
+
+<h4>Addition</h4>
+<p>If \( z_1 = r_1 \cos\theta_1 + i r_1 \sin\theta_1 \) and \( z_2 = r_2 \cos\theta_2 + i r_2 \sin\theta_2 \), then:</p>
+
+<p>
+  $$
+  z_1 + z_2 = (r_1 \cos\theta_1 + r_2 \cos\theta_2) + i(r_1 \sin\theta_1 + r_2 \sin\theta_2)
+  $$
+</p>
+
+<p><strong>Note:</strong> You must compute each real and imaginary part separately — the result is no longer in polar form.</p>
+
+<hr>
+
+<h4>Multiplication</h4>
+<p>If \( z_1 = r_1(\cos\theta_1 + i\sin\theta_1) \) and \( z_2 = r_2(\cos\theta_2 + i\sin\theta_2) \), then use:</p>
+
+<p>
+  $$
+  z_1 z_2 = r_1 r_2 [\cos(\theta_1 + \theta_2) + i\sin(\theta_1 + \theta_2)]
+  $$
+</p>
+
+<p>Expanding in terms of <code>r cos(θ)</code> and <code>r sin(θ)</code> gives:</p>
+
+<p>
+  $$
+  z_1 z_2 = r_1 r_2 \cos(\theta_1 + \theta_2) + i r_1 r_2 \sin(\theta_1 + \theta_2)
+  $$
+</p>
+
+<hr>
+
+<h4>Division</h4>
+<p>If \( z_1 = r_1(\cos\theta_1 + i\sin\theta_1) \), \( z_2 = r_2(\cos\theta_2 + i\sin\theta_2) \), then:</p>
+
+<p>
+  $$
+  \frac{z_1}{z_2} = \frac{r_1}{r_2} [\cos(\theta_1 - \theta_2) + i\sin(\theta_1 - \theta_2)]
+  $$
+</p>
+
+<p>Which becomes:</p>
+
+<p>
+  $$
+  \frac{z_1}{z_2} = \frac{r_1}{r_2} \cos(\theta_1 - \theta_2) + i \frac{r_1}{r_2} \sin(\theta_1 - \theta_2)
+  $$
+</p>
+
+<p>This keeps everything in the same <code>r cos(θ) + i r sin(θ)</code> format.</p>
+<h3>Example: Multiplying Complex Numbers Using Polar Form</h3>
+
+<p><strong>Given:</strong></p>
+<ul>
+  <li>\( z_1 = -2 \)</li>
+  <li>\( z_2 = -2 - 2i \)</li>
+</ul>
+
+<h4>Step 1: Convert to Polar Form</h4>
+
+<p><strong>For \( z_1 = -2 \):</strong></p>
+<ul>
+  <li>Magnitude: \( r_1 = |z_1| = 2 \)</li>
+  <li>Angle: \( \theta_1 = \pi \) (lies on the negative real axis)</li>
+</ul>
+
+<p>
+  $$
+  z_1 = 2\cos(\pi) + i \cdot 2\sin(\pi) = -2 + 0i
+  $$
+
+<p><strong>For \( z_2 = -2 - 2i \):</strong></p>
+<ul>
+  <li>Magnitude: \( r_2 = \sqrt{(-2)^2 + (-2)^2} = \sqrt{8} = 2\sqrt{2} \)</li>
+  <li>Angle: 
+    <br>
+    \( \tan^{-1}\left(\frac{-2}{-2}\right) = \frac{\pi}{4} \) (but both components are negative ⇒ 3rd quadrant) 
+    <br>
+    \( \theta_2 = \pi + \frac{\pi}{4} = \frac{5\pi}{4} \)
+  </li>
+</ul>
+
+<p>
+  $$
+  z_2 = 2\sqrt{2} \cos\left(\frac{5\pi}{4}\right) + i \cdot 2\sqrt{2} \sin\left(\frac{5\pi}{4}\right)
+  $$
+</p>
+
+<h4>Step 2: Multiply in Polar Form</h4>
+
+<p>
+  $$
+  z_1 z_2 = r_1 r_2 \left[\cos(\theta_1 + \theta_2) + i \sin(\theta_1 + \theta_2)\right]
+  $$
+</p>
+
+<p>Substituting:</p>
+<ul>
+  <li>\( r_1 = 2 \), \( r_2 = 2\sqrt{2} \)</li>
+  <li>\( \theta_1 + \theta_2 = \pi + \frac{5\pi}{4} = \frac{9\pi}{4} \)</li>
+  <li>\( \frac{9\pi}{4} = \frac{\pi}{4} \) (since angles are periodic every \( 2\pi \))</li>
+</ul>
+
+<p>
+  $$
+  z_1 z_2 = 4\sqrt{2} \left[\cos\left(\frac{\pi}{4}\right) + i \sin\left(\frac{\pi}{4}\right)\right]
+  = 4\sqrt{2} \left( \frac{\sqrt{2}}{2} + i \cdot \frac{\sqrt{2}}{2} \right)
+  $$
+</p>
+
+<p>
+  $$
+  = 4(1 + i) = 4 + 4i
+  $$
+</p>
+
+<h4>Final Answer:</h4>
+
+<p>
+  $$
+  z_1 z_2 = 4 + 4i
+  $$
+</p>
+<h3>Multiplication of Complex Numbers in Polar Form</h3>
+
+<p>Suppose we have:</p>
+<p>
+  $$
+  z = z_1 \cdot z_2 \cdot \ldots \cdot z_n
+  $$
+</p>
+
+<p>Each complex number in polar form:</p>
+<p>
+  $$
+  z_i = (r_i, \theta_i)
+  $$
+</p>
+
+<p>Then:</p>
+
+<ul>
+  <li>
+    $$
+    |z| = r_1 \cdot r_2 \cdot \ldots \cdot r_n
+    $$
+  </li>
+  <li>
+    $$
+    \arg(z) = \sum_{i=1}^n \arg(z_i) + k2\pi
+    $$
+  </li>
+</ul>
+
+<hr>
+
+<h3>Special Case: Power of a Complex Number</h3>
+
+<p>Let:</p>
+<p>
+  $$
+  z_1 = z_2 = \ldots = z_n = z', \quad z' = (r', \theta')
+  $$
+</p>
+
+<p>Then:</p>
+
+<ul>
+  <li>
+    $$
+    z = z'^n, \quad n \in \mathbb{N}
+    $$
+  </li>
+  <li>
+    $$
+    r = (r')^n
+    $$
+  </li>
+  <li>
+    $$
+    |z^n| = |z_1|^n
+    $$
+  </li>
+  <li>
+    $$
+    \arg(z) = n\theta' + k2\pi
+    $$
+  </li>
+</ul>
+<h4>Example: Special Case — Raising a Complex Number to a Power</h4>
+
+<p>Let:</p>
+<p>
+  $$
+  z' = 2 \left( \cos\left( \frac{\pi}{3} \right) + i \sin\left( \frac{\pi}{3} \right) \right)
+  $$
+</p>
+
+<p>We want to compute:</p>
+<p>
+  $$
+  z = (z')^3
+  $$
+</p>
+
+<ul>
+  <li>Magnitude: \( r = 2^3 = 8 \)</li>
+  <li>Angle: \( \theta = 3 \cdot \frac{\pi}{3} = \pi \)</li>
+</ul>
+
+<p>So:</p>
+<p>
+  $$
+  z = 8 \left( \cos(\pi) + i \sin(\pi) \right) = 8(-1 + 0i) = -8
+  $$
+</p>
+<h4>What Does the Prime (′) Mean?</h4>
+
+<p>The prime symbol (′) in this context <strong>does not</strong> mean derivative. It’s simply a label used to refer to a base complex number and its parts.</p>
+
+<p>Specifically:</p>
+
+<ul>
+  <li>
+    \( z' \): the base complex number (which is being raised to a power)
+  </li>
+  <li>
+    \( r' \): the magnitude (modulus) of \( z' \)
+  </li>
+  <li>
+    \( \theta' \): the angle (argument) of \( z' \)
+  </li>
+</ul>
+
+<p>So when we write something like:</p>
+
+<p>
+  $$
+  z = (z')^n
+  $$
+</p>
+
+<p>We mean that the complex number \( z' \) is multiplied by itself \( n \) times, and its polar form is used to compute the result efficiently using:</p>
+
+<ul>
+  <li>
+    Magnitude: \( r = (r')^n \)
+  </li>
+  <li>
+    Angle: \( \theta = n\theta' \)
+  </li>
+</ul>
+
+<p>This is a standard technique in polar form, and is closely tied to <strong>De Moivre's Theorem</strong>.</p>
+<h3>Division of Complex Numbers in Polar Form</h3>
+
+<h4>General Formula</h4>
+<p>Let:</p>
+<p>
+  $$
+  z_1 = r_1 (\cos\theta_1 + i\sin\theta_1), \quad
+  z_2 = r_2 (\cos\theta_2 + i\sin\theta_2)
+  $$
+</p>
+
+<p>Then:</p>
+<p>
+  $$
+  \frac{z_1}{z_2} = \frac{r_1}{r_2} \left[ \cos(\theta_1 - \theta_2) + i\sin(\theta_1 - \theta_2) \right]
+  $$
+</p>
+
+<hr>
+
+<h4>Special Case: Repeated Division</h4>
+
+<p>If all complex numbers are the same \( z' \), then dividing \( z' \) by itself \( n \) times gives:</p>
+<p>
+  $$
+  z = (z')^{-n}, \quad z' = (r', \theta')
+  $$
+</p>
+
+<ul>
+  <li>Magnitude: \( r = (r')^{-n} \)</li>
+  <li>Angle: \( \theta = -n\theta' + k2\pi \)</li>
+</ul>
+
+<hr>
+
+<h4>Meaning of the Prime (′)</h4>
+
+<p>The prime (′) indicates the base complex number. It is used to distinguish that all the values being divided are the same:</p>
+
+<ul>
+  <li>\( z' \): the base complex number</li>
+  <li>\( r' \): its magnitude</li>
+  <li>\( \theta' \): its argument (angle)</li>
+</ul>
+
+<p>No derivative is involved — it's just labeling.</p>
+
+<hr>
+
+<h4>Example: Division of a Complex Number Raised to a Negative Power</h4>
+
+<p>Let:</p>
+<p>
+  $$
+  z' = 2 \left( \cos\left( \frac{\pi}{6} \right) + i\sin\left( \frac{\pi}{6} \right) \right)
+  $$
+</p>
+
+<p>Find:</p>
+<p>
+  $$
+  z = (z')^{-2}
+  $$
+</p>
+
+<ul>
+  <li>Magnitude: \( r = 2^{-2} = \frac{1}{4} \)</li>
+  <li>Angle: \( \theta = -2 \cdot \frac{\pi}{6} = -\frac{\pi}{3} \)</li>
+</ul>
+
+<p>So:</p>
+<p>
+  $$
+  z = \frac{1}{4} \left( \cos\left(-\frac{\pi}{3}\right) + i\sin\left(-\frac{\pi}{3}\right) \right)
+  = \frac{1}{4} \left( \frac{1}{2} - i\frac{\sqrt{3}}{2} \right)
+  = \frac{1}{8} - i\frac{\sqrt{3}}{8}
+  $$
+</p>
+<h3>General Expression for \( \cos(5\theta) \) Using De Moivre’s Theorem</h3>
+
+<p>Start from:</p>
+<p>
+  $$
+  (\cos\theta + i\sin\theta)^5 = \cos(5\theta) + i\sin(5\theta)
+  $$
+</p>
+
+<p>Apply binomial expansion to the left-hand side:</p>
+<p>
+  $$
+  \sum_{k=0}^5 \binom{5}{k} \cos^{5-k} \theta \cdot (i \sin\theta)^k
+  $$
+</p>
+
+<p>Extract the real part (even powers of \( i \)):</p>
+<p>
+  $$
+  \cos(5\theta) = \cos^5\theta - 10\cos^3\theta\sin^2\theta + 5\cos\theta\sin^4\theta
+  $$
+</p>
+<h3>Finding the \( n \)th Root of a Complex Number</h3>
+
+<p>Let a complex number be written in polar form:</p>
+<p>
+  $$
+  z = r\left( \cos\theta + i\sin\theta \right)
+  $$
+</p>
+
+<p>The \( n \)th roots of \( z \) are given by the formula:</p>
+<p>
+  $$
+  z_k = \sqrt[n]{r} \left[ \cos\left( \frac{\theta + 2k\pi}{n} \right) + i \sin\left( \frac{\theta + 2k\pi}{n} \right) \right]
+  $$
+</p>
+
+<p>Where:</p>
+<ul>
+  <li>\( k = 0, 1, 2, \ldots, n-1 \)</li>
+  <li>\( r \) is the modulus (absolute value) of the complex number</li>
+  <li>\( \theta \) is the argument (angle)</li>
+</ul>
+
+<h4>Key Ideas:</h4>
+<ul>
+  <li>You take the \( n \)th root of the magnitude</li>
+  <li>You divide the angle by \( n \) and rotate by \( \frac{2\pi}{n} \) for each root</li>
+  <li>The roots are equally spaced on a circle in the complex plane</li>
+</ul>
+<h3>Example: Finding the 4th Roots of 1 and -1</h3>
+
+<h4>1. 4th Roots of 1</h4>
+<p>Write in polar form:</p>
+<p>
+  $$
+  1 = 1(\cos 0 + i\sin 0)
+  $$
+</p>
+<p>Use the formula:</p>
+<p>
+  $$
+  z_k = \sqrt[4]{1} \left[ \cos\left( \frac{2k\pi}{4} \right) + i\sin\left( \frac{2k\pi}{4} \right) \right]
+  $$
+</p>
+
+<p><strong>Roots:</strong></p>
+<ul>
+  <li>\( z_0 = 1 \)</li>
+  <li>\( z_1 = i \)</li>
+  <li>\( z_2 = -1 \)</li>
+  <li>\( z_3 = -i \)</li>
+</ul>
+
+<p><strong>Answer:</strong> \( \boxed{1,\ i,\ -1,\ -i} \)</p>
+
+<hr>
+
+<h4>2. 4th Roots of -1</h4>
+<p>Write in polar form:</p>
+<p>
+  $$
+  -1 = 1(\cos \pi + i \sin \pi)
+  $$
+</p>
+<p>Use the formula:</p>
+<p>
+  $$
+  z_k = \sqrt[4]{1} \left[ \cos\left( \frac{\pi + 2k\pi}{4} \right) + i\sin\left( \frac{\pi + 2k\pi}{4} \right) \right]
+  $$
+</p>
+
+<p><strong>Roots:</strong></p>
+<ul>
+  <li>\( z_0 = \cos\frac{\pi}{4} + i\sin\frac{\pi}{4} \)</li>
+  <li>\( z_1 = \cos\frac{3\pi}{4} + i\sin\frac{3\pi}{4} \)</li>
+  <li>\( z_2 = \cos\frac{5\pi}{4} + i\sin\frac{5\pi}{4} \)</li>
+  <li>\( z_3 = \cos\frac{7\pi}{4} + i\sin\frac{7\pi}{4} \)</li>
+</ul>
+
+<p><strong>Answer:</strong></p>
+<p>
+  $$
+  \boxed{
+  \cos\frac{\pi}{4} + i\sin\frac{\pi}{4},\ 
+  \cos\frac{3\pi}{4} + i\sin\frac{3\pi}{4},\ 
+  \cos\frac{5\pi}{4} + i\sin\frac{5\pi}{4},\ 
+  \cos\frac{7\pi}{4} + i\sin\frac{7\pi}{4}
+  }
+  $$
+</p>
+<h3>Computing Fractional Powers of Complex Numbers: \( z^{p/q} \)</h3>
+
+<p>Let \( z \) be written in polar form:</p>
+<p>
+  $$
+  z = r \left( \cos \theta + i \sin \theta \right)
+  $$
+</p>
+
+<p>Then for rational exponents \( \frac{p}{q} \), the complex number raised to that power is:</p>
+<p>
+  $$
+  z^{p/q} = r^{p/q} \left[ \cos\left( \frac{p\theta + 2\pi pk}{q} \right) + i \sin\left( \frac{p\theta + 2\pi pk}{q} \right) \right]
+  $$
+</p>
+
+<p>Where:</p>
+<ul>
+  <li>\( p, q \in \mathbb{Z} \), and \( q > 0 \)</li>
+  <li>\( k = 0, 1, \dots, q - 1 \) gives the <strong>q</strong> distinct values (branches)</li>
+</ul>
+
+<h4>What It Means:</h4>
+<ul>
+  <li>You're computing both a root and a power at once</li>
+  <li>Multiple values are possible due to the periodic nature of complex angles</li>
+</ul>
+<h3>Example: Compute \( (-1 + i)^{2/3} \)</h3>
+
+<h4>Step 1: Convert to Polar Form</h4>
+<p>
+  $$
+  z = -1 + i = \sqrt{2} \left( \cos\frac{3\pi}{4} + i \sin\frac{3\pi}{4} \right)
+  $$
+</p>
+
+<h4>Step 2: Use the Formula</h4>
+<p>
+  $$
+  z^{2/3} = 2^{1/3} \left[ \cos\left( \frac{2\cdot\frac{3\pi}{4} + 4k\pi}{3} \right) + i \sin\left( \frac{2\cdot\frac{3\pi}{4} + 4k\pi}{3} \right) \right]
+  $$
+</p>
+
+<h4>Roots:</h4>
+
+<ul>
+  <li>
+    \( k = 0 \):<br>
+    \( \theta = \frac{\pi}{2} \Rightarrow z_0 = 2^{1/3} \cdot i \)
+  </li>
+  <li>
+    \( k = 1 \):<br>
+    \( \theta = \frac{11\pi}{6} \Rightarrow z_1 = 2^{1/3} \left( \cos\frac{11\pi}{6} + i\sin\frac{11\pi}{6} \right) \)
+  </li>
+  <li>
+    \( k = 2 \):<br>
+    \( \theta = \frac{19\pi}{6} \Rightarrow z_2 = 2^{1/3} \left( \cos\frac{19\pi}{6} + i\sin\frac{19\pi}{6} \right) \)
+  </li>
+</ul>
+
+<h4>Final Answer:</h4>
+<p>
+  $$
+  \boxed{
+  (-1 + i)^{2/3} =
+  \left\{
+  2^{1/3} \cdot i,\ 
+  2^{1/3} \left( \cos\frac{11\pi}{6} + i\sin\frac{11\pi}{6} \right),\ 
+  2^{1/3} \left( \cos\frac{7\pi}{6} + i\sin\frac{7\pi}{6} \right)
+  \right\}
+  }
+  $$
+</p>
+<h3>Modulus and Inequality Properties of Complex Numbers</h3>
+
+<p>Let \( z = x + iy \), where:</p>
+<ul>
+  <li>\( x = \text{Re}(z) \)</li>
+  <li>\( y = \text{Im}(z) \)</li>
+  <li>\( |z| = \sqrt{x^2 + y^2} \)</li>
+</ul>
+
+<h4>Useful Inequalities</h4>
+
+<ol>
+  <li>
+    <strong>Modulus vs. Real Part:</strong><br>
+    $$
+    |z| \geq |\text{Re}(z)|
+    $$
+  </li>
+
+  <li>
+    <strong>Modulus vs. Imaginary Part:</strong><br>
+    $$
+    |z| \geq |\text{Im}(z)|
+    $$
+  </li>
+
+  <li>
+    <strong>Triangle Inequality:</strong><br>
+    $$
+    |z_1 + z_2| \leq |z_1| + |z_2|
+    $$
+  </li>
+
+  <li>
+    <strong>Reverse Triangle Inequality:</strong><br>
+    $$
+    \left||z_1| - |z_2|\right| \leq |z_1 - z_2|
+    $$
+  </li>
+</ol>
+<h3>What Is a Complex Function?</h3>
+
+<p>A complex function is a rule that assigns a complex number to another complex number.</p>
+
+<p>It maps:
+  $$
+  f : \mathbb{C} \to \mathbb{C}
+  $$
+</p>
+
+<p>That means: it takes a complex number \( z \) as input and gives a complex number \( w \) as output.</p>
+
+<p>If:
+  $$
+  z = x + iy
+  $$
+Then:
+  $$
+  f(z) = w \in \mathbb{C}
+  $$
+</p>
+
+<p>This is just like functions from real numbers, but now using complex numbers.</p>
+<h3>Complex Function Example</h3>
+
+<p>Let the complex number be:</p>
+<p>
+  $$
+  z = x + iy
+  $$
+</p>
+
+<p>Define a complex function \( f \) such that:</p>
+<p>
+  $$
+  f(z) = w = x^2 + ixy
+  $$
+</p>
+
+<p>This function takes the real and imaginary parts of \( z \) and returns a complex number \( w \).</p>
+
+<p>We can separate this into real and imaginary parts:</p>
+<p>
+  $$
+  f(z) = u(x, y) + i v(x, y)
+  $$
+  where:
+  $$
+  u(x, y) = x^2,\quad v(x, y) = xy
+  $$
+</p>
+<h3>Evaluating a Complex Function</h3>
+
+<p>Let:</p>
+<p>
+  $$
+  z = x + iy,\quad f(z) = w = x^4 + ixy
+  $$
+</p>
+
+<h4>Examples</h4>
+
+<ul>
+  <li>
+    \( f(i) \):<br>
+    \( x = 0,\ y = 1 \Rightarrow w = 0 + i(0)(1) = \boxed{0} \)
+  </li>
+  <li>
+    \( f(-1 + i) \):<br>
+    \( x = -1,\ y = 1 \Rightarrow w = 1 + i(-1)(1) = \boxed{1 - i} \)
+  </li>
+  <li>
+    \( f(1) \):<br>
+    \( x = 1,\ y = 0 \Rightarrow w = 1^4 + i(1)(0) = \boxed{1} \)
+  </li>
+</ul>
+<h3>Neighbourhood in Complex Analysis</h3>
+
+<p>A <strong>neighbourhood</strong> of a complex number \( z_0 \) is the set of all complex numbers within a certain distance from \( z_0 \).</p>
+
+<p>Formally, for any \( \varepsilon > 0 \), the neighbourhood of \( z_0 \) is:</p>
+
+<p>
+  $$
+  N_\varepsilon(z_0) = \{ z \in \mathbb{C} \mid |z - z_0| < \varepsilon \}
+  $$
+</p>
+
+<p>This describes a <strong>disk</strong> centered at \( z_0 \), with radius \( \varepsilon \), and includes all points inside (not the edge).</p>
+
+<h4>Punctured Neighbourhood</h4>
+<p>If we exclude the center point \( z_0 \), we get a <em>punctured neighbourhood</em>:</p>
+
+<p>
+  $$
+  N^*_\varepsilon(z_0) = \{ z \in \mathbb{C} \mid 0 < |z - z_0| < \varepsilon \}
+  $$
+</p>
+
+<p>This is used when we want to look <strong>around</strong> a point, but not include the point itself.</p>
+<h3>Neighbourhood as a Disk in \( \mathbb{C} \)</h3>
+
+<p>Let:
+  $$
+  z = x + iy, \quad z_0 = x_0 + iy_0
+  $$
+</p>
+
+<p>Then the modulus:
+  $$
+  |z - z_0| = |(x - x_0) + i(y - y_0)| = \sqrt{(x - x_0)^2 + (y - y_0)^2}
+  $$
+</p>
+
+<p>So the neighbourhood of radius \( \varepsilon \) around \( z_0 \) is:</p>
+<p>
+  $$
+  |z - z_0| < \varepsilon \quad \Leftrightarrow \quad (x - x_0)^2 + (y - y_0)^2 < \varepsilon^2
+  $$
+</p>
+
+<p>This defines a circular region (open disk) centered at \( z_0 \) in the complex plane.</p>
+<h3>Inner (Interior) Points of a Set</h3>
+
+<p>Let \( S \subseteq \mathbb{C} \) be a set of complex numbers.</p>
+
+<p>A point \( z_0 \in S \) is called an <strong>inner point</strong> (or <strong>interior point</strong>) if there exists a neighbourhood around it that lies completely inside the set:</p>
+
+<p>
+  $$
+  \exists\ \varepsilon > 0 \quad \text{such that} \quad N_\varepsilon(z_0) \subseteq S
+  $$
+</p>
+
+<p>Where the neighbourhood is:</p>
+
+<p>
+  $$
+  N_\varepsilon(z_0) = \{ z \in \mathbb{C} \mid |z - z_0| < \varepsilon \}
+  $$
+</p>
+
+<p>This means you can draw a small open disk around \( z_0 \) and stay entirely inside the set \( S \).</p>
+<h3>Outer (Exterior) Points of a Set</h3>
+
+<p>Let \( S \subseteq \mathbb{C} \) be a set in the complex plane.</p>
+
+<p>A point \( z_0 \in \mathbb{C} \) is called an <strong>outer point</strong> (or <strong>exterior point</strong>) of the set if there exists a neighbourhood around \( z_0 \) that lies completely outside of \( S \):</p>
+
+<p>
+  $$
+  \exists\ \varepsilon > 0 \quad \text{such that} \quad N_\varepsilon(z_0) \subseteq \mathbb{C} \setminus S
+  $$
+</p>
+
+<p>Where the neighbourhood is:</p>
+<p>
+  $$
+  N_\varepsilon(z_0) = \{ z \in \mathbb{C} \mid |z - z_0| < \varepsilon \}
+  $$
+</p>
+
+<p>This means the point \( z_0 \) and all nearby points are <strong>not in the set</strong> — they lie entirely in the complement of \( S \).</p>
+<h3>Boundary Points of a Set</h3>
+
+<p>Let \( S \subseteq \mathbb{C} \) be a set.</p>
+
+<p>A point \( z_0 \in \mathbb{C} \) is called a <strong>boundary point</strong> of \( S \) if every neighbourhood around it contains both points in \( S \) and points not in \( S \):</p>
+
+<p>
+  $$
+  \forall\ \varepsilon > 0,\quad N_\varepsilon(z_0) \cap S \neq \emptyset
+  \quad \text{and} \quad
+  N_\varepsilon(z_0) \cap (\mathbb{C} \setminus S) \neq \emptyset
+  $$
+</p>
+<h3>Simply Connected Sets</h3>
+
+<p>A set \( S \subseteq \mathbb{C} \) is called <strong>simply connected</strong> if:</p>
+<ul>
+  <li>It is <strong>connected</strong>: any two points in the set can be joined by a continuous path that lies entirely within the set.</li>
+  <li>It has <strong>no holes</strong>: any closed curve in the set can be continuously contracted to a point, staying inside the set.</li>
+</ul>
+
+<h4>Important:</h4>
+<p>"Simply connected" is a property of sets, not individual points. A point can lie <em>inside</em> a simply connected set, but a single point is not described as simply connected.</p>
+
+<h4>Examples:</h4>
+
+
+<p>This means you can’t fully stay inside or outside the set when you zoom in around the boundary point — it always touches both sides.</p>
+<div style="text-align: center;">
+  <table style="margin: auto; border-collapse: collapse;">
+    <tr>
+      <th style="padding: 8px; border-bottom: 1px solid #ccc;">Set</th>
+      <th style="padding: 8px; border-bottom: 1px solid #ccc;">Simply Connected?</th>
+      <th style="padding: 8px; border-bottom: 1px solid #ccc;">Reason</th>
+    </tr>
+    <tr>
+      <td style="padding: 8px;">\( \mathbb{C} \)</td>
+      <td style="padding: 8px;">Yes</td>
+      <td style="padding: 8px;">Whole complex plane, no holes</td>
+    </tr>
+    <tr>
+      <td style="padding: 8px;">\( \{ z \mid |z| < 1 \} \)</td>
+      <td style="padding: 8px;">Yes</td>
+      <td style="padding: 8px;">Open disk, no holes</td>
+    </tr>
+    <tr>
+      <td style="padding: 8px;">\( \{ z \mid 1 < |z| < 2 \} \)</td>
+      <td style="padding: 8px;">No</td>
+      <td style="padding: 8px;">Annulus, hole in the middle</td>
+    </tr>
+    <tr>
+      <td style="padding: 8px;">\( \mathbb{C} \setminus \{0\} \)</td>
+      <td style="padding: 8px;">No</td>
+      <td style="padding: 8px;">Hole at the origin</td>
+    </tr>
+  </table>
+</div>
+
+<h3>Types of Points in a Set</h3>
+
+<div style="text-align: center;">
+  <table style="margin: auto; border-collapse: collapse;">
+    <tr>
+      <th style="padding: 8px; border-bottom: 1px solid #ccc;">Type of Point</th>
+      <th style="padding: 8px; border-bottom: 1px solid #ccc;">Definition</th>
+    </tr>
+    <tr>
+      <td style="padding: 8px;">Interior point</td>
+      <td style="padding: 8px;">Has a neighbourhood fully contained in the set</td>
+    </tr>
+    <tr>
+      <td style="padding: 8px;">Exterior point</td>
+      <td style="padding: 8px;">Has a neighbourhood fully outside the set</td>
+    </tr>
+    <tr>
+      <td style="padding: 8px;">Boundary point</td>
+      <td style="padding: 8px;">Every neighbourhood intersects both the set and its complement</td>
+    </tr>
+    <tr>
+      <td style="padding: 8px;">Accumulation point</td>
+      <td style="padding: 8px;">Every neighbourhood contains other points from the set</td>
+    </tr>
+    <tr>
+      <td style="padding: 8px;">Isolated point</td>
+      <td style="padding: 8px;">Neighbourhood contains no other points from the set</td>
+    </tr>
+    <tr>
+      <td style="padding: 8px;">Limit point</td>
+      <td style="padding: 8px;">Same as accumulation point</td>
+    </tr>
+    <tr>
+      <td style="padding: 8px;">Adherent point</td>
+      <td style="padding: 8px;">Every neighbourhood contains at least one point from the set</td>
+    </tr>
+    <tr>
+      <td style="padding: 8px;">Cluster point</td>
+      <td style="padding: 8px;">Same as accumulation point</td>
+    </tr>
+  </table>
+</div>
+<h3>Limit of a Complex Function</h3>
+
+<p>Let \( f(z) \) be a complex function. We say that:</p>
+<p>
+  $$
+  \lim_{z \to z_0} f(z) = L
+  $$
+</p>
+
+<p>if \( f(z) \) approaches the complex number \( L \) as \( z \) approaches \( z_0 \) from <strong>any direction</strong> in the complex plane.</p>
+
+<h4>Formal Definition:</h4>
+<p>
+  $$
+  \forall\ \varepsilon > 0,\ \exists\ \delta > 0\ \text{ such that if } 0 < |z - z_0| < \delta,\ \text{ then } |f(z) - L| < \varepsilon
+  $$
+</p>
+
+<h4>Key Idea:</h4>
+<ul>
+  <li>The value of \( f(z) \) gets arbitrarily close to \( L \)</li>
+  <li>As \( z \) gets arbitrarily close to \( z_0 \)</li>
+  <li>This must happen from <strong>all possible directions</strong> in the complex plane</li>
+</ul>
+<h3>Continuity of a Complex Function</h3>
+
+<p>A complex function \( f(z) \) is <strong>continuous at a point</strong> \( z_0 \in \mathbb{C} \) if:</p>
+
+<p>
+  $$
+  \lim_{z \to z_0} f(z) = f(z_0)
+  $$
+</p>
+
+<h4>This means:</h4>
+<ol>
+  <li>The function is defined at \( z_0 \)</li>
+  <li>The limit \( \lim_{z \to z_0} f(z) \) exists</li>
+  <li>The limit equals the value: \( \lim_{z \to z_0} f(z) = f(z_0) \)</li>
+</ol>
+
+<h4>Continuity on a Set:</h4>
+<p>A function \( f(z) \) is <strong>continuous on a set</strong> \( S \subseteq \mathbb{C} \) if it is continuous at every point in \( S \).</p>
+<h3>Example: \( f(z) = \frac{1}{z} \)</h3>
+
+<h4>1. Domain</h4>
+<p>
+  $$
+  \text{Domain} = \mathbb{C} \setminus \{0\}
+  $$
+</p>
+<p>This function is defined for all complex numbers except \( z = 0 \).</p>
+
+<h4>2. Continuity</h4>
+<ul>
+  <li>Continuous on the entire domain \( \mathbb{C} \setminus \{0\} \)</li>
+  <li>Not continuous at \( z = 0 \) because it is not defined there</li>
+</ul>
+
+<h4>Conclusion:</h4>
+<p>
+  $$
+  f(z) = \frac{1}{z} \text{ is continuous on } \mathbb{C} \setminus \{0\}
+  $$
+</p>
+<h3>Differentiation of Complex Functions</h3>
+
+<p>A complex function \( f(z) \) is <strong>differentiable at a point</strong> \( z_0 \in \mathbb{C} \) if the following limit exists:</p>
+
+<p>
+  $$
+  f'(z_0) = \lim_{z \to z_0} \frac{f(z) - f(z_0)}{z - z_0}
+  $$
+</p>
+
+<p>This is called the <strong>complex derivative</strong> of \( f \) at \( z_0 \).</p>
+
+<h4>Key Idea:</h4>
+<ul>
+  <li>The limit must exist and give the same value no matter which direction \( z \) approaches \( z_0 \).</li>
+  <li>This is a stronger condition than in real calculus.</li>
+</ul>
+
+<h4>Note:</h4>
+<p>If a function is differentiable at every point in an open set, it is called <strong>analytic</strong> (or <strong>holomorphic</strong>) on that set.</p>
+<h3>Differentiability of \( f(z) = \overline{z} \) Using Limits</h3>
+
+<p>To check differentiability at a point \( z_0 \in \mathbb{C} \), we use:</p>
+<p>
+  $$
+  f'(z_0) = \lim_{z \to z_0} \frac{f(z) - f(z_0)}{z - z_0}
+  $$
+</p>
+
+<h4>Step 1: Along the Real Axis</h4>
+<p>Let \( z = z_0 + h \), \( h \in \mathbb{R} \):</p>
+<p>
+  $$
+  \frac{\overline{z_0 + h} - \overline{z_0}}{h}
+  = \frac{\overline{h}}{h} = \frac{h}{h} = 1
+  $$
+</p>
+
+<h4>Step 2: Along the Imaginary Axis</h4>
+<p>Let \( z = z_0 + ih \), \( h \in \mathbb{R} \):</p>
+<p>
+  $$
+  \frac{\overline{z_0 + ih} - \overline{z_0}}{ih}
+  = \frac{-i h}{i h} = -1
+  $$
+</p>
+
+<h4>Conclusion:</h4>
+<p>The limit depends on the direction:
+  $$
+  \Rightarrow \text{Limit does not exist} \Rightarrow f(z) = \overline{z} \text{ is not differentiable at any point}
+  $$
+</p>
+<h3>Differentiation via Limits and the Cauchy-Riemann Equations</h3>
+
+<p>Let \( f(z) = u(x, y) + i v(x, y) \), with \( z = x + iy \).</p>
+<p>We compute the derivative at \( z_0 = x_0 + iy_0 \) using limits from two paths:</p>
+
+<h4>Path 1: Real Direction</h4>
+<p>Let \( z = z_0 + h \), \( h \in \mathbb{R} \):</p>
+<p>
+  $$
+  \lim_{h \to 0} \frac{f(z_0 + h) - f(z_0)}{h}
+  = \frac{\partial u}{\partial x} + i \frac{\partial v}{\partial x}
+  $$
+</p>
+
+<h4>Path 2: Imaginary Direction</h4>
+<p>Let \( z = z_0 + ih \), \( h \in \mathbb{R} \):</p>
+<p>
+  $$
+  \lim_{h \to 0} \frac{f(z_0 + ih) - f(z_0)}{ih}
+  = \frac{\partial v}{\partial y} - i \frac{\partial u}{\partial y}
+  $$
+</p>
+
+<h4>Equating Limits:</h4>
+<p>
+  $$
+  \frac{\partial u}{\partial x} + i \frac{\partial v}{\partial x}
+  = \frac{\partial v}{\partial y} - i \frac{\partial u}{\partial y}
+  $$
+</p>
+
+<p>Matching real and imaginary parts gives the <strong>Cauchy-Riemann equations</strong>:</p>
+<p>
+  $$
+  \frac{\partial u}{\partial x} = \frac{\partial v}{\partial y},\quad
+  \frac{\partial u}{\partial y} = -\frac{\partial v}{\partial x}
+  $$
+</p>
+
+<h4>Conclusion:</h4>
+<p>If these conditions are satisfied and the partial derivatives are continuous, then \( f(z) \) is differentiable at \( z_0 \).</p>
+<h3>Differentiability and the Cauchy-Riemann Equations</h3>
+
+<h4>1. Definition of Differentiability</h4>
+<p>A complex function \( f(z) \) is differentiable at \( z_0 \in \mathbb{C} \) if:</p>
+<p>
+  $$
+  \lim_{z \to z_0} \frac{f(z) - f(z_0)}{z - z_0} \text{ exists and is finite}
+  $$
+</p>
+
+<h4>2. Cauchy-Riemann Equations</h4>
+<p>Write \( f(z) = u(x, y) + i v(x, y) \), where \( z = x + iy \). Then:</p>
+<p>
+  $$
+  \frac{\partial u}{\partial x} = \frac{\partial v}{\partial y},\quad
+  \frac{\partial u}{\partial y} = -\frac{\partial v}{\partial x}
+  $$
+</p>
+
+<h4>3. Role of Cauchy-Riemann</h4>
+<ul>
+  <li>If these equations are not satisfied, \( f(z) \) is not differentiable at that point.</li>
+  <li>If they are satisfied and partial derivatives are continuous, then \( f(z) \) is differentiable.</li>
+</ul>
+
+<h4>4. Summary:</h4>
+<table style="margin:auto; border-collapse: collapse;">
+  <tr>
+    <th style="padding:8px; border-bottom: 1px solid #ccc;">Condition</th>
+    <th style="padding:8px; border-bottom: 1px solid #ccc;">Result</th>
+  </tr>
+  <tr>
+    <td style="padding:8px;">Cauchy-Riemann fails</td>
+    <td style="padding:8px;">Not differentiable</td>
+  </tr>
+  <tr>
+    <td style="padding:8px;">Cauchy-Riemann holds, partials not continuous</td>
+    <td style="padding:8px;">Might not be differentiable</td>
+  </tr>
+  <tr>
+    <td style="padding:8px;">Cauchy-Riemann holds, partials continuous</td>
+    <td style="padding:8px;">Differentiable</td>
+  </tr>
+</table>
+<h3>Comparison: \( f(z) = z^2 \) vs \( f(z) = |z|^2 \)</h3>
+
+<h4>1. \( f(z) = z^2 \)</h4>
+<p>
+  $$
+  z = x + iy \Rightarrow f(z) = x^2 - y^2 + 2ixy
+  $$
+  $$
+  u(x, y) = x^2 - y^2,\quad v(x, y) = 2xy
+  $$
+</p>
+
+<p>Partial derivatives:</p>
+<p>
+  $$
+  \frac{\partial u}{\partial x} = 2x,\quad \frac{\partial v}{\partial y} = 2x \\
+  \frac{\partial u}{\partial y} = -2y,\quad \frac{\partial v}{\partial x} = 2y
+  $$
+</p>
+
+<p>Cauchy-Riemann equations are satisfied everywhere.</p>
+<p><strong>Conclusion:</strong> \( f(z) = z^2 \) is differentiable and analytic on \( \mathbb{C} \).</p>
+
+<hr>
+
+<h4>2. \( f(z) = |z|^2 \)</h4>
+<p>
+  $$
+  f(z) = |z|^2 = x^2 + y^2,\quad u(x, y) = x^2 + y^2,\quad v(x, y) = 0
+  $$
+</p>
+
+<p>Partial derivatives:</p>
+<p>
+  $$
+  \frac{\partial u}{\partial x} = 2x,\quad \frac{\partial v}{\partial y} = 0 \\
+  \frac{\partial u}{\partial y} = 2y,\quad \frac{\partial v}{\partial x} = 0
+  $$
+</p>
+
+<p>Cauchy-Riemann equations are not satisfied.</p>
+<p><strong>Conclusion:</strong> \( f(z) = |z|^2 \) is not differentiable anywhere.</p>
+<h3>Differentiability of \( f(z) = |z|^2 \)</h3>
+
+<h4>1. Using the Definition of the Complex Derivative</h4>
+<p>
+We compute the derivative at \( z = 0 \):
+</p>
+<p>
+  $$
+  f'(0) = \lim_{h \to 0} \frac{f(h) - f(0)}{h}
+       = \lim_{h \to 0} \frac{|h|^2}{h}
+  $$
+</p>
+<p>
+Let \( h = r e^{i\theta} \). Then:
+  $$
+  \frac{|h|^2}{h} = \frac{r^2}{r e^{i\theta}} = r e^{-i\theta}
+  $$
+</p>
+<p>
+Since \( |r e^{-i\theta}| = r \to 0 \), the whole expression tends to 0.
+So:
+  $$
+  \boxed{f'(0) = 0}
+  $$
+</p>
+
+<hr>
+
+<h4>2. Using the Cauchy–Riemann Equations</h4>
+<p>
+Write:
+  $$
+  f(z) = |z|^2 = x^2 + y^2 = u(x, y) + i v(x, y)
+  $$
+with \( u(x, y) = x^2 + y^2 \), \( v(x, y) = 0 \).
+</p>
+<p>Partial derivatives:</p>
+<p>
+  $$
+  u_x = 2x,\quad u_y = 2y,\quad v_x = 0,\quad v_y = 0
+  $$
+</p>
+<p>At \( (x, y) = (0, 0) \):</p>
+<p>
+  $$
+  u_x = v_y = 0,\quad u_y = -v_x = 0
+  $$
+</p>
+<p>The Cauchy–Riemann equations are satisfied and partial derivatives are continuous, so the function is differentiable at \( z = 0 \), with:</p>
+<p>
+  $$
+  f'(0) = u_x(0, 0) + i v_x(0, 0) = 0
+  $$
+</p>
+
+<hr>
+
+<h4>3. Not Differentiable Elsewhere</h4>
+<p>For \( z_0 \ne 0 \), approach along two paths:</p>
+<p>
+  $$
+  \lim_{h \to 0} \frac{|z_0 + h|^2 - |z_0|^2}{h}
+  \quad \text{vs.} \quad
+  \lim_{h \to 0} \frac{|z_0 + i h|^2 - |z_0|^2}{i h}
+  $$
+</p>
+<p>
+The first gives \( 2\operatorname{Re}(z_0) \), the second gives \( 2i\operatorname{Im}(z_0) \) ⟹ different values.
+</p>
+<p>
+Therefore, \( f \) is <strong>not differentiable</strong> at any \( z_0 \ne 0 \).
+</p>
+
+<hr>
+
+<h4>Summary</h4>
+<ul>
+  <li>\( f(z) = |z|^2 \) is complex-differentiable at \( z = 0 \), and \( f'(0) = 0 \)</li>
+  <li>It is not differentiable anywhere else</li>
+  <li>So \( f \) is not analytic (holomorphic) on any open set</li>
+</ul>
+<h3>Proof that the function is <em>not</em> differentiable at&nbsp;<span style="white-space:nowrap;">\(z=0\)</span></h3>
+
+<p>For \(z\neq0\) define</p>
+<p>
+  \[
+    f(z)=\frac{x^{3}-y^{3}}{x^{2}+y^{2}} \;+\;
+          i\,\frac{x^{3}+y^{3}}{x^{2}+y^{2}},
+    \qquad z=x+iy,
+    \qquad
+    f(0)=0.
+  \]
+</p>
+
+<p>We test the complex derivative&nbsp;\(f'(0)\) by computing</p>
+<p>
+  \[
+    \lim_{z\to0}\frac{f(z)-f(0)}{z}\;=\;
+    \lim_{z\to0}\frac{f(z)}{z},
+    \qquad z\neq0.
+  \]
+</p>
+
+<div style="text-align:center;">
+<table style="margin:auto;border-collapse:collapse;">
+<thead>
+<tr><th style="padding:6px;border-bottom:1px solid #ccc;">Path toward 0</th>
+    <th style="padding:6px;border-bottom:1px solid #ccc;">Difference&nbsp;quotient</th>
+    <th style="padding:6px;border-bottom:1px solid #ccc;">Limit value</th></tr>
+</thead>
+<tbody>
+<tr>
+  <td style="padding:6px;">Real axis&nbsp;\((z=h,\;h\in\mathbb R)\)</td>
+  <td style="padding:6px;">
+    \(\displaystyle
+      \frac{f(h)}{h}
+      =\frac{h+i\,h}{h}=1+i
+    \)
+  </td>
+  <td style="padding:6px;">\(1+i\)</td>
+</tr>
+<tr>
+  <td style="padding:6px;">Imaginary axis&nbsp;\((z=ih)\)</td>
+  <td style="padding:6px;">
+    \(\displaystyle
+      \frac{f(ih)}{ih}
+      =\frac{-h+i\,h}{i\,h}=1+i
+    \)
+  </td>
+  <td style="padding:6px;">\(1+i\)</td>
+</tr>
+<tr>
+  <td style="padding:6px;">Diagonal&nbsp;\(y=x\)&nbsp;\((z=x+ix)\)</td>
+  <td style="padding:6px;">
+    \(\displaystyle
+      \frac{f(x+ix)}{x(1+i)}
+      =\frac{i\,x}{x(1+i)}
+      =\frac{1+i}{2}
+    \)
+  </td>
+  <td style="padding:6px;">\(\dfrac{1+i}{2}\)</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<p>The three directional limits are not the same.  
+Hence the limit&nbsp;\(\displaystyle \lim_{z\to0}\tfrac{f(z)}{z}\) does not exist, so the complex derivative cannot exist at the origin.</p>
+
+<p style="text-align:center;font-weight:bold;">
+\(f\) is <em>not complex‑differentiable</em> at&nbsp;\(z=0\).
+</p>
+<h3>Directional Limit Test for Differentiability at \( z = 0 \)</h3>
+
+<p>Let:</p>
+<p>
+  \( f(z) = \dfrac{x^3 - y^3}{x^2 + y^2} + i \cdot \dfrac{x^3 + y^3}{x^2 + y^2}, \quad z = x + iy, \quad f(0) = 0 \)
+</p>
+
+<p>We compute the limit of:</p>
+<p>
+  \[
+  \lim_{z \to 0} \frac{f(z)}{z}
+  \]
+</p>
+<p>along different paths to determine if it exists.</p>
+
+<hr>
+
+<h4>Path 1: Along the Real Axis \( (y = 0) \)</h4>
+<ul>
+  <li>\( f(z) = h + ih \)</li>
+  <li>\( \frac{f(h)}{h} = 1 + i \)</li>
+</ul>
+
+<h4>Path 2: Along the Imaginary Axis \( (x = 0) \)</h4>
+<ul>
+  <li>\( f(z) = -h + ih \)</li>
+  <li>\( \frac{f(ih)}{ih} = \frac{-1 + i}{i} = 1 + i \)</li>
+</ul>
+
+<h4>Path 3: Along the Line \( y = x \)</h4>
+<ul>
+  <li>\( f(z) = i x \)</li>
+  <li>\( z = x(1 + i) \Rightarrow \frac{f(z)}{z} = \frac{i}{1 + i} = \frac{1 + i}{2} \)</li>
+</ul>
+
+<hr>
+
+<h4>Conclusion:</h4>
+<p>
+  The limit depends on the path:
+</p>
+<ul>
+  <li>Real axis: \( 1 + i \)</li>
+  <li>Imaginary axis: \( 1 + i \)</li>
+  <li>Diagonal \( y = x \): \( \dfrac{1 + i}{2} \)</li>
+</ul>
+<p>
+  Therefore, the limit
+  \(\displaystyle \lim_{z \to 0} \frac{f(z)}{z} \)
+  does <strong>not exist</strong>.
+</p>
+
+<p style="font-weight: bold; text-align: center;">
+  \( f(z) \) is <em>not complex-differentiable</em> at \( z = 0 \)
+</p>
+<h3>Analytic (Analytical) Functions in Complex Analysis</h3>
+
+<p>A complex function \( f(z) \) is called <strong>analytic</strong> at a point \( z_0 \) if it is differentiable in an open neighborhood around that point.</p>
+
+<p>Formally:</p>
+<p>
+  $$
+  f \text{ is analytic at } z_0 \iff \exists\ \varepsilon > 0 \text{ such that } f \text{ is differentiable for all } z \text{ with } |z - z_0| < \varepsilon
+  $$
+</p>
+
+<h4>Key Requirements:</h4>
+<ul>
+  <li>Function must be complex-differentiable at all points in some disk around \( z_0 \)</li>
+  <li>Cauchy–Riemann equations must hold and partials must be continuous</li>
+</ul>
+
+<h4>Examples:</h4>
+<table style="margin:auto; border-collapse:collapse;">
+  <tr>
+    <th style="padding:8px; border-bottom:1px solid #ccc;">Function</th>
+    <th style="padding:8px; border-bottom:1px solid #ccc;">Analytic Where?</th>
+  </tr>
+  <tr>
+    <td style="padding:8px;">\( f(z) = z^n \)</td>
+    <td style="padding:8px;">Everywhere in \( \mathbb{C} \)</td>
+  </tr>
+  <tr>
+    <td style="padding:8px;">\( f(z) = \frac{1}{z} \)</td>
+    <td style="padding:8px;">\( \mathbb{C} \setminus \{0\} \)</td>
+  </tr>
+  <tr>
+    <td style="padding:8px;">\( f(z) = \overline{z} \)</td>
+    <td style="padding:8px;">Nowhere analytic</td>
+  </tr>
+  <tr>
+    <td style="padding:8px;">\( f(z) = |z|^2 \)</td>
+    <td style="padding:8px;">Not analytic anywhere</td>
+  </tr>
+</table>
+<h3>Singular Points in Complex Analysis</h3>
+
+<p>A point \( z_0 \in \mathbb{C} \) is called a <strong>singular point</strong> of a function \( f(z) \) if:</p>
+<ul>
+  <li>\( f(z) \) is not analytic at \( z_0 \),</li>
+  <li>but is analytic in some neighborhood around \( z_0 \) (excluding the point).</li>
+</ul>
+
+<h4>Example:</h4>
+<p>
+  \( f(z) = \frac{1}{z} \) has a singularity at \( z = 0 \), because it is analytic on \( \mathbb{C} \setminus \{0\} \).
+</p>
+
+<h4>Types of Isolated Singularities:</h4>
+<table style="margin:auto; border-collapse:collapse;">
+  <tr>
+    <th style="padding:8px; border-bottom:1px solid #ccc;">Type</th>
+    <th style="padding:8px; border-bottom:1px solid #ccc;">Definition</th>
+    <th style="padding:8px; border-bottom:1px solid #ccc;">Example</th>
+  </tr>
+  <tr>
+    <td style="padding:8px;">Removable</td>
+    <td style="padding:8px;">Limit exists; function can be redefined to be analytic</td>
+    <td style="padding:8px;">\( \frac{\sin z}{z} \) at \( z = 0 \)</td>
+  </tr>
+  <tr>
+    <td style="padding:8px;">Pole</td>
+    <td style="padding:8px;">Function goes to infinity as \( z \to z_0 \)</td>
+    <td style="padding:8px;">\( \frac{1}{z} \), \( \frac{1}{z^2} \)</td>
+  </tr>
+  <tr>
+    <td style="padding:8px;">Essential</td>
+    <td style="padding:8px;">Limit does not exist; behavior is chaotic</td>
+    <td style="padding:8px;">\( e^{1/z} \), \( \sin(1/z) \)</td>
+  </tr>
+</table>
+
+<h4>Non-Isolated Singularities:</h4>
+<p>These are not alone — they cluster. Example: \( f(z) = \frac{1}{\sin(1/z)} \) near \( z = 0 \).</p>
+<h3>The Laplace Equation in Complex Analysis</h3>
+
+<p>The <strong>Laplace equation</strong> is a second-order PDE given by:</p>
+<p>
+  $$
+  \frac{\partial^2 u}{\partial x^2} + \frac{\partial^2 u}{\partial y^2} = 0
+  $$
+</p>
+
+<p>A function \( u(x, y) \) that satisfies this equation is called <strong>harmonic</strong>.</p>
+
+<h4>Key Fact:</h4>
+<p>
+If \( f(z) = u(x, y) + i v(x, y) \) is analytic, then both \( u \) and \( v \) satisfy the Laplace equation.
+</p>
+
+<h4>Example:</h4>
+<p>
+Let \( f(z) = z^2 = x^2 - y^2 + i(2xy) \). Then:
+</p>
+<ul>
+  <li>\( u(x, y) = x^2 - y^2 \), \( \Delta u = 2 - 2 = 0 \)</li>
+  <li>\( v(x, y) = 2xy \),    \( \Delta v = 0 + 0 = 0 \)</li>
+</ul>
+<p>Both parts are harmonic.</p>
+
+<h4>Conclusion:</h4>
+<p>All analytic functions have harmonic real and imaginary parts, and thus satisfy the Laplace equation.</p>
+<h3>Proof: A Function That Depends on \( \overline{z} \) Is Not Analytic</h3>
+
+<h4>Method 1: Cauchy–Riemann Equations</h4>
+<p>If \( f(z) = F(z, \overline{z}) \), then it depends on both \( x + iy \) and \( x - iy \).</p>
+<p>Analytic functions must satisfy:</p>
+<p>
+  $$
+  \frac{\partial u}{\partial x} = \frac{\partial v}{\partial y},\quad
+  \frac{\partial u}{\partial y} = -\frac{\partial v}{\partial x}
+  $$
+</p>
+
+<p>But if \( f \) depends on \( \overline{z} \), then these conditions fail.</p>
+
+<h4>Example:</h4>
+<ul>
+  <li>\( f(z) = \overline{z} = x - iy \)</li>
+  <li>\( u = x \), \( v = -y \)</li>
+  <li>\( u_x = 1 \), \( v_y = 0 \Rightarrow u_x \ne v_y \)</li>
+</ul>
+
+<p>⟹ Cauchy–Riemann equations fail ⟹ \( f \) is not analytic.</p>
+
+<hr>
+
+<h4>Method 2: Wirtinger Derivatives</h4>
+<p>Use:</p>
+<p>
+  $$
+  \frac{\partial}{\partial z}
+  = \frac{1}{2} \left( \frac{\partial}{\partial x} - i \frac{\partial}{\partial y} \right),
+  \quad
+  \frac{\partial}{\partial \overline{z}}
+  = \frac{1}{2} \left( \frac{\partial}{\partial x} + i \frac{\partial}{\partial y} \right)
+  $$
+</p>
+
+<p>
+A function is analytic if and only if:
+  \[
+  \frac{\partial f}{\partial \overline{z}} = 0
+  \]
+</p>
+
+<p>If \( f \) depends on \( \overline{z} \), this derivative is nonzero ⇒ \( f \) is not analytic.</p>
+<h3>Harmonic Functions and the Laplacian</h3>
+
+<p>A function \( u(x, y) \) is <strong>harmonic</strong> in a region \( R \subseteq \mathbb{R}^2 \) if it satisfies the Laplace equation:</p>
+
+<p>
+  $$
+  \nabla^2 u = 0
+  $$
+</p>
+
+<p>where \( \nabla^2 \) (del squared) is the Laplacian operator:</p>
+<p>
+  $$
+  \nabla^2 u = \frac{\partial^2 u}{\partial x^2} + \frac{\partial^2 u}{\partial y^2}
+  $$
+</p>
+
+<h4>In Complex Analysis:</h4>
+<p>
+If \( f(z) = u(x, y) + i v(x, y) \) is analytic, then both \( u \) and \( v \) satisfy:
+</p>
+<p>
+  $$
+  \nabla^2 u = \nabla^2 v = 0
+  $$
+</p>
+
+<h4>Conclusion:</h4>
+<p>
+Every analytic function has real and imaginary parts that are harmonic — i.e., they satisfy \( \nabla^2 = 0 \).
+</p>
+<h3>Harmonic Conjugates</h3>
+
+<p>If \( u(x, y) \) is harmonic on a region \( R \), a function \( v(x, y) \) is a <strong>harmonic conjugate</strong> of \( u \) if:</p>
+
+<ul>
+  <li>\( v \) is harmonic</li>
+  <li>They satisfy the Cauchy–Riemann equations:</li>
+</ul>
+
+<p>
+  $$
+  \frac{\partial u}{\partial x} = \frac{\partial v}{\partial y}, \quad
+  \frac{\partial u}{\partial y} = -\frac{\partial v}{\partial x}
+  $$
+</p>
+
+<h4>Example:</h4>
+<p>
+Let \( u(x, y) = x^2 - y^2 \), and \( v(x, y) = x \).
+</p>
+
+<ul>
+  <li>\( u \) is harmonic: \( \nabla^2 u = 2 - 2 = 0 \)</li>
+  <li>\( v \) is harmonic: \( \nabla^2 v = 0 \)</li>
+  <li>But Cauchy–Riemann fails:
+    \( u_x = 2x \ne v_y = 0 \),
+    \( u_y = -2y \ne -v_x = -1 \)</li>
+</ul>
+
+<p><strong>Conclusion:</strong> \( v(x, y) = x \) is not a harmonic conjugate of \( u(x, y) = x^2 - y^2 \).</p>
+
+<h3>Examples: Finding Harmonic Conjugates (with Integration)</h3>
+
+<!-- EXAMPLE 1 -->
+
+<h4>Example 1: \( u(x, y) = \arctan\left( \frac{y}{x} \right) \)</h4>
+  
+<p>This function is harmonic in any region excluding the negative real axis (to keep \( \arg(z) \) single-valued).</p>
+
+<h5>Step 1: Verify Harmonicity</h5>
+<p>This is a known harmonic function: \( \nabla^2 u = 0 \) in \( \mathbb{R}^2 \setminus \{ x = 0 \} \).</p>
+
+
+<h5>Step 2: Use Cauchy–Riemann equations</h5>
+<p>We compute:</p>
+<p>
+  $$
+  u_x = \frac{-y}{x^2 + y^2}, \quad
+  u_y = \frac{x}{x^2 + y^2}
+  $$
+</p>
+<p>Then from C-R:</p>
+<p>
+  $$
+  v_y = u_x = \frac{-y}{x^2 + y^2}, \quad
+  v_x = -u_y = \frac{-x}{x^2 + y^2}
+  $$
+
+<h5>Step 3: Integrate</h5>
+<ul>
+  <li>Integrate \( v_y = \frac{-y}{x^2 + y^2} \) w.r.t. \( y \):</li>
+  <p>
+    Let’s integrate keeping \( x \) constant:<br>
+    \( v(x, y) = \int \frac{-y}{x^2 + y^2} \, dy \)
+    <br>
+    Use substitution: \( u = x^2 + y^2 \Rightarrow du = 2y \, dy \)
+  </p>
+  <p>
+    So:
+    $$
+    \int \frac{-y}{x^2 + y^2} \, dy
+    = -\frac{1}{2} \ln(x^2 + y^2) + C(x)
+    $$
+  </p>
+
+  <li>Final result:</li>
+  <p>
+    $$
+    v(x, y) = -\frac{1}{2} \ln(x^2 + y^2) + C(x)
+    $$
+  </p>
+
+  <li>Now verify with \( v_x \), or notice that this matches \( \ln |z| \) up to constants.</li>
+</ul>
+
+<h5>Final Answer:</h5>
+<p>
+  $$
+  f(z) = \arg(z) + i \ln|z| = \ln z
+  $$
+</p>
+
+<hr>
+
+<!-- EXAMPLE 2 -->
+
+<h4>Example 2: \( u(x, y) = e^x \cos y \)</h4>
+
+<h5>Step 1: Check that \( u \) is harmonic</h5>
+<p>
+  $$
+  u_{xx} = e^x \cos y, \quad
+  u_{yy} = -e^x \cos y, \quad
+  \nabla^2 u = u_{xx} + u_{yy} = 0
+  $$
+</p>
+
+<h5>Step 2: Cauchy–Riemann Equations</h5>
+<p>
+  $$
+  v_y = u_x = e^x \cos y, \quad
+  v_x = -u_y = e^x \sin y
+  $$
+</p>
+
+<h5>Step 3: Integrate to find \( v(x, y) \)</h5>
+<ul>
+  <li>Start with \( v_y = e^x \cos y \)</li>
+  <p>
+    \( x \) is constant ⇒
+    $$
+    v(x, y) = \int e^x \cos y \, dy = e^x \sin y + C(x)
+    $$
+  </p>
+
+  <li>Now check with \( v_x \):</li>
+  <p>
+    $$
+    v_x = \frac{\partial}{\partial x} (e^x \sin y + C(x)) = e^x \sin y + C'(x)
+    $$
+  </p>
+  <li>From C-R: \( v_x = e^x \sin y \Rightarrow C'(x) = 0 \Rightarrow C(x) = \text{const} \)</li>
+</ul>
+
+<h5>Final Result:</h5>
+<p>
+  $$
+  v(x, y) = e^x \sin y \quad \Rightarrow \quad
+  f(z) = u + i v = e^x \cos y + i e^x \sin y = e^z
+  $$
+</p>
+
+<hr>
+
+<h4>Conclusion:</h4>
+<ul>
+  <li><strong>Example 1:</strong> \( u = \arg(z) \), harmonic conjugate \( v = \ln|z| \), gives \( f(z) = \ln z \)</li>
+  <li><strong>Example 2:</strong> \( u = e^x \cos y \), harmonic conjugate \( v = e^x \sin y \), gives \( f(z) = e^z \)</li>
+</ul>
+
+<!-- Footer -->
+<footer>
+  &copy; 2025 Your Name — Notes on Math & More
+</footer>
+
+</body>
+</html>
