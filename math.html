@@ -324,8 +324,7 @@
         </ul>
       </div>
     </div>
-
-      <!-- gmath -->
+<!-- gmath -->
 <div class="skill" data-id="gmath">
   <span 
     class="skill-title" 
@@ -335,15 +334,24 @@
     <span class="chevron">▼</span>
     <span class="last-updated-inline"></span>
   </span>
+
+  <!-- Clicking the progress bar also toggles sub-content -->
   <div 
     class="progress-bar" 
     onclick="toggleContent('gmath-content', this.parentElement.querySelector('.skill-title'))"
   >
-    <div class="progress-fill gmath" style="width: 0%;">0%</div>
+    <div class="progress-fill gmath" style="width: 0%;">
+      0%
+    </div>
   </div>
+
+  <!-- Expandable sub-list -->
   <div id="gmath-content" class="content-list">
     <ul>
-      <li><a href="complexvariables.html">Complex Variables</a></li>
+      <li data-id="complexvariables">
+        <a href="complexvariables.html">Complex Variables</a>
+        <span class="last-updated"></span>
+      </li>
     </ul>
   </div>
 </div>
