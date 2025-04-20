@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script>
+    window.MathJax = {
+      tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] },
+      svg: { fontCache: 'global' }
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Linear Transformation</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: #fdfdfd;
+      color: #333;
+      padding: 20px;
+      max-width: 900px;
+      margin: auto;
+    }
+    h1 {
+      color: #5a2a83;
+      font-size: 2.2rem;
+      margin-bottom: 10px;
+    }
+    h2 {
+      color: #7d5ba6;
+      margin-top: 30px;
+      font-size: 1.4rem;
+    }
+    h3, h4 {
+      margin-top: 20px;
+    }
+    p, ul {
+      margin-top: 10px;
+      line-height: 1.6;
+    }
+    nav {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    nav a {
+      margin: 0 10px;
+      text-decoration: none;
+      color: #007acc;
+      font-weight: 600;
+    }
+    .content-links {
+      background: #f1f1f1;
+      padding: 15px 20px;
+      margin-bottom: 30px;
+      border-left: 4px solid #5a2a83;
+      border-radius: 5px;
+    }
+    .content-links ul {
+      list-style: none;
+      padding: 0;
+    }
+    .content-links li {
+      margin-bottom: 8px;
+    }
+    .content-links a {
+      color: #5a2a83;
+      text-decoration: none;
+      font-weight: 500;
+    }
+    .content-links a:hover {
+      text-decoration: underline;
+    }
+    a.back {
+      display: inline-block;
+      margin-bottom: 20px;
+      color: #5a2a83;
+      font-size: 0.95rem;
+      text-decoration: none;
+    }
+    a.back:hover {
+      text-decoration: underline;
+    }
+    footer {
+      text-align: center;
+      margin-top: 40px;
+      font-size: 0.85rem;
+      color: #777;
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html">Coding</a> |
+  <a href="electrical.html">Electrical Engineering</a> |
+  <a href="physics.html">Physics</a> |
+  <a href="math.html">Math</a>
+</nav>
+
+<h1>Linear Transformation</h1>
+
+<div class="content-links">
+  <strong>Contents</strong>
+  <ul>
+    <li><a href="#Linear Transformation">Linear Transformation</a></li>
+    <li><a href="#subspace">Subspace</a></li>
+    <li><a href="#span">Span</a></li>
+    <li><a href="#linear-independence">Linear Independence</a></li>
+    <li><a href="#basis">Basis</a></li>
+    <li><a href="#dimension">Dimension</a></li>
+  </ul>
+</div>
+
+<!-- existing sections continue below... -->
+
+
+<div id="Linear Transformation">
+  <h2>Linear Transformation </h2>
+  <p>Okay! Imagine you have a toy car on a floor mat with a grid drawn on it (like a big piece of graph paper). Now, you take your car and move it forward 2 steps and to the right 1 step every time you touch it.</p>
+  <p>Every time you touch any toy, you move it in a special way. You always follow the same rules — like:</p>
+  <ul>
+    <li>“Go this far forward”</li>
+    <li>“Go this far to the side”</li>
+  </ul>
+  <p>So no matter where you put the toy on the mat, when you move it using the same rule, it moves in a straight, fair, and simple way.</p>
+  <p>That’s all a linear transformation is: it’s just a special rule for moving things around, and it always plays fair (like a good game — no surprise jumps or weird turns).</p>
+  <p>A linear transformation is a function between two vector spaces that preserves vector addition and scalar multiplication. This means if you have vectors u and v, and a number (scalar) c, then the transformation T satisfies:</p>
+  <h4>Additivity:</h4>
+  <p>\( T(\vec{u} + \vec{v}) = T(\vec{u}) + T(\vec{v}) \)</p>
+  
+  <h4>Homogeneity (Scalar Multiplication):</h4>
+  <p>\( T(c \cdot \vec{u}) = c \cdot T(\vec{u}) \)</p>
+  <p>If both of these properties hold for all vectors \( \vec{u}, \vec{v} \in \mathbb{R}^n \) and any scalar \( c \in \mathbb{R} \), then the transformation \( T \) is linear.</p>
+
+  
+  <p>These properties mean that the transformation keeps the "linear" structure of the space intact — it doesn’t twist or bend space, it only stretches, shrinks, flips, rotates, or projects it in a consistent way.</p>
+
+<p>In real-world terms, linear transformations are what let you:</p>
+<ul>
+  <li>Rotate shapes</li>
+  <li>Stretch or squash them</li>
+  <li>Reflect them across a line or plane</li>
+  <li>Project them onto a surface (like shadows)</li>
+</ul>
+<h3>Matrix Representation</h3>
+<p>Any linear transformation \( T \) from \( \mathbb{R}^n \) to \( \mathbb{R}^m \) can be written as matrix multiplication:</p>
+
+<p>\( T(\vec{x}) = A\vec{x} \)</p>
+
+<p><strong>Where:</strong></p>
+<ul>
+  <li>\( A \) is an \( m \times n \) matrix</li>
+  <li>\( \vec{x} \in \mathbb{R}^n \)</li>
+  <li>\( T(\vec{x}) \in \mathbb{R}^m \)</li>
+</ul>
+
+<p>This means we can fully describe a linear transformation using a matrix.</p>
+<h4>Example 1: Scaling</h4>
+<p>Let:</p>
+<p>
+\( A = \begin{bmatrix} 2 & 0 \\ 0 & 3 \end{bmatrix}, \quad \vec{x} = \begin{bmatrix} 1 \\ 1 \end{bmatrix} \)
+</p>
+
+<p>Then:</p>
+<p>
+\( T(\vec{x}) = A\vec{x} = \begin{bmatrix} 2 & 0 \\ 0 & 3 \end{bmatrix} \begin{bmatrix} 1 \\ 1 \end{bmatrix} = \begin{bmatrix} 2 \\ 3 \end{bmatrix} \)
+</p>
+
+<p>This transformation stretches the x-coordinate by 2 and the y-coordinate by 3.</p>
+
+<h4>Example 2: Rotation</h4>
+<p>To rotate a vector in \( \mathbb{R}^2 \) counterclockwise by angle \( \theta \), use:</p>
+
+<p>
+\( A = \begin{bmatrix} \cos \theta & -\sin \theta \\ \sin \theta & \cos \theta \end{bmatrix} \)
+</p>
+
+<p>Let’s rotate by 90° ( \( \theta = \frac{\pi}{2} \) ):</p>
+
+<p>
+\( A = \begin{bmatrix} 0 & -1 \\ 1 & 0 \end{bmatrix} \)
+</p>
+
+<p>Apply to \( \vec{x} = \begin{bmatrix} 1 \\ 0 \end{bmatrix} \):</p>
+
+<p>
+\( T(\vec{x}) = \begin{bmatrix} 0 & -1 \\ 1 & 0 \end{bmatrix} \begin{bmatrix} 1 \\ 0 \end{bmatrix} = \begin{bmatrix} 0 \\ 1 \end{bmatrix} \)
+</p>
+
+<p>This rotates the vector 90° counterclockwise — from pointing right to pointing up.</p>
+<h4>Example 3: Projection</h4>
+<p>Project a vector onto the x-axis:</p>
+
+<p>
+\( A = \begin{bmatrix} 1 & 0 \\ 0 & 0 \end{bmatrix} \)
+</p>
+
+<p>Apply to \( \vec{x} = \begin{bmatrix} 3 \\ 4 \end{bmatrix} \):</p>
+
+<p>
+\( T(\vec{x}) = \begin{bmatrix} 1 & 0 \\ 0 & 0 \end{bmatrix} \begin{bmatrix} 3 \\ 4 \end{bmatrix} = \begin{bmatrix} 3 \\ 0 \end{bmatrix} \)
+</p>
+
+<p>It squashes the vector onto the x-axis, removing its vertical component.</p>
+<h3>Kernel and Image </h3>
+
+<h4>What’s the Kernel?</h4>
+<p>Imagine you have a magic machine. You put in toy cars (vectors), and the machine changes them.</p>
+<p>Now, sometimes you put in a car... and nothing comes out. It just vanishes!</p>
+<p>That’s the kernel — it’s the list of all the toys that disappear when you put them in the machine.</p>
+<p><em>"If a toy goes in and poof — turns into nothing, it’s in the kernel."</em></p>
+
+
+<p>In other words:<br>
+    The kernel is made of all vectors \( \vec{x} \) such that:</p>
+    
+    <p>\( T(\vec{x}) = \vec{0} \)</p>
+    
+    <p>If you're using a matrix \( A \), then:</p>
+    
+    <p>\( \text{ker}(T) = \{ \vec{x} \in \mathbb{R}^n \mid A\vec{x} = \vec{0} \} \)</p>
+    
+    <p>The kernel tells you what gets squashed to zero by the transformation.</p>
+
+    <h4>Example: Find the Kernel of a Matrix</h4>
+
+<p>Let:</p>
+<p>
+\( A = \begin{bmatrix} 1 & 2 & 3 \\ 0 & 0 & 0 \end{bmatrix} \)
+</p>
+
+<p>We want to find all \( \vec{x} = \begin{bmatrix} x \\ y \\ z \end{bmatrix} \) such that:</p>
+<p>
+\( A\vec{x} = \vec{0} \Rightarrow \begin{bmatrix} 1 & 2 & 3 \\ 0 & 0 & 0 \end{bmatrix} \begin{bmatrix} x \\ y \\ z \end{bmatrix} = \begin{bmatrix} 0 \\ 0 \end{bmatrix} \)
+</p>
+
+<p>Do the matrix multiplication:</p>
+<p>
+\( 1x + 2y + 3z = 0 \)
+</p>
+
+<p>That’s the only equation. So the kernel is the set of all vectors \( \vec{x} \) that satisfy:</p>
+<p>
+\( x = -2y - 3z \)
+</p>
+<p><strong>Final Answer:</strong><br>
+    The kernel is all linear combinations of:
+    </p>
+    
+    <p>
+    \( \vec{x} = y \begin{bmatrix} -2 \\ 1 \\ 0 \end{bmatrix} + z \begin{bmatrix} -3 \\ 0 \\ 1 \end{bmatrix} \)
+    </p>
+    
+    <p>
+    So the kernel is a plane in \( \mathbb{R}^3 \) — it's 2-dimensional.
+    </p>
+    
+    <h4>Image</h4>
+
+    <p>Imagine you have a magic toy machine. You put in different toys (these are your vectors), and the machine changes them — maybe it slides them, stretches them, flips them, or shrinks them.</p>
+    
+    <p>Now think: Where can your toys end up after going through the machine? That’s what the image is!</p>
+    
+    <p>It’s the collection of all places your toys can land.</p>
+    
+    <h5>Example:</h5>
+    <ul>
+      <li>You put in a red car → it becomes a long red car</li>
+      <li>You put in a blue boat → it becomes a tiny blue boat</li>
+      <li>You put in a green plane → it turns sideways</li>
+    </ul>
+    
+    <p>Now look at where all those toys landed on your play mat.</p>
+    <p>All those spots where toys can land — that’s the image!</p>
+    
+    <p>The image of a linear transformation \( T: \mathbb{R}^n \rightarrow \mathbb{R}^m \) is the set of all possible output vectors — the vectors you can actually get by applying \( T \) to some input vector.</p>
+
+    <h4>In other words:</h4>
+    <p>The image tells you what vectors are reachable through the transformation.</p>
+    
+    <h4>Mathematically:</h4>
+    <p>If the transformation is defined by a matrix \( A \), then:</p>
+    
+    <p>\( \text{im}(T) = \{ A\vec{x} \mid \vec{x} \in \mathbb{R}^n \} \)</p>
+    
+    <p>This is equivalent to the column space of \( A \), because any \( A\vec{x} \) is just a linear combination of the columns of \( A \).</p>
+    
+    <p>So the image is:</p>
+    <p><strong>span of the columns of \( A \)</strong></p>
+    <h4>Example: Find the Image of a Matrix</h4>
+
+<p>Let:</p>
+<p>\( A = \begin{bmatrix} 1 & 2 & 3 \\ 0 & 0 & 0 \end{bmatrix} \)</p>
+
+<p>The columns of \( A \) are:</p>
+<ul>
+  <li>\( \vec{v}_1 = \begin{bmatrix} 1 \\ 0 \end{bmatrix} \)</li>
+  <li>\( \vec{v}_2 = \begin{bmatrix} 2 \\ 0 \end{bmatrix} \)</li>
+  <li>\( \vec{v}_3 = \begin{bmatrix} 3 \\ 0 \end{bmatrix} \)</li>
+</ul>
+
+<p>All three of these columns lie on the x-axis in \( \mathbb{R}^2 \). In fact, they are all scalar multiples of the first column:</p>
+<p>\( \vec{v}_2 = 2 \cdot \vec{v}_1, \quad \vec{v}_3 = 3 \cdot \vec{v}_1 \)</p>
+
+<p>So:<br>
+All the columns are linearly dependent — they span a 1-dimensional subspace of \( \mathbb{R}^2 \).</p>
+
+<h4>Final Answer:</h4>
+<p>\( \text{im}(T) = \text{span} \left\{ \begin{bmatrix} 1 \\ 0 \end{bmatrix} \right\} \)</p>
+<p>The image is the x-axis in \( \mathbb{R}^2 \), and its dimension is 1.</p>
+
+<h3>Formal Definition</h3>
+
+<p>Let’s say you have a list of vectors:</p>
+<p>\( \vec{v}_1, \vec{v}_2, \dots, \vec{v}_n \)</p>
+
+<p>These vectors are linearly dependent if:</p>
+<p>There exist scalars \( c_1, c_2, \dots, c_n \), not all zero, such that:</p>
+
+<p>\( c_1 \vec{v}_1 + c_2 \vec{v}_2 + \cdots + c_n \vec{v}_n = \vec{0} \)</p>
+
+<p>That means at least one vector can be written as a combination of the others.</p>
+
+<p>They are linearly independent if:</p>
+<p>The only solution to:</p>
+
+<p>\( c_1 \vec{v}_1 + c_2 \vec{v}_2 + \cdots + c_n \vec{v}_n = \vec{0} \)</p>
+
+<p>is:</p>
+
+<p>\( c_1 = c_2 = \cdots = c_n = 0 \)</p>
+
+<p>No vector in the set can be written using the others.</p>
+
+<h4>Why It Matters</h4>
+<p>Linear independence means all vectors point in new directions — they give us unique information.</p>
+<p>Linear dependence means some vectors are redundant — you can toss one without losing anything.</p>
+
+<h4>Example 1: Dependent Vectors in \( \mathbb{R}^2 \)</h4>
+<p>Let:</p>
+<p>\( \vec{v}_1 = \begin{bmatrix} 1 \\ 2 \end{bmatrix}, \quad \vec{v}_2 = \begin{bmatrix} 2 \\ 4 \end{bmatrix} \)</p>
+
+<p>Are they linearly dependent?</p>
+
+<p>Try to solve:</p>
+<p>\( c_1 \vec{v}_1 + c_2 \vec{v}_2 = \vec{0} \Rightarrow c_1 \begin{bmatrix} 1 \\ 2 \end{bmatrix} + c_2 \begin{bmatrix} 2 \\ 4 \end{bmatrix} = \begin{bmatrix} 0 \\ 0 \end{bmatrix} \)</p>
+
+<p>This becomes:</p>
+<ul>
+  <li>\( c_1 + 2c_2 = 0 \)</li>
+  <li>\( 2c_1 + 4c_2 = 0 \)</li>
+</ul>
+
+<p>These are not independent equations — they are multiples of each other.</p>
+<p>One solution is: \( c_1 = -2, \quad c_2 = 1 \)</p>
+<p>Not all zero ⇒ Dependent</p>
+<p>(We can write \( \vec{v}_2 = 2 \cdot \vec{v}_1 \))</p>
+
+<h4>Example 2: Independent Vectors in \( \mathbb{R}^2 \)</h4>
+<p>Let:</p>
+<p>\( \vec{v}_1 = \begin{bmatrix} 1 \\ 0 \end{bmatrix}, \quad \vec{v}_2 = \begin{bmatrix} 0 \\ 1 \end{bmatrix} \)</p>
+
+<p>Try:</p>
+<p>\( c_1 \vec{v}_1 + c_2 \vec{v}_2 = \vec{0} \Rightarrow c_1 \begin{bmatrix} 1 \\ 0 \end{bmatrix} + c_2 \begin{bmatrix} 0 \\ 1 \end{bmatrix} = \begin{bmatrix} 0 \\ 0 \end{bmatrix} \)</p>
+
+<p>This becomes:</p>
+<ul>
+  <li>\( c_1 = 0 \)</li>
+  <li>\( c_2 = 0 \)</li>
+</ul>
+
+<p>Only solution is zero ⇒ Independent</p>
+
+<h4>How to Check for Linear Dependence</h4>
+<ol>
+  <li>Set up the equation: \( c_1 \vec{v}_1 + c_2 \vec{v}_2 + \cdots + c_n \vec{v}_n = \vec{0} \)</li>
+  <li>Convert it into a system of linear equations</li>
+  <li>Solve the system:
+    <ul>
+      <li>If the only solution is \( c_1 = \cdots = c_n = 0 \): independent</li>
+      <li>If there is any other solution: dependent</li>
+    </ul>
+  </li>
+</ol>
+<p>You can do this using row reduction (Gaussian elimination) on a matrix with the vectors as columns.</p>
+
+<h4>Summary</h4>
+<table border="1" cellpadding="6" cellspacing="0">
+  <tr>
+    <th>Concept</th>
+    <th>Description</th>
+  </tr>
+  <tr>
+    <td>Linearly Dependent</td>
+    <td>One vector is a combo of others. Nontrivial solution.</td>
+  </tr>
+  <tr>
+    <td>Linearly Independent</td>
+    <td>No vector can be made from others. Only trivial solution.</td>
+  </tr>
+  <tr>
+    <td>Why it matters</td>
+    <td>Tells us about redundancy and dimension of a space.</td>
+  </tr>
+</table>
+<h4>Example: Find the Image of a Matrix</h4>
+
+<p>Let:</p>
+<p>
+\( A = \begin{bmatrix} 1 & 2 & 4 \\ 2 & 4 & 8 \\ 1 & 3 & 5 \end{bmatrix} \)
+</p>
+
+<p>We want to find the image of the linear transformation \( T(\vec{x}) = A\vec{x} \), i.e., we want to find the span of the columns of \( A \) and determine how many are linearly independent.</p>
+
+<h4>Step 1: Write the Columns</h4>
+
+<p>Let’s define the column vectors:</p>
+<p>
+\( \vec{v}_1 = \begin{bmatrix} 1 \\ 2 \\ 1 \end{bmatrix}, \quad 
+\vec{v}_2 = \begin{bmatrix} 2 \\ 4 \\ 3 \end{bmatrix}, \quad 
+\vec{v}_3 = \begin{bmatrix} 4 \\ 8 \\ 5 \end{bmatrix} \)
+</p>
+
+<p>We want to check if these vectors are linearly dependent or independent.</p>
+
+<h4>Step 2: Set Up the Linear Dependence Equation</h4>
+<p>We ask: are there scalars \( c_1, c_2, c_3 \), not all zero, such that:</p>
+<p>
+\( c_1 \vec{v}_1 + c_2 \vec{v}_2 + c_3 \vec{v}_3 = \vec{0} \)
+</p>
+
+<p>This means:</p>
+<p>
+\( c_1 \begin{bmatrix} 1 \\ 2 \\ 1 \end{bmatrix} + c_2 \begin{bmatrix} 2 \\ 4 \\ 3 \end{bmatrix} + c_3 \begin{bmatrix} 4 \\ 8 \\ 5 \end{bmatrix} = \begin{bmatrix} 0 \\ 0 \\ 0 \end{bmatrix} \)
+</p>
+
+<p>Now add the vectors:</p>
+<ul>
+  <li>Row 1: \( c_1 + 2c_2 + 4c_3 = 0 \)</li>
+  <li>Row 2: \( 2c_1 + 4c_2 + 8c_3 = 0 \)</li>
+  <li>Row 3: \( c_1 + 3c_2 + 5c_3 = 0 \)</li>
+</ul>
+
+<h4>Step 3: Solve the System</h4>
+<p>We now row reduce the coefficient matrix:</p>
+
+<p>
+\( 
+\begin{bmatrix}
+1 & 2 & 4 \\
+2 & 4 & 8 \\
+1 & 3 & 5
+\end{bmatrix}
+\)
+</p>
+
+<p>Step 1: Subtract \( 2 \times R_1 \) from \( R_2 \):</p>
+<p>
+\( R_2 = R_2 - 2R_1 \Rightarrow \begin{bmatrix}
+1 & 2 & 4 \\
+0 & 0 & 0 \\
+1 & 3 & 5
+\end{bmatrix} \)
+</p>
+
+<p>Step 2: Subtract \( R_1 \) from \( R_3 \):</p>
+<p>
+\( R_3 = R_3 - R_1 \Rightarrow \begin{bmatrix}
+1 & 2 & 4 \\
+0 & 0 & 0 \\
+0 & 1 & 1
+\end{bmatrix} \)
+</p>
+
+<p>Swap \( R_2 \) and \( R_3 \):</p>
+<p>
+\( \begin{bmatrix}
+1 & 2 & 4 \\
+0 & 1 & 1 \\
+0 & 0 & 0
+\end{bmatrix} \)
+</p>
+
+<p>This is now in row echelon form. We have 2 pivot positions, so the matrix has <strong>rank 2</strong>.</p>
+
+<h4>Step 4: Final Answer</h4>
+<p>The image of the transformation is spanned by 2 linearly independent vectors.</p>
+<p>Any two linearly independent columns from \( A \) can form a basis for the image. Let’s choose the first two columns (since they correspond to pivot columns):</p>
+
+<p>
+\( \text{im}(T) = \text{span} \left\{ 
+\begin{bmatrix} 1 \\ 2 \\ 1 \end{bmatrix}, 
+\begin{bmatrix} 2 \\ 4 \\ 3 \end{bmatrix} 
+\right\} \)
+</p>
+
+<p>So the image is a 2-dimensional subspace of \( \mathbb{R}^3 \), which is a plane through the origin.</p>
+
+</div>
+
+
+<footer>
+  &copy; 2025 Parham — Linear Algebra Notes
+</footer>
+
+</body>
+</html>
