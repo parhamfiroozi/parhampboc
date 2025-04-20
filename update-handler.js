@@ -40,7 +40,8 @@ async function sortAndTagContent() {
         const subTag = li.querySelector('.last-updated');
         if (updates[subId]) {
           const subDate = new Date(updates[subId]);
-          subTag.textContent = formatRelativeTime(subDate);
+          subTag.textContent = 'Updated ' + formatRelativeTime(subDate);
+
           subTag.title = subDate.toLocaleString();
           if (subDate > subjectTime) subjectTime = subDate;
         }
