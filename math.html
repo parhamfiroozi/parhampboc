@@ -160,6 +160,7 @@
 
     /* Expandable sub-list */
     .content-list {
+      
       max-height: 0;
       overflow: hidden;
       transition: max-height 0.4s ease;
@@ -176,6 +177,17 @@
     .content-list li {
       margin-bottom: 6px;
     }
+    .content-list li {           /* keep the bullet text left, time right */
+  display: flex;
+  justify-content: space-between;
+}
+
+.content-list .last-updated { /* subtle grey, small type */
+  font-size: 0.8rem;
+  color: #777;
+  flex-shrink: 0;
+}
+
     .content-list a {
       color: #5a2a83;
       text-decoration: none;
@@ -251,13 +263,13 @@
       <a href="vectorspaces.html">Vector Spaces</a>
       <span class="last-updated"></span>
     </li>
-
+</div> 
     <!-- Linear Transformation -->
-   
 <li data-id="Ltransformation">
-  <a href="Ltransformation.html">Linear Transformations</a>
-  <span class="last-updated">Updated </span>
+  <a href="Ltransformation.html">Linear Transformations</a>
+  <span class="last-updated"></span>
 </li>
+
 
   </ul>
 </div>
