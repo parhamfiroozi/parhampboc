@@ -241,38 +241,34 @@
     class="skill-title"
     onclick="toggleContent('linear_algebra-content', this)"
   >
+ <!-- Linear Algebra  -->
+<div class="skill" data-id="linear_algebra">
+  <span class="skill-title" onclick="toggleContent('linear_algebra-content', this)">
     Linear Algebra
     <span class="chevron">▼</span>
     <span class="last-updated-inline"></span>
   </span>
 
-  <!-- Clicking the progress bar also toggles sub-content -->
-  <div
-    class="progress-bar"
-    onclick="toggleContent('linear_algebra-content', this.parentElement.querySelector('.skill-title'))"
-  >
-    <div class="progress-fill linear" style="width: 50%;">
-      50%
-    </div>
+  <div class="progress-bar"
+       onclick="toggleContent('linear_algebra-content', this.parentElement.querySelector('.skill-title'))">
+    <div class="progress-fill linear" style="width: 50%;">50%</div>
   </div>
 
-  <!-- Expandable sub-list -->
- <div id="linear_algebra-content" class="content-list">
-  <ul>
-    <li data-id="vectorspaces">
-      <a href="vectorspaces.html">Vector Spaces</a>
-      <span class="last-updated"></span>
-    </li>
-</div> 
-    <!-- Linear Transformation -->
-<li data-id="Ltransformation">
-  <a href="Ltransformation.html">Linear Transformations</a>
-  <span class="last-updated"></span>
-</li>
+  <!-- Expandable sub‑list -->
+  <div id="linear_algebra-content" class="content-list">
+    <ul>
+      <li data-id="vectorspaces">
+        <a href="vectorspaces.html">Vector Spaces</a>
+        <span class="last-updated"></span>
+      </li>
 
-
-  </ul>
-</div>
+      <li data-id="ltransformation">
+        <a href="Ltransformation.html">Linear Transformations</a>
+        Updated <span class="last-updated"></span>
+      </li>
+    </ul>
+  </div>   <!-- end .content-list -->
+</div>     <!-- end .skill (closes the card) -->
 
     <!-- Mathematical Analysis -->
     <div class="skill" data-id="mathematical_analysis">
