@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>{{ PAGE_TITLE }}</title>
+
+  <!-- Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet" />
+
+  <!-- MathJax for LaTeX -->
+  <script>
+    window.MathJax = {
+      tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] },
+      svg: { fontCache: 'global' }
+    };
+  </script>
+  <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+
+  <!-- Style -->
+  <style>
+    body {
+      font-family: 'Orbitron', sans-serif;
+      background: #101735;
+      color: #d8faff;
+      padding: 20px;
+    }
+
+    nav.main-menu {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    nav.main-menu a {
+      margin: 0 12px;
+      color: #0ff;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    nav.main-menu a:hover {
+      text-decoration: underline;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      background: #1e264a;
+      padding: 32px;
+      border-radius: 12px;
+      box-shadow: 0 0 20px rgba(0, 255, 255, 0.1);
+    }
+
+    .content-nav {
+      margin-bottom: 40px;
+      padding: 16px 20px;
+      background: #141b38;
+      border-left: 4px solid #0ff;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 255, 255, 0.05);
+    }
+
+    .content-nav h2 {
+      color: #0ff;
+      font-size: 1.1rem;
+      margin-bottom: 10px;
+      padding-bottom: 6px;
+      border-bottom: 1px solid #0ff;
+    }
+
+    .content-nav ul {
+      list-style: none;
+      padding-left: 10px;
+      margin: 0;
+    }
+
+    .content-nav li {
+      margin: 8px 0;
+    }
+
+    .content-nav a {
+      color: #ffc107;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.95rem;
+      transition: color 0.2s ease;
+    }
+
+    .content-nav a:hover {
+      color: #fff;
+      text-decoration: underline;
+    }
+
+    h1 {
+      font-size: 1.9rem;
+      margin-bottom: 20px;
+      text-shadow: 0 0 8px #0ff;
+      color: #0ff;
+      text-align: center;
+    }
+
+    h2 {
+      color: #ffc107;
+      margin-top: 30px;
+      font-size: 1.3rem;
+    }
+
+    p {
+      font-size: 1.05rem;
+      line-height: 1.7;
+      margin-top: 12px;
+      color: #c8e6f5;
+    }
+
+    .highlight {
+      color: #ffdd57;
+      font-weight: bold;
+    }
+
+    ul {
+      color: #c8e6f5;
+    }
+
+    .back-link {
+      display: block;
+      margin-top: 40px;
+      text-align: center;
+      color: #ffc107;
+      font-weight: bold;
+      text-decoration: none;
+      font-size: 0.95rem;
+    }
+
+    .back-link:hover {
+      text-shadow: 0 0 5px #ffc107;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Main Page Navigation -->
+  <nav class="main-menu">
+    <a href="index.html">Coding</a> |
+    <a href="electrical.html">Electrical Engineering</a> |
+    <a href="physics.html">Physics</a> |
+    <a href="math.html">Math</a>
+  </nav>
+
+  <div class="container">
+
+    <!-- Contents Navigation -->
+    <div class="content-nav">
+      <h2>📘 Contents</h2>
+      <ul>
+        <li><a href="#logic-gates">• The Gates and Their Truth Table</a></li>
+        <li><a href="#boolean-algebra">• Boolean Algebra</a></li>
+        <li><a href="#minterms-maxterms">• Sum of Minterms and Product of Maxterms</a></li>
+
+
+      </ul>
+    </div>
+
+    <h1> Computer Architecture </h1>
+    <h2 id="logic-gates">The Gates and Their Truth Table</h2>
+
+    <p>
+      Logic gates are the basic building blocks of digital circuits. Each gate performs a specific logical function based on its input(s).
+    </p>
+    
+    <p>
+      Below is a truth table representing common logic gates:
+    </p>
+    
+    <table border="1" cellpadding="6" cellspacing="0" style="border-collapse: collapse; margin-top: 15px;">
+      <tr>
+        <th>Input A</th>
+        <th>Input B</th>
+        <th>AND</th>
+        <th>OR</th>
+        <th>NAND</th>
+        <th>NOR</th>
+        <th>XOR</th>
+        <th>XNOR</th>
+      </tr>
+      <tr>
+        <td>0</td><td>0</td><td>0</td><td>0</td><td>1</td><td>1</td><td>0</td><td>1</td>
+      </tr>
+      <tr>
+        <td>0</td><td>1</td><td>0</td><td>1</td><td>1</td><td>0</td><td>1</td><td>0</td>
+      </tr>
+      <tr>
+        <td>1</td><td>0</td><td>0</td><td>1</td><td>1</td><td>0</td><td>1</td><td>0</td>
+      </tr>
+      <tr>
+        <td>1</td><td>1</td><td>1</td><td>1</td><td>0</td><td>0</td><td>0</td><td>1</td>
+      </tr>
+    </table>
+    <h3>AND Gate</h3>
+    <div style="text-align: center; margin-top: 10px; margin-bottom: 20px;">
+      <img src="https://i.postimg.cc/3JnvkqJ3/Screenshot-2025-04-25-at-4-10-37-PM.png" 
+           alt="AND Gate Symbol" 
+           style="max-width: 200px; width: 100%; height: auto; border-radius: 6px; box-shadow: 0 0 8px rgba(0,255,255,0.1);" />
+    </div>
+    <h3>OR Gate</h3>
+    <div style="text-align: center; margin-top: 10px; margin-bottom: 20px;">
+      <img src="https://i.postimg.cc/ncCDQks7/Screenshot-2025-04-25-at-4-11-53-PM.png" 
+           alt="OR Gate Symbol" 
+           style="max-width: 200px; width: 100%; height: auto; border-radius: 6px; box-shadow: 0 0 8px rgba(0,255,255,0.1);" />
+    </div>
+    <h3>XOR Gate</h3>
+    <div style="text-align: center; margin-top: 10px; margin-bottom: 20px;">
+      <img src="https://i.postimg.cc/XqDxkYcg/Screenshot-2025-04-25-at-4-12-49-PM.png" 
+           alt="XOR Gate Symbol" 
+           style="max-width: 200px; width: 100%; height: auto; border-radius: 6px; box-shadow: 0 0 8px rgba(0,255,255,0.1);" />
+    </div>
+    <h2 id="boolean-algebra">Boolean Algebra</h2>
+
+    <p>
+      Boolean Algebra is a branch of mathematics that deals with variables having two distinct values: 0 and 1. It is the foundation of digital logic and circuit design.
+    </p>
+    <h2 id="complement-functions">Complement of Functions</h2>
+
+<p>
+   complement of functions refers to the composition of two functions where one function is applied, followed by another, and then the inverse of the first function is applied.
+</p>
+
+<p>
+  \( F_1 = x'y z' + x' y' z' \)
+</p>
+
+<p>
+  \( (x' + y' + z') (x' + y' + z) \)
+</p>
+
+<p>
+  \( (x + y' + z) (x + y + z') = F_1' \)
+</p>
+
+<p>
+  The dual of the function \( F_1 \) is:
+</p>
+
+<p>
+  The complement of each literal is equal to \( F_1' \).
+</p>
+
+<br/>
+
+<p>
+  \( F_2 = x (y' z' + y z) \)
+</p>
+
+<p>
+  \( x + (y' + z') (y + z) \)
+</p>
+
+<p>
+  \( x' + (y + z) (y' + z') = F_2' \)
+</p>
+
+<p>
+  The dual of the function \( F_2 \) is:
+</p>
+
+<p>
+  The complement of each literal is equal to \( F_2' \).
+</p>
+<h2 id="minterms-maxterms">Sum of Minterms and Product of Maxterms</h2>
+
+<p>
+  The <span class="highlight">Sum of Minterms (SOM)</span> is a canonical form where a Boolean function is expressed as the OR (sum) of all minterms that produce a value of 1.
+</p>
+
+<p>
+  The <span class="highlight">Product of Maxterms (POM)</span> is a canonical form where a Boolean function is expressed as the AND (product) of all maxterms that produce a value of 0.
+</p>
+
+<p>
+  These standard forms are useful for simplifying and analyzing Boolean functions in digital logic design.
+</p>
+<h2 id="sum-of-minterms-example">Sum of Minterms Example</h2>
+
+<p>
+  The Boolean function \( F = A + B'C \) can be expressed as a sum of minterms. This function has three variables: \( A \), \( B \), and \( C \).
+</p>
+
+<p>
+  Since the first term \( A \) is missing two variables, we expand it:
+</p>
+
+<p>
+  \[
+  A = A(B + B') = AB + AB'
+  \]
+</p>
+
+<p>
+  This function still lacks one variable:
+</p>
+
+<p>
+  \[
+  A = AB(C + C') + AB'(C + C') \\
+  = ABC + ABC' + AB'C + AB'C'
+  \]
+</p>
+
+<p>
+  The second term \( B'C \) is missing one variable:
+</p>
+
+<p>
+  \[
+  B'C = B'C(A + A') = AB'C + A'B'C
+  \]
+</p>
+
+<p>
+  Combining all terms:
+</p>
+
+<p>
+  \[
+  F = A + B'C \\
+  = ABC + ABC' + AB'C + AB'C' + A'B'C
+  \]
+</p>
+
+<p>
+  Since \( AB'C \) is repeated, according to the theorem \( x + x = x \), we can remove one of them. Ordering the minterms:
+</p>
+
+<p>
+  \[
+  F = A'B'C + AB'C' + AB'C + ABC' + ABC \\
+  = m_1 + m_4 + m_5 + m_6 + m_7
+  \]
+</p>
+
+<p>
+  Sometimes, it is better to express the Boolean function as a sum of minterms in the following concise form:
+</p>
+
+<p>
+  \[
+  F(A, B, C) = \Sigma(1, 4, 5, 6, 7)
+  \]
+</p>
+<h2 id="product-of-maxterms-example">Product of Maxterms Example</h2>
+
+<p>
+  Express the Boolean function \( F = xy + x'z \) as a product of maxterms. First, rewrite the function using the distributive law into OR terms:
+</p>
+
+<p>
+  \[
+  F = xy + x'z = (xy + x')(xy + z) \\
+  = (x + x')(y + x')(x + z)(y + z) \\
+  = (x' + y)(x + z)(y + z)
+  \]
+</p>
+
+<p>
+  The function has three variables: \( x \), \( y \), and \( z \). Each OR term is missing one variable, so we expand them:
+</p>
+
+<p>
+  \[
+  x' + y = (x' + y + z)(x' + y + z') \\
+  x + z = (x + y + z)(x + y' + z) \\
+  y + z = (y + x + z)(y + x' + z)
+  \]
+</p>
+
+<p>
+  Combining all terms and removing duplicates, we get:
+</p>
+
+<p>
+  \[
+  F = (x + y + z)(x + y' + z)(x' + y + z)(x' + y + z') \\
+  = M_0 M_2 M_4 M_5
+  \]
+</p>
+
+<p>
+  The simplified representation is:
+</p>
+
+<p>
+  \[
+  F(x, y, z) = \prod (0, 2, 4, 5)
+  \]
+</p>
+
+<p>
+  The symbol \( \prod \) indicates the AND of maxterms. The numbers in parentheses represent the maxterm indices.
+</p>
+
+                    
+    <a href="#top" class="back-link">⬆ Back to Top</a>
+  </div>
+</body>
+</html>
