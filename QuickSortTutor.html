@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Quick Sort Visual Tutor</title>
   <style>
     :root {
@@ -64,33 +64,32 @@
   <script>
     const BAR_W = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--bar-width'));
     const GAP   = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--gap'));
-    const N = 16;          // number of elements
-    let speed = 600;       // ms between auto steps
+    const N = 16;
+    let speed = 600;
 
     let values = [], bars = [], actions = [], ptr = 0, autoPlay = false, timer;
 
-    // DOM refs
     const arrayEl = document.getElementById('array');
     const descEl  = document.getElementById('desc');
     const stackEl = document.getElementById('stack');
     const speedSelect = document.getElementById('speedSelect');
 
-    // helpers
     const layoutBars = () => {
       const totalWidth = N * (BAR_W + GAP) - GAP;
       const offset = (arrayEl.clientWidth - totalWidth) / 2;
       bars.forEach((bar, i) => {
-        bar.style.left = ${offset + i * (BAR_W + GAP)}px;
+        bar.style.left = `${offset + i * (BAR_W + GAP)}px`;
       });
     };
+
     const createBars = () => {
       arrayEl.innerHTML = '';
       bars = [];
       values.forEach((v) => {
         const bar = document.createElement('div');
         bar.className = 'bar';
-        bar.style.height = ${v * 3 + 30}px;
-        bar.innerHTML = <span>${v}</span>;
+        bar.style.height = `${v * 3 + 30}px`;
+        bar.innerHTML = `<span>${v}</span>`;
         arrayEl.appendChild(bar);
         bars.push(bar);
       });
@@ -99,18 +98,23 @@
 
     const pushStack = (lo, hi) => {
       const li = document.createElement('li');
-      li.id = seg-${lo}-${hi};
-      li.textContent = [${lo}, ${hi}];
+      li.id = `seg-${lo}-${hi}`;
+      li.textContent = `[${lo}, ${hi}]`;
       stackEl.appendChild(li);
     };
+
     const popStack = (lo, hi) => {
-      const li = document.getElementById(seg-${lo}-${hi});
+      const li = document.getElementById(`seg-${lo}-${hi}`);
       if (li) li.remove();
     };
 
     function recordActions(a, lo, hi) {
       actions.push({ type:'stack', lo, hi });
-      if (lo >= hi) { actions.push({ type:'sortedRange', lo, hi }); actions.push({ type:'unstack', lo, hi }); return; }
+      if (lo >= hi) {
+        actions.push({ type:'sortedRange', lo, hi });
+        actions.push({ type:'unstack', lo, hi });
+        return;
+      }
       const pivot = a[hi];
       let i = lo;
       actions.push({ type:'pivot', index: hi });
@@ -132,7 +136,10 @@
 
     function initArray() {
       values = Array.from({ length: N }, () => Math.floor(Math.random() * 90) + 10);
-      actions = []; ptr = 0; clearInterval(timer); autoPlay = false;
+      actions = [];
+      ptr = 0;
+      clearInterval(timer);
+      autoPlay = false;
       document.getElementById('auto').textContent = 'Auto Play';
       stackEl.innerHTML = '';
       recordActions(values.slice(), 0, N - 1);
@@ -140,32 +147,60 @@
       descEl.textContent = 'Array shuffled.';
     }
 
-    function highlightClear() { bars.forEach(b => b.classList.remove('pivot','compare')); }
+    function highlightClear() {
+      bars.forEach(b => b.classList.remove('pivot','compare'));
+    }
 
     function step() {
-      if (ptr >= actions.length) { clearInterval(timer); return; }
+      if (ptr >= actions.length) {
+        clearInterval(timer);
+        return;
+      }
       const act = actions[ptr++];
       switch (act.type) {
-        case 'stack': pushStack(act.lo, act.hi); descEl.textContent = Processing segment [${act.lo}, ${act.hi}]; break;
-        case 'unstack': popStack(act.lo, act.hi); break;
-        case 'pivot': highlightClear(); bars[act.index].classList.add('pivot'); descEl.textContent = Pivot chosen (${values[act.index]}); break;
-        case 'compare': highlightClear(); bars[act.pivot].classList.add('pivot'); bars[act.j].classList.add('compare'); descEl.textContent = Compare ${values[act.j]} < pivot?; break;
+        case 'stack':
+          pushStack(act.lo, act.hi);
+          descEl.textContent = `Processing segment [${act.lo}, ${act.hi}]`;
+          break;
+        case 'unstack':
+          popStack(act.lo, act.hi);
+          break;
+        case 'pivot':
+          highlightClear();
+          bars[act.index].classList.add('pivot');
+          descEl.textContent = `Pivot chosen (${values[act.index]})`;
+          break;
+        case 'compare':
+          highlightClear();
+          bars[act.pivot].classList.add('pivot');
+          bars[act.j].classList.add('compare');
+          descEl.textContent = `Compare ${values[act.j]} < pivot?`;
+          break;
         case 'swap':
           [values[act.i], values[act.j]] = [values[act.j], values[act.i]];
           [bars[act.i], bars[act.j]] = [bars[act.j], bars[act.i]];
           bars.forEach((bar, idx) => {
             const val = values[idx];
-            bar.style.height = ${val * 3 + 30}px;
+            bar.style.height = `${val * 3 + 30}px`;
             bar.firstChild.textContent = val;
           });
-          layoutBars(); highlightClear(); descEl.textContent = Swapped indices ${act.i} & ${act.j};
+          layoutBars();
+          highlightClear();
+          descEl.textContent = `Swapped indices ${act.i} & ${act.j}`;
           break;
-        case 'sorted': bars[act.index].classList.add('sorted'); highlightClear(); descEl.textContent = Index ${act.index} sorted; break;
-        case 'sortedRange': for (let k = act.lo; k <= act.hi; k++) { bars[k]?.classList.add('sorted'); } break;
+        case 'sorted':
+          bars[act.index].classList.add('sorted');
+          highlightClear();
+          descEl.textContent = `Index ${act.index} sorted`;
+          break;
+        case 'sortedRange':
+          for (let k = act.lo; k <= act.hi; k++) {
+            bars[k]?.classList.add('sorted');
+          }
+          break;
       }
     }
 
-    // -- controls
     document.getElementById('shuffle').onclick = initArray;
     document.getElementById('step').onclick = step;
     document.getElementById('auto').onclick = () => {
@@ -175,9 +210,8 @@
       if (autoPlay) timer = setInterval(step, speed);
     };
     document.getElementById('reset').onclick = () => { ptr = 0; clearInterval(timer); autoPlay = false; document.getElementById('auto').textContent = 'Auto Play'; createBars(); highlightClear(); bars.forEach(b => b.classList.remove('sorted')); stackEl.innerHTML = ''; descEl.textContent = 'Press Step to start.'; };
-    speedSelect.onchange = e => { speed = parseInt(e.target.value); if (autoPlay) { clearInterval(timer); timer = setInterval(step, speed); } };
+    speedSelect.onchange = e => { speed = parseInt(e.target.value, 10); if (autoPlay) { clearInterval(timer); timer = setInterval(step, speed); } };
 
-    // kick-off
     initArray();
   </script>
 </body>
