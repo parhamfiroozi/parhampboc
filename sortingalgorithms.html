@@ -190,14 +190,22 @@
     /* Adjust iframe responsiveness */
     iframe.tutor {
       width: 100%;
-      height: 400px; /* Adjust height to make it more mobile-friendly */
+      max-width: 100%;
+      height: 60vh; /* Use viewport height for better responsiveness */
       border: none;
       border-radius: 8px;
       box-shadow: 0 0 10px rgba(0,0,0,.5);
       margin-top: 20px;
-      max-width: 100%;
       display: block; /* Ensure it behaves like a block element */
       zoom: 1; /* Ensure it doesn't get zoomed in on mobile devices */
+      overflow: hidden;
+    }
+
+    /* Ensure the iframe never gets too wide */
+    @media (min-width: 1024px) {
+      iframe.tutor {
+        height: 500px; /* Adjust height for larger screens */
+      }
     }
 
   </style>
