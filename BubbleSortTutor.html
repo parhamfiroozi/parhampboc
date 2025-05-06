@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bubble Sort Visual Tutor</title>
+  <style>
+    :root { --bar-width: 30px; --gap: 8px; --bar-bg: #555; --compare-color: #ffeb3b; --swap-color: #e91e63; --sorted-color: #4caf50; }
+    * { box-sizing: border-box; margin:0; padding:0; }
+    body { background: #222; color: #eee; font-family: sans-serif; }
+    header { padding: 1rem; text-align: center; background: #333; }
+    .controls { display: flex; justify-content: center; gap: .5rem; padding: .8rem; background: #333; }
+    .controls button, .controls select { padding: .5rem 1rem; border:none; border-radius:4px; background: #ff5722; color:#fff; cursor:pointer; }
+    .controls select { background: #444; }
+    #status { text-align:center; padding:.5rem; background:#333; }
+    /* CHANGED: allow chart to grow with bar heights */
+    #chart {
+      display: flex;
+      justify-content: center;
+      align-items: flex-end;
+      gap: var(--gap);
+      min-height: 200px;    /* keep at least 200px when bars are small */
+      height: auto;         /* grow taller if bars require more space */
+      overflow-x: auto;
+      padding: 1rem;
+    }
+    .bar { width:var(--bar-width); background:var(--bar-bg); display:flex; align-items:flex-end; justify-content:center; position:relative; transition: background .3s, height .3s; }
+    .bar span { position:absolute; top:-18px; font-size: .75rem; }
+    .compare { background: var(--compare-color) !important; }
+    .swap    { background: var(--swap-color) !important; }
+    .sorted  { background: var(--sorted-color) !important; }
+  </style>
+</head>
+<body>
+  <header><h2>Bubble Sort Visual Tutor</h2></header>
+  <div class="controls">
+    <button id="shuffle">Shuffle</button>
+    <button id="step">Step</button>
+    <button id="auto">Auto</button>
+    <select id="speed"><option value="600">Slow</option><option value="300" selected>Normal</option><option value="100">Fast</option></select>
+  </div>
+  <div id="status">Press Shuffle to begin</div>
+  <div id="chart"></div>
+<script>
+  const N = 20;
+  let arr = [], actions = [], idx = 0, running = false, timer, speed = 300;
+  const chart = document.getElementById('chart'), status = document.getElementById('status');
+
+  function render() {
+    chart.innerHTML = '';
+    arr.forEach((v, i) => {
+      const bar = document.createElement('div');
+      bar.className = 'bar';
+      bar.style.height = (v * 4 + 20) + 'px';
+      bar.innerHTML = <span>${v}</span>;
+      chart.appendChild(bar);
+    });
+  }
+
+  function record() {
+    actions = [];
+    for (let i = 0; i < N - 1; i++) {
+      for (let j = 0; j < N - 1 - i; j++) {
+        actions.push({ type: 'compare', i: j, j: j + 1 });
+        if (arr[j] > arr[j + 1]) {
+          actions.push({ type: 'swap', i: j, j: j + 1 });
+          [arr[j], arr[j + 1]] = [arr[j + 1], arr[j]];
+        }
+      }
+      actions.push({ type: 'mark', index: N - 1 - i });
+    }
+    actions.push({ type: 'markAll' });
+  }
+
+  function clearHighlights() {
+    document.querySelectorAll('.bar').forEach(b => b.classList.remove('compare', 'swap', 'sorted'));
+  }
+
+  function step() {
+    if (idx >= actions.length) { stop(); status.textContent = 'Sorted!'; return; }
+    const a = actions[idx++];
+    clearHighlights();
+    if (a.type === 'compare') {
+      chart.children[a.i].classList.add('compare');
+      chart.children[a.j].classList.add('compare');
+      status.textContent = Compare indices ${a.i} & ${a.j};
+    } else if (a.type === 'swap') {
+      chart.children[a.i].classList.add('swap');
+      chart.children[a.j].classList.add('swap');
+      const bars = chart.children;
+      [bars[a.i].style.height, bars[a.j].style.height] = [bars[a.j].style.height, bars[a.i].style.height];
+      [bars[a.i].innerHTML, bars[a.j].innerHTML] = [bars[a.j].innerHTML, bars[a.i].innerHTML];
+      status.textContent = Swapped indices ${a.i} & ${a.j};
+    } else if (a.type === 'mark') {
+      chart.children[a.index].classList.add('sorted');
+      status.textContent = Position ${a.index} sorted;
+    } else if (a.type === 'markAll') {
+      document.querySelectorAll('.bar').forEach(b => b.classList.add('sorted'));
+    }
+  }
+
+  function stop() { running = false; clearInterval(timer); document.getElementById('auto').textContent = 'Auto'; }
+
+  function init() {
+    stop();
+    arr = Array.from({ length: N }, () => Math.floor(Math.random() * 50));
+    idx = 0;
+    render();
+    record();
+    status.textContent = 'Shuffled and recorded';
+  }
+
+  document.getElementById('shuffle').onclick = init;
+  document.getElementById('step').onclick = step;
+  document.getElementById('auto').onclick = () => {
+    running = !running;
+    if (running) {
+      timer = setInterval(step, speed);
+      document.getElementById('auto').textContent = 'Pause';
+    } else stop();
+  };
+  document.getElementById('speed').onchange = e => {
+    speed = +e.target.value;
+    if (running) { stop(); running = true; timer = setInterval(step, speed); }
+  };
+
+  // initial setup
+  init();
+</script>
+</body>
+</html>
