@@ -12,8 +12,10 @@
       color: #f0f0f0;
       padding: 20px;
       line-height: 1.6;
+      margin: 0;
     }
-    
+
+    /* Navigation bar */
     nav.top-nav {
       position: fixed;
       top: 0;
@@ -24,23 +26,25 @@
       text-align: center;
       z-index: 1000;
     }
-    
+
     nav.top-nav a {
       color: #66d9ef;
       margin: 0 10px;
       text-decoration: none;
       font-weight: 600;
     }
-    
+
+    /* Sidebar */
     .sidebar-tab {
       position: fixed;
       top: 80px;
       left: 0;
-      width: 180px;
+      width: 250px;
       background: #1c1c1c;
       padding: 20px;
-      height: calc(100% - 80px);
+      height: 100%;
       overflow-y: auto;
+      transition: transform 0.3s ease;
     }
 
     .sidebar-tab a {
@@ -54,17 +58,24 @@
     .sidebar-tab a:hover {
       text-decoration: underline;
     }
-    
+
+    /* Content Area */
+    .content {
+      margin-left: 0;
+      padding: 20px;
+      transition: margin-left 0.3s ease;
+    }
+
     h1, h2 {
       color: #66d9ef;
       text-align: center;
     }
-    
+
     h3 {
       color: #ffc107;
       margin-top: 20px;
     }
-    
+
     .comment-box {
       background: rgba(102,217,239,.08);
       border-left: 3px solid #66d9ef;
@@ -73,7 +84,7 @@
       border-radius: 8px;
       max-width: 800px;
     }
-    
+
     .section {
       margin: 0 auto 60px;
       max-width: 800px;
@@ -88,7 +99,7 @@
       color: #121212;
       font-weight: 700;
     }
-    
+
     .code-wrapper {
       position: relative;
       max-width: 800px;
@@ -101,11 +112,11 @@
       padding: 20px;
       overflow-x: auto;
     }
-    
+
     code {
       font-size: .95rem;
     }
-    
+
     iframe.tutor {
       width: 100%;
       height: 720px;
@@ -115,22 +126,12 @@
       margin-top: 20px;
     }
 
+    /* Responsive Design */
     @media (max-width: 768px) {
-      body {
-        padding: 20px 10px;
-      }
-
-      .sidebar-tab {
-        position: static;
-        width: auto;
-        height: auto;
-        padding: 10px;
-        margin-top: 20px;
-      }
-
+      /* Adjust top-nav for small screens */
       nav.top-nav {
         text-align: left;
-        padding: 15px 10px;
+        padding: 15px;
       }
 
       nav.top-nav a {
@@ -138,9 +139,36 @@
         margin: 0 5px;
       }
 
+      /* Sidebar adjustments */
+      .sidebar-tab {
+        width: 80%;
+        transform: translateX(-100%);
+        position: fixed;
+        top: 80px;
+        left: 0;
+        background: #1c1c1c;
+        padding: 20px;
+        height: calc(100% - 80px);
+        transition: transform 0.3s ease;
+      }
+
+      /* Sidebar toggle */
+      .sidebar-tab.open {
+        transform: translateX(0);
+      }
+
+      .sidebar-tab a {
+        font-size: 16px;
+      }
+
+      /* Content padding */
+      .content {
+        margin-left: 0;
+        padding: 20px;
+      }
+
       .section {
         max-width: 100%;
-        margin: 20px 0;
       }
 
       iframe.tutor {
@@ -155,10 +183,22 @@
         font-size: 0.9rem;
         padding: 10px;
       }
+
+      /* Hamburger Menu */
+      .hamburger {
+        display: block;
+        font-size: 30px;
+        cursor: pointer;
+      }
+
+      .hamburger.open {
+        display: none;
+      }
     }
   </style>
 </head>
 <body>
+  <!-- Navigation bar -->
   <nav class="top-nav">
     <a href="index.html">Coding</a> |
     <a href="electrical.html">Electrical Engineering</a> |
@@ -166,7 +206,8 @@
     <a href="math.html">Math</a>
   </nav>
 
-  <div class="sidebar-tab">
+  <!-- Sidebar (Hidden on mobile) -->
+  <div class="sidebar-tab" id="sidebar">
     <a href="#quicksort">Quicksort</a>
     <a href="#merge-sort">Merge Sort</a>
     <a href="#heapsort">Heapsort</a>
@@ -175,6 +216,9 @@
     <a href="#radix-sort">Radix Sort</a>
     <a href="#bubble-sort">Bubble Sort</a>
   </div>
+
+  <!-- Hamburger Icon for Mobile -->
+  <div class="hamburger" id="hamburger">&#9776;</div>
 
   <h1>Sorting Algorithms</h1>
   <div class="comment-box">Reference sheet for popular sorting algorithms with sample C++ implementations. An interactive Quick Sort tutor is included below.</div>
