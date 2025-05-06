@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Merge Sort Visual Tutor</title>
+  <style>
+    :root { 
+      --bar-width: 40px; 
+      --gap: 10px; 
+      --active-color: #03a9f4;
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; background:#1e1e1e; font-family: system-ui, sans-serif; color:#fff; }
+    header { padding:1rem; background:#272727; text-align:center; font-size:1.3rem; letter-spacing:.5px; }
+    #controls{display:flex;justify-content:center;gap:.5rem;padding:.8rem;background:#2e2e2e;}
+    button, select { border:none; padding:.5rem 1rem; border-radius:4px; cursor:pointer; font-size:1rem; background:#ff784e; color:#fff; transition:background .2s; }
+    button:hover, select:hover{background:#ff5722;} button:disabled{background:#555;cursor:default;}
+    #legend{display:flex;justify-content:center;gap:1.5rem;padding:.5rem 0;font-size:.9rem;background:#2e2e2e;}
+    .legend-item{display:flex;align-items:center;gap:.3rem;}
+    .legend-color{width:16px;height:16px;border-radius:3px;}
+    .active-color{background:#03a9f4;}
+    .compare-color{background:#ffeb3b;}
+    .merged-color{background:#4caf50;}
+    #desc{padding:0.6rem;text-align:center;background:#373737;min-height:38px;font-size:1rem;}
+    #array{position:relative;height:420px;overflow:hidden;padding-bottom:30px;}
+    .bar{position:absolute;bottom:30px;width:var(--bar-width);background:var(--active-color);border-radius:4px;transition:left .45s ease,background .25s,height .3s ease;display:flex;justify-content:center;align-items:flex-end;}
+    .bar span{position:absolute;bottom:100%;font-size:.8rem;color:#fff;}
+    .active{background:#03a9f4 !important;}
+    .compare{background:#ffeb3b !important;}
+    .merged{background:#4caf50 !important;}
+    #stack-wrapper{background:#111;padding:.5rem 1rem;height:160px;overflow-y:auto;}
+    #stack-wrapper h3{margin:.2rem 0 .4rem;font-size:1rem;font-weight:500;color:#ccc;}
+    #stack{list-style:none;margin:0;padding-left:20px;font-size:.9rem;}
+    #stack li{margin:.1rem 0;}
+  </style>
+</head>
+<body>
+  <header>Interactive Merge Sort Tutor</header>
+  <div id="controls">
+    <button id="shuffle">Shuffle</button>
+    <button id="step">Step</button>
+    <button id="auto">Auto Play</button>
+    <button id="reset">Reset</button>
+    <select id="speedSelect">
+      <option value="600">Slow</option>
+      <option value="200">Fast</option>
+      <option value="50">Super Fast</option>
+    </select>
+  </div>
+  <div id="legend">
+    <div class="legend-item"><div class="legend-color active-color"></div>Active Range</div>
+    <div class="legend-item"><div class="legend-color compare-color"></div>Comparing</div>
+    <div class="legend-item"><div class="legend-color merged-color"></div>Merged</div>
+  </div>
+  <div id="desc">Press Shuffle then Step to start.</div>
+  <div id="array"></div>
+  <div id="stack-wrapper">
+    <h3>Recursion Stack</h3>
+    <ul id="stack"></ul>
+  </div>
+<script>
+  const BAR_W = 40, GAP = 10, N = 16;
+  let values = [], bars = [], actions = [], ptr = 0, autoPlay = false, timer;
+  let speed = 600;
+  const arrayEl = document.getElementById('array'), descEl = document.getElementById('desc'), stackEl = document.getElementById('stack');
+  const speedSelect = document.getElementById('speedSelect');
+  function layoutBars(){
+    const totalWidth = N*(BAR_W+GAP)-GAP, offset=(arrayEl.clientWidth-totalWidth)/2;
+    bars.forEach((b,i)=>b.style.left=${offset+i*(BAR_W+GAP)}px);
+  }
+  function createBars(){ arrayEl.innerHTML=''; bars=[];
+    values.forEach(v=>{ const bar=document.createElement('div'); bar.className='bar'; bar.style.height=${v*3+30}px; bar.innerHTML=<span>${v}</span>; arrayEl.appendChild(bar); bars.push(bar); });
+    layoutBars(); }
+  function pushStack(lo,hi){ const li=document.createElement('li'); li.id=seg-${lo}-${hi}; li.textContent=[${lo}, ${hi}]; stackEl.appendChild(li); }
+  function popStack(lo,hi){ const li=document.getElementById(seg-${lo}-${hi}); if(li) li.remove(); }
+  function recordActions(a, lo, hi){ actions.push({type:'stack',lo,hi}); if(lo>=hi){ actions.push({type:'mergedRange',lo,hi}); actions.push({type:'unstack',lo,hi}); return;} const mid=Math.floor((lo+hi)/2);
+    recordActions(a,lo,mid);
+    recordActions(a,mid+1,hi);
+    actions.push({type:'merge',lo,mid,hi});
+    const temp=[]; let i=lo,j=mid+1;
+    while(i<=mid||j<=hi){ actions.push({type:'compare',i,j}); if(j>hi|| (i<=mid&&a[i]<=a[j])){ temp.push(a[i++]); } else { temp.push(a[j++]); }}
+    for(let k=0;k<temp.length;k++){ a[lo+k]=temp[k]; actions.push({type:'overwrite',index:lo+k,value:temp[k]}); }
+    actions.push({type:'mergedRange',lo,hi}); actions.push({type:'unstack',lo,hi}); }
+  function initArray(){ values=Array.from({length:N},()=>Math.floor(Math.random()*90)+10); actions=[]; ptr=0; clearInterval(timer); autoPlay=false; document.getElementById('auto').textContent='Auto Play'; stackEl.innerHTML=''; recordActions(values.slice(),0,N-1); createBars(); descEl.textContent='Array shuffled.'; }
+  function highlightClear(){ bars.forEach(b=>b.classList.remove('active','compare','merged')); }
+  function step(){ if(ptr>=actions.length){ clearInterval(timer); return;} const act=actions[ptr++]; switch(act.type){
+      case 'stack': pushStack(act.lo,act.hi); descEl.textContent=Splitting [${act.lo}, ${act.hi}]; break;
+      case 'unstack': popStack(act.lo,act.hi); break;
+      case 'merge': highlightClear(); for(let k=act.lo;k<=act.hi;k++) bars[k].classList.add('active'); descEl.textContent=Merging [${act.lo},${act.mid}] & [${act.mid+1},${act.hi}]; break;
+      case 'compare': highlightClear(); if(act.i<bars.length) bars[act.i].classList.add('compare'); if(act.j<bars.length) bars[act.j].classList.add('compare'); descEl.textContent=Compare indexes ${act.i} & ${act.j}; break;
+      case 'overwrite': values[act.index]=act.value; bars[act.index].style.height=${act.value*3+30}px; bars[act.index].firstChild.textContent=act.value; descEl.textContent=Write ${act.value} to index ${act.index}; break;
+      case 'mergedRange': highlightClear(); for(let k=act.lo;k<=act.hi;k++) bars[k].classList.add('merged'); descEl.textContent=Segment [${act.lo}, ${act.hi}] merged; break;
+    } }
+  document.getElementById('shuffle').onclick=initArray;
+  document.getElementById('step').onclick=step;
+  document.getElementById('auto').onclick=()=>{ autoPlay=!autoPlay; document.getElementById('auto').textContent=autoPlay?'Pause':'Auto Play'; clearInterval(timer); if(autoPlay) timer=setInterval(step,speed); };
+  document.getElementById('reset').onclick=()=>{ ptr=0; clearInterval(timer); autoPlay=false; document.getElementById('auto').textContent='Auto Play'; createBars(); highlightClear(); bars.forEach(b=>b.classList.remove('merged')); stackEl.innerHTML=''; descEl.textContent='Press Step to start.'; };
+  speedSelect.onchange=e=>{ speed=parseInt(e.target.value); if(autoPlay){ clearInterval(timer); timer=setInterval(step,speed);} };
+  initArray();
+</script>
+</body>
+</html> 
