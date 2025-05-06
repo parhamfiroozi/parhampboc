@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Counting Sort Visual Tutor</title>
+  <style>
+    :root {
+      --bar-width: 42px;
+      --gap: 10px;
+      --active-color: #03a9f4;
+      --bg-color: #444;
+      --count-color: #ffeb3b;
+      --write-color: #4caf50;
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; background: #1e1e1e; color: #fff; font-family: system-ui, sans-serif; }
+    header { padding: 1rem; background: #272727; text-align: center; font-size: 1.3rem; }
+    #controls { display: flex; flex-wrap: wrap; justify-content: center; gap: .5rem; padding: .8rem; background: #2e2e2e; }
+    button, select { border: none; padding: .5rem 1rem; border-radius: 4px; cursor: pointer; font-size: 1rem; background: #ff784e; color: #fff; transition: background .2s; }
+    button:hover, select:hover { background: #ff5722; }
+    button:disabled { background: #555; cursor: default; }
+    #legend { display: flex; flex-wrap: wrap; justify-content: center; gap: 1.5rem; padding: .5rem; background: #2e2e2e; font-size: .9rem; }
+    .legend-item { display: flex; align-items: center; gap: .3rem; }
+    .legend-color { width: 16px; height: 16px; border-radius: 3px; }
+    .active-color { background: var(--active-color); }
+    .count-color  { background: var(--count-color); }
+    .write-color  { background: var(--write-color); }
+    .section-title { margin: .6rem 0 .3rem; text-align: center; font-size: 1rem; color: #ccc; }
+    #desc { padding: .6rem; background: #373737; min-height: 38px; text-align: center; }
+    #array, #countArray { display: flex; gap: var(--gap); justify-content: center; align-items: flex-end; height: 220px; overflow-x: auto; padding: 0 1rem 25px; }
+    .bar { width: var(--bar-width); background: var(--bg-color); border-radius: 4px; position: relative; display: flex; justify-content: center; align-items: flex-end; transition: background .25s, height .3s ease; }
+    .bar span { position: absolute; width: 100%; text-align: center; }
+    .value { top: -20px; font-size: .8rem; }
+    .idx   { top: calc(100% + 4px); font-size: .7rem; color: #aaa; }
+    .active { background: var(--active-color) !important; }
+    .count  { background: var(--count-color)  !important; }
+    .write  { background: var(--write-color)  !important; }
+  </style>
+</head>
+<body>
+  <header>Interactive Counting Sort Tutor</header>
+  <div id="controls">
+    <button id="shuffle">Shuffle</button>
+    <button id="step">Step</button>
+    <button id="auto">Auto Play</button>
+    <button id="reset">Reset</button>
+    <select id="speedSelect">
+      <option value="600">Slow</option>
+      <option value="200">Fast</option>
+      <option value="50">Super Fast</option>
+    </select>
+  </div>
+  <div id="legend">
+    <div class="legend-item"><div class="legend-color active-color"></div>Scanning</div>
+    <div class="legend-item"><div class="legend-color count-color"></div>Counting</div>
+    <div class="legend-item"><div class="legend-color write-color"></div>Writing</div>
+  </div>
+  <div id="desc">Press <em>Shuffle</em> then <em>Step</em> to begin.</div>
+  <h3 class="section-title">Input Array</h3>
+  <div id="array"></div>
+  <h3 class="section-title">Count Array (index → frequency)</h3>
+  <div id="countArray"></div>
+<script>
+  const BAR_W = 42, N = 16;
+  let values = [], counts = [], maxVal = 0;
+  let actions = [], ptr = 0, autoPlay = false, timer, speed = 600;
+  const state = { bars: [], cBars: [] };
+  const arrayEl = document.getElementById('array');
+  const countEl = document.getElementById('countArray');
+  const descEl = document.getElementById('desc');
+  const speedSel = document.getElementById('speedSelect');
+
+  function buildVisual() {
+    arrayEl.innerHTML = ''; state.bars = [];
+    values.forEach(v => {
+      const bar = document.createElement('div');
+      bar.className = 'bar'; bar.style.height = ${v * 3 + 30}px;
+      bar.innerHTML = <span class="value">${v}</span>;
+      arrayEl.appendChild(bar); state.bars.push(bar);
+    });
+    countEl.innerHTML = ''; state.cBars = [];
+    for (let i = 0; i <= maxVal; i++) {
+      const bar = document.createElement('div');
+      bar.className = 'bar'; bar.style.height = 30px;
+      bar.innerHTML = <span class="value">0</span><span class="idx">${i}</span>;
+      countEl.appendChild(bar); state.cBars.push(bar);
+    }
+  }
+
+  function recordActions() {
+    values.forEach((v, i) => {
+      actions.push({ t: 'scan', i, v });
+      counts[v]++;
+      actions.push({ t: 'count', v });
+    });
+    let out = 0;
+    for (let v = 0; v <= maxVal; v++) {
+      for (let k = 0; k < counts[v]; k++) {
+        actions.push({ t: 'write', v, pos: out++ });
+      }
+    }
+  }
+
+  function init() {
+    values = Array.from({ length: N }, () => Math.floor(Math.random() * 30));
+    maxVal = Math.max(...values);
+    counts = Array(maxVal + 1).fill(0);
+    actions = []; ptr = 0; clearInterval(timer); autoPlay = false;
+    document.getElementById('auto').textContent = 'Auto Play';
+    buildVisual(); recordActions(); descEl.textContent = 'Array shuffled.';
+  }
+
+  function clearHighlights() {
+    [...state.bars, ...state.cBars].forEach(b => b.classList.remove('active', 'count', 'write'));
+  }
+
+  function step() {
+    if (ptr >= actions.length) { clearInterval(timer); return; }
+    const a = actions[ptr++]; clearHighlights();
+    switch (a.t) {
+      case 'scan': state.bars[a.i].classList.add('active'); descEl.textContent = Scanning index ${a.i} (value ${a.v}); break;
+      case 'count': const cBar = state.cBars[a.v]; cBar.classList.add('count'); cBar.style.height = ${counts[a.v] * 15 + 30}px; cBar.querySelector('.value').textContent = counts[a.v]; descEl.textContent = Increment count[${a.v}] → ${counts[a.v]}; break;
+      case 'write': const bar = state.bars[a.pos]; bar.classList.add('write'); bar.style.height = ${a.v * 3 + 30}px; bar.querySelector('.value').textContent = a.v; descEl.textContent = Write value ${a.v} to output index ${a.pos}; break;
+    }
+  }
+
+  document.getElementById('shuffle').onclick = init;
+  document.getElementById('step').onclick = step;
+  document.getElementById('auto').onclick = () => { autoPlay = !autoPlay; document.getElementById('auto').textContent = autoPlay ? 'Pause' : 'Auto Play'; clearInterval(timer); if (autoPlay) timer = setInterval(step, speed); };
+  document.getElementById('reset').onclick = init;
+  speedSel.onchange = e => { speed = +e.target.value; if (autoPlay) { clearInterval(timer); timer = setInterval(step, speed); } };
+
+  init();
+</script>
+</body>
+</html>
