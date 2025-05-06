@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Sorting Algorithms</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/github-dark.min.css" />
+  <style>
+    body{font-family:'Poppins',sans-serif;background:#121212;color:#f0f0f0;padding:100px 40px 40px 200px;line-height:1.6}
+    nav.top-nav{position:fixed;top:0;left:0;right:0;background:#1e1e1e;padding:10px 20px;text-align:center}
+    nav.top-nav a{color:#66d9ef;margin:0 10px;text-decoration:none;font-weight:600}
+    .sidebar-tab{position:fixed;top:80px;left:0;width:180px;background:#1c1c1c;padding:20px;height:calc(100% - 80px);overflow-y:auto}
+    .sidebar-tab a{display:block;color:#66d9ef;margin-bottom:12px;text-decoration:none;font-weight:500}
+    .sidebar-tab a:hover{text-decoration:underline}
+    h1,h2{color:#66d9ef;text-align:center}
+    h3{color:#ffc107;margin-top:20px}
+    .comment-box{background:rgba(102,217,239,.08);border-left:3px solid #66d9ef;padding:15px 20px;margin:30px auto;border-radius:8px;max-width:800px}
+    .section{max-width:800px;margin:0 auto 60px}
+    .code-label{background:#66d9ef;padding:5px 10px;border-radius:5px;display:inline-block;margin-bottom:10px;color:#121212;font-weight:700}
+    .code-wrapper{position:relative;max-width:800px;margin:0 auto}
+    pre{background:#1e1e1e;border-radius:8px;padding:20px;overflow-x:auto}
+    code{font-size:.95rem}
+    iframe.tutor{width:100%;height:720px;border:none;border-radius:8px;box-shadow:0 0 10px rgba(0,0,0,.5);margin-top:20px}
+  </style>
+</head>
+<body>
+  <nav class="top-nav">
+    <a href="index.html">Coding</a> |
+    <a href="electrical.html">Electrical Engineering</a> |
+    <a href="physics.html">Physics</a> |
+    <a href="math.html">Math</a>
+  </nav>
+
+  <div class="sidebar-tab">
+    <a href="#quicksort">Quicksort</a>
+    <a href="#merge-sort">Merge Sort</a>
+    <a href="#heapsort">Heapsort</a>
+    <a href="#insertion-sort">Insertion Sort</a>
+    <a href="#counting-sort">Counting Sort</a>
+    <a href="#radix-sort">Radix Sort</a>
+    <a href="#bubble-sort">Bubble Sort</a>
+</div>
+
+  <h1>Sorting Algorithms</h1>
+  <div class="comment-box">Reference sheet for popular sorting algorithms with sample C++ implementations. An interactive Quick Sort tutor is included below.</div>
+
+  <!-- Quicksort -->
+  <div class="section" id="quicksort">
+    <h2>Quicksort</h2>
+    <p>Average‑case <code>O(n \log n)</code>; widely used for large datasets.</p>
+    <h3>Typical interview task</h3>
+    <p>Return the <em>k</em>th smallest element (QuickSelect).</p>
+    <div class="code-label">C++ Code</div>
+    <div class="code-wrapper">
+<pre><code class="language-cpp">int partition(vector<int>& a,int lo,int hi){
+    int p=a[hi],i=lo;
+    for(int j=lo;j<hi;++j) if(a[j]<=p) swap(a[i++],a[j]);
+    swap(a[i],a[hi]);
+    return i;
+}
+int quickSelect(vector<int>& a,int lo,int hi,int k){
+    if(lo<=hi){
+        int pi=partition(a,lo,hi);
+        if(pi==k) return a[pi];
+        return pi>k?quickSelect(a,lo,pi-1,k):quickSelect(a,pi+1,hi,k);
+    }
+    return -1;
+}</code></pre>
+    </div>
+    <h3>Interactive Quick Sort Tutor</h3>
+    <!-- The external file QuickSortTutor.html must sit next to this page -->
+    <iframe src="QuickSortTutor.html" class="tutor" loading="lazy"></iframe>
+  </div>
+
+  <!-- Merge Sort -->
+  <div class="section" id="merge-sort">
+    <h2>Merge Sort</h2>
+    <p>Stable divide-and-conquer algorithm with worst-case <code>O(n log n)</code>. Ideal for counting inversions and stable sorts.</p>
+    <h3>Example Problem</h3>
+    <p>Count inversions: pairs <em>(i,j)</em> where <code>a[i] > a[j]</code> and <code>i &lt; j</code>.</p>
+    <div class="code-label">C++ Code</div>
+    <div class="code-wrapper">
+<pre><code class="language-cpp">int mergeAndCount(vector<int>& a,int l,int m,int r){
+    vector<int>L(a.begin()+l,a.begin()+m+1),R(a.begin()+m+1,a.begin()+r+1);
+    int i=0,j=0,k=l,inv=0;
+    while(i<L.size()&&j<R.size()){
+        if(L[i]<=R[j]) a[k++]=L[i++];
+        else { a[k++]=R[j++]; inv+=L.size()-i; }
+    }
+    while(i<L.size()) a[k++]=L[i++];
+    while(j<R.size()) a[k++]=R[j++];
+    return inv;
+}
+int mergeSortAndCount(vector<int>& a,int l,int r){
+    if(l>=r) return 0;
+    int m=l+(r-l)/2;
+    int count=mergeSortAndCount(a,l,m)+mergeSortAndCount(a,m+1,r);
+    return count+mergeAndCount(a,l,m,r);
+}</code></pre>
+    </div>
+    <h3>Interactive Merge Sort Tutor</h3>
+    <iframe src="MergeSortTutor.html" class="tutor" loading="lazy"></iframe>
+</div>
+    <div class="code-wrapper">
+<pre><code class="language-cpp">int mergeAndCount(vector<int>& a,int l,int m,int r){
+    vector<int>L(a.begin()+l,a.begin()+m+1),R(a.begin()+m+1,a.begin()+r+1);
+    int i=0,j=0,k=l,inv=0;
+    while(i<L.size()&&j<R.size())
+        if(L[i]<=R[j]) a[k++]=L[i++];
+        else {a[k++]=R[j++];inv+=L.size()-i;}
+    while(i<L.size()) a[k++]=L[i++];
+    while(j<R.size()) a[k++]=R[j++];
+    return inv;
+}
+int mergeSortAndCount(vector<int>& a,int l,int r){
+    if(l>=r) return 0;
+    int m=l+(r-l)/2,count=0;
+    count+=mergeSortAndCount(a,l,m);
+    count+=mergeSortAndCount(a,m+1,r);
+    return count+mergeAndCount(a,l,m,r);
+}</code></pre>
+    </div>
+  </div>
+
+  <!-- Heapsort -->
+  <div class="section" id="heapsort">
+    <h2>Heapsort</h2>
+    <p>In-place, worst-case <code>O(n log n)</code>. Builds a max-heap then extracts max iteratively.</p>
+    <h3>Example Problem</h3>
+    <p>Find the <code>k</code>th largest element or fully sort the array.</p>
+    <div class="code-label">C++ Code</div>
+    <div class="code-wrapper">
+<pre><code class="language-cpp">int findKthLargest(vector<int>& nums,int k){
+    priority_queue<int> pq(nums.begin(),nums.end());
+    while(--k) pq.pop();
+    return pq.top();
+}</code></pre>
+    </div>
+    <h3>Interactive Heap Sort Tutor</h3>
+    <!-- The external file HeapSortTutor.html must sit next to this page -->
+    <iframe src="HeapSortTutor.html" class="tutor" loading="lazy"></iframe>
+</div>
+    <div class="code-wrapper">
+<pre><code class="language-cpp">int findKthLargest(vector<int>& nums,int k){
+    priority_queue<int> pq(nums.begin(),nums.end());
+    while(--k) pq.pop();
+    return pq.top();
+}</code></pre>
+    </div>
+  </div>
+
+  <!-- Insertion Sort -->
+  <div class="section" id="insertion-sort">
+    <h2>Insertion Sort</h2>
+    <p>Simple and efficient for small or nearly-sorted arrays. Average-case <code>O(n<sup>2</sup>)</code>.</p>
+    <div class="code-label">C++ Code</div>
+    <div class="code-wrapper">
+<pre><code class="language-cpp">void insertionSort(vector<int>& a){
+    for(size_t i=1;i<a.size();++i){
+        int key=a[i];
+        int j=i-1;
+        while(j!=SIZE_MAX && a[j]>key){
+            a[j+1]=a[j];
+            --j;
+        }
+        a[j+1]=key;
+    }
+}</code></pre>
+    </div>
+    <h3>Interactive Insertion Sort Tutor</h3>
+    <!-- External file InsertionSortTutor.html alongside this page -->
+    <iframe src="InsertionSortTutor.html" class="tutor" loading="lazy"></iframe>
+</div>
+    <div class="code-wrapper">
+<pre><code class="language-cpp">void insertionSort(vector<int>& a){
+    for(size_t i=1;i<a.size();++i){
+        int key=a[i];int j=i-1;
+        while(j!=SIZE_MAX && a[j]>key){a[j+1]=a[j];--j;}
+        a[j+1]=key;
+    }
+}</code></pre>
+    </div>
+  </div>
+
+  <!-- Counting Sort -->
+  <div class="section" id="counting-sort">
+    <h2>Counting Sort</h2>
+    <p>Non-comparison sort for integers with time complexity <code>O(n + k)</code>.</p>
+    <h3>Example Problem</h3>
+    <p>Sort an array of small-range integers.</p>
+    <div class="code-label">C++ Code</div>
+    <div class="code-wrapper">
+<pre><code class="language-cpp">void countingSort(vector<int>& a){
+    int mx=*max_element(a.begin(),a.end());
+    vector<int> cnt(mx+1);
+    for(int x:a) cnt[x]++;
+    int idx=0;
+    for(int i=0;i<=mx;++i)
+        while(cnt[i]--) a[idx++]=i;
+}</code></pre>
+    </div>
+    <h3>Interactive Counting Sort Tutor</h3>
+    <!-- External file CountingSortTutor.html alongside this page -->
+    <iframe src="CountingSortTutor.html" class="tutor" loading="lazy"></iframe>
+</div>
+    <div class="code-wrapper">
+<pre><code class="language-cpp">void countingSort(vector<int>& a){
+    int mx=*max_element(a.begin(),a.end());
+    vector<int> cnt(mx+1);
+    for(int x:a) cnt[x]++;
+    int idx=0;
+    for(int i=0;i<=mx;++i)
+        while(cnt[i]--) a[idx++]=i;
+}</code></pre>
+    </div>
+  </div>
+
+  <!-- Radix Sort -->
+  <div class="section" id="radix-sort">
+    <h2>Radix Sort</h2>
+    <p>Digit‑by‑digit; <code>O(d(n+k))</code> where <em>d</em> is digits.</p>
+    <div class="code-label">C++ Code</div>
+    <div class="code-wrapper">
+<pre><code class="language-cpp">void countingByDigit(vector<int>& a,int exp){
+    int n=a.size();vector<int> out(n);int cnt[10]{};
+    for(int x:a) cnt[(x/exp)%10]++;
+    for(int i=1;i<10;++i) cnt[i]+=cnt[i-1];
+    for(int i=n-1;i>=0;--i){int d=(a[i]/exp)%10;out[--cnt[d]]=a[i];}
+    a.swap(out);
+}
+void radixSort(vector<int>& a){
+    int mx=*max_element(a.begin(),a.end());
+    for(int exp=1;mx/exp>0;exp*=10) countingByDigit(a,exp);
+}</code></pre>
+    </div>
+  </div>
+
+    <!-- Bubble Sort -->
+  <div class="section" id="bubble-sort">
+    <h2>Bubble Sort</h2>
+    <p>Simple comparison-based algorithm with worst- and average-case <code>O(n<sup>2</sup>)</code>, best-case <code>O(n)</code> when the array is already sorted. Ideal for educational purposes and nearly-sorted data.</p>
+    <h3>Example Problem</h3>
+    <p>Repeatedly step through the list, compare adjacent elements and swap them if they are in the wrong order.</p>
+    <div class="code-label">C++ Code</div>
+    <div class="code-wrapper">
+<pre><code class="language-cpp">void bubbleSort(vector<int>& a) {
+    int n = a.size();
+    bool swapped;
+    for (int i = 0; i < n - 1; ++i) {
+        swapped = false;
+        for (int j = 0; j < n - 1 - i; ++j) {
+            if (a[j] > a[j + 1]) {
+                swap(a[j], a[j + 1]);
+                swapped = true;
+            }
+        }
+        if (!swapped) break; // array is sorted
+    }
+}
+</code></pre>
+    </div>
+    <h3>Interactive Bubble Sort Tutor</h3>
+    <!-- External file BubbleSortTutor.html alongside this page -->
+    <iframe src="BubbleSortTutor.html" class="tutor" loading="lazy"></iframe>
+  </div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+  <script>hljs.highlightAll();</script>
+</body>
+</html>
