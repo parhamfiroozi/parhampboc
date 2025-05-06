@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Quick Sort Visual Tutor</title>
   <style>
@@ -10,33 +10,33 @@
       --gap: 10px;
     }
     * { box-sizing: border-box; }
-    body { margin: 0; background:#1e1e1e; font-family: system-ui, sans-serif; color:#fff; }
-    header { padding:1rem; background:#272727; text-align:center; font-size:1.3rem; letter-spacing:.5px; }
-    #controls{display:flex;justify-content:center;gap:.5rem;padding:.8rem;background:#2e2e2e;}
-    button, select { border:none; padding:.5rem 1rem; border-radius:4px; cursor:pointer; font-size:1rem; background:#ff784e; color:#fff; transition:background .2s; }
-    button:hover, select:hover{background:#ff5722;} button:disabled{background:#555;cursor:default;}
-    #legend{display:flex;justify-content:center;gap:1.5rem;padding:.5rem 0;font-size:.9rem;background:#2e2e2e;}
-    .legend-item{display:flex;align-items:center;gap:.3rem;}
-    .legend-color{width:16px;height:16px;border-radius:3px;}
-    .pivot-color{background:#e91e63;}
-    .compare-color{background:#ffeb3b;}
-    .sorted-color{background:#4caf50;}
-    #desc{padding:0.6rem;text-align:center;background:#373737;min-height:38px;font-size:1rem;}
-    #array{position:relative;height:420px;overflow:hidden;padding-bottom:30px;}
-    .bar{position:absolute;bottom:30px;width:var(--bar-width);background:#03a9f4;border-radius:4px;transition:left .45s ease,background .25s,height .3s ease;display:flex;justify-content:center;align-items:flex-end;}
-    .bar span{position:absolute;bottom:100%;font-size:.8rem;}
-    .pivot{background:#e91e63 !important;}
-    .compare{background:#ffeb3b !important;}
-    .sorted{background:#4caf50 !important;}
-    #stack-wrapper{background:#111;padding:.5rem 1rem;height:160px;overflow-y:auto;}
-    #stack-wrapper h3{margin:.2rem 0 .4rem;font-size:1rem;font-weight:500;color:#ccc;}
-    #stack{list-style:none;margin:0;padding-left:20px;font-size:.9rem;}
-    #stack li{margin:.1rem 0;}
+    body { margin: 0; background: #1e1e1e; font-family: system-ui, sans-serif; color: #fff; }
+    header { padding: 1rem; background: #272727; text-align: center; font-size: 1.3rem; letter-spacing: .5px; }
+    #controls { display: flex; justify-content: center; gap: .5rem; padding: .8rem; background: #2e2e2e; }
+    button, select { border: none; padding: .5rem 1rem; border-radius: 4px; cursor: pointer; font-size: 1rem; background: #ff784e; color: #fff; transition: background .2s; }
+    button:hover, select:hover { background: #ff5722; }
+    button:disabled { background: #555; cursor: default; }
+    #legend { display: flex; justify-content: center; gap: 1.5rem; padding: .5rem 0; font-size: .9rem; background: #2e2e2e; }
+    .legend-item { display: flex; align-items: center; gap: .3rem; }
+    .legend-color { width: 16px; height: 16px; border-radius: 3px; }
+    .pivot-color { background: #e91e63; }
+    .compare-color { background: #ffeb3b; }
+    .sorted-color { background: #4caf50; }
+    #desc { padding: .6rem; text-align: center; background: #373737; min-height: 38px; font-size: 1rem; }
+    #array { position: relative; height: 420px; overflow: hidden; padding-bottom: 30px; }
+    .bar { position: absolute; bottom: 30px; width: var(--bar-width); background: #03a9f4; border-radius: 4px; transition: left .45s ease, background .25s, height .3s ease; display: flex; justify-content: center; align-items: flex-end; }
+    .bar span { position: absolute; bottom: 100%; font-size: .8rem; }
+    .pivot { background: #e91e63 !important; }
+    .compare { background: #ffeb3b !important; }
+    .sorted { background: #4caf50 !important; }
+    #stack-wrapper { background: #111; padding: .5rem 1rem; height: 160px; overflow-y: auto; }
+    #stack-wrapper h3 { margin: .2rem 0 .4rem; font-size: 1rem; font-weight: 500; color: #ccc; }
+    #stack { list-style: none; margin: 0; padding-left: 20px; font-size: .9rem; }
+    #stack li { margin: .1rem 0; }
   </style>
 </head>
 <body>
   <header>Interactive Quick Sort Tutor</header>
-
   <div id="controls">
     <button id="shuffle">Shuffle</button>
     <button id="step">Step</button>
@@ -45,6 +45,7 @@
     <select id="speedSelect">
       <option value="600">Slow</option>
       <option value="200">Fast</option>
+      <option value="50">Super Fast</option>
     </select>
   </div>
   <div id="legend">
@@ -52,167 +53,157 @@
     <div class="legend-item"><div class="legend-color compare-color"></div>Compare</div>
     <div class="legend-item"><div class="legend-color sorted-color"></div>Sorted</div>
   </div>
-  <div id="desc">Press <i>Shuffle</i> then <i>Step</i> to start.</div>
-
+  <div id="desc">Press <em>Shuffle</em> then <em>Step</em> to start.</div>
   <div id="array"></div>
-
   <div id="stack-wrapper">
     <h3>Recursion Stack</h3>
     <ul id="stack"></ul>
   </div>
+<script>
+  const BAR_W = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--bar-width'));
+  const GAP = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--gap'));
+  const N = 16;
+  let speed = 600;
+  let values = [], bars = [], actions = [], ptr = 0, autoPlay = false, timer;
 
-  <script>
-    const BAR_W = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--bar-width'));
-    const GAP   = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--gap'));
-    const N = 16;
-    let speed = 600;
+  const arrayEl = document.getElementById('array');
+  const descEl = document.getElementById('desc');
+  const stackEl = document.getElementById('stack');
+  const speedSelect = document.getElementById('speedSelect');
 
-    let values = [], bars = [], actions = [], ptr = 0, autoPlay = false, timer;
+  function layoutBars() {
+    const totalWidth = N * (BAR_W + GAP) - GAP;
+    const offset = (arrayEl.clientWidth - totalWidth) / 2;
+    bars.forEach((bar, i) => bar.style.left = `${offset + i * (BAR_W + GAP)}px`);
+  }
 
-    const arrayEl = document.getElementById('array');
-    const descEl  = document.getElementById('desc');
-    const stackEl = document.getElementById('stack');
-    const speedSelect = document.getElementById('speedSelect');
+  function createBars() {
+    arrayEl.innerHTML = '';
+    bars = [];
+    values.forEach(v => {
+      const bar = document.createElement('div');
+      bar.className = 'bar';
+      bar.style.height = `${v * 3 + 30}px`;
+      bar.innerHTML = `<span>${v}</span>`;
+      arrayEl.appendChild(bar);
+      bars.push(bar);
+    });
+    layoutBars();
+  }
 
-    const layoutBars = () => {
-      const totalWidth = N * (BAR_W + GAP) - GAP;
-      const offset = (arrayEl.clientWidth - totalWidth) / 2;
-      bars.forEach((bar, i) => {
-        bar.style.left = `${offset + i * (BAR_W + GAP)}px`;
-      });
-    };
+  function pushStack(lo, hi) {
+    const li = document.createElement('li');
+    li.id = `seg-${lo}-${hi}`;
+    li.textContent = `[${lo}, ${hi}]`;
+    stackEl.appendChild(li);
+  }
 
-    const createBars = () => {
-      arrayEl.innerHTML = '';
-      bars = [];
-      values.forEach((v) => {
-        const bar = document.createElement('div');
-        bar.className = 'bar';
-        bar.style.height = `${v * 3 + 30}px`;
-        bar.innerHTML = `<span>${v}</span>`;
-        arrayEl.appendChild(bar);
-        bars.push(bar);
-      });
-      layoutBars();
-    };
+  function popStack(lo, hi) {
+    const li = document.getElementById(`seg-${lo}-${hi}`);
+    if (li) li.remove();
+  }
 
-    const pushStack = (lo, hi) => {
-      const li = document.createElement('li');
-      li.id = `seg-${lo}-${hi}`;
-      li.textContent = `[${lo}, ${hi}]`;
-      stackEl.appendChild(li);
-    };
-
-    const popStack = (lo, hi) => {
-      const li = document.getElementById(`seg-${lo}-${hi}`);
-      if (li) li.remove();
-    };
-
-    function recordActions(a, lo, hi) {
-      actions.push({ type:'stack', lo, hi });
-      if (lo >= hi) {
-        actions.push({ type:'sortedRange', lo, hi });
-        actions.push({ type:'unstack', lo, hi });
-        return;
-      }
-      const pivot = a[hi];
-      let i = lo;
-      actions.push({ type:'pivot', index: hi });
-      for (let j = lo; j < hi; j++) {
-        actions.push({ type:'compare', i, j, pivot: hi });
-        if (a[j] < pivot) {
-          [a[i], a[j]] = [a[j], a[i]];
-          actions.push({ type:'swap', i, j });
-          i++;
-        }
-      }
-      [a[i], a[hi]] = [a[hi], a[i]];
-      actions.push({ type:'swap', i, j: hi });
-      actions.push({ type:'sorted', index: i });
-      recordActions(a, lo, i - 1);
-      recordActions(a, i + 1, hi);
-      actions.push({ type:'unstack', lo, hi });
+  function recordActions(a, lo, hi) {
+    actions.push({ type: 'stack', lo, hi });
+    if (lo >= hi) {
+      actions.push({ type: 'sortedRange', lo, hi });
+      actions.push({ type: 'unstack', lo, hi });
+      return;
     }
+    const pivotVal = a[hi];
+    actions.push({ type: 'pivot', index: hi });
+    let i = lo;
+    for (let j = lo; j < hi; j++) {
+      actions.push({ type: 'compare', pivot: hi, j });
+      if (a[j] < pivotVal) {
+        actions.push({ type: 'swap', i, j });
+        [a[i], a[j]] = [a[j], a[i]];
+        i++;
+      }
+    }
+    actions.push({ type: 'swap', i, j: hi });
+    [a[i], a[hi]] = [a[hi], a[i]];
+    actions.push({ type: 'sorted', index: i });
+    recordActions(a, lo, i - 1);
+    recordActions(a, i + 1, hi);
+    actions.push({ type: 'unstack', lo, hi });
+  }
 
-    function initArray() {
-      values = Array.from({ length: N }, () => Math.floor(Math.random() * 90) + 10);
-      actions = [];
-      ptr = 0;
+  function initArray() {
+    values = Array.from({ length: N }, () => Math.floor(Math.random() * 90) + 10);
+    actions = [];
+    ptr = 0;
+    clearInterval(timer);
+    autoPlay = false;
+    document.getElementById('auto').textContent = 'Auto Play';
+    stackEl.innerHTML = '';
+    recordActions(values.slice(), 0, N - 1);
+    createBars();
+    descEl.textContent = 'Array shuffled.';
+  }
+
+  function clearHighlights() {
+    bars.forEach(b => b.classList.remove('pivot', 'compare'));
+  }
+
+  function step() {
+    if (ptr >= actions.length) {
       clearInterval(timer);
-      autoPlay = false;
-      document.getElementById('auto').textContent = 'Auto Play';
-      stackEl.innerHTML = '';
-      recordActions(values.slice(), 0, N - 1);
-      createBars();
-      descEl.textContent = 'Array shuffled.';
+      return;
     }
-
-    function highlightClear() {
-      bars.forEach(b => b.classList.remove('pivot','compare'));
+    const act = actions[ptr++];
+    clearHighlights();
+    switch (act.type) {
+      case 'stack':
+        pushStack(act.lo, act.hi);
+        descEl.textContent = `Processing segment [${act.lo}, ${act.hi}]`;
+        break;
+      case 'pivot':
+        bars[act.index].classList.add('pivot');
+        descEl.textContent = `Pivot chosen (${values[act.index]})`;
+        break;
+      case 'compare':
+        bars[act.pivot].classList.add('pivot');
+        bars[act.j].classList.add('compare');
+        descEl.textContent = `Compare ${values[act.j]} with pivot`;
+        break;
+      case 'swap':
+        bars[act.i].classList.add('compare');
+        bars[act.j].classList.add('swap');
+        [values[act.i], values[act.j]] = [values[act.j], values[act.i]];
+        [bars[act.i], bars[act.j]] = [bars[act.j], bars[act.i]];
+        bars.forEach((bar, idx) => {
+          bar.style.height = `${values[idx] * 3 + 30}px`;
+          bar.firstChild.textContent = values[idx];
+        });
+        layoutBars();
+        descEl.textContent = `Swapped indices ${act.i} & ${act.j}`;
+        break;
+      case 'sorted':
+        bars[act.index].classList.add('sorted');
+        descEl.textContent = `Index ${act.index} sorted`;
+        break;
+      case 'sortedRange':
+        for (let k = act.lo; k <= act.hi; k++) bars[k]?.classList.add('sorted');
+        break;
+      case 'unstack':
+        popStack(act.lo, act.hi);
+        break;
     }
+  }
 
-    function step() {
-      if (ptr >= actions.length) {
-        clearInterval(timer);
-        return;
-      }
-      const act = actions[ptr++];
-      switch (act.type) {
-        case 'stack':
-          pushStack(act.lo, act.hi);
-          descEl.textContent = `Processing segment [${act.lo}, ${act.hi}]`;
-          break;
-        case 'unstack':
-          popStack(act.lo, act.hi);
-          break;
-        case 'pivot':
-          highlightClear();
-          bars[act.index].classList.add('pivot');
-          descEl.textContent = `Pivot chosen (${values[act.index]})`;
-          break;
-        case 'compare':
-          highlightClear();
-          bars[act.pivot].classList.add('pivot');
-          bars[act.j].classList.add('compare');
-          descEl.textContent = `Compare ${values[act.j]} < pivot?`;
-          break;
-        case 'swap':
-          [values[act.i], values[act.j]] = [values[act.j], values[act.i]];
-          [bars[act.i], bars[act.j]] = [bars[act.j], bars[act.i]];
-          bars.forEach((bar, idx) => {
-            const val = values[idx];
-            bar.style.height = `${val * 3 + 30}px`;
-            bar.firstChild.textContent = val;
-          });
-          layoutBars();
-          highlightClear();
-          descEl.textContent = `Swapped indices ${act.i} & ${act.j}`;
-          break;
-        case 'sorted':
-          bars[act.index].classList.add('sorted');
-          highlightClear();
-          descEl.textContent = `Index ${act.index} sorted`;
-          break;
-        case 'sortedRange':
-          for (let k = act.lo; k <= act.hi; k++) {
-            bars[k]?.classList.add('sorted');
-          }
-          break;
-      }
-    }
+  document.getElementById('shuffle').onclick = initArray;
+  document.getElementById('step').onclick = step;
+  document.getElementById('auto').onclick = () => {
+    autoPlay = !autoPlay;
+    document.getElementById('auto').textContent = autoPlay ? 'Pause' : 'Auto Play';
+    clearInterval(timer);
+    if (autoPlay) timer = setInterval(step, speed);
+  };
+  document.getElementById('reset').onclick = () => { ptr = 0; clearInterval(timer); autoPlay = false; document.getElementById('auto').textContent = 'Auto Play'; createBars(); clearHighlights(); bars.forEach(b => b.classList.remove('sorted')); stackEl.innerHTML = ''; descEl.textContent = 'Press Step to start.'; };
+  speedSelect.onchange = e => { speed = parseInt(e.target.value, 10); if (autoPlay) { clearInterval(timer); timer = setInterval(step, speed); } };
 
-    document.getElementById('shuffle').onclick = initArray;
-    document.getElementById('step').onclick = step;
-    document.getElementById('auto').onclick = () => {
-      autoPlay = !autoPlay;
-      document.getElementById('auto').textContent = autoPlay ? 'Pause' : 'Auto Play';
-      clearInterval(timer);
-      if (autoPlay) timer = setInterval(step, speed);
-    };
-    document.getElementById('reset').onclick = () => { ptr = 0; clearInterval(timer); autoPlay = false; document.getElementById('auto').textContent = 'Auto Play'; createBars(); highlightClear(); bars.forEach(b => b.classList.remove('sorted')); stackEl.innerHTML = ''; descEl.textContent = 'Press Step to start.'; };
-    speedSelect.onchange = e => { speed = parseInt(e.target.value, 10); if (autoPlay) { clearInterval(timer); timer = setInterval(step, speed); } };
-
-    initArray();
-  </script>
+  initArray();
+</script>
 </body>
 </html>
