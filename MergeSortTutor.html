@@ -65,39 +65,154 @@
   let speed = 600;
   const arrayEl = document.getElementById('array'), descEl = document.getElementById('desc'), stackEl = document.getElementById('stack');
   const speedSelect = document.getElementById('speedSelect');
+
   function layoutBars(){
-    const totalWidth = N*(BAR_W+GAP)-GAP, offset=(arrayEl.clientWidth-totalWidth)/2;
-    bars.forEach((b,i)=>b.style.left=${offset+i*(BAR_W+GAP)}px);
+    const totalWidth = N*(BAR_W+GAP)-GAP;
+    const offset = (arrayEl.clientWidth - totalWidth) / 2;
+    bars.forEach((b,i) => {
+      b.style.left = `${offset + i*(BAR_W+GAP)}px`;
+    });
   }
-  function createBars(){ arrayEl.innerHTML=''; bars=[];
-    values.forEach(v=>{ const bar=document.createElement('div'); bar.className='bar'; bar.style.height=${v*3+30}px; bar.innerHTML=<span>${v}</span>; arrayEl.appendChild(bar); bars.push(bar); });
-    layoutBars(); }
-  function pushStack(lo,hi){ const li=document.createElement('li'); li.id=seg-${lo}-${hi}; li.textContent=[${lo}, ${hi}]; stackEl.appendChild(li); }
-  function popStack(lo,hi){ const li=document.getElementById(seg-${lo}-${hi}); if(li) li.remove(); }
-  function recordActions(a, lo, hi){ actions.push({type:'stack',lo,hi}); if(lo>=hi){ actions.push({type:'mergedRange',lo,hi}); actions.push({type:'unstack',lo,hi}); return;} const mid=Math.floor((lo+hi)/2);
-    recordActions(a,lo,mid);
-    recordActions(a,mid+1,hi);
-    actions.push({type:'merge',lo,mid,hi});
-    const temp=[]; let i=lo,j=mid+1;
-    while(i<=mid||j<=hi){ actions.push({type:'compare',i,j}); if(j>hi|| (i<=mid&&a[i]<=a[j])){ temp.push(a[i++]); } else { temp.push(a[j++]); }}
-    for(let k=0;k<temp.length;k++){ a[lo+k]=temp[k]; actions.push({type:'overwrite',index:lo+k,value:temp[k]}); }
-    actions.push({type:'mergedRange',lo,hi}); actions.push({type:'unstack',lo,hi}); }
-  function initArray(){ values=Array.from({length:N},()=>Math.floor(Math.random()*90)+10); actions=[]; ptr=0; clearInterval(timer); autoPlay=false; document.getElementById('auto').textContent='Auto Play'; stackEl.innerHTML=''; recordActions(values.slice(),0,N-1); createBars(); descEl.textContent='Array shuffled.'; }
-  function highlightClear(){ bars.forEach(b=>b.classList.remove('active','compare','merged')); }
-  function step(){ if(ptr>=actions.length){ clearInterval(timer); return;} const act=actions[ptr++]; switch(act.type){
-      case 'stack': pushStack(act.lo,act.hi); descEl.textContent=Splitting [${act.lo}, ${act.hi}]; break;
-      case 'unstack': popStack(act.lo,act.hi); break;
-      case 'merge': highlightClear(); for(let k=act.lo;k<=act.hi;k++) bars[k].classList.add('active'); descEl.textContent=Merging [${act.lo},${act.mid}] & [${act.mid+1},${act.hi}]; break;
-      case 'compare': highlightClear(); if(act.i<bars.length) bars[act.i].classList.add('compare'); if(act.j<bars.length) bars[act.j].classList.add('compare'); descEl.textContent=Compare indexes ${act.i} & ${act.j}; break;
-      case 'overwrite': values[act.index]=act.value; bars[act.index].style.height=${act.value*3+30}px; bars[act.index].firstChild.textContent=act.value; descEl.textContent=Write ${act.value} to index ${act.index}; break;
-      case 'mergedRange': highlightClear(); for(let k=act.lo;k<=act.hi;k++) bars[k].classList.add('merged'); descEl.textContent=Segment [${act.lo}, ${act.hi}] merged; break;
-    } }
-  document.getElementById('shuffle').onclick=initArray;
-  document.getElementById('step').onclick=step;
-  document.getElementById('auto').onclick=()=>{ autoPlay=!autoPlay; document.getElementById('auto').textContent=autoPlay?'Pause':'Auto Play'; clearInterval(timer); if(autoPlay) timer=setInterval(step,speed); };
-  document.getElementById('reset').onclick=()=>{ ptr=0; clearInterval(timer); autoPlay=false; document.getElementById('auto').textContent='Auto Play'; createBars(); highlightClear(); bars.forEach(b=>b.classList.remove('merged')); stackEl.innerHTML=''; descEl.textContent='Press Step to start.'; };
-  speedSelect.onchange=e=>{ speed=parseInt(e.target.value); if(autoPlay){ clearInterval(timer); timer=setInterval(step,speed);} };
+
+  function createBars(){
+    arrayEl.innerHTML = '';
+    bars = [];
+    values.forEach(v => {
+      const bar = document.createElement('div');
+      bar.className = 'bar';
+      bar.style.height = `${v*3 + 30}px`;
+      bar.innerHTML = `<span>${v}</span>`;
+      arrayEl.appendChild(bar);
+      bars.push(bar);
+    });
+    layoutBars();
+  }
+
+  function pushStack(lo,hi){
+    const li = document.createElement('li');
+    li.id = `seg-${lo}-${hi}`;
+    li.textContent = `[${lo}, ${hi}]`;
+    stackEl.appendChild(li);
+  }
+
+  function popStack(lo,hi){
+    const li = document.getElementById(`seg-${lo}-${hi}`);
+    if(li) li.remove();
+  }
+
+  function recordActions(a, lo, hi){
+    actions.push({type:'stack', lo, hi});
+    if(lo >= hi){
+      actions.push({type:'mergedRange', lo, hi});
+      actions.push({type:'unstack', lo, hi});
+      return;
+    }
+    const mid = Math.floor((lo + hi) / 2);
+    recordActions(a, lo, mid);
+    recordActions(a, mid+1, hi);
+    actions.push({type:'merge', lo, mid, hi});
+    const temp = [];
+    let i = lo, j = mid+1;
+    while(i <= mid || j <= hi){
+      actions.push({type:'compare', i, j});
+      if(j > hi || (i <= mid && a[i] <= a[j])){
+        temp.push(a[i++]);
+      } else {
+        temp.push(a[j++]);
+      }
+    }
+    for(let k=0; k<temp.length; k++){
+      a[lo+k] = temp[k];
+      actions.push({type:'overwrite', index: lo+k, value: temp[k]});
+    }
+    actions.push({type:'mergedRange', lo, hi});
+    actions.push({type:'unstack', lo, hi});
+  }
+
+  function initArray(){
+    values = Array.from({length:N}, ()=>Math.floor(Math.random()*90) + 10);
+    actions = [];
+    ptr = 0;
+    clearInterval(timer);
+    autoPlay = false;
+    document.getElementById('auto').textContent = 'Auto Play';
+    stackEl.innerHTML = '';
+    recordActions(values.slice(), 0, N-1);
+    createBars();
+    descEl.textContent = 'Array shuffled.';
+  }
+
+  function highlightClear(){
+    bars.forEach(b => b.classList.remove('active','compare','merged'));
+  }
+
+  function step(){
+    if(ptr >= actions.length){
+      clearInterval(timer);
+      return;
+    }
+    const act = actions[ptr++];
+    switch(act.type){
+      case 'stack':
+        pushStack(act.lo, act.hi);
+        descEl.textContent = `Splitting [${act.lo}, ${act.hi}]`;
+        break;
+      case 'unstack':
+        popStack(act.lo, act.hi);
+        break;
+      case 'merge':
+        highlightClear();
+        for(let k=act.lo; k<=act.hi; k++) bars[k].classList.add('active');
+        descEl.textContent = `Merging [${act.lo},${act.mid}] & [${act.mid+1},${act.hi}]`;
+        break;
+      case 'compare':
+        highlightClear();
+        if(act.i < bars.length) bars[act.i].classList.add('compare');
+        if(act.j < bars.length) bars[act.j].classList.add('compare');
+        descEl.textContent = `Compare indexes ${act.i} & ${act.j}`;
+        break;
+      case 'overwrite':
+        values[act.index] = act.value;
+        bars[act.index].style.height = `${act.value*3 + 30}px`;
+        bars[act.index].firstChild.textContent = act.value;
+        descEl.textContent = `Write ${act.value} to index ${act.index}`;
+        break;
+      case 'mergedRange':
+        highlightClear();
+        for(let k=act.lo; k<=act.hi; k++) bars[k].classList.add('merged');
+        descEl.textContent = `Segment [${act.lo}, ${act.hi}] merged`;
+        break;
+    }
+  }
+
+  document.getElementById('shuffle').onclick = initArray;
+  document.getElementById('step').onclick = step;
+  document.getElementById('auto').onclick = () => {
+    autoPlay = !autoPlay;
+    document.getElementById('auto').textContent = autoPlay ? 'Pause' : 'Auto Play';
+    clearInterval(timer);
+    if(autoPlay) timer = setInterval(step, speed);
+  };
+  document.getElementById('reset').onclick = () => {
+    ptr = 0;
+    clearInterval(timer);
+    autoPlay = false;
+    document.getElementById('auto').textContent = 'Auto Play';
+    createBars();
+    highlightClear();
+    bars.forEach(b => b.classList.remove('merged'));
+    stackEl.innerHTML = '';
+    descEl.textContent = 'Press Step to start.';
+  };
+  speedSelect.onchange = e => {
+    speed = parseInt(e.target.value, 10);
+    if(autoPlay){
+      clearInterval(timer);
+      timer = setInterval(step, speed);
+    }
+  };
+
   initArray();
 </script>
 </body>
-</html> 
+</html>
