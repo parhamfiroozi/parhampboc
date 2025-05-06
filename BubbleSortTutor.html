@@ -53,13 +53,12 @@
   <div id="status">Press Shuffle to begin</div>
   <div id="chart"></div>
 <script>
-  const N = 20;
   let arr = [], actions = [], idx = 0, running = false, timer, speed = 300;
   const chart = document.getElementById('chart'), status = document.getElementById('status');
 
   function render() {
     chart.innerHTML = '';
-    arr.forEach((v, i) => {
+    arr.forEach(v => {
       const bar = document.createElement('div');
       bar.className = 'bar';
       bar.style.height = `${v * 4 + 20}px`;
@@ -70,15 +69,16 @@
 
   function record() {
     actions = [];
-    for (let i = 0; i < N - 1; i++) {
-      for (let j = 0; j < N - 1 - i; j++) {
+    const n = arr.length;
+    for (let i = 0; i < n - 1; i++) {
+      for (let j = 0; j < n - 1 - i; j++) {
         actions.push({ type: 'compare', i: j, j: j + 1 });
         if (arr[j] > arr[j + 1]) {
           actions.push({ type: 'swap', i: j, j: j + 1 });
           [arr[j], arr[j + 1]] = [arr[j + 1], arr[j]];
         }
       }
-      actions.push({ type: 'mark', index: N - 1 - i });
+      actions.push({ type: 'mark', index: n - 1 - i });
     }
     actions.push({ type: 'markAll' });
   }
@@ -128,7 +128,7 @@
 
   function init() {
     stop();
-    arr = Array.from({ length: N }, () => Math.floor(Math.random() * 50));
+    arr = Array.from({ length: 20 }, () => Math.floor(Math.random() * 50));
     idx = 0;
     render();
     record();
