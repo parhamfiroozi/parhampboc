@@ -6,212 +6,24 @@
   <title>Sorting Algorithms</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/github-dark.min.css" />
   <style>
-    body {
-      font-family: 'Poppins', sans-serif;
-      background: #121212;
-      color: #f0f0f0;
-      padding: 20px;
-      line-height: 1.6;
-      margin: 0;
-    }
-
-    /* Navigation bar */
-    nav.top-nav {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      background: #1e1e1e;
-      padding: 10px 20px;
-      text-align: center;
-      z-index: 1000;
-    }
-
-    nav.top-nav a {
-      color: #66d9ef;
-      margin: 0 10px;
-      text-decoration: none;
-      font-weight: 600;
-    }
-
-    /* Sidebar */
-    .sidebar-tab {
-      position: fixed;
-      top: 80px;
-      left: 0;
-      width: 250px;
-      background: #1c1c1c;
-      padding: 20px;
-      height: 100%;
-      overflow-y: auto;
-      transition: transform 0.3s ease;
-    }
-
-    .sidebar-tab a {
-      display: block;
-      color: #66d9ef;
-      margin-bottom: 12px;
-      text-decoration: none;
-      font-weight: 500;
-    }
-
-    .sidebar-tab a:hover {
-      text-decoration: underline;
-    }
-
-    /* Content Area */
-    .content {
-      margin-left: 0;
-      padding: 20px;
-      transition: margin-left 0.3s ease;
-    }
-
-    h1, h2 {
-      color: #66d9ef;
-      text-align: center;
-    }
-
-    h3 {
-      color: #ffc107;
-      margin-top: 20px;
-    }
-
-    .comment-box {
-      background: rgba(102,217,239,.08);
-      border-left: 3px solid #66d9ef;
-      padding: 15px 20px;
-      margin: 30px auto;
-      border-radius: 8px;
-      max-width: 800px;
-    }
-
-    .section {
-      margin: 0 auto 60px;
-      max-width: 800px;
-    }
-
-    .code-label {
-      background: #66d9ef;
-      padding: 5px 10px;
-      border-radius: 5px;
-      display: inline-block;
-      margin-bottom: 10px;
-      color: #121212;
-      font-weight: 700;
-    }
-
-    .code-wrapper {
-      position: relative;
-      max-width: 800px;
-      margin: 0 auto;
-    }
-
-    pre {
-      background: #1e1e1e;
-      border-radius: 8px;
-      padding: 20px;
-      overflow-x: auto;
-    }
-
-    code {
-      font-size: .95rem;
-    }
-
-    /* Responsive Design */
-    @media (max-width: 768px) {
-      /* Adjust top-nav for small screens */
-      nav.top-nav {
-        text-align: left;
-        padding: 15px;
-      }
-
-      nav.top-nav a {
-        font-size: 14px;
-        margin: 0 5px;
-      }
-
-      /* Sidebar adjustments */
-      .sidebar-tab {
-        width: 80%;
-        transform: translateX(-100%);
-        position: fixed;
-        top: 80px;
-        left: 0;
-        background: #1c1c1c;
-        padding: 20px;
-        height: calc(100% - 80px);
-        transition: transform 0.3s ease;
-      }
-
-      /* Sidebar toggle */
-      .sidebar-tab.open {
-        transform: translateX(0);
-      }
-
-      .sidebar-tab a {
-        font-size: 16px;
-      }
-
-      /* Content padding */
-      .content {
-        margin-left: 0;
-        padding: 20px;
-      }
-
-      .section {
-        max-width: 100%;
-      }
-
-      iframe.tutor {
-        height: 300px; /* Reduce height on smaller screens for better fit */
-      }
-
-      h1, h2, h3 {
-        font-size: 1.5rem;
-      }
-
-      .code-wrapper pre {
-        font-size: 0.9rem;
-        padding: 10px;
-      }
-
-      /* Hamburger Menu */
-      .hamburger {
-        display: block;
-        font-size: 30px;
-        cursor: pointer;
-      }
-
-      .hamburger.open {
-        display: none;
-      }
-    }
-
-    /* Adjust iframe responsiveness */
-    iframe.tutor {
-      width: 100%;
-      max-width: 100%;
-      height: 60vh; /* Use viewport height for better responsiveness */
-      border: none;
-      border-radius: 8px;
-      box-shadow: 0 0 10px rgba(0,0,0,.5);
-      margin-top: 20px;
-      display: block; /* Ensure it behaves like a block element */
-      zoom: 1; /* Ensure it doesn't get zoomed in on mobile devices */
-      overflow: hidden;
-    }
-
-    /* Ensure the iframe never gets too wide */
-    @media (min-width: 1024px) {
-      iframe.tutor {
-        height: 500px; /* Adjust height for larger screens */
-      }
-    }
-
+    body{font-family:'Poppins',sans-serif;background:#121212;color:#f0f0f0;padding:100px 40px 40px 200px;line-height:1.6}
+    nav.top-nav{position:fixed;top:0;left:0;right:0;background:#1e1e1e;padding:10px 20px;text-align:center}
+    nav.top-nav a{color:#66d9ef;margin:0 10px;text-decoration:none;font-weight:600}
+    .sidebar-tab{position:fixed;top:80px;left:0;width:180px;background:#1c1c1c;padding:20px;height:calc(100% - 80px);overflow-y:auto}
+    .sidebar-tab a{display:block;color:#66d9ef;margin-bottom:12px;text-decoration:none;font-weight:500}
+    .sidebar-tab a:hover{text-decoration:underline}
+    h1,h2{color:#66d9ef;text-align:center}
+    h3{color:#ffc107;margin-top:20px}
+    .comment-box{background:rgba(102,217,239,.08);border-left:3px solid #66d9ef;padding:15px 20px;margin:30px auto;border-radius:8px;max-width:800px}
+    .section{max-width:800px;margin:0 auto 60px}
+    .code-label{background:#66d9ef;padding:5px 10px;border-radius:5px;display:inline-block;margin-bottom:10px;color:#121212;font-weight:700}
+    .code-wrapper{position:relative;max-width:800px;margin:0 auto}
+    pre{background:#1e1e1e;border-radius:8px;padding:20px;overflow-x:auto}
+    code{font-size:.95rem}
+    iframe.tutor{width:100%;height:720px;border:none;border-radius:8px;box-shadow:0 0 10px rgba(0,0,0,.5);margin-top:20px}
   </style>
 </head>
 <body>
-  <!-- Navigation bar -->
   <nav class="top-nav">
     <a href="index.html">Coding</a> |
     <a href="electrical.html">Electrical Engineering</a> |
@@ -219,8 +31,7 @@
     <a href="math.html">Math</a>
   </nav>
 
-  <!-- Sidebar (Hidden on mobile) -->
-  <div class="sidebar-tab" id="sidebar">
+  <div class="sidebar-tab">
     <a href="#quicksort">Quicksort</a>
     <a href="#merge-sort">Merge Sort</a>
     <a href="#heapsort">Heapsort</a>
@@ -228,13 +39,8 @@
     <a href="#counting-sort">Counting Sort</a>
     <a href="#radix-sort">Radix Sort</a>
     <a href="#bubble-sort">Bubble Sort</a>
-  </div>
+</div>
 
-  <!-- Hamburger Icon for Mobile -->
-  <div class="hamburger" id="hamburger">&#9776;</div>
-
-  <!-- Main content -->
-  <div class="content">
   <h1>Sorting Algorithms</h1>
   <div class="comment-box">Reference sheet for popular sorting algorithms with sample C++ implementations. An interactive Quick Sort tutor is included below.</div>
 
