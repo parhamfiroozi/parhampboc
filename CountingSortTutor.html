@@ -72,19 +72,25 @@
   const speedSel = document.getElementById('speedSelect');
 
   function buildVisual() {
-    arrayEl.innerHTML = ''; state.bars = [];
+    arrayEl.innerHTML = '';
+    state.bars = [];
     values.forEach(v => {
       const bar = document.createElement('div');
-      bar.className = 'bar'; bar.style.height = ${v * 3 + 30}px;
-      bar.innerHTML = <span class="value">${v}</span>;
-      arrayEl.appendChild(bar); state.bars.push(bar);
+      bar.className = 'bar';
+      bar.style.height = `${v * 3 + 30}px`;
+      bar.innerHTML = `<span class=\"value\">${v}</span>`;
+      arrayEl.appendChild(bar);
+      state.bars.push(bar);
     });
-    countEl.innerHTML = ''; state.cBars = [];
+    countEl.innerHTML = '';
+    state.cBars = [];
     for (let i = 0; i <= maxVal; i++) {
       const bar = document.createElement('div');
-      bar.className = 'bar'; bar.style.height = 30px;
-      bar.innerHTML = <span class="value">0</span><span class="idx">${i}</span>;
-      countEl.appendChild(bar); state.cBars.push(bar);
+      bar.className = 'bar';
+      bar.style.height = `30px`;
+      bar.innerHTML = `<span class=\"value\">0</span><span class=\"idx\">${i}</span>`;
+      countEl.appendChild(bar);
+      state.cBars.push(bar);
     }
   }
 
@@ -106,9 +112,14 @@
     values = Array.from({ length: N }, () => Math.floor(Math.random() * 30));
     maxVal = Math.max(...values);
     counts = Array(maxVal + 1).fill(0);
-    actions = []; ptr = 0; clearInterval(timer); autoPlay = false;
+    actions = [];
+    ptr = 0;
+    clearInterval(timer);
+    autoPlay = false;
     document.getElementById('auto').textContent = 'Auto Play';
-    buildVisual(); recordActions(); descEl.textContent = 'Array shuffled.';
+    buildVisual();
+    recordActions();
+    descEl.textContent = 'Array shuffled.';
   }
 
   function clearHighlights() {
@@ -117,17 +128,38 @@
 
   function step() {
     if (ptr >= actions.length) { clearInterval(timer); return; }
-    const a = actions[ptr++]; clearHighlights();
+    const a = actions[ptr++];
+    clearHighlights();
     switch (a.t) {
-      case 'scan': state.bars[a.i].classList.add('active'); descEl.textContent = Scanning index ${a.i} (value ${a.v}); break;
-      case 'count': const cBar = state.cBars[a.v]; cBar.classList.add('count'); cBar.style.height = ${counts[a.v] * 15 + 30}px; cBar.querySelector('.value').textContent = counts[a.v]; descEl.textContent = Increment count[${a.v}] → ${counts[a.v]}; break;
-      case 'write': const bar = state.bars[a.pos]; bar.classList.add('write'); bar.style.height = ${a.v * 3 + 30}px; bar.querySelector('.value').textContent = a.v; descEl.textContent = Write value ${a.v} to output index ${a.pos}; break;
+      case 'scan':
+        state.bars[a.i].classList.add('active');
+        descEl.textContent = `Scanning index ${a.i} (value ${a.v})`;
+        break;
+      case 'count':
+        const cBar = state.cBars[a.v];
+        cBar.classList.add('count');
+        cBar.style.height = `${counts[a.v] * 15 + 30}px`;
+        cBar.querySelector('.value').textContent = counts[a.v];
+        descEl.textContent = `Increment count[${a.v}] → ${counts[a.v]}`;
+        break;
+      case 'write':
+        const bar = state.bars[a.pos];
+        bar.classList.add('write');
+        bar.style.height = `${a.v * 3 + 30}px`;
+        bar.querySelector('.value').textContent = a.v;
+        descEl.textContent = `Write value ${a.v} to output index ${a.pos}`;
+        break;
     }
   }
 
   document.getElementById('shuffle').onclick = init;
   document.getElementById('step').onclick = step;
-  document.getElementById('auto').onclick = () => { autoPlay = !autoPlay; document.getElementById('auto').textContent = autoPlay ? 'Pause' : 'Auto Play'; clearInterval(timer); if (autoPlay) timer = setInterval(step, speed); };
+  document.getElementById('auto').onclick = () => {
+    autoPlay = !autoPlay;
+    document.getElementById('auto').textContent = autoPlay ? 'Pause' : 'Auto Play';
+    clearInterval(timer);
+    if (autoPlay) timer = setInterval(step, speed);
+  };
   document.getElementById('reset').onclick = init;
   speedSel.onchange = e => { speed = +e.target.value; if (autoPlay) { clearInterval(timer); timer = setInterval(step, speed); } };
 
