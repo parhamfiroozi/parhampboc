@@ -7,13 +7,12 @@
   <style>
     :root { --bar-width: 30px; --gap: 8px; --bar-bg: #555; --compare-color: #ffeb3b; --swap-color: #e91e63; --sorted-color: #4caf50; }
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { background: #222; color: #eee; font-family: sans-serif; }
+    body { background: #222; color: #eee; font-family: system-ui, sans-serif; }
     header { padding: 1rem; text-align: center; background: #333; }
     .controls { display: flex; justify-content: center; gap: .5rem; padding: .8rem; background: #333; }
     .controls button, .controls select { padding: .5rem 1rem; border: none; border-radius: 4px; background: #ff5722; color: #fff; cursor: pointer; }
     .controls select { background: #444; }
     #status { text-align: center; padding: .5rem; background: #333; }
-    /* allow chart to grow with bar heights */
     #chart {
       display: flex;
       justify-content: center;
@@ -96,23 +95,28 @@
     }
     const a = actions[idx++];
     clearHighlights();
-    if (a.type === 'compare') {
-      chart.children[a.i].classList.add('compare');
-      chart.children[a.j].classList.add('compare');
-      status.textContent = `Compare indices ${a.i} & ${a.j}`;
-    } else if (a.type === 'swap') {
-      chart.children[a.i].classList.add('swap');
-      chart.children[a.j].classList.add('swap');
-      const bars = chart.children;
-      [bars[a.i].style.height, bars[a.j].style.height] = [bars[a.j].style.height, bars[a.i].style.height];
-      [bars[a.i].innerHTML, bars[a.j].innerHTML] = [bars[a.j].innerHTML, bars[a.i].innerHTML];
-      status.textContent = `Swapped indices ${a.i} & ${a.j}`;
-    } else if (a.type === 'mark') {
-      chart.children[a.index].classList.add('sorted');
-      status.textContent = `Position ${a.index} sorted`;
-    } else if (a.type === 'markAll') {
-      document.querySelectorAll('.bar').forEach(b => b.classList.add('sorted'));
-      status.textContent = 'All positions sorted';
+    switch (a.type) {
+      case 'compare':
+        chart.children[a.i].classList.add('compare');
+        chart.children[a.j].classList.add('compare');
+        status.textContent = `Compare indices ${a.i} & ${a.j}`;
+        break;
+      case 'swap':
+        chart.children[a.i].classList.add('swap');
+        chart.children[a.j].classList.add('swap');
+        const bars = chart.children;
+        [bars[a.i].style.height, bars[a.j].style.height] = [bars[a.j].style.height, bars[a.i].style.height];
+        [bars[a.i].innerHTML, bars[a.j].innerHTML] = [bars[a.j].innerHTML, bars[a.i].innerHTML];
+        status.textContent = `Swapped indices ${a.i} & ${a.j}`;
+        break;
+      case 'mark':
+        chart.children[a.index].classList.add('sorted');
+        status.textContent = `Position ${a.index} sorted`;
+        break;
+      case 'markAll':
+        document.querySelectorAll('.bar').forEach(b => b.classList.add('sorted'));
+        status.textContent = 'All positions sorted';
+        break;
     }
   }
 
@@ -145,7 +149,6 @@
     if (running) { stop(); running = true; timer = setInterval(step, speed); }
   };
 
-  // initial setup
   init();
 </script>
 </body>
