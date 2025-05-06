@@ -6,21 +6,156 @@
   <title>Sorting Algorithms</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/github-dark.min.css" />
   <style>
-    body{font-family:'Poppins',sans-serif;background:#121212;color:#f0f0f0;padding:100px 40px 40px 200px;line-height:1.6}
-    nav.top-nav{position:fixed;top:0;left:0;right:0;background:#1e1e1e;padding:10px 20px;text-align:center}
-    nav.top-nav a{color:#66d9ef;margin:0 10px;text-decoration:none;font-weight:600}
-    .sidebar-tab{position:fixed;top:80px;left:0;width:180px;background:#1c1c1c;padding:20px;height:calc(100% - 80px);overflow-y:auto}
-    .sidebar-tab a{display:block;color:#66d9ef;margin-bottom:12px;text-decoration:none;font-weight:500}
-    .sidebar-tab a:hover{text-decoration:underline}
-    h1,h2{color:#66d9ef;text-align:center}
-    h3{color:#ffc107;margin-top:20px}
-    .comment-box{background:rgba(102,217,239,.08);border-left:3px solid #66d9ef;padding:15px 20px;margin:30px auto;border-radius:8px;max-width:800px}
-    .section{max-width:800px;margin:0 auto 60px}
-    .code-label{background:#66d9ef;padding:5px 10px;border-radius:5px;display:inline-block;margin-bottom:10px;color:#121212;font-weight:700}
-    .code-wrapper{position:relative;max-width:800px;margin:0 auto}
-    pre{background:#1e1e1e;border-radius:8px;padding:20px;overflow-x:auto}
-    code{font-size:.95rem}
-    iframe.tutor{width:100%;height:720px;border:none;border-radius:8px;box-shadow:0 0 10px rgba(0,0,0,.5);margin-top:20px}
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: #121212;
+      color: #f0f0f0;
+      padding: 20px;
+      line-height: 1.6;
+    }
+    
+    nav.top-nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background: #1e1e1e;
+      padding: 10px 20px;
+      text-align: center;
+      z-index: 1000;
+    }
+    
+    nav.top-nav a {
+      color: #66d9ef;
+      margin: 0 10px;
+      text-decoration: none;
+      font-weight: 600;
+    }
+    
+    .sidebar-tab {
+      position: fixed;
+      top: 80px;
+      left: 0;
+      width: 180px;
+      background: #1c1c1c;
+      padding: 20px;
+      height: calc(100% - 80px);
+      overflow-y: auto;
+    }
+
+    .sidebar-tab a {
+      display: block;
+      color: #66d9ef;
+      margin-bottom: 12px;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .sidebar-tab a:hover {
+      text-decoration: underline;
+    }
+    
+    h1, h2 {
+      color: #66d9ef;
+      text-align: center;
+    }
+    
+    h3 {
+      color: #ffc107;
+      margin-top: 20px;
+    }
+    
+    .comment-box {
+      background: rgba(102,217,239,.08);
+      border-left: 3px solid #66d9ef;
+      padding: 15px 20px;
+      margin: 30px auto;
+      border-radius: 8px;
+      max-width: 800px;
+    }
+    
+    .section {
+      margin: 0 auto 60px;
+      max-width: 800px;
+    }
+
+    .code-label {
+      background: #66d9ef;
+      padding: 5px 10px;
+      border-radius: 5px;
+      display: inline-block;
+      margin-bottom: 10px;
+      color: #121212;
+      font-weight: 700;
+    }
+    
+    .code-wrapper {
+      position: relative;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    pre {
+      background: #1e1e1e;
+      border-radius: 8px;
+      padding: 20px;
+      overflow-x: auto;
+    }
+    
+    code {
+      font-size: .95rem;
+    }
+    
+    iframe.tutor {
+      width: 100%;
+      height: 720px;
+      border: none;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,.5);
+      margin-top: 20px;
+    }
+
+    @media (max-width: 768px) {
+      body {
+        padding: 20px 10px;
+      }
+
+      .sidebar-tab {
+        position: static;
+        width: auto;
+        height: auto;
+        padding: 10px;
+        margin-top: 20px;
+      }
+
+      nav.top-nav {
+        text-align: left;
+        padding: 15px 10px;
+      }
+
+      nav.top-nav a {
+        font-size: 14px;
+        margin: 0 5px;
+      }
+
+      .section {
+        max-width: 100%;
+        margin: 20px 0;
+      }
+
+      iframe.tutor {
+        height: 400px;
+      }
+
+      h1, h2, h3 {
+        font-size: 1.5rem;
+      }
+
+      .code-wrapper pre {
+        font-size: 0.9rem;
+        padding: 10px;
+      }
+    }
   </style>
 </head>
 <body>
@@ -39,7 +174,7 @@
     <a href="#counting-sort">Counting Sort</a>
     <a href="#radix-sort">Radix Sort</a>
     <a href="#bubble-sort">Bubble Sort</a>
-</div>
+  </div>
 
   <h1>Sorting Algorithms</h1>
   <div class="comment-box">Reference sheet for popular sorting algorithms with sample C++ implementations. An interactive Quick Sort tutor is included below.</div>
