@@ -51,25 +51,27 @@
   <div id="desc">Press Shuffle then Step to start.</div>
   <div id="array"></div>
   <script>
-    const BAR_W=40, GAP=10, N=16;
-    let values=[], bars=[], actions=[], ptr=0, autoPlay=false, timer;
-    let speed=600;
+    const BAR_W = 40, GAP = 10, N = 16;
+    let values = [], bars = [], actions = [], ptr = 0, autoPlay = false, timer;
+    let speed = 600;
 
-    const arrayEl=document.getElementById('array'), descEl=document.getElementById('desc');
-    const speedSelect=document.getElementById('speedSelect');
+    const arrayEl = document.getElementById('array'), descEl = document.getElementById('desc');
+    const speedSelect = document.getElementById('speedSelect');
 
     function layoutBars(){
-      const totalWidth=N*(BAR_W+GAP)-GAP;
-      const offset=(arrayEl.clientWidth-totalWidth)/2;
-      bars.forEach((b,i)=> b.style.left=${offset+i*(BAR_W+GAP)}px);
+      const totalWidth = N * (BAR_W + GAP) - GAP;
+      const offset = (arrayEl.clientWidth - totalWidth) / 2;
+      bars.forEach((b, i) => b.style.left = `${offset + i * (BAR_W + GAP)}px`);
     }
+
     function createBars(){
-      arrayEl.innerHTML=''; bars=[];
-      values.forEach(v=>{
-        const bar=document.createElement('div');
-        bar.className='bar';
-        bar.style.height=${v*3+30}px;
-        bar.innerHTML=<span>${v}</span>;
+      arrayEl.innerHTML = '';
+      bars = [];
+      values.forEach(v => {
+        const bar = document.createElement('div');
+        bar.className = 'bar';
+        bar.style.height = `${v * 3 + 30}px`;
+        bar.innerHTML = `<span>${v}</span>`;
         arrayEl.appendChild(bar);
         bars.push(bar);
       });
@@ -77,60 +79,87 @@
     }
 
     function recordActions(a){
-      // insertion sort via swaps
-      for(let i=1;i<N;i++){
-        actions.push({type:'active',index:i});
-        for(let j=i;j>0;j--){
-          actions.push({type:'compare',i:j-1,j:j});
-          if(a[j]<a[j-1]){
-            actions.push({type:'swap',i:j-1,j:j});
-            [a[j],a[j-1]]=[a[j-1],a[j]];
+      for(let i = 1; i < N; i++){
+        actions.push({ type: 'active', index: i });
+        for(let j = i; j > 0; j--){
+          actions.push({ type: 'compare', i: j-1, j: j });
+          if(a[j] < a[j-1]){
+            actions.push({ type: 'swap', i: j-1, j: j });
+            [a[j], a[j-1]] = [a[j-1], a[j]];
           } else break;
         }
-        actions.push({type:'sorted',index:i});
+        actions.push({ type: 'sorted', index: i });
       }
-      // mark full sorted
-      for(let k=0;k<N;k++) actions.push({type:'sorted',index:k});
+      for(let k = 0; k < N; k++) actions.push({ type: 'sorted', index: k });
     }
 
     function initArray(){
-      values=Array.from({length:N},()=>Math.floor(Math.random()*90)+10);
-      actions=[]; ptr=0; clearInterval(timer); autoPlay=false;
-      document.getElementById('auto').textContent='Auto Play';
+      values = Array.from({ length: N }, () => Math.floor(Math.random() * 90) + 10);
+      actions = [];
+      ptr = 0;
+      clearInterval(timer);
+      autoPlay = false;
+      document.getElementById('auto').textContent = 'Auto Play';
       recordActions(values.slice());
-      createBars(); descEl.textContent='Array shuffled.';
+      createBars();
+      descEl.textContent = 'Array shuffled.';
     }
 
-    function clearHighlights(){ bars.forEach(b=>b.classList.remove('active','compare','swap','sorted')); }
+    function clearHighlights(){
+      bars.forEach(b => b.classList.remove('active', 'compare', 'swap', 'sorted'));
+    }
 
     function step(){
-      if(ptr>=actions.length){ clearInterval(timer); return; }
-      const act=actions[ptr++];
+      if(ptr >= actions.length){ clearInterval(timer); return; }
+      const act = actions[ptr++];
       clearHighlights();
       switch(act.type){
-        case 'active': bars[act.index].classList.add('active'); descEl.textContent=Select key at index ${act.index}; break;
-        case 'compare': bars[act.i].classList.add('compare'); bars[act.j].classList.add('compare'); descEl.textContent=Compare index ${act.i} & ${act.j}; break;
-        case 'swap':
-          bars[act.i].classList.add('swap'); bars[act.j].classList.add('swap');
-          [values[act.i],values[act.j]]=[values[act.j],values[act.i]];
-          [bars[act.i],bars[act.j]]=[bars[act.j],bars[act.i]];
-          bars.forEach((bar,idx)=>{ bar.style.height=${values[idx]*3+30}px; bar.firstChild.textContent=values[idx]; });
-          layoutBars(); descEl.textContent=Swapped indices ${act.i} & ${act.j};
+        case 'active':
+          bars[act.index].classList.add('active');
+          descEl.textContent = `Select key at index ${act.index}`;
           break;
-        case 'sorted': bars[act.index].classList.add('sorted'); descEl.textContent=Index ${act.index} sorted; break;
+        case 'compare':
+          bars[act.i].classList.add('compare');
+          bars[act.j].classList.add('compare');
+          descEl.textContent = `Compare index ${act.i} & ${act.j}`;
+          break;
+        case 'swap':
+          bars[act.i].classList.add('swap');
+          bars[act.j].classList.add('swap');
+          [values[act.i], values[act.j]] = [values[act.j], values[act.i]];
+          [bars[act.i], bars[act.j]] = [bars[act.j], bars[act.i]];
+          bars.forEach((bar, idx) => {
+            bar.style.height = `${values[idx] * 3 + 30}px`;
+            bar.firstChild.textContent = values[idx];
+          });
+          layoutBars();
+          descEl.textContent = `Swapped indices ${act.i} & ${act.j}`;
+          break;
+        case 'sorted':
+          bars[act.index].classList.add('sorted');
+          descEl.textContent = `Index ${act.index} sorted`;
+          break;
       }
     }
 
-    document.getElementById('shuffle').onclick=initArray;
-    document.getElementById('step').onclick=step;
-    document.getElementById('auto').onclick=()=>{
-      autoPlay=!autoPlay;
-      document.getElementById('auto').textContent=autoPlay?'Pause':'Auto Play';
+    document.getElementById('shuffle').onclick = initArray;
+    document.getElementById('step').onclick = step;
+    document.getElementById('auto').onclick = () => {
+      autoPlay = !autoPlay;
+      document.getElementById('auto').textContent = autoPlay ? 'Pause' : 'Auto Play';
       clearInterval(timer);
-      if(autoPlay) timer=setInterval(step,speed);
+      if(autoPlay) timer = setInterval(step, speed);
     };
-    document.getElementById('reset').onclick=()=>{ ptr=0; clearInterval(timer); autoPlay=false; document.getElementById('auto').textContent='Auto Play'; createBars(); clearHighlights(); descEl.textContent='Press Step to start.'; };
-    speedSelect.onchange=e=>{ speed=parseInt(e.target.value); if(autoPlay){ clearInterval(timer); timer=setInterval(step,speed);} };
+    document.getElementById('reset').onclick = () => {
+      ptr = 0;
+      clearInterval(timer);
+      autoPlay = false;
+      document.getElementById('auto').textContent = 'Auto Play';
+      createBars();
+      clearHighlights();
+      descEl.textContent = 'Press Step to start.';
+    };
+    speedSelect.onchange = e => { speed = parseInt(e.target.value, 10); if(autoPlay){ clearInterval(timer); timer = setInterval(step, speed); } };
 
     initArray();
   </script>
