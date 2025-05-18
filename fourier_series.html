@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Fourier Series</title>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+
+  <!-- MathJax for LaTeX -->
+  <script>
+    window.MathJax = {
+      tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] },
+      svg: { fontCache: 'global' }
+    };
+  </script>
+  <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: #fdfdfd;
+      color: #333;
+      padding: 20px;
+      max-width: 900px;
+      margin: auto;
+      line-height: 1.6;
+    }
+    nav {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    nav a {
+      margin: 0 10px;
+      text-decoration: none;
+      color: #007acc;
+      font-weight: 600;
+    }
+    h1 {
+      color: #5a2a83;
+      font-size: 2.2rem;
+      margin-bottom: 10px;
+    }
+    h2 {
+      color: #7d5ba6;
+      margin-top: 30px;
+      font-size: 1.4rem;
+    }
+    p, ul {
+      margin-top: 10px;
+    }
+    ul {
+      list-style: disc;
+      margin-left: 20px;
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="index.html">Coding</a> |
+    <a href="electrical.html">Electrical Engineering</a> |
+    <a href="physics.html">Physics</a> |
+    <a href="math.html">Math</a>
+  </nav>
+
+  <h1>Fourier Series</h1>
+
+  <p>
+    Think of a Fourier series like building a funky dance-party playlist out of pure beats:
+  </p>
+
+  <ul>
+    <li><strong>Your song (the wiggly curve):</strong> Any repeating pattern—like the beat of a drum or the curve of a roller-coaster track.</li>
+    <li><strong>Pure notes (sine &amp; cosine):</strong> Two super simple sounds: a smooth up-and-down wave (<code>sin</code>) and a smooth side-to-side wave (<code>cos</code>).</li>
+    <li><strong>Mixing harmonics:</strong> Speed those waves up—2× faster, 3× faster, etc. Each is a “harmonic,” like adding faster drum rolls to your basic beat.</li>
+    <li><strong>Putting it all together:</strong> Stack a bit of each wave—some slow, some fast—until the pile of waves wiggles exactly like your original pattern.</li>
+  </ul>
+
+  <h2>Mathematically</h2>
+
+  <p>
+    You pick a fundamental “step” (frequency) that matches your pattern’s repeat rate. For each harmonic <code>n</code>, you choose two volumes (coefficients) <code>a<sub>n</sub></code> (cosine) and <code>b<sub>n</sub></code> (sine).
+  </p>
+
+  <p>
+    The sum
+  </p>
+
+  <div>
+    $$f(x) \;\approx\; \frac{a_0}{2} \;+\;\sum_{n=1}^\infty\Bigl[a_n\cos(n\omega_0 x)\;+\;b_n\sin(n\omega_0 x)\Bigr]$$
+  </div>
+
+  <h2>Why it’s cool</h2>
+  <ul>
+    <li>Break any beat or bump into a recipe of pure waves.</li>
+    <li>In music, isolate bass, mids, and trebles.</li>
+    <li>In engineering, solve heat, sound, and light problems by working with simple waves.</li>
+  </ul>
+
+</body>
+</html>
