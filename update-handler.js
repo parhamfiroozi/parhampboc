@@ -31,15 +31,14 @@ async function sortAndTagContent() {
     skills.forEach(skill => {
       const subjectId   = skill.dataset.id;
       const inlineTag   = skill.querySelector('.last-updated-inline');
-      // ← scope this to direct child spans only:
+      // <-- only target the skill‐level span, not the li spans
       const boxTag      = skill.querySelector(':scope > .last-updated');
 
-      // start with the skill file’s own date (or epoch if missing)
       let subjectTime = updates[subjectId]
         ? new Date(updates[subjectId])
         : new Date(0);
 
-      // now process each <li> inside this skill
+      // update all sub‐items
       skill.querySelectorAll('li').forEach(li => {
         const subId  = li.dataset.id;
         const subTag = li.querySelector('.last-updated');
@@ -54,7 +53,7 @@ async function sortAndTagContent() {
         }
       });
 
-      // if we found any timestamp, write the skill-level tags
+      // write the skill‐level timestamp
       if (subjectTime.getTime() > 0) {
         const relative = formatRelativeTime(subjectTime);
 
@@ -70,14 +69,13 @@ async function sortAndTagContent() {
       }
     });
 
-    // sort skills by their dataset.updated descending
+    // sort skills by most‐recent update
     skills.sort((a, b) => {
       const aTime = new Date(a.dataset.updated||0).getTime();
       const bTime = new Date(b.dataset.updated||0).getTime();
       return bTime - aTime;
     });
 
-    // re-append in sorted order
     skills.forEach(skill => container.appendChild(skill));
   } catch (err) {
     console.error("Failed to fetch updates.json:", err);
