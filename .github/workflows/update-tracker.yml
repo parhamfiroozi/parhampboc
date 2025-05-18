@@ -2,16 +2,25 @@ name: Auto-update updates.json
 
 on:
   push:
-    branches: [ main ]  # Runs on every push to main
+    branches:
+      - main
+    # Only run when you change HTML files or your timestamp script
+    paths:
+      - '**/*.html'
+      - 'generate-updates-json.js'
+    # But ignore commits that only update the JSON itself
+    paths-ignore:
+      - 'updates.json'
   schedule:
     - cron: '*/15 * * * *'  # Runs every 15 minutes (UTC)
 
 permissions:
-  contents: write  # Allows this workflow to push changes
+  contents: write
 
 jobs:
   update-timestamps:
     runs-on: ubuntu-latest
+    if: github.actor != 'github-actions[bot]'  # don’t run if the commit was made by the Actions bot
 
     steps:
       - name: 📥 Checkout Repo
@@ -31,10 +40,6 @@ jobs:
         run: |
           git config user.name github-actions
           git config user.email github-actions@github.com
-          # Stash changes so "git pull" won't complain
-          git stash --include-untracked
-          git pull origin main
-          git stash pop || true
           git add updates.json
-          git commit -m "🔄 Auto-update updates.json" || echo "No changes to commit"
+          git diff --quiet --cached || git commit -m "🔄 Auto-update updates.json"
           git push origin main
