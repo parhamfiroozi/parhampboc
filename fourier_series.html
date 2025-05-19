@@ -117,5 +117,73 @@
   </p>
 </div>
 
+  <!-- Full Derivation of Euler’s Formulas -->
+<section id="euler-derivation" style="margin-top:2rem; padding:1.5rem; background:#f9f9f9; border-radius:8px;">
+  <h2 style="margin-bottom:1rem; color:#333;">Derivation of Fourier Coefficients (Euler’s Formulas)</h2>
+
+  <h3>1. Assumptions &amp; Setup</h3>
+  <p>
+    Let <em>f(x)</em> be periodic with period <em>2L</em>, i.e. <em>f(x + 2L)=f(x)</em>.  
+    Assume it admits the expansion  
+  </p>
+  <p style="text-align:center; font-family:serif; font-size:1.1rem;">
+    <code>f(x) = a₀/2 + Σ<sub>n=1</sub><sup>∞</sup> [aₙ cos(nπx/L) + bₙ sin(nπx/L)]</code>
+  </p>
+
+  <h3>2. Orthogonality Lemmas</h3>
+  <ul style="margin-left:1.2rem; color:#555;">
+    <li><strong>1.</strong> ∫₋ᴸᴸ cos(nπx/L) dx = 0</li>
+    <li><strong>2.</strong> ∫₋ᴸᴸ sin(nπx/L) dx = 0</li>
+    <li><strong>3.</strong> ∫₋ᴸᴸ sin(mπx/L) cos(nπx/L) dx = 0</li>
+    <li><strong>4.</strong> ∫₋ᴸᴸ cos(mπx/L) cos(nπx/L) dx =  
+      <code>0</code> if m≠n, <code>L</code> if m=n≠0  
+    </li>
+    <li><strong>5.</strong> ∫₋ᴸᴸ sin(mπx/L) sin(nπx/L) dx =  
+      <code>0</code> if m≠n, <code>L</code> if m=n≠0  
+    </li>
+  </ul>
+
+  <h3>3. Formula for <code>a₀</code></h3>
+  <p>
+    Integrate both sides over [–L,L] and use Lemmas 1–2:  
+  </p>
+  <p style="text-align:center;">
+    <code>∫₋ᴸᴸ f(x) dx = a₀ L</code>  
+    ⇒  
+    <strong>a₀ = (1/L) ∫₋ᴸᴸ f(x) dx</strong>
+  </p>
+
+  <h3>4. Formula for <code>aₙ</code> (n ≥ 1)</h3>
+  <p>
+    Multiply by cos(nπx/L), integrate, use Lemmas 3–4:  
+  </p>
+  <p style="text-align:center;">
+    <code>∫₋ᴸᴸ f(x) cos(nπx/L) dx = aₙ L</code>  
+    ⇒  
+    <strong>aₙ = (1/L) ∫₋ᴸᴸ f(x) cos(nπx/L) dx</strong>
+  </p>
+
+  <h3>5. Formula for <code>bₙ</code> (n ≥ 1)</h3>
+  <p>
+    Multiply by sin(nπx/L), integrate, use Lemmas 3–5:  
+  </p>
+  <p style="text-align:center;">
+    <code>∫₋ᴸᴸ f(x) sin(nπx/L) dx = bₙ L</code>  
+    ⇒  
+    <strong>bₙ = (1/L) ∫₋ᴸᴸ f(x) sin(nπx/L) dx</strong>
+  </p>
+
+  <h3>6. Convergence Conditions (Dirichlet)</h3>
+  <p style="margin-left:1.2rem; color:#555;">
+    The series converges to <em>f(x)</em> (or to the midpoint at discontinuities) if  
+    <ol>
+      <li>f is 2L-periodic;</li>
+      <li>f is piecewise continuous on [–L,L];</li>
+      <li>f has finitely many extrema and discontinuities there.</li>
+    </ol>
+  </p>
+</section>
+
+
 </body>
 </html>
