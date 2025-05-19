@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-P8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fourier Series Animation</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #111827; /* bg-gray-900 */
+            color: #d1d5db; /* text-gray-300 */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 1rem;
+            overflow-x: hidden; /* Prevent horizontal scroll */
+        }
+        .container {
+            background-color: #1f2937; /* bg-gray-800 */
+            padding: 1.5rem;
+            border-radius: 0.75rem; /* rounded-xl */
+            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05);
+            width: 100%;
+            max-width: 900px; /* Increased max-width */
+        }
+        canvas {
+            background-color: #374151; /* bg-gray-700 */
+            border-radius: 0.5rem; /* rounded-lg */
+            display: block; /* Remove extra space below canvas */
+            width: 100%; /* Make canvas responsive */
+            height: auto; /* Maintain aspect ratio */
+        }
+        .controls {
+            margin-bottom: 1.5rem;
+            display: flex;
+            flex-wrap: wrap; /* Allow controls to wrap on smaller screens */
+            gap: 1rem; /* Space between control groups */
+            align-items: center;
+            justify-content: space-between; /* Distribute space */
+        }
+        .control-group {
+            display: flex;
+            flex-direction: column; /* Stack label and input */
+            gap: 0.5rem; /* Space between label and input */
+            min-width: 150px; /* Minimum width for control groups */
+            flex-grow: 1; /* Allow groups to grow */
+        }
+        label {
+            font-size: 0.875rem; /* text-sm */
+            font-weight: 500; /* font-medium */
+            color: #9ca3af; /* text-gray-400 */
+        }
+        select, input[type="range"] {
+            background-color: #4b5563; /* bg-gray-600 */
+            border: 1px solid #6b7280; /* border-gray-500 */
+            color: #e5e7eb; /* text-gray-200 */
+            border-radius: 0.375rem; /* rounded-md */
+            padding: 0.5rem;
+            font-size: 0.875rem;
+            width: 100%; /* Make inputs take full width of their group */
+        }
+        input[type="range"] {
+            padding: 0; /* Remove default padding for range */
+            cursor: pointer;
+        }
+        .slider-container {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        #termsValue, #amplitudeValue {
+            min-width: 2rem; /* Ensure span has some width */
+            text-align: right;
+            color: #e5e7eb;
+        }
+        .info-box {
+            margin-top: 1rem;
+            padding: 1rem;
+            background-color: #374151; /* bg-gray-700 */
+            border-radius: 0.5rem;
+            font-size: 0.875rem;
+            color: #d1d5db;
+            min-height: 50px;
+        }
+        h1, h2 {
+            color: #e5e7eb; /* text-gray-200 */
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+        h2 {
+            font-size: 1.25rem; /* text-xl */
+            margin-top: 1.5rem;
+        }
+        .canvases-container {
+            display: flex;
+            flex-direction: column; /* Stack canvases on small screens */
+            gap: 1.5rem;
+        }
+
+        @media (min-width: 768px) { /* md breakpoint */
+            .canvases-container {
+                flex-direction: row; /* Canvases side-by-side on larger screens */
+            }
+            .canvas-wrapper {
+                flex: 1; /* Each canvas wrapper takes equal space */
+            }
+        }
+        .canvas-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Fourier Series Visualization</h1>
+
+        <div class="controls">
+            <div class="control-group">
+                <label for="waveSelect">Waveform:</label>
+                <select id="waveSelect">
+                    <option value="square">Square Wave</option>
+                    <option value="sawtooth">Sawtooth Wave</option>
+                    <option value="triangle">Triangle Wave</option>
+                    <option value="pulse">Pulse Train</option>
+                </select>
+            </div>
+            <div class="control-group">
+                <label for="termsSlider">Number of Terms (N): <span id="termsValue">1</span></label>
+                <input type="range" id="termsSlider" min="1" max="50" value="1">
+            </div>
+            <div class="control-group">
+                <label for="amplitudeSlider">Base Amplitude (A): <span id="amplitudeValue">1.0</span></label>
+                <input type="range" id="amplitudeSlider" min="0.1" max="2.0" value="1.0" step="0.1">
+            </div>
+        </div>
+
+        <div class="canvases-container">
+            <div class="canvas-wrapper">
+                <h2>Time Domain</h2>
+                <canvas id="timeDomainCanvas" width="800" height="400"></canvas>
+            </div>
+            <div class="canvas-wrapper">
+                <h2>Frequency Domain (Spectrum)</h2>
+                <canvas id="frequencyDomainCanvas" width="800" height="400"></canvas>
+            </div>
+        </div>
+
+        <div id="infoBox" class="info-box">
+            Adjust the controls to see how different waveforms are synthesized.
+        </div>
+    </div>
+
+    <script>
+        // DOM Elements
+        const waveSelect = document.getElementById('waveSelect');
+        const termsSlider = document.getElementById('termsSlider');
+        const termsValueSpan = document.getElementById('termsValue');
+        const amplitudeSlider = document.getElementById('amplitudeSlider');
+        const amplitudeValueSpan = document.getElementById('amplitudeValue');
+        const infoBox = document.getElementById('infoBox');
+
+        const timeCanvas = document.getElementById('timeDomainCanvas');
+        const timeCtx = timeCanvas.getContext('2d');
+        const freqCanvas = document.getElementById('frequencyDomainCanvas');
+        const freqCtx = freqCanvas.getContext('2d');
+
+        // Parameters
+        let numTerms = parseInt(termsSlider.value);
+        let baseAmplitude = parseFloat(amplitudeSlider.value);
+        let waveType = waveSelect.value;
+        const fundamentalFrequency = 1; // Base frequency (cycles per width of canvas)
+        const samples = 400; // Number of points to draw the wave
+
+        // Colors
+        const axisColor = '#9ca3af'; // gray-400
+        const idealWaveColor = 'rgba(255, 255, 255, 0.3)'; // white, translucent
+        const sumWaveColor = '#34d399'; // emerald-400
+        const harmonicColor = 'rgba(96, 165, 250, 0.4)'; // blue-400, translucent
+        const spectrumBarColor = '#f59e0b'; // amber-500
+        const textColor = '#e5e7eb'; // gray-200
+
+        function resizeCanvases() {
+            // Time Domain Canvas
+            const timeParentWidth = timeCanvas.parentElement.clientWidth;
+            timeCanvas.width = timeParentWidth;
+            timeCanvas.height = timeParentWidth * 0.5; // Maintain 2:1 aspect ratio
+
+            // Frequency Domain Canvas
+            const freqParentWidth = freqCanvas.parentElement.clientWidth;
+            freqCanvas.width = freqParentWidth;
+            freqCanvas.height = freqParentWidth * 0.5; // Maintain 2:1 aspect ratio
+            
+            draw(); // Redraw on resize
+        }
+
+        // Function to draw axes
+        function drawAxes(ctx, canvas, yRange = 2) {
+            ctx.strokeStyle = axisColor;
+            ctx.lineWidth = 1;
+            const { width, height } = canvas;
+            const originX = 0; // Start x-axis from the left edge
+            const originY = height / 2;
+
+            // Y-axis (only a line if originX is not 0, otherwise it's the left edge)
+            // X-axis
+            ctx.beginPath();
+            ctx.moveTo(originX, originY);
+            ctx.lineTo(width, originY);
+            ctx.stroke();
+
+            // Labels for Y-axis
+            ctx.fillStyle = textColor;
+            ctx.font = '10px Inter';
+            ctx.textAlign = 'right';
+            ctx.fillText(yRange.toFixed(1), originX + 20, originY - (height/2 - 10) * (yRange / yRange) + 5);
+            ctx.fillText('0', originX + 10, originY + 5);
+            ctx.fillText((-yRange).toFixed(1), originX + 20, originY + (height/2 - 10) * (yRange / yRange) + 5);
+        }
+
+        // Function to get Fourier coefficients
+        // Returns an array of { amp: amplitude, freq: frequency (multiple of fundamental), phase: phase }
+        function getCoefficients(type, terms, amplitude) {
+            const coeffs = [];
+            let seriesInfo = "";
+
+            switch (type) {
+                case 'square':
+                    // Square wave: (4A/π) * Σ [sin((2k-1)ωt) / (2k-1)] for k=1 to N
+                    seriesInfo = `Square Wave: A(t) = (4A/π) Σ [sin((2k-1)ωt) / (2k-1)], k=1..${terms}`;
+                    for (let k = 1; k <= terms; k++) {
+                        const n = 2 * k - 1; // Odd harmonics
+                        coeffs.push({
+                            amp: amplitude * (4 / Math.PI) * (1 / n),
+                            freq: n * fundamentalFrequency,
+                            phase: 0
+                        });
+                    }
+                    break;
+                case 'sawtooth':
+                    // Sawtooth wave: A - (2A/π) * Σ [sin(kωt) / k] for k=1 to N (for ramp up, then drop)
+                    // Or (2A/π) * Σ [(-1)^(k+1) * sin(kωt) / k] (for ramp up, then immediate jump down at T)
+                    seriesInfo = `Sawtooth Wave: A(t) = (2A/π) Σ [(-1)^(k+1) * sin(kωt) / k], k=1..${terms}`;
+                    for (let k = 1; k <= terms; k++) {
+                        coeffs.push({
+                            amp: amplitude * (2 / Math.PI) * (Math.pow(-1, k + 1) / k),
+                            freq: k * fundamentalFrequency,
+                            phase: 0 // Some definitions use Math.PI/2 phase shift (cos)
+                        });
+                    }
+                    break;
+                case 'triangle':
+                    // Triangle wave: (8A/π²) * Σ [(-1)^k * sin((2k+1)ωt) / (2k+1)²] for k=0 to N-1
+                    seriesInfo = `Triangle Wave: A(t) = (8A/π²) Σ [(-1)^k * sin((2k+1)ωt) / (2k+1)²], k=0..${terms-1}`;
+                    for (let k = 0; k < terms; k++) {
+                        const n = 2 * k + 1; // Odd harmonics
+                        coeffs.push({
+                            amp: amplitude * (8 / (Math.PI * Math.PI)) * (Math.pow(-1, k) / (n * n)),
+                            freq: n * fundamentalFrequency,
+                            phase: 0 // Can also be represented with cos and phase shift
+                        });
+                    }
+                    break;
+                case 'pulse':
+                    // Pulse train (approximation, simple sum of cosines for symmetry)
+                    // This is a simplified version, a true pulse train has a sinc function envelope for its spectrum.
+                    // For this demo, we'll use a sum of cosines to create a peak.
+                    // Coeffs: a0/2 + Σ an*cos(nωt). For a simple pulse, let's assume a_n are somewhat equal for low N.
+                    // This is more of a "cosine sum" than a true pulse train Fourier series.
+                    seriesInfo = `Pulse Train (approx): A(t) = A/N Σ cos(kωt), k=0..${terms-1}`;
+                     coeffs.push({ amp: amplitude / terms, freq: 0, phase: 0 }); // DC offset
+                    for (let k = 1; k < terms; k++) {
+                         coeffs.push({
+                            amp: amplitude / terms * 2, // Cosine amplitude
+                            freq: k * fundamentalFrequency,
+                            phase: Math.PI / 2 // Using sin with phase shift for cosine
+                        });
+                    }
+                    if (terms === 0 && coeffs.length === 0) { // Handle case of 0 terms for pulse
+                        coeffs.push({ amp: 0, freq: 0, phase: 0 });
+                    }
+                    break;
+            }
+            infoBox.textContent = seriesInfo || "Select a waveform and terms.";
+            return coeffs;
+        }
+
+        // Function to draw a single wave
+        function drawWave(ctx, canvas, waveFunc, color, lineWidth = 1, yOffset = 0) {
+            const { width, height } = canvas;
+            const scaleY = height / 4; // Scale factor for wave amplitude (height / (2 * max_amplitude_expected))
+            const originY = height / 2 + yOffset;
+
+            ctx.beginPath();
+            ctx.strokeStyle = color;
+            ctx.lineWidth = lineWidth;
+
+            for (let i = 0; i <= samples; i++) {
+                const xCanvas = (i / samples) * width; // x position on canvas
+                const t = (i / samples) * (2 * Math.PI); // Time variable from 0 to 2π (one cycle of fundamental)
+                
+                const yValue = waveFunc(t); // Get Y value from the provided function
+                const yCanvas = originY - yValue * scaleY;
+
+                if (i === 0) {
+                    ctx.moveTo(xCanvas, yCanvas);
+                } else {
+                    ctx.lineTo(xCanvas, yCanvas);
+                }
+            }
+            ctx.stroke();
+        }
+        
+        // Function to draw the ideal waveform
+        function drawIdealWave(ctx, canvas, type, amplitude) {
+            const waveFunc = (t) => {
+                // t is normalized from 0 to 2π
+                const normalizedT = t / (2 * Math.PI); // Normalize t to 0-1 range for one period
+                switch (type) {
+                    case 'square':
+                        return amplitude * ( (normalizedT % 1) < 0.5 ? 1 : -1 );
+                    case 'sawtooth':
+                        // Ramp from -A to A
+                        return amplitude * (2 * (normalizedT % 1) - 1);
+                    case 'triangle':
+                        // Goes from 0 to A, then A to -A, then -A to 0
+                        const periodFraction = normalizedT % 1;
+                        if (periodFraction < 0.25) return amplitude * (4 * periodFraction);
+                        else if (periodFraction < 0.75) return amplitude * (1 - 4 * (periodFraction - 0.25));
+                        else return amplitude * (-1 + 4 * (periodFraction - 0.75));
+                    case 'pulse':
+                        // A simple rectangular pulse for a small duration
+                        const pulseWidth = 0.1; // 10% of the period
+                        return (normalizedT % 1 < pulseWidth) ? amplitude : 0;
+
+                }
+                return 0;
+            };
+            drawWave(ctx, canvas, waveFunc, idealWaveColor, 1);
+        }
+
+
+        // Main draw function
+        function draw() {
+            const { width: timeWidth, height: timeHeight } = timeCanvas;
+            const { width: freqWidth, height: freqHeight } = freqCanvas;
+
+            // Clear canvases
+            timeCtx.clearRect(0, 0, timeWidth, timeHeight);
+            freqCtx.clearRect(0, 0, freqWidth, freqHeight);
+
+            // Draw axes
+            drawAxes(timeCtx, timeCanvas, baseAmplitude * 1.5); // Adjust Y range based on amplitude
+            drawAxes(freqCtx, freqCanvas, baseAmplitude * 1.5); // Y range for spectrum
+
+            // Get coefficients
+            const coefficients = getCoefficients(waveType, numTerms, baseAmplitude);
+
+            // --- Time Domain ---
+            // Draw ideal wave as reference
+            drawIdealWave(timeCtx, timeCanvas, waveType, baseAmplitude);
+
+            // Calculate sum wave points and draw individual harmonics
+            const sumWaveValues = new Array(samples + 1).fill(0);
+
+            coefficients.forEach(coeff => {
+                if (coeff.amp === 0 && coeff.freq === 0) return; // Skip zero DC for individual drawing if it's the only term
+
+                const harmonicFunc = (t) => {
+                     // For freq = 0 (DC offset), sin(0*t + phase) is not well-defined as a wave.
+                    // It's a constant value. The formula amp * sin(freq*t + phase) handles it if phase is 0 or PI.
+                    // If freq is 0, it's a DC component.
+                    if (coeff.freq === 0) return coeff.amp; // DC component
+                    return coeff.amp * Math.sin(coeff.freq * t + coeff.phase);
+                };
+                
+                // Draw individual harmonic (optional, can be too cluttered)
+                if (numTerms <= 10) { // Only draw individual harmonics if not too many
+                     drawWave(timeCtx, timeCanvas, harmonicFunc, harmonicColor, 0.5);
+                }
+
+                // Add to sum wave
+                for (let i = 0; i <= samples; i++) {
+                    const t = (i / samples) * (2 * Math.PI);
+                    sumWaveValues[i] += harmonicFunc(t);
+                }
+            });
+            
+            // Draw sum wave
+            const sumWaveFunc = (t) => {
+                let sum = 0;
+                coefficients.forEach(coeff => {
+                    if (coeff.freq === 0) sum += coeff.amp;
+                    else sum += coeff.amp * Math.sin(coeff.freq * t + coeff.phase);
+                });
+                return sum;
+            };
+            drawWave(timeCtx, timeCanvas, sumWaveFunc, sumWaveColor, 2);
+
+
+            // --- Frequency Domain (Spectrum) ---
+            freqCtx.fillStyle = spectrumBarColor;
+            const maxFreq = coefficients.reduce((max, c) => Math.max(max, c.freq), fundamentalFrequency);
+            const barWidth = Math.max(5, (freqWidth - 60) / (Math.max(numTerms,1) * (waveType === 'square' || waveType === 'triangle' ? 2 : 1) ) ); // Adjust bar width based on terms
+            const spectrumScaleY = (freqHeight / 2 - 10) / (baseAmplitude * 1.5); // Scale based on max possible amplitude
+
+            let currentX = 30; // Starting X for bars
+
+            coefficients.forEach(coeff => {
+                if (coeff.amp === 0) return;
+
+                const barHeight = Math.abs(coeff.amp) * spectrumScaleY;
+                const yPos = freqHeight / 2 - barHeight; // Bars grow upwards from center for positive
+
+                freqCtx.fillRect(currentX, yPos, barWidth, barHeight);
+                
+                // Draw negative part if amplitude is negative (though we use abs for height)
+                if (coeff.amp < 0) {
+                     freqCtx.fillRect(currentX, freqHeight / 2, barWidth, barHeight);
+                }
+
+
+                // Label frequency below bar
+                freqCtx.fillStyle = textColor;
+                freqCtx.font = '10px Inter';
+                freqCtx.textAlign = 'center';
+                freqCtx.fillText(`${coeff.freq.toFixed(0)}ω₀`, currentX + barWidth / 2, freqHeight / 2 + 15);
+                
+                currentX += barWidth + 5; // Add spacing between bars
+            });
+             if (coefficients.length === 0 && waveType === 'pulse' && numTerms === 0) {
+                 freqCtx.fillStyle = textColor;
+                 freqCtx.font = '12px Inter';
+                 freqCtx.textAlign = 'center';
+                 freqCtx.fillText("No components for N=0", freqWidth/2, freqHeight/2 - 20);
+             }
+
+
+        }
+
+        // Event Listeners
+        waveSelect.addEventListener('change', (e) => {
+            waveType = e.target.value;
+            // Reset terms for pulse if it was 0, or adjust max if needed
+            if (waveType === 'pulse' && termsSlider.value === '0') {
+                 termsSlider.value = '1'; // Ensure at least 1 term for pulse initially
+                 numTerms = 1;
+                 termsValueSpan.textContent = numTerms;
+            }
+            if (waveType === 'pulse') {
+                termsSlider.min = "0"; // Pulse can have 0 terms (DC only)
+            } else {
+                termsSlider.min = "1";
+                if (numTerms === 0) {
+                    numTerms = 1;
+                    termsSlider.value = "1";
+                    termsValueSpan.textContent = numTerms;
+                }
+            }
+            draw();
+        });
+
+        termsSlider.addEventListener('input', (e) => {
+            numTerms = parseInt(e.target.value);
+            termsValueSpan.textContent = numTerms;
+            draw();
+        });
+
+        amplitudeSlider.addEventListener('input', (e) => {
+            baseAmplitude = parseFloat(e.target.value);
+            amplitudeValueSpan.textContent = baseAmplitude.toFixed(1);
+            draw();
+        });
+        
+        window.addEventListener('resize', resizeCanvases);
+
+        // Initial setup
+        function init() {
+            termsValueSpan.textContent = termsSlider.value;
+            amplitudeValueSpan.textContent = parseFloat(amplitudeSlider.value).toFixed(1);
+            if (waveType === 'pulse') termsSlider.min = "0"; // Allow 0 for pulse train initially
+            
+            resizeCanvases(); // Initial resize and draw
+        }
+
+        init();
+    </script>
+</body>
+</html>
