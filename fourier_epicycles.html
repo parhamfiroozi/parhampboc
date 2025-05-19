@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fourier Series Animation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 0;
+            padding: 20px;
+            background-color: #f0f0f0;
+        }
+        canvas {
+            border: 1px solid #ccc;
+            background-color: #fff;
+            margin-bottom: 20px;
+        }
+        .controls {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            padding: 10px;
+            background-color: #e0e0e0;
+            border-radius: 8px;
+        }
+        .controls label {
+            font-weight: bold;
+        }
+        .controls input[type="range"] {
+            width: 200px;
+        }
+        .controls select {
+            padding: 5px;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="fourierCanvas" width="1000" height="500"></canvas>
+    <div class="controls">
+        <label for="nSlider">Number of Terms (N):</label>
+        <input type="range" id="nSlider" min="1" max="50" value="3"> <!-- Default N changed for better initial view -->
+        <span id="nValue">3</span>
+
+        <label for="waveSelect">Waveform:</label>
+        <select id="waveSelect">
+            <option value="square">Square</option>
+            <option value="sawtooth">Sawtooth</option>
+            <option value="triangle">Triangle</option>
+            <option value="sine">Sine</option>
+        </select>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('fourierCanvas');
+        const ctx = canvas.getContext('2d');
+
+        const nSlider = document.getElementById('nSlider');
+        const nValueDisplay = document.getElementById('nValue');
+        const waveSelect = document.getElementById('waveSelect');
+
+        let time = 0;
+        const wavePath = [];
+        const maxWavePathLength = 400;
+
+        const epicycleOrigin = { x: 250, y: 250 };
+        const wavePlotOriginX = 500; // Adjusted for potentially wider epicycle displays
+        const baseAmplitudeScale = 80; // Slightly increased for better visibility
+
+        // --- Fourier Series Definitions (a_k, b_k for f(t) = a_0/2 + sum(a_k cos(kt) + b_k sin(kt))) ---
+        // We then compute c'_k which are i * c_k (standard complex coefficients)
+        // c'_0 = i * a_0/2
+        // c'_k (k>0) = (b_k + i*a_k)/2
+        // c'_{-k} (k>0) = (-b_k + i*a_k)/2
+        const WAVEFORM_DEFINITIONS = {
+            square: { // Amplitude 1 (range -1 to 1), period 2PI
+                a0: 0,
+                get_ak: (k) => 0,
+                get_bk: (k) => {
+                    if (k % 2 === 1) { // k is odd
+                        return 4 / (k * Math.PI);
+                    }
+                    return 0;
+                }
+            },
+            sawtooth: { // f(t) = (PI - t)/PI for t in (0, 2PI) -> sum (2/k)sin(kt) - this is 0 to 2
+                        // Or f(t) = t/PI for (-PI,PI) -> sum 2*(-1)^(k+1)/k * sin(kt) / PI (scaled) amplitude ~0.6
+                a0: 0, // For a sawtooth centered around y=0
+                get_ak: (k) => 0,
+                get_bk: (k) => {
+                    if (k === 0) return 0;
+                    return 2 * Math.pow(-1, k + 1) / (k * Math.PI) ; // Scaled by 1/PI to keep amplitude reasonable
+                }
+            },
+            triangle: { // Triangle wave /\/\, starts at 0, up to 1, period 2PI
+                        // f(t) = 8/(PI^2) * sum_{k odd} ( (-1)^((k-1)/2) / k^2 ) * sin(kt)
+                a0: 0,
+                get_ak: (k) => 0,
+                get_bk: (k) => {
+                    if (k % 2 === 1) { // k is odd
+                        return (8 / (Math.PI * Math.PI * k * k)) * Math.pow(-1, (k - 1) / 2);
+                    }
+                    return 0;
+                }
+            },
+            sine: { // f(t) = sin(t)
+                a0: 0,
+                get_ak: (k) => 0,
+                get_bk: (k) => (k === 1 ? 1 : 0)
+            }
+        };
+
+        function getCoefficients(n_term, waveDef) {
+            const k = Math.abs(n_term);
+
+            if (n_term === 0) {
+                const a0 = waveDef.a0;
+                return { re: 0, im: a0 / 2 };
+            }
+
+            const ak = waveDef.get_ak(k);
+            const bk = waveDef.get_bk(k);
+
+            if (ak === 0 && bk === 0 && k !== 0) return { re: 0, im: 0 }; // Optimization for zero terms
+
+            if (n_term > 0) {
+                return { re: bk / 2, im: ak / 2 };
+            } else { // n_term < 0
+                return { re: -bk / 2, im: ak / 2 };
+            }
+        }
+        
+        function getTermsOrder(maxN_abs) {
+            const order = [];
+            const waveDef = WAVEFORM_DEFINITIONS[waveSelect.value];
+            if (waveDef.a0 !== 0 || getCoefficients(0, waveDef).im !== 0 ) { // Check if DC actually exists
+                 order.push(0);
+            }
+            for (let i = 1; i <= maxN_abs; i++) {
+                order.push(i);
+                order.push(-i);
+            }
+            return order;
+        }
+
+        function draw() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = '#fff';
+            ctx.fillRect(0,0,canvas.width, canvas.height);
+
+            const N = parseInt(nSlider.value);
+            const selectedWaveformKey = waveSelect.value;
+            const currentWaveDef = WAVEFORM_DEFINITIONS[selectedWaveformKey];
+
+            let currentX = epicycleOrigin.x;
+            let currentY = epicycleOrigin.y;
+
+            const termsToDraw = getTermsOrder(N);
+
+            for (const n_val of termsToDraw) {
+                const coeff = getCoefficients(n_val, currentWaveDef);
+                
+                // Magnitude and phase of c'_n
+                const amplitude = Math.sqrt(coeff.re * coeff.re + coeff.im * coeff.im) * baseAmplitudeScale;
+                const phase = Math.atan2(coeff.im, coeff.re); // atan2(Y, X)
+
+                if (amplitude < 0.01) continue; // Skip tiny terms
+
+                ctx.beginPath();
+                ctx.strokeStyle = 'rgba(0, 0, 0, 0.2)'; // Lighter circles
+                ctx.lineWidth = 1;
+                ctx.arc(currentX, currentY, amplitude, 0, 2 * Math.PI);
+                ctx.stroke();
+
+                const prevX = currentX;
+                const prevY = currentY;
+
+                // Add vector (Re(c'_n * exp(i*n*t)), Im(c'_n * exp(i*n*t)))
+                // c'_n * exp(i*n*t) = |c'_n|exp(i*arg(c'_n)) * exp(i*n*t) = |c'_n|exp(i*(n*t + arg(c'_n)))
+                currentX += amplitude * Math.cos(n_val * time + phase);
+                currentY += amplitude * Math.sin(n_val * time + phase);
+
+                ctx.beginPath();
+                ctx.strokeStyle = 'rgba(0, 0, 0, 0.7)'; // Slightly less dark vectors
+                ctx.lineWidth = 1.5;
+                ctx.moveTo(prevX, prevY);
+                ctx.lineTo(currentX, currentY);
+                ctx.stroke();
+                 // Draw a small circle at the tip of each vector
+                ctx.beginPath();
+                ctx.fillStyle = 'red';
+                ctx.arc(currentX, currentY, 2, 0, 2 * Math.PI);
+                ctx.fill();
+            }
+            
+            wavePath.unshift(currentY); 
+            if (wavePath.length > maxWavePathLength) {
+                wavePath.pop();
+            }
+
+            ctx.beginPath();
+            ctx.strokeStyle = 'blue';
+            ctx.lineWidth = 2;
+            ctx.moveTo(currentX, currentY);
+            ctx.lineTo(wavePlotOriginX, wavePath[0] || epicycleOrigin.y); // Connect to first point or origin y
+            ctx.stroke();
+
+            ctx.beginPath(); // Start new path for the wave itself
+            for (let i = 0; i < wavePath.length; i++) {
+                const xPos = wavePlotOriginX + i * 1.2; // Spacing of wave points
+                const yPos = wavePath[i];
+                if (i === 0) {
+                    ctx.moveTo(xPos, yPos);
+                } else {
+                    ctx.lineTo(xPos, yPos);
+                }
+            }
+            ctx.stroke();
+            
+            // Draw axes for epicycle plot
+            ctx.strokeStyle = 'rgba(0,0,0,0.3)';
+            ctx.lineWidth = 0.5;
+            ctx.beginPath();
+            ctx.moveTo(epicycleOrigin.x - 150, epicycleOrigin.y);
+            ctx.lineTo(epicycleOrigin.x + 150, epicycleOrigin.y);
+            ctx.moveTo(epicycleOrigin.x, epicycleOrigin.y - 150);
+            ctx.lineTo(epicycleOrigin.x, epicycleOrigin.y + 150);
+            ctx.stroke();
+
+            // Draw axis for wave plot
+            ctx.beginPath();
+            ctx.moveTo(wavePlotOriginX, epicycleOrigin.y);
+            ctx.lineTo(wavePlotOriginX + maxWavePathLength * 1.2, epicycleOrigin.y);
+            ctx.stroke();
+
+
+            time += (2 * Math.PI) / (maxWavePathLength * 0.8) ; // Slightly adjust speed if needed
+            // No need to wrap time with Math.PI, sin/cos handle it.
+
+            requestAnimationFrame(draw);
+        }
+
+        nSlider.addEventListener('input', (e) => {
+            nValueDisplay.textContent = e.target.value;
+        });
+
+        waveSelect.addEventListener('change', () => {
+            time = 0; 
+            wavePath.length = 0; 
+        });
+        
+        nValueDisplay.textContent = nSlider.value;
+        draw();
+
+    </script>
+</body>
+</html>
