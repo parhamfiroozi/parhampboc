@@ -116,6 +116,85 @@
     This demo uses rotating circles to build up complex waveforms from simple sine terms, showing how frequency components align in motion.
   </p>
 </div>
+<article>
+  <h1>Derivation of Fourier Series Formulas using Euler's Formula</h1>
+  <p><strong>Author:</strong> Proof<br>
+     <strong>Date:</strong> \today</p>
+
+  <h2>Introduction</h2>
+  <p>
+    A Fourier series is an expansion of a periodic function <em>f(x)</em> with period <em>T</em> (i.e., <code>f(x+T) = f(x)</code>) into a sum of sines and cosines, or equivalently, into a sum of complex exponentials. We will use Euler's formula as a cornerstone for these derivations. The angular frequency is <em>ω = 2π/T</em>. Often, the period is taken as <em>2L</em>, in which case <em>T=2L</em> and <em>ω = π/L</em>. We will use period <em>T</em> and angular frequency <em>ω</em>.
+  </p>
+
+  <h2>Euler's Formula and its Consequences</h2>
+  <h3>Definition (Euler's Formula)</h3>
+  <p>
+    For any real number <em>θ</em>, Euler's formula states:
+  </p>
+  <pre><code>e^{iθ} = cos(θ) + i sin(θ)</code></pre>
+  <p>where <em>i = √−1</em> is the imaginary unit.</p>
+
+  <h3>Lemma (Trigonometric Functions from Euler's Formula)</h3>
+  <pre><code>cos(θ) = (e^{iθ} + e^{-iθ})/2  
+sin(θ) = (e^{iθ} − e^{-iθ})/(2i)</code></pre>
+
+  <h2>Orthogonality Relations</h2>
+  <p>The derivation of Fourier coefficients relies on the orthogonality of sine, cosine, and complex exponential functions over one period. Let <em>n, m</em> be integers. The interval of integration is typically <code>[0, T]</code> or <code>[-T/2, T/2]</code>. We will use <code>[0, T]</code>.</p>
+
+  <h3>Lemma (Orthogonality of Sines and Cosines)</h3>
+  <p>Let <em>ω = 2π/T</em>. For integers <em>n, m</em>:</p>
+  <ol>
+    <li><code>∫₀ᵀ cos(nωx) dx = T</code> if <em>n=0</em>, otherwise <code>0</code>.</li>
+    <li><code>∫₀ᵀ sin(nωx) dx = 0</code> for all <em>n</em>.</li>
+    <li><code>∫₀ᵀ cos(nωx) cos(mωx) dx = T/2</code> if <em>n=m≠0</em>, otherwise <code>0</code>.</li>
+    <li><code>∫₀ᵀ sin(nωx) sin(mωx) dx = T/2</code> if <em>n=m≠0</em>, otherwise <code>0</code>.</li>
+    <li><code>∫₀ᵀ sin(nωx) cos(mωx) dx = 0</code> for all <em>n, m</em>.</li>
+  </ol>
+
+  <h3>Lemma (Orthogonality of Complex Exponentials)</h3>
+  <p>Let <em>ω = 2π/T</em>. For integers <em>n, m</em>:</p>
+  <pre><code>∫₀ᵀ e^{i n ω x} e^{-i m ω x} dx = ∫₀ᵀ e^{i(n−m)ωx} dx = T if n=m, else 0</code></pre>
+
+  <h2>Trigonometric Fourier Series</h2>
+  <p>A periodic function <em>f(x)</em> with period <em>T</em> can be represented by:</p>
+  <pre><code>f(x) = a₀/2 + Σₙ₌₁^∞ [aₙ cos(nωx) + bₙ sin(nωx)]</code></pre>
+
+  <h3>Derivation of <em>a₀</em></h3>
+  <pre><code>a₀ = (2/T) ∫₀ᵀ f(x) dx</code></pre>
+
+  <h3>Derivation of <em>aₙ</em> for n ≥ 1</h3>
+  <pre><code>aₙ = (2/T) ∫₀ᵀ f(x) cos(nωx) dx</code></pre>
+
+  <h3>Derivation of <em>bₙ</em> for n ≥ 1</h3>
+  <pre><code>bₙ = (2/T) ∫₀ᵀ f(x) sin(nωx) dx</code></pre>
+
+  <h2>Complex Exponential Fourier Series</h2>
+  <p>A periodic function <em>f(x)</em> with period <em>T</em> can also be represented by:</p>
+  <pre><code>f(x) = Σₙ₌−∞^∞ cₙ e^{i n ω x}</code></pre>
+
+  <h3>Derivation of <em>cₙ</em></h3>
+  <pre><code>cₙ = (1/T) ∫₀ᵀ f(x) e^{-i n ω x} dx</code></pre>
+
+  <h2>Relationship between Trigonometric and Complex Coefficients</h2>
+  <pre><code>c₀ = a₀/2  
+cₙ = (aₙ − i bₙ)/2 (n>0)  
+c_{−n} = (aₙ + i bₙ)/2 (n>0)</code></pre>
+  <p>Conversely:</p>
+  <pre><code>a₀ = 2c₀  
+aₙ = cₙ + c_{−n}  
+bₙ = i(cₙ − c_{−n})</code></pre>
+
+  <h2>Conclusion</h2>
+  <p>
+    We have successfully derived the formulas for the coefficients of both the trigonometric and complex exponential Fourier series for a periodic function <em>f(x)</em> with period <em>T</em>. The derivations critically relied on Euler's formula and the orthogonality properties of these functions over one period.
+  </p>
+  <p>
+    <em>Trigonometric form:</em><br>
+    <code>f(x) = a₀/2 + Σₙ₌₁^∞ [aₙ cos(nωx) + bₙ sin(nωx)],</code><br>
+    <em>Complex form:</em><br>
+    <code>f(x) = Σₙ₌−∞^∞ cₙ e^{i n ω x}.</code>
+  </p>
+</article>
 
 
 
