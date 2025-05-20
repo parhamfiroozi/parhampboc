@@ -228,6 +228,103 @@
     We have derived both the trigonometric and complex Fourier series expansions, relying on Euler’s formula and orthogonality over one period.
   </p>
 </article>
-
+<!-- Add this below the existing article section -->
+<article>
+    <h2>Understanding the Relationship Between Real and Complex Coefficients</h2>
+  
+    <p>
+      Why do we get the identities:
+    </p>
+  
+    <div style="text-align: center;">
+      \[
+      c_n = \frac{1}{2}(a_n - ib_n), \quad c_{-n} = \frac{1}{2}(a_n + ib_n)
+      \]
+    </div>
+  
+    <p>
+      These formulas arise when we rewrite the real Fourier series using Euler’s formula into its complex exponential form. Let's walk through the derivation conceptually and mathematically.
+    </p>
+  
+    <h3>From Real to Complex Fourier Series</h3>
+  
+    <p>Start from the real Fourier series:</p>
+  
+    <div style="text-align: center;">
+      \[
+      f(x) = \frac{a_0}{2} + \sum_{n=1}^\infty \left[a_n \cos(nx) + b_n \sin(nx)\right]
+      \]
+    </div>
+  
+    <p>Apply Euler's identities:</p>
+  
+    <ul>
+      <li>\(\cos(nx) = \frac{e^{inx} + e^{-inx}}{2}\)</li>
+      <li>\(\sin(nx) = \frac{e^{inx} - e^{-inx}}{2i}\)</li>
+    </ul>
+  
+    <p>Plug these into the series:</p>
+  
+    <div style="text-align: center;">
+      \[
+      \begin{aligned}
+      f(x) &= \frac{a_0}{2} + \sum_{n=1}^\infty \left[ 
+      a_n \cdot \frac{e^{inx} + e^{-inx}}{2} + 
+      b_n \cdot \frac{e^{inx} - e^{-inx}}{2i} 
+      \right] \\
+      &= \frac{a_0}{2} + \sum_{n=1}^\infty \left[
+      \left(\frac{a_n}{2} - \frac{b_n}{2i} \right)e^{inx} +
+      \left(\frac{a_n}{2} + \frac{b_n}{2i} \right)e^{-inx}
+      \right]
+      \end{aligned}
+      \]
+    </div>
+  
+    <p>Define the complex coefficients:</p>
+  
+    <div style="text-align: center;">
+      \[
+      c_n = \frac{1}{2}(a_n - ib_n), \quad c_{-n} = \frac{1}{2}(a_n + ib_n)
+      \]
+    </div>
+  
+    <p>This transforms the series into the complex form:</p>
+  
+    <div style="text-align: center;">
+      \[
+      f(x) = \sum_{n=1}^\infty c_n e^{inx} + c_{-n} e^{-inx} + \frac{a_0}{2}
+      \]
+    </div>
+  
+    <p>Which is equivalent to the full complex Fourier series:</p>
+  
+    <div style="text-align: center;">
+      \[
+      f(x) = \sum_{n=-\infty}^{\infty} c_n e^{inx}
+      \]
+    </div>
+  
+    <h3>Why These Relationships Work</h3>
+  
+    <p>
+      The real Fourier basis (\(\cos(nx), \sin(nx)\)) and the complex exponential basis (\(e^{inx}\)) are mathematically connected via Euler’s identities. Expressing one set of basis functions in terms of the other naturally introduces linear combinations of the real coefficients.
+    </p>
+  
+    <p>
+      Thus, when moving from real coefficients \((a_n, b_n)\) to complex coefficients \(c_n\), you end up combining them into the formulas above, aligning the real and imaginary parts with cosine and sine components.
+    </p>
+  
+    <h3>Analogy</h3>
+    <p>
+      This is analogous to changing coordinate systems. In a Cartesian basis, you use x and y axes separately (cosine and sine). In a rotated complex basis, coordinates become combinations of x and y — hence the \(a_n \pm i b_n\) combinations.
+    </p>
+  
+    <h3>Optional: Derivation via Integration</h3>
+    <p>
+      These expressions can also be derived directly from the orthogonality of \(e^{inx}\) over one period, by integrating \(f(x)\cdot e^{-inx}\) and solving. The result leads to the same formulas for \(c_n\) in terms of \(a_n\) and \(b_n\).
+    </p>
+  
+  </article>
+  
 </body>
 </html>
