@@ -117,72 +117,7 @@
   </p>
 </div>
 
-<!-- Corrected Derivation Section -->
-<section id="euler-derivation" style="margin-top:2rem; padding:1.5rem; background:#f9f9f9; border-radius:8px;">
-  <h2 style="margin-bottom:1rem; color:#333;">Derivation of Fourier Coefficients (Euler’s Formulas)</h2>
 
-  <h3>1. Assumptions &amp; Setup</h3>
-  <p>
-    Let <em>f(x)</em> be periodic with period <em>2L</em> (i.e. <em>f(x + 2L)=f(x)</em>).  
-    Assume it admits the expansion:
-  </p>
-  <p style="text-align:center; font-family:serif; font-size:1.1rem;">
-    f(x) = <sub>a₀</sub>&frasl;<sup>2</sup> + &Sigma;<sub>n=1</sub><sup>∞</sup> [aₙ cos(nπx ⁄ L) + bₙ sin(nπx ⁄ L)]
-  </p>
-
-  <h3>2. Orthogonality Lemmas</h3>
-  <ul style="margin-left:1.2rem; color:#555;">
-    <li>∫<sub>−L</sub><sup>L</sup> cos(nπx ⁄ L) dx = 0</li>
-    <li>∫<sub>−L</sub><sup>L</sup> sin(nπx ⁄ L) dx = 0</li>
-    <li>∫<sub>−L</sub><sup>L</sup> sin(mπx ⁄ L) cos(nπx ⁄ L) dx = 0</li>
-    <li>
-      ∫<sub>−L</sub><sup>L</sup> cos(mπx ⁄ L) cos(nπx ⁄ L) dx =  
-      {0 if m≠n; L if m=n≠0}
-    </li>
-    <li>
-      ∫<sub>−L</sub><sup>L</sup> sin(mπx ⁄ L) sin(nπx ⁄ L) dx =  
-      {0 if m≠n; L if m=n≠0}
-    </li>
-  </ul>
-
-  <h3>3. Formula for <code>a₀</code></h3>
-  <p>
-    Integrate over [−L,L], use Lemmas 1–2:
-  </p>
-  <p style="text-align:center; font-family:serif;">
-    ∫<sub>−L</sub><sup>L</sup>f(x) dx = a₀ L  
-    ⇒  
-    <strong>a₀ = (1⁄L) ∫<sub>−L</sub><sup>L</sup>f(x) dx</strong>
-  </p>
-
-  <h3>4. Formula for <code>aₙ</code> (n ≥ 1)</h3>
-  <p>
-    Multiply by cos(nπx⁄L), integrate, use Lemmas 3–4:
-  </p>
-  <p style="text-align:center; font-family:serif;">
-    ∫<sub>−L</sub><sup>L</sup>f(x) cos(nπx⁄L) dx = aₙ L  
-    ⇒  
-    <strong>aₙ = (1⁄L) ∫<sub>−L</sub><sup>L</sup>f(x) cos(nπx⁄L) dx</strong>
-  </p>
-
-  <h3>5. Formula for <code>bₙ</code> (n ≥ 1)</h3>
-  <p>
-    Multiply by sin(nπx⁄L), integrate, use Lemmas 3–5:
-  </p>
-  <p style="text-align:center; font-family:serif;">
-    ∫<sub>−L</sub><sup>L</sup>f(x) sin(nπx⁄L) dx = bₙ L  
-    ⇒  
-    <strong>bₙ = (1⁄L) ∫<sub>−L</sub><sup>L</sup>f(x) sin(nπx⁄L) dx</strong>
-  </p>
-
-  <h3>6. Dirichlet’s Convergence Conditions</h3>
-  <p style="margin-left:1.2rem; color:#555;">
-    The series converges to f(x) (or to the midpoint at jumps) if:<br>
-    • f is 2L-periodic;<br>
-    • f is piecewise continuous on [−L,L];<br>
-    • f has finitely many extrema and discontinuities there.
-  </p>
-</section>
 
 
 
