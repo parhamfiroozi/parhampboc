@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Integration by Parts Animation</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
+        margin: 0;
+        background-color: #f0f0f0;
+        color: #333;
+    }
+
+    .animation-container {
+        width: 400px;
+        height: 300px;
+        border: 2px solid #555;
+        position: relative;
+        margin-bottom: 20px;
+        background-color: #fff;
+        overflow: hidden; /* Important for transitions */
+    }
+
+    .area {
+        position: absolute;
+        box-sizing: border-box;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.2em;
+        font-weight: bold;
+        color: white;
+        transition: all 1s ease-in-out;
+        text-shadow: 1px 1px 2px black;
+    }
+
+    /* Represents the total area UV */
+    .uv-rectangle {
+        width: 100%; /* Full width of container */
+        height: 100%; /* Full height of container */
+        background-color: #ddd; /* Neutral base */
+        opacity: 0;
+        animation: fadeIn 1s forwards;
+    }
+
+    /* Represents ∫u dv */
+    .int-u-dv {
+        top: 0;
+        left: 0;
+        width: 60%; /* u dimension variable */
+        height: 100%; /* v dimension */
+        background-color: #4CAF50; /* Green */
+        opacity: 0;
+        z-index: 2;
+    }
+
+    /* Represents ∫v du */
+    .int-v-du {
+        top: 0;
+        right: 0; /* Changed from left to right */
+        width: 40%; /* Remaining part for v dimension */
+        height: 100%; /* u dimension */
+        background-color: #2196F3; /* Blue */
+        opacity: 0;
+        z-index: 2;
+    }
+    
+    /* Labels */
+    .label {
+        position: absolute;
+        font-size: 1.1em;
+        font-weight: bold;
+        background-color: rgba(255,255,255,0.7);
+        padding: 2px 5px;
+        border-radius: 3px;
+        opacity: 0;
+    }
+    .u-label {
+        top: 50%;
+        left: -30px;
+        transform: translateY(-50%) rotate(-90deg);
+    }
+    .v-label {
+        bottom: -30px;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+    .u-axis-label { /* represents u on the horizontal axis for ∫v du */
+        bottom: -30px;
+        right: 5%; /* Positioned over the int-v-du part */
+    }
+    .v-axis-label { /* represents v on the vertical axis for ∫u dv */
+         top: 50%;
+        left: -30px;
+        transform: translateY(-50%) rotate(-90deg);
+    }
+    
+    .axis-u-part-label { /* label for the 'u' part of the horizontal axis*/
+        bottom: -30px;
+        left: 25%; /* Positioned over the int-u-dv part */
+    }
+     .axis-v-part-label { /* label for the 'v' part of the horizontal axis*/
+        bottom: -30px;
+        right: 15%; /* Positioned over the int-v-du part */
+    }
+
+
+    .explanation {
+        margin-top: 20px;
+        padding: 15px;
+        background-color: #e9e9e9;
+        border-radius: 5px;
+        width: 80%;
+        max-width: 600px;
+        text-align: center;
+        opacity: 0;
+        animation: fadeIn 1s 0.5s forwards;
+    }
+
+    .formula {
+        font-family: 'Courier New', Courier, monospace;
+        font-size: 1.5em;
+        margin-top: 10px;
+        opacity: 0; /* Initially hidden */
+        transition: opacity 0.5s ease-in-out;
+    }
+    .formula-part {
+        opacity: 0.3; /* Dim parts of formula initially */
+        transition: opacity 0.5s ease-in-out;
+    }
+    .highlight-formula {
+        opacity: 1 !important;
+        font-weight: bold;
+        color: #D32F2F;
+    }
+
+    /* Animation keyframes */
+    @keyframes fadeIn {
+        to { opacity: 1; }
+    }
+    @keyframes fadeOut {
+        to { opacity: 0; transform: scale(0.9); }
+    }
+    @keyframes slideOutRight {
+        to { transform: translateX(110%); opacity: 0; }
+    }
+    @keyframes highlight {
+        0%, 100% { filter: brightness(1); }
+        50% { filter: brightness(1.3); }
+    }
+
+
+    /* --- Animation Steps Controlled by a Wrapper Class --- */
+    .step-1 .uv-rectangle { opacity: 1; }
+    .step-1 .u-label { animation: fadeIn 0.5s 0.5s forwards; }
+    .step-1 .v-label { animation: fadeIn 0.5s 0.5s forwards; }
+    .step-1 .explanation-text { opacity: 1; }
+    .step-1 .formula-uv { opacity: 1 !important; }
+
+    .step-2 .int-u-dv { opacity: 1; animation-delay: 0s !important; }
+    .step-2 .int-v-du { opacity: 1; animation-delay: 0s !important; }
+    .step-2 .explanation-text { opacity: 1; }
+    .step-2 .formula-intudv, .step-2 .formula-intvdu { opacity: 1 !important; }
+    .step-2 .u-label, .step-2 .v-label { opacity: 0; transition: opacity 0.3s;} /* Hide general u,v labels*/
+    .step-2 .v-axis-label { animation: fadeIn 0.5s 0.5s forwards; } /* for ∫u dv */
+    .step-2 .axis-u-part-label { animation: fadeIn 0.5s 0.5s forwards; } /* 'u' part for ∫u dv */
+    .step-2 .u-axis-label { animation: fadeIn 0.5s 0.5s forwards; } /* for ∫v du */
+    .step-2 .axis-v-part-label { animation: fadeIn 0.5s 0.5s forwards; } /* 'v' part for ∫v du */
+
+
+    .step-3 .explanation-text { opacity: 1; }
+    .step-3 .int-v-du {
+        animation: slideOutRight 1s 0.5s forwards; /* "Subtract" this area */
+    }
+    .step-3 .formula-intvdu { opacity: 0.3 !important; text-decoration: line-through; color: gray;}
+    .step-3 .formula-intudv { opacity: 1 !important; }
+    .step-3 .formula-uv { opacity: 1 !important; }
+    .step-3 .minus-sign { opacity: 1 !important; color: #D32F2F;}
+    .step-3 .int-u-dv { animation: highlight 1.5s 1.5s ease-in-out; } /* Highlight remaining */
+    /* Keep relevant labels for step 3 */
+    .step-3 .v-axis-label { opacity: 1; } 
+    .step-3 .axis-u-part-label { opacity: 1; }
+    .step-3 .u-axis-label { opacity: 0; transition: opacity 0.3s 0.5s;} /* Fade out label with area */
+    .step-3 .axis-v-part-label { opacity: 0; transition: opacity 0.3s 0.5s;} /* Fade out label with area */
+
+
+    .controls {
+        margin-top: 20px;
+    }
+    button {
+        padding: 10px 15px;
+        margin: 5px;
+        font-size: 1em;
+        cursor: pointer;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 5px;
+    }
+    button:disabled {
+        background-color: #ccc;
+    }
+
+</style>
+</head>
+<body class="step-0">
+
+    <h1>Integration by Parts: ∫u dv = uv - ∫v du</h1>
+
+    <div class="animation-container">
+        <div class="area uv-rectangle"><span style="opacity:0.5; font-size: 2em;">uv</span></div>
+        <div class="area int-u-dv">∫u dv</div>
+        <div class="area int-v-du">∫v du</div>
+        
+        <!-- General labels for UV rectangle -->
+        <span class="label u-label">u</span>
+        <span class="label v-label">v</span>
+
+        <!-- Labels for when areas are split -->
+        <span class="label v-axis-label">u (as f(v))</span>
+        <span class="label axis-u-part-label">dv</span>
+        
+        <span class="label u-axis-label">v (as f(u))</span>
+        <span class="label axis-v-part-label">du</span>
+    </div>
+
+    <div class="explanation">
+        <p id="explanationText">Press "Start" to begin the animation.</p>
+        <div class="formula">
+            <span class="formula-part formula-intudv highlight-formula">∫u dv</span>
+            <span class="formula-part highlight-formula">=</span>
+            <span class="formula-part formula-uv">uv</span>
+            <span class="formula-part minus-sign">-</span>
+            <span class="formula-part formula-intvdu">∫v du</span>
+        </div>
+    </div>
+
+    <div class="controls">
+        <button id="startButton">Start / Next</button>
+        <button id="resetButton">Reset</button>
+    </div>
+
+<script>
+    const body = document.body;
+    const explanationText = document.getElementById('explanationText');
+    const startButton = document.getElementById('startButton');
+    const resetButton = document.getElementById('resetButton');
+    
+    const formulaIntUDV = document.querySelector('.formula-intudv');
+    const formulaEquals = document.querySelector('.formula-part.highlight-formula:not(.formula-intudv):not(.formula-uv):not(.formula-intvdu):not(.minus-sign)'); // The equals sign
+    const formulaUV = document.querySelector('.formula-uv');
+    const formulaMinus = document.querySelector('.minus-sign');
+    const formulaIntVDU = document.querySelector('.formula-intvdu');
+
+    let currentStep = 0;
+    const maxSteps = 3;
+
+    const stepExplanations = [
+        "Press 'Start / Next' to begin.", // Step 0 (initial)
+        "Consider a total area formed by dimensions 'u' and 'v'. This area is 'uv'. This is our starting point, related to the product rule d(uv) = u dv + v du.", // Step 1
+        "This total area 'uv' can also be seen as the sum of two integrals: ∫u dv (integrating u with respect to v) and ∫v du (integrating v with respect to u). So, uv = ∫u dv + ∫v du.", // Step 2
+        "Now, to find ∫u dv, we rearrange: subtract ∫v du from the total area uv. This leaves us with ∫u dv = uv - ∫v du. This is integration by parts!" // Step 3
+    ];
+    
+    const resetFormulaStyles = () => {
+        document.querySelectorAll('.formula-part').forEach(el => {
+            el.classList.remove('highlight-formula');
+            el.style.opacity = '0.3'; // Dim all
+            el.style.textDecoration = 'none';
+            el.style.color = '';
+        });
+        document.querySelector('.formula').style.opacity = '0'; // Hide whole formula initially for reset
+    };
+
+    const updateFormulaHighlight = () => {
+        resetFormulaStyles(); // Reset all first
+        document.querySelector('.formula').style.opacity = '1'; // Make formula visible
+
+        if (currentStep === 0) {
+             document.querySelector('.formula').style.opacity = '0';
+        } else if (currentStep === 1) {
+            formulaUV.classList.add('highlight-formula');
+            formulaUV.style.opacity = '1';
+        } else if (currentStep === 2) {
+            formulaUV.classList.add('highlight-formula');
+            formulaUV.style.opacity = '1';
+            formulaEquals.classList.add('highlight-formula');
+            formulaEquals.style.opacity = '1';
+            formulaIntUDV.classList.add('highlight-formula');
+            formulaIntUDV.style.opacity = '1';
+            // Show "+" implicitly for now, or add a plus sign span if desired
+            // For simplicity, just showing the components
+            const plusSignText = document.createElement('span'); // Create temporary plus
+            plusSignText.textContent = ' + ';
+            plusSignText.style.opacity = '1';
+            plusSignText.classList.add('highlight-formula');
+            formulaIntUDV.after(plusSignText); // Add it after ∫u dv
+            
+            formulaIntVDU.classList.add('highlight-formula');
+            formulaIntVDU.style.opacity = '1';
+            formulaIntVDU.style.color = '#2196F3'; // Blue to match area
+            formulaIntUDV.style.color = '#4CAF50'; // Green to match area
+            
+            // Reposition formula parts for uv = ∫u dv + ∫v du
+            const formulaDiv = document.querySelector('.formula');
+            formulaDiv.innerHTML = ''; // Clear current
+            formulaDiv.appendChild(formulaUV.cloneNode(true));
+            formulaDiv.appendChild(formulaEquals.cloneNode(true));
+            formulaDiv.appendChild(formulaIntUDV.cloneNode(true));
+            const newPlus = plusSignText.cloneNode(true);
+            formulaDiv.appendChild(newPlus);
+            formulaDiv.appendChild(formulaIntVDU.cloneNode(true));
+             // Re-query after rebuilding
+            document.querySelectorAll('.formula-part.highlight-formula').forEach(el => el.style.opacity = '1');
+
+
+        } else if (currentStep === 3) {
+            // Standard formula: ∫u dv = uv - ∫v du
+            const formulaDiv = document.querySelector('.formula');
+            formulaDiv.innerHTML = ''; // Clear current
+            // Need to re-add the original formula structure elements
+            const newIntUDV = document.createElement('span'); newIntUDV.className = 'formula-part formula-intudv'; newIntUDV.textContent = '∫u dv';
+            const newEquals = document.createElement('span'); newEquals.className = 'formula-part'; newEquals.textContent = ' = ';
+            const newUV = document.createElement('span'); newUV.className = 'formula-part formula-uv'; newUV.textContent = 'uv';
+            const newMinus = document.createElement('span'); newMinus.className = 'formula-part minus-sign'; newMinus.textContent = ' - ';
+            const newIntVDU = document.createElement('span'); newIntVDU.className = 'formula-part formula-intvdu'; newIntVDU.textContent = '∫v du';
+
+            formulaDiv.appendChild(newIntUDV);
+            formulaDiv.appendChild(newEquals);
+            formulaDiv.appendChild(newUV);
+            formulaDiv.appendChild(newMinus);
+            formulaDiv.appendChild(newIntVDU);
+            
+            newIntUDV.classList.add('highlight-formula'); newIntUDV.style.opacity = '1'; newIntUDV.style.color = '#4CAF50';
+            newEquals.classList.add('highlight-formula'); newEquals.style.opacity = '1';
+            newUV.classList.add('highlight-formula'); newUV.style.opacity = '1';
+            newMinus.classList.add('highlight-formula'); newMinus.style.opacity = '1'; newMinus.style.color = '#D32F2F';
+            newIntVDU.style.opacity = '0.5'; newIntVDU.style.textDecoration = 'line-through'; newIntVDU.style.color = 'gray';
+        }
+    };
+
+
+    const updateStep = () => {
+        body.className = `step-${currentStep}`;
+        explanationText.textContent = stepExplanations[currentStep];
+        updateFormulaHighlight();
+        startButton.disabled = (currentStep === maxSteps);
+    };
+
+    startButton.addEventListener('click', () => {
+        if (currentStep < maxSteps) {
+            currentStep++;
+            updateStep();
+        }
+    });
+
+    resetButton.addEventListener('click', () => {
+        // To properly reset animations, we remove and re-add elements or classes
+        // Easiest is to reload or reset classes and specific animated properties
+        const animContainer = document.querySelector('.animation-container');
+        const clone = animContainer.cloneNode(true);
+        animContainer.parentNode.replaceChild(clone, animContainer);
+
+        currentStep = 0;
+        updateStep();
+        // Re-attach event listeners if elements inside animContainer had them, not needed here
+    });
+
+    // Initial setup
+    updateStep();
+</script>
+
+</body>
+</html>
