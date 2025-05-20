@@ -116,89 +116,120 @@
     This demo uses rotating circles to build up complex waveforms from simple sine terms, showing how frequency components align in motion.
   </p>
 </div>
+
 <article>
-  <h1>Derivation of Fourier Series Formulas using Euler's Formula</h1>
+  <h1>Derivation of Fourier Series Formulas using Euler’s Formula</h1>
   <p><strong>Author:</strong> Proof<br>
-     <strong>Date:</strong> \today</p>
+     <strong>Date:</strong> \(\today\)</p>
 
   <h2>Introduction</h2>
   <p>
-    A Fourier series is an expansion of a periodic function <em>f(x)</em> with period <em>T</em> (i.e., <code>f(x+T) = f(x)</code>) into a sum of sines and cosines, or equivalently, into a sum of complex exponentials. We will use Euler's formula as a cornerstone for these derivations. The angular frequency is <em>ω = 2π/T</em>. Often, the period is taken as <em>2L</em>, in which case <em>T=2L</em> and <em>ω = π/L</em>. We will use period <em>T</em> and angular frequency <em>ω</em>.
+    A Fourier series is an expansion of a periodic function \(f(x)\) with period \(T\) (i.e., \(f(x+T)=f(x)\)) into a sum of sines and cosines, or equivalently into complex exponentials. We will use Euler’s formula as a cornerstone for these derivations. The angular frequency is \(\omega=\frac{2\pi}{T}\). Often, the period is taken as \(2L\), in which case \(T=2L\) and \(\omega=\frac{\pi}{L}\). We will use period \(T\) and angular frequency \(\omega\).
   </p>
 
-  <h2>Euler's Formula and its Consequences</h2>
-  <h3>Definition (Euler's Formula)</h3>
-  <p>
-    For any real number <em>θ</em>, Euler's formula states:
+  <h2>Euler’s Formula and its Consequences</h2>
+  <h3>Definition (Euler’s Formula)</h3>
+  <p>For any real \(\theta\), Euler’s formula states:</p>
+  <p style="text-align:center;">
+    \[
+      e^{i\theta} \;=\; \cos(\theta) \;+\; i\,\sin(\theta)
+    \]
   </p>
-  <pre><code>e^{iθ} = cos(θ) + i sin(θ)</code></pre>
-  <p>where <em>i = √−1</em> is the imaginary unit.</p>
+  <p>where \(i^2=-1\).</p>
 
-  <h3>Lemma (Trigonometric Functions from Euler's Formula)</h3>
-  <pre><code>cos(θ) = (e^{iθ} + e^{-iθ})/2  
-sin(θ) = (e^{iθ} − e^{-iθ})/(2i)</code></pre>
+  <h3>Lemma (Trigonometric Functions from Euler’s Formula)</h3>
+  <p style="text-align:center;">
+    \[
+      \cos(\theta)=\frac{e^{i\theta}+e^{-i\theta}}{2},
+      \quad
+      \sin(\theta)=\frac{e^{i\theta}-e^{-i\theta}}{2i}.
+    \]
+  </p>
 
   <h2>Orthogonality Relations</h2>
-  <p>The derivation of Fourier coefficients relies on the orthogonality of sine, cosine, and complex exponential functions over one period. Let <em>n, m</em> be integers. The interval of integration is typically <code>[0, T]</code> or <code>[-T/2, T/2]</code>. We will use <code>[0, T]</code>.</p>
+  <p>The derivation of Fourier coefficients relies on the orthogonality of sine, cosine, and complex exponential functions over one period. Let \(n,m\) be integers. We integrate over \([0,T]\), with \(\omega=2\pi/T\).</p>
 
   <h3>Lemma (Orthogonality of Sines and Cosines)</h3>
-  <p>Let <em>ω = 2π/T</em>. For integers <em>n, m</em>:</p>
   <ol>
-    <li><code>∫₀ᵀ cos(nωx) dx = T</code> if <em>n=0</em>, otherwise <code>0</code>.</li>
-    <li><code>∫₀ᵀ sin(nωx) dx = 0</code> for all <em>n</em>.</li>
-    <li><code>∫₀ᵀ cos(nωx) cos(mωx) dx = T/2</code> if <em>n=m≠0</em>, otherwise <code>0</code>.</li>
-    <li><code>∫₀ᵀ sin(nωx) sin(mωx) dx = T/2</code> if <em>n=m≠0</em>, otherwise <code>0</code>.</li>
-    <li><code>∫₀ᵀ sin(nωx) cos(mωx) dx = 0</code> for all <em>n, m</em>.</li>
+    <li>
+      \(\displaystyle\int_0^T\cos(n\omega x)\,dx
+      =\begin{cases}T,&n=0,\\0,&n\neq0.\end{cases}\)
+    </li>
+    <li>
+      \(\displaystyle\int_0^T\sin(n\omega x)\,dx=0\) for all \(n\).
+    </li>
+    <li>
+      \(\displaystyle\int_0^T\cos(n\omega x)\cos(m\omega x)\,dx
+      =\begin{cases}T/2,&n=m\neq0,\\0,&n\neq m.\end{cases}\)
+    </li>
+    <li>
+      \(\displaystyle\int_0^T\sin(n\omega x)\sin(m\omega x)\,dx
+      =\begin{cases}T/2,&n=m\neq0,\\0,&n\neq m.\end{cases}\)
+    </li>
+    <li>
+      \(\displaystyle\int_0^T\sin(n\omega x)\cos(m\omega x)\,dx=0\) for all \(n,m\).
+    </li>
   </ol>
 
   <h3>Lemma (Orthogonality of Complex Exponentials)</h3>
-  <p>Let <em>ω = 2π/T</em>. For integers <em>n, m</em>:</p>
-  <pre><code>∫₀ᵀ e^{i n ω x} e^{-i m ω x} dx = ∫₀ᵀ e^{i(n−m)ωx} dx = T if n=m, else 0</code></pre>
+  <p style="text-align:center;">
+    \[
+      \int_0^T e^{i n\omega x}\,e^{-i m\omega x}\,dx
+      =\int_0^T e^{i(n-m)\omega x}\,dx
+      =\begin{cases}T,&n=m,\\0,&n\neq m.\end{cases}
+    \]
+  </p>
 
   <h2>Trigonometric Fourier Series</h2>
-  <p>A periodic function <em>f(x)</em> with period <em>T</em> can be represented by:</p>
-  <pre><code>f(x) = a₀/2 + Σₙ₌₁^∞ [aₙ cos(nωx) + bₙ sin(nωx)]</code></pre>
+  <p>Any \(T\)-periodic \(f(x)\) admits the expansion</p>
+  <p style="text-align:center;">
+    \[
+      f(x)
+      =\frac{a_0}{2}
+      +\sum_{n=1}^{\infty}\bigl[a_n\cos(n\omega x)+b_n\sin(n\omega x)\bigr].
+    \]
+  </p>
 
-  <h3>Derivation of <em>a₀</em></h3>
-  <pre><code>a₀ = (2/T) ∫₀ᵀ f(x) dx</code></pre>
-
-  <h3>Derivation of <em>aₙ</em> for n ≥ 1</h3>
-  <pre><code>aₙ = (2/T) ∫₀ᵀ f(x) cos(nωx) dx</code></pre>
-
-  <h3>Derivation of <em>bₙ</em> for n ≥ 1</h3>
-  <pre><code>bₙ = (2/T) ∫₀ᵀ f(x) sin(nωx) dx</code></pre>
+  <h3>Coefficients</h3>
+  <p style="text-align:center;">
+    \[
+      a_0=\frac{2}{T}\int_0^T f(x)\,dx,
+      \quad
+      a_n=\frac{2}{T}\int_0^T f(x)\cos(n\omega x)\,dx,\;(n\ge1),
+      \quad
+      b_n=\frac{2}{T}\int_0^T f(x)\sin(n\omega x)\,dx,\;(n\ge1).
+    \]
+  </p>
 
   <h2>Complex Exponential Fourier Series</h2>
-  <p>A periodic function <em>f(x)</em> with period <em>T</em> can also be represented by:</p>
-  <pre><code>f(x) = Σₙ₌−∞^∞ cₙ e^{i n ω x}</code></pre>
+  <p>The same function can be written as</p>
+  <p style="text-align:center;">
+    \[
+      f(x)
+      =\sum_{n=-\infty}^{\infty}c_n\,e^{i n\omega x},
+      \quad
+      c_n=\frac{1}{T}\int_0^T f(x)\,e^{-i n\omega x}\,dx.
+    \]
+  </p>
 
-  <h3>Derivation of <em>cₙ</em></h3>
-  <pre><code>cₙ = (1/T) ∫₀ᵀ f(x) e^{-i n ω x} dx</code></pre>
-
-  <h2>Relationship between Trigonometric and Complex Coefficients</h2>
-  <pre><code>c₀ = a₀/2  
-cₙ = (aₙ − i bₙ)/2 (n>0)  
-c_{−n} = (aₙ + i bₙ)/2 (n>0)</code></pre>
-  <p>Conversely:</p>
-  <pre><code>a₀ = 2c₀  
-aₙ = cₙ + c_{−n}  
-bₙ = i(cₙ − c_{−n})</code></pre>
+  <h2>Relationship of Coefficients</h2>
+  <p style="text-align:center;">
+    \[
+      c_0=\frac{a_0}{2},\quad
+      c_n=\frac{a_n - i b_n}{2},\quad
+      c_{-n}=\frac{a_n + i b_n}{2},
+    \]
+  </p>
+  <p style="text-align:center;">
+    and conversely
+    \(\;a_n=c_n+c_{-n},\;b_n=i(c_n-c_{-n})\).
+  </p>
 
   <h2>Conclusion</h2>
   <p>
-    We have successfully derived the formulas for the coefficients of both the trigonometric and complex exponential Fourier series for a periodic function <em>f(x)</em> with period <em>T</em>. The derivations critically relied on Euler's formula and the orthogonality properties of these functions over one period.
-  </p>
-  <p>
-    <em>Trigonometric form:</em><br>
-    <code>f(x) = a₀/2 + Σₙ₌₁^∞ [aₙ cos(nωx) + bₙ sin(nωx)],</code><br>
-    <em>Complex form:</em><br>
-    <code>f(x) = Σₙ₌−∞^∞ cₙ e^{i n ω x}.</code>
+    We have derived both the trigonometric and complex Fourier series expansions, relying on Euler’s formula and orthogonality over one period.
   </p>
 </article>
-
-
-
-
 
 </body>
 </html>
