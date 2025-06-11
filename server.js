@@ -4,7 +4,7 @@ const bodyParser = require('body-parser');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
-const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || 'admin123';
+const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || 'ilovelife';
 
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname)));
