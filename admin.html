@@ -24,21 +24,31 @@
     <a href="admin.html">Admin</a>
   </nav>
   <h1>Admin Panel</h1>
-  <label>Title
-    <input type="text" id="title" />
-  </label>
-  <label>Subject
-    <select id="subject">
-      <option value="math">Math</option>
-      <option value="electrical">Electrical Engineering</option>
-      <option value="physics">Physics</option>
-      <option value="coding">Coding</option>
-    </select>
-  </label>
-  <label>Content (HTML with LaTeX allowed)
-    <textarea id="content"></textarea>
-  </label>
-  <button id="generate">Generate & Download</button>
+
+  <div id="login-section">
+    <label>Password
+      <input type="password" id="password" />
+    </label>
+    <button id="login-btn">Login</button>
+  </div>
+
+  <div id="panel" style="display:none">
+    <label>Title
+      <input type="text" id="title" />
+    </label>
+    <label>Subject
+      <select id="subject">
+        <option value="math">Math</option>
+        <option value="electrical">Electrical Engineering</option>
+        <option value="physics">Physics</option>
+        <option value="coding">Coding</option>
+      </select>
+    </label>
+    <label>Content (HTML with LaTeX allowed)
+      <textarea id="content"></textarea>
+    </label>
+    <button id="generate">Generate & Download</button>
+  </div>
   <script src="admin.js"></script>
 </body>
 </html>
