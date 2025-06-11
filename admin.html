@@ -13,7 +13,7 @@
     input,select,textarea{width:100%;padding:8px;margin-top:5px;font-family:'Poppins',sans-serif;border:1px solid #ccc;border-radius:4px;box-sizing:border-box;}
     textarea{height:220px;resize:vertical;}
     button{margin-top:20px;padding:10px 20px;font-size:1rem;cursor:pointer;background:#007acc;color:#fff;border:none;border-radius:4px;}
-    #login{max-width:300px;margin:40px auto;text-align:center;}
+    #login-section{max-width:300px;margin:40px auto;text-align:center;}
     #panel{display:none;}
   </style>
 </head>
@@ -22,18 +22,19 @@
     <a href="index.html">Coding</a> |
     <a href="electrical.html">Electrical Engineering</a> |
     <a href="physics.html">Physics</a> |
-    <a href="math.html">Math</a>
+    <a href="math.html">Math</a> |
+    <a href="admin.html">Admin</a>
   </nav>
-  <div id="login">
-    <h1>Admin Login</h1>
+  <h1>Admin Panel</h1>
+
+  <div id="login-section">
     <label>Password
       <input type="password" id="password" />
     </label>
-    <button id="loginBtn">Login</button>
+    <button id="login-btn">Login</button>
   </div>
 
   <div id="panel">
-    <h1>Admin Panel</h1>
     <label>Title
       <input type="text" id="title" />
     </label>
