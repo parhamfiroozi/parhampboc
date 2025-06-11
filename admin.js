@@ -1,5 +1,3 @@
-const PASSWORD = 'secret123'; // change this to your own password
-
 const templates = {
   math: `<!DOCTYPE html>
 <html lang="en">
@@ -26,7 +24,8 @@ const templates = {
   <a href="index.html">Coding</a> |
   <a href="electrical.html">Electrical Engineering</a> |
   <a href="physics.html">Physics</a> |
-  <a href="math.html">Math</a>
+  <a href="math.html">Math</a> |
+  <a href="admin.html">Admin</a>
 </nav>
 <h1>{{title}}</h1>
 <div class="content">
@@ -61,7 +60,8 @@ const templates = {
   <a href="index.html">Coding</a> |
   <a href="electrical.html">Electrical Engineering</a> |
   <a href="physics.html">Physics</a> |
-  <a href="math.html">Math</a>
+  <a href="math.html">Math</a> |
+  <a href="admin.html">Admin</a>
 </nav>
 <h1>{{title}}</h1>
 <div class="content">
@@ -95,7 +95,8 @@ const templates = {
   <a href="index.html">Coding</a> |
   <a href="electrical.html">Electrical Engineering</a> |
   <a href="physics.html">Physics</a> |
-  <a href="math.html">Math</a>
+  <a href="math.html">Math</a> |
+  <a href="admin.html">Admin</a>
 </nav>
 <h1>{{title}}</h1>
 <div class="content">
@@ -129,7 +130,8 @@ const templates = {
   <a href="index.html">Coding</a> |
   <a href="electrical.html">Electrical Engineering</a> |
   <a href="physics.html">Physics</a> |
-  <a href="math.html">Math</a>
+  <a href="math.html">Math</a> |
+  <a href="admin.html">Admin</a>
 </nav>
 <h1>{{title}}</h1>
 <div class="content">
@@ -177,24 +179,20 @@ function generate(){
   URL.revokeObjectURL(url);
 }
 
-function showPanel(){
-  document.getElementById('login').style.display='none';
-  document.getElementById('panel').style.display='block';
-}
-
-function tryLogin(){
-  const pass=document.getElementById('password').value;
-  if(pass===PASSWORD){
-    localStorage.setItem('adminAuthed','true');
-    showPanel();
+async function login(){
+  const password=document.getElementById('password').value;
+  const res=await fetch('/login',{
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({password})
+  });
+  if(res.ok){
+    document.getElementById('login-section').style.display='none';
+    document.getElementById('panel').style.display='block';
   }else{
-    alert('Incorrect password');
+    alert('Invalid password');
   }
 }
 
-if(localStorage.getItem('adminAuthed')==='true'){
-  showPanel();
-}
-
-document.getElementById('loginBtn').addEventListener('click',tryLogin);
+document.getElementById('login-btn').addEventListener('click',login);
 document.getElementById('generate').addEventListener('click',generate);
