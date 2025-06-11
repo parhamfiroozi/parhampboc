@@ -160,6 +160,7 @@ function parseMarkdown(md){
   html = html.split(/\n\n+/).map(p=>`<p>${p}</p>`).join('\n');
   return html;
 }
+
 function generate(){
   const title=document.getElementById('title').value.trim()||'Untitled';
   const subject=document.getElementById('subject').value;
