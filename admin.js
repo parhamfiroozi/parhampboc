@@ -163,4 +163,20 @@ function generate(){
   URL.revokeObjectURL(url);
 }
 
+async function login(){
+  const password=document.getElementById('password').value;
+  const res=await fetch('/login',{
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({password})
+  });
+  if(res.ok){
+    document.getElementById('login-section').style.display='none';
+    document.getElementById('panel').style.display='block';
+  }else{
+    alert('Invalid password');
+  }
+}
+
+document.getElementById('login-btn').addEventListener('click',login);
 document.getElementById('generate').addEventListener('click',generate);
