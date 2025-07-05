@@ -9,6 +9,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
 
 
+
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
 
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet" />
@@ -60,6 +61,46 @@
       padding: 32px;
       border-radius: 12px;
       box-shadow: 0 0 20px rgba(0, 255, 255, 0.1);
+    }
+
+    .content-nav {
+      margin-bottom: 40px;
+      padding: 16px 20px;
+      background: #141b38;
+      border-left: 4px solid #0ff;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 255, 255, 0.05);
+    }
+
+    .content-nav h2 {
+      color: #0ff;
+      font-size: 1.1rem;
+      margin-bottom: 10px;
+      padding-bottom: 6px;
+      border-bottom: 1px solid #0ff;
+    }
+
+    .content-nav ul {
+      list-style: none;
+      padding-left: 10px;
+      margin: 0;
+    }
+
+    .content-nav li {
+      margin: 8px 0;
+    }
+
+    .content-nav a {
+      color: #ffc107;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.95rem;
+      transition: color 0.2s ease;
+    }
+
+    .content-nav a:hover {
+      color: #fff;
+      text-decoration: underline;
     }
 
     h1 {
@@ -114,6 +155,19 @@
   </nav>
 
   <div class="container">
+
+    <!-- Contents Navigation -->
+    <div class="content-nav">
+      <h2>📘 Contents</h2>
+      <ul>
+        <li><a href="#mesh-analysis">• Mesh Analysis</a></li>
+        <li><a href="#nodal-analysis">• Nodal Analysis</a></li>
+      </ul>
+    </div>
+
+    <h1>Mesh and Nodal Analysis</h1>
+
+    <h2 id="mesh-analysis">Mesh Analysis</h2>
     <h1>Mesh and Nodal Analysis</h1>
 
     <h2>Mesh Analysis</h2>
@@ -130,6 +184,7 @@
       <li>Solve the system to find the mesh currents, then use Ohm's law for any branch voltage or current.</li>
     </ol>
 
+    <h2 id="nodal-analysis">Nodal Analysis</h2>
     <h2>Nodal Analysis</h2>
     <p>
       Nodal analysis tracks where the current flows by focusing on each junction (node) in the circuit.
