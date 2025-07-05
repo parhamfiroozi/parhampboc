@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Mesh and Nodal Analysis</title>
+
+  <!-- Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+
+  <!-- MathJax for LaTeX -->
+  <script>
+    window.MathJax = {
+      tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] },
+      svg: { fontCache: 'global' }
+    };
+  </script>
+  <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: #101735;
+      color: #d8faff;
+      padding: 20px;
+    }
+
+    nav.main-menu {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    nav.main-menu a {
+      margin: 0 12px;
+      color: #0ff;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    nav.main-menu a:hover {
+      text-decoration: underline;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      background: #1e264a;
+      padding: 32px;
+      border-radius: 12px;
+      box-shadow: 0 0 20px rgba(0, 255, 255, 0.1);
+    }
+
+    h1 {
+      font-size: 1.9rem;
+      margin-bottom: 20px;
+      text-shadow: 0 0 8px #0ff;
+      color: #0ff;
+      text-align: center;
+    }
+
+    h2 {
+      color: #ffc107;
+      margin-top: 30px;
+      font-size: 1.3rem;
+    }
+
+    p {
+      font-size: 1.05rem;
+      line-height: 1.7;
+      margin-top: 12px;
+      color: #c8e6f5;
+    }
+
+    ol {
+      margin: 10px 0 0 20px;
+      color: #c8e6f5;
+    }
+    li { margin: 8px 0; }
+
+    .back-link {
+      display: block;
+      margin-top: 40px;
+      text-align: center;
+      color: #ffc107;
+      font-weight: bold;
+      text-decoration: none;
+    }
+
+    .back-link:hover {
+      text-shadow: 0 0 5px #ffc107;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Main Page Navigation -->
+  <nav class="main-menu">
+    <a href="index.html">Coding</a> |
+    <a href="electrical.html">Electrical Engineering</a> |
+    <a href="physics.html">Physics</a> |
+    <a href="math.html">Math</a>
+  </nav>
+
+  <div class="container">
+    <h1>Mesh and Nodal Analysis</h1>
+
+    <h2>Mesh Analysis</h2>
+    <p>
+      In mesh analysis, every “house” or loop you can trace without crossing a wire is a mesh.
+      If a current source sits between two meshes, you skip it and treat the surrounding loops as a supermesh.
+      For each mesh (or supermesh), apply Kirchhoff's Voltage Law (KVL) to get one equation in terms of the mesh currents.
+    </p>
+    <ol>
+      <li>Assign a current \( I_k \) to each mesh (always in the same direction, e.g. clockwise).</li>
+      <li>Traverse the mesh: every time you cross a resistor shared by mesh \( k \) and mesh \( j \), its voltage drop is \( R\,(I_k - I_j) \).</li>
+      <li>Write KVL around that loop: sum all resistor drops and voltage sources \(= 0\).</li>
+      <li>Repeat for every mesh (or supermesh) to form a system of linear equations.</li>
+      <li>Solve the system to find the mesh currents, then use Ohm's law for any branch voltage or current.</li>
+    </ol>
+
+    <h2>Nodal Analysis</h2>
+    <p>
+      Nodal analysis tracks where the current flows by focusing on each junction (node) in the circuit.
+    </p>
+    <ol>
+      <li>Identify every node—points where two or more elements connect.</li>
+      <li>Choose one node as the reference (0&nbsp;V) and assign a voltage variable \( V_k \) to each remaining node.</li>
+      <li>
+        Apply Kirchhoff's Current Law (KCL) at each non-reference node:
+        \( \sum_{\text{branches}} I = 0 \), where each branch current is
+        \( I = \tfrac{V_{\text{node}} - V_{\text{adjacent}}}{R} \).
+      </li>
+      <li>Assemble the resulting equations into a linear system for the node voltages.</li>
+      <li>Solve for \( V_k \), then use Ohm's law to find any branch currents or voltages.</li>
+    </ol>
+
+    <p>
+      A node is simply a junction where wires or elements meet; the total number of nodes is the count of these distinct junctions in the circuit.
+    </p>
+
+    <a href="electrical.html" class="back-link">⬅ Back to Electrical Engineering</a>
+  </div>
+</body>
+</html>
