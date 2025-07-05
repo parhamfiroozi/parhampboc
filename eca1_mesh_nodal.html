@@ -2,18 +2,11 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Mesh and Nodal Analysis</title>
 
   <!-- Font -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
-
-
-
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
-
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet" />
-
 
   <!-- MathJax for LaTeX -->
   <script>
@@ -27,12 +20,6 @@
   <style>
     body {
       font-family: 'Poppins', sans-serif;
-
-
-      font-family: 'Poppins', sans-serif;
-
-      font-family: 'Orbitron', sans-serif;
-
       background: #101735;
       color: #d8faff;
       padding: 20px;
@@ -168,37 +155,33 @@
     <h1>Mesh and Nodal Analysis</h1>
 
     <h2 id="mesh-analysis">Mesh Analysis</h2>
-    <h1>Mesh and Nodal Analysis</h1>
-
-    <h2>Mesh Analysis</h2>
     <p>
       In mesh analysis, every “house” or loop you can trace without crossing a wire is a mesh.
       If a current source sits between two meshes, you skip it and treat the surrounding loops as a supermesh.
       For each mesh (or supermesh), apply Kirchhoff's Voltage Law (KVL) to get one equation in terms of the mesh currents.
     </p>
     <ol>
-      <li>Assign a current \( I_k \) to each mesh (always in the same direction, e.g. clockwise).</li>
-      <li>Traverse the mesh: every time you cross a resistor shared by mesh \( k \) and mesh \( j \), its voltage drop is \( R\,(I_k - I_j) \).</li>
-      <li>Write KVL around that loop: sum all resistor drops and voltage sources \(= 0\).</li>
+      <li>Assign a current <code>I_k</code> to each mesh (always in the same direction, e.g. clockwise).</li>
+      <li>Traverse the mesh: every time you cross a resistor shared by mesh <code>k</code> and mesh <code>j</code>, its voltage drop is <code>R (I_k - I_j)</code>.</li>
+      <li>Write KVL around that loop: sum all resistor drops and voltage sources = 0.</li>
       <li>Repeat for every mesh (or supermesh) to form a system of linear equations.</li>
       <li>Solve the system to find the mesh currents, then use Ohm's law for any branch voltage or current.</li>
     </ol>
 
     <h2 id="nodal-analysis">Nodal Analysis</h2>
-    <h2>Nodal Analysis</h2>
     <p>
       Nodal analysis tracks where the current flows by focusing on each junction (node) in the circuit.
     </p>
     <ol>
       <li>Identify every node—points where two or more elements connect.</li>
-      <li>Choose one node as the reference (0&nbsp;V) and assign a voltage variable \( V_k \) to each remaining node.</li>
+      <li>Choose one node as the reference (0 V) and assign a voltage variable <code>V_k</code> to each remaining node.</li>
       <li>
         Apply Kirchhoff's Current Law (KCL) at each non-reference node:
-        \( \sum_{\text{branches}} I = 0 \), where each branch current is
-        \( I = \tfrac{V_{\text{node}} - V_{\text{adjacent}}}{R} \).
+        <code>∑branches I = 0</code>, where each branch current is
+        <code>I = (V_node - V_adjacent) / R</code>.
       </li>
       <li>Assemble the resulting equations into a linear system for the node voltages.</li>
-      <li>Solve for \( V_k \), then use Ohm's law to find any branch currents or voltages.</li>
+      <li>Solve for <code>V_k</code>, then use Ohm's law to find any branch currents or voltages.</li>
     </ol>
 
     <p>
