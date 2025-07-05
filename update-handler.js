@@ -39,7 +39,10 @@ async function sortAndTagContent() {
         : new Date(0);
 
       // update all sub‐items
-      skill.querySelectorAll('li').forEach(li => {
+      const itemList = skill.querySelector('.content-list ul');
+      const items    = Array.from(skill.querySelectorAll('li'));
+
+      items.forEach(li => {
         const subId  = li.dataset.id;
         const subTag = li.querySelector('.last-updated');
         if (!updates[subId]) return;
@@ -48,10 +51,21 @@ async function sortAndTagContent() {
         subTag.textContent = 'Updated ' + formatRelativeTime(subDate);
         subTag.title       = subDate.toLocaleString();
 
+        li.dataset.updated = subDate.toISOString();
+
         if (subDate > subjectTime) {
           subjectTime = subDate;
         }
       });
+
+      // sort sub-items by recency
+      items.sort((a, b) => {
+        const aTime = new Date(a.dataset.updated || 0).getTime();
+        const bTime = new Date(b.dataset.updated || 0).getTime();
+        return bTime - aTime;
+      });
+
+      items.forEach(li => itemList.appendChild(li));
 
       // write the skill‐level timestamp
       if (subjectTime.getTime() > 0) {
