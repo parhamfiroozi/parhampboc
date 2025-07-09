@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Learning JavaScript Through Examples</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: #121212;
+      color: #e0e0e0;
+      padding: 40px 20px;
+      line-height: 1.7;
+    }
+    nav {
+      text-align: center;
+      margin-bottom: 30px;
+      border-bottom: 1px solid #2a2a2a;
+      padding-bottom: 10px;
+    }
+    nav a {
+      margin: 0 12px;
+      text-decoration: none;
+      color: #66d9ef;
+      font-weight: 600;
+      transition: color 0.3s ease;
+    }
+    nav a:hover { color: #33bbdd; }
+    .header { text-align: center; margin-bottom: 30px; }
+    h1 { font-size: 2rem; color: #66d9ef; }
+    .content {
+      max-width: 800px;
+      margin: 0 auto;
+      background: #1e1e1e;
+      border: 1px solid #2a2a2a;
+      border-radius: 8px;
+      padding: 25px;
+    }
+    h2 { font-size: 1.4rem; margin-bottom: 15px; color: #7dcfff; }
+    p { margin-bottom: 18px; text-align: justify; }
+    pre { background: #0f0f0f; padding: 15px; border-radius: 6px; overflow-x: auto; }
+    code { font-family: monospace; color: #e0e0e0; }
+    footer { text-align: center; margin-top: 50px; font-size: 0.85rem; color: #888; }
+  </style>
+</head>
+<body>
+  <nav>
+    <a href="index.html">Coding</a>
+    <a href="electrical.html">Electrical Engineering</a>
+    <a href="physics.html">Physics</a>
+    <a href="math.html">Math</a>
+  </nav>
+
+  <div class="header">
+    <h1>Learning JavaScript Through Examples</h1>
+  </div>
+
+  <div class="content">
+    <!-- Inserted exercises -->
+    <section>
+      <h2>Exercise 1: Hello JavaScript!</h2>
+      <p>Declare a variable <code>yourName</code> and print a greeting to the console.</p>
+      <pre><code>// exercise1.js
+let yourName = "Parham";
+console.log("Hello, " + yourName + "!");
+      </code></pre>
+    </section>
+
+    <section>
+      <h2>Exercise 2: Personal Info Script</h2>
+      <p>Create <code>firstName</code>, <code>lastName</code>, and <code>birthYear</code>, compute age for 2025, and log a sentence.</p>
+      <pre><code>// exercise2.js
+let firstName = "Parham";
+let lastName = "Firoozi";
+let birthYear = 2000;
+
+let age = 2025 - birthYear;
+
+console.log(`Hello, my name is ${firstName} ${lastName} and I am ${age} years old.`);
+      </code></pre>
+    </section>
+
+    <section>
+      <h2>Exercise 3: Age Checker</h2>
+      <p>Use <code>if...else</code> to categorize age into child, teenager, or adult.</p>
+      <pre><code>// exercise3.js
+let birthYear = 2000;
+let age = 2025 - birthYear;
+
+if (age >= 13 && age <= 19) {
+  console.log("You are a teenager.");
+} else if (age < 13) {
+  console.log("You are a child.");
+} else {
+  console.log("You are an adult.");
+}
+      </code></pre>
+    </section>
+
+    <section>
+      <h2>Exercise 4: Functions</h2>
+      <p>Write <code>calculateAge()</code> and <code>describePerson()</code> to encapsulate the logic.</p>
+      <pre><code>// exercise4.js
+function calculateAge(year) {
+  return 2025 - year;
+}
+
+function describePerson(firstName, lastName, birthYear) {
+  let age = calculateAge(birthYear);
+  console.log(`Hello, my name is ${firstName} ${lastName} and I am ${age} years old.`);
+
+  if (age < 13) {
+    console.log("You are a child.");
+  } else if (age >= 13 && age <= 19) {
+    console.log("You are a teenager.");
+  } else {
+    console.log("You are an adult.");
+  }
+}
+
+describePerson("Parham", "Firoozi", 2000);
+      </code></pre>
+    </section>
+
+    <section>
+      <h2>Exercise 5: Favorite Movies</h2>
+      <p>Create an array of movie names and loop over it to print “I love &lt;movie&gt;”.</p>
+      <pre><code>// exercise5.js
+let movies = ["Inception", "Matrix", "Dune", "Interstellar", "The Batman"];
+
+for (let i = 0; i < movies.length; i++) {
+  console.log(`I love ${movies[i]}`);
+}
+      </code></pre>
+    </section>
+
+    <section>
+      <h2>Exercise 6: Movie List Master</h2>
+      <p>Practice <code>.push()</code>, <code>.unshift()</code>, <code>.pop()</code>, and <code>.includes()</code>.</p>
+      <pre><code>// exercise6.js
+let favMovies = ["Inception", "Matrix", "Dune"];
+
+favMovies.push("Interstellar");      // add to end
+favMovies.unshift("The Batman");     // add to beginning
+favMovies.pop();                     // remove last
+
+console.log(favMovies);
+
+if (favMovies.includes("Matrix")) {
+  console.log("Matrix is in the list!");
+}
+      </code></pre>
+    </section>
+
+    <section>
+      <h2>Exercise 7: Movie Object</h2>
+      <p>Create an object with properties and log a formatted sentence.</p>
+      <pre><code>// exercise7.js
+let favoriteMovie = {
+  title: "Intersex",
+  director: "Bokon Nanat",
+  year: 2000,
+  genres: ["kir", "kos", "kun"]
+};
+
+console.log(`My favorite movie is ${favoriteMovie.title}, directed by ${favoriteMovie.director}. It came out in ${favoriteMovie.year} and it's a ${favoriteMovie.genres[0]}/${favoriteMovie.genres[1]} film.`);
+      </code></pre>
+    </section>
+
+    <section>
+      <h2>Exercise 8: Methods in Objects</h2>
+      <p>Add a <code>getSummary()</code> method inside the object.</p>
+      <pre><code>// exercise7.js (continued)
+let favoriteMovie = {
+  title: "Intersex",
+  director: "Bokon Nanat",
+  year: 2000,
+  genres: ["kir", "kos", "kun"],
+
+  getSummary: function() {
+    return `${this.title} (released in ${this.year}) is a ${this.genres[0]}/${this.genres[1]} film directed by ${this.director}.`;
+  }
+};
+
+console.log(favoriteMovie.getSummary());
+      </code></pre>
+    </section>
+
+    <section>
+      <h2>Exercise 9: DOM Selection &amp; Event</h2>
+      <p>A simple HTML page where a button click changes a heading’s text.</p>
+      <pre><code><!-- index.html -->
+<!DOCTYPE html>
+<html>
+<body>
+  <h1 id="title">Hello!</h1>
+  <button onclick="changeText()">Click Me</button>
+  <script src="script.js"></script>
+</body>
+</html>
+
+<!-- script.js -->
+function changeText() {
+  let heading = document.getElementById("title");
+  heading.textContent = "You clicked the button!";
+}
+      </code></pre>
+    </section>
+
+    <section>
+      <h2>Exercise 10: Greeting with Input</h2>
+      <p>Create an input box and button to display a personalized greeting.</p>
+      <pre><code><!-- index.html -->
+<!DOCTYPE html>
+<html>
+<body>
+  <h1 id="greeting">Welcome!</h1>
+  <input type="text" id="nameInput" placeholder="Enter your name" />
+  <button onclick="sayHello()">Greet Me</button>
+  <script src="script.js"></script>
+</body>
+</html>
+
+<!-- script.js -->
+function sayHello() {
+  let input = document.getElementById("nameInput").value;
+  let greeting = document.getElementById("greeting");
+  greeting.textContent = `Hello, ${input}!`;
+}
+      </code></pre>
+    </section>
+
+    <section>
+      <h2>Project 1: Random Background Color</h2>
+      <p>Click a button to change the page’s background to a random color.</p>
+      <pre><code><!-- index.html -->
+<!DOCTYPE html>
+<html>
+<body>
+  <h1>Click to Change Background Color</h1>
+  <button onclick="changeBackground()">Change Color</button>
+  <script src="scriptcolor.js"></script>
+</body>
+</html>
+
+<!-- scriptcolor.js -->
+function changeBackground() {
+  const colors = ["#FF5733", "#33FFBD", "#3380FF", "#F333FF", "#A1FF33"];
+  const randomIndex = Math.floor(Math.random() * colors.length);
+  document.body.style.backgroundColor = colors[randomIndex];
+}
+      </code></pre>
+    </section>
+
+    <section>
+      <h2>Project 2: Dark Mode Toggle</h2>
+      <p>Switch between light and dark themes by toggling a CSS class on <code>&lt;body&gt;</code>.</p>
+      <pre><code><!-- darkmode.html -->
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    body.dark { background: #121212; color: #f0f0f0; }
+    body.light { background: #fff;    color: #000;    }
+  </style>
+</head>
+<body class="light">
+  <h1>Dark Mode Toggle</h1>
+  <button onclick="toggleMode()">Toggle Mode</button>
+  <script src="darkmode.js"></script>
+</body>
+</html>
+
+<!-- darkmode.js -->
+function toggleMode() {
+  const body = document.body;
+  if (body.classList.contains("dark")) {
+    body.classList.replace("dark", "light");
+  } else {
+    body.classList.replace("light", "dark");
+  }
+}
+      </code></pre>
+    </section>
+
+    <section>
+      <h2>Project 3: Mini To-Do List</h2>
+      <p>Add tasks via an input, and append them to a list. Click to remove.</p>
+      <pre><code><!-- todo.html -->
+<!DOCTYPE html>
+<html>
+<body>
+  <h1>My To-Do List</h1>
+  <input type="text" id="taskInput" placeholder="Enter a task" />
+  <button onclick="addTask()">Add Task</button>
+  <ul id="taskList"></ul>
+  <script src="todo.js"></script>
+</body>
+</html>
+
+<!-- todo.js -->
+function addTask() {
+  let input = document.getElementById("taskInput");
+  let text = input.value.trim();
+  if (text !== "") {
+    let li = document.createElement("li");
+    li.textContent = text;
+    li.onclick = () => li.remove(); // click to remove
+    document.getElementById("taskList").appendChild(li);
+    input.value = "";
+  }
+}
+      </code></pre>
+    </section>
+  </div>
+
+  <footer>
+    &copy; 2025 Parham
+  </footer>
+</body>
+</html>
