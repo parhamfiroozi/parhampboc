@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Thevenin's Theorem</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script>
+    window.MathJax = {
+      tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] },
+      options: { skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre'] }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+  <style>
+    body { font-family: 'Poppins', sans-serif; background: #101735; color: #d8faff; padding: 20px; }
+    nav.main-menu { text-align: center; margin-bottom: 30px; }
+    nav.main-menu a { margin: 0 12px; color: #0ff; text-decoration: none; font-weight: bold; }
+    nav.main-menu a:hover { text-decoration: underline; }
+    .container { max-width: 800px; margin: 0 auto; background: #1e264a; padding: 32px; border-radius: 12px; box-shadow: 0 0 20px rgba(0,255,255,0.1); }
+    .content-nav { margin-bottom: 40px; padding: 16px 20px; background: #141b38; border-left: 4px solid #0ff; border-radius: 8px; box-shadow: 0 0 10px rgba(0,255,255,0.05); }
+    .content-nav h2 { color: #0ff; font-size: 1.1rem; margin-bottom: 10px; padding-bottom: 6px; border-bottom: 1px solid #0ff; }
+    .content-nav ul { list-style: none; padding-left: 10px; margin: 0; }
+    .content-nav li { margin: 8px 0; }
+    .content-nav a { color: #ffc107; text-decoration: none; font-weight: 600; font-size: 0.95rem; transition: color 0.2s ease; }
+    .content-nav a:hover { color: #fff; text-decoration: underline; }
+    .example { text-align: center; margin: 20px 0; }
+    .example img { width: calc(50% - 10px); border-radius: 8px; box-shadow: 0 0 10px rgba(0,255,255,0.05); }
+    .caption { font-size: 0.95rem; color: #bbb; margin-top: 6px; }
+    h1 { font-size: 1.9rem; margin-bottom: 20px; text-shadow: 0 0 8px #0ff; color: #0ff; text-align: center; }
+    h2 { color: #ffc107; margin-top: 30px; font-size: 1.3rem; }
+    p { font-size: 1.05rem; line-height: 1.7; margin-top: 12px; color: #c8e6f5; }
+    ul { margin: 10px 0 0 20px; color: #c8e6f5; }
+    li { margin: 8px 0; }
+    .back-link { display: block; margin-top: 40px; text-align: center; color: #ffc107; font-weight: bold; text-decoration: none; }
+    .back-link:hover { text-shadow: 0 0 5px #ffc107; }
+  </style>
+</head>
+<body>
+  <nav class="main-menu">
+    <a href="index.html">Coding</a> |
+    <a href="electrical.html">Electrical Engineering</a> |
+    <a href="physics.html">Physics</a> |
+    <a href="math.html">Math</a>
+  </nav>
+
+  <div class="container">
+    <div class="content-nav">
+      <h2>📘 Contents</h2>
+      <ul>
+        <li><a href="#thevenin-equivalent">• Thevenin's Theorem</a></li>
+        <li><a href="#finding-vth">• Finding the Thevenin Voltage (Vth)</a></li>
+        <li><a href="#finding-rth">• Finding the Thevenin Resistance (Rth)</a></li>
+      </ul>
+    </div>
+
+    <h1>Thevenin's Theorem</h1>
+
+    <h2 id="thevenin-equivalent">Thevenin's Theorem</h2>
+    <p>
+      Thevenin's theorem is a powerful tool in circuit analysis that allows you to simplify a complex linear circuit into a simple equivalent circuit. This equivalent circuit consists of a single voltage source, called the <strong>Thevenin Voltage ($V_{th}$)</strong>, in series with a single resistor, known as the <strong>Thevenin Resistance ($R_{th}$)</strong>. This simplification makes it much easier to analyze the behavior of the original circuit with respect to a load.
+    </p>
+    <div class="example">
+      <img src="https://i.postimg.cc/Xv89CBT2/6021619539009194372.jpg" alt="Thevenin Equivalent Circuit Example" />
+      <div class="caption">A complex circuit and its simplified Thevenin equivalent.</div>
+    </div>
+    <p>
+      The core idea is to find the equivalent circuit as "seen" from two terminals of the original circuit. Once you have the Thevenin equivalent, you can easily calculate the current and voltage for any load resistor connected to those terminals.
+    </p>
+
+    <h2 id="finding-vth">Finding the Thevenin Voltage ($V_{th}$)</h2>
+    <p>
+      The Thevenin voltage, often denoted as $V_{oc}$ (open-circuit voltage), is the voltage difference across the two terminals of interest when no load is connected. To find it, you simply remove the component or part of the circuit you are analyzing and calculate the voltage across the open terminals.
+    </p>
+    <div class="example">
+      <img src="https://i.postimg.cc/d1NtMJyQ/Screenshot-2025-07-11-at-11-10-15-PM.png" alt="Finding open-circuit voltage in PSpice" />
+      <div class="caption">In a simulation tool like PSpice, $V_{th}$ is found by measuring the voltage across the open-circuited terminals A and B.</div>
+    </div>
+
+    <h2 id="finding-rth">Finding the Thevenin Resistance ($R_{th}$)</h2>
+    <p>
+      The Thevenin resistance is the equivalent resistance of the circuit looking back from the two terminals, with all independent sources turned off. This means:
+    </p>
+    <ul>
+      <li><strong>Independent voltage sources</strong> are replaced with a short circuit (0 V).</li>
+      <li><strong>Independent current sources</strong> are replaced with an open circuit (0 A).</li>
+    </ul>
+    <p>
+      After zeroing out the sources, you calculate the total resistance between the terminals.
+    </p>
+    <div class="example">
+      <img src="https://i.postimg.cc/N0zmDvjT/Screenshot-2025-07-11-at-11-20-03-PM.png" alt="Finding Thevenin resistance in PSpice" />
+      <div class="caption">To find $R_{th}$ in PSpice, all independent sources are set to zero, and the equivalent resistance is measured.</div>
+    </div>
+    <p>
+      Alternatively, if you know the open-circuit voltage ($V_{oc}$) and the short-circuit current ($I_{sc}$), which is the current flowing through a wire connecting the terminals, you can find $R_{th}$ using Ohm's law:
+      $$R_{th} = \frac{V_{oc}}{I_{sc}}$$
+    </p>
+
+    <a href="electrical.html" class="back-link">⬅ Back to Electrical Engineering</a>
+  </div>
+</body>
+</html>
