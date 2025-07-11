@@ -76,9 +76,9 @@
     <p>
       The Thevenin voltage, often denoted as $V_{oc}$ (open-circuit voltage), is the voltage difference across the two terminals of interest when no load is connected. To find it, you simply remove the component or part of the circuit you are analyzing and calculate the voltage across the open terminals.
     </p>
-    <div class="example"
-      <img src="https://i.postimg.cc/N0zmDvjT/Screenshot-2025-07-11-at-11-20-03-PM.png" alt="Finding open-circuit voltage in PSpice" />
-      <div class="caption">In a simulation tool like PSpice, $V_{th}$ is found by measuring the voltage across the open-circuited terminals A and B.</div>
+    <div class="example">
+      <img src="https://i.postimg.cc/N0zmDvjT/Screenshot-2025-07-11-at-11-20-03-PM.png" alt="Finding Thevenin resistance in PSpice" />
+      <div class="caption">To find $R_{th}$ in PSpice, all independent sources are set to zero, and the equivalent resistance is measured.</div>
     </div>
 
     <h2 id="finding-rth">Finding the Thevenin Resistance ($R_{th}$)</h2>
@@ -93,8 +93,8 @@
       After zeroing out the sources, you calculate the total resistance between the terminals.
     </p>
     <div class="example">
-      <img src="https://i.postimg.cc/d1NtMJyQ/Screenshot-2025-07-11-at-11-10-15-PM.png" alt="Finding Thevenin resistance in PSpice" />
-      <div class="caption">To find $R_{th}$ in PSpice, all independent sources are set to zero, and the equivalent resistance is measured.</div>
+      <img src="https://i.postimg.cc/d1NtMJyQ/Screenshot-2025-07-11-at-11-10-15-PM.png" alt="Finding open-circuit voltage in PSpice" />
+      <div class="caption">In a simulation tool like PSpice, $V_{th}$ is found by measuring the voltage across the open-circuited terminals A and B.</div>
     </div>
     <p>
       Alternatively, if you know the open-circuit voltage ($V_{oc}$) and the short-circuit current ($I_{sc}$), which is the current flowing through a wire connecting the terminals, you can find $R_{th}$ using Ohm's law:
