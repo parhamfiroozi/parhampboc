@@ -35,6 +35,13 @@
     li { margin: 8px 0; }
     .back-link { display: block; margin-top: 40px; text-align: center; color: #ffc107; font-weight: bold; text-decoration: none; }
     .back-link:hover { text-shadow: 0 0 5px #ffc107; }
+    .last-updated {
+      font-size: 0.8rem;
+      color: #ffd700;
+      text-align: center;
+      margin-top: -10px;
+      margin-bottom: 20px;
+    }
   </style>
 </head>
 <body>
@@ -57,6 +64,8 @@
     </div>
 
     <h1>RL Circuit Analysis: With and Without Source</h1>
+    <div id="last-updated" class="last-updated"></div>
+
 
     <h2 id="setup">Steady‑State (DC) → Initial Current</h2>
     <p>Replace the inductor with a short. Solve the resistive network (via KCL or KVL) with all real sources active. The current through the short is your $i_L(0^+)$.</p>
@@ -87,5 +96,24 @@
 
     <a href="electrical.html" class="back-link">⬅ Back to Electrical Engineering</a>
   </div>
+
+  <script src="update-handler.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      fetch('updates.json')
+        .then(res => res.json())
+        .then(data => {
+          const ts = data['rl_circuit_analysis'];
+          if (!ts) return;
+          const date = new Date(ts);
+          const tag  = document.getElementById('last-updated');
+          if (tag && typeof formatRelativeTime === 'function') {
+            tag.textContent = 'Updated ' + formatRelativeTime(date);
+            tag.title = date.toLocaleString();
+          }
+        });
+    });
+  </script>
+
 </body>
 </html>

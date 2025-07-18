@@ -44,8 +44,14 @@ async function sortAndTagContent() {
 
       items.forEach(li => {
         const subId  = li.dataset.id;
-        const subTag = li.querySelector('.last-updated');
         if (!updates[subId]) return;
+
+        let subTag = li.querySelector('.last-updated');
+        if (!subTag) {
+          subTag = document.createElement('span');
+          subTag.className = 'last-updated';
+          li.appendChild(subTag);
+        }
 
         const subDate = new Date(updates[subId]);
         subTag.textContent = 'Updated ' + formatRelativeTime(subDate);
