@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>1st Bit and Byte Magazine Contest Solution (Easy)</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #f0f8ff, #e8f4fc);
+      color: #333;
+      margin: 0;
+      padding: 20px;
+    }
+    nav {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    nav a {
+      margin: 0 10px;
+      text-decoration: none;
+      color: #007acc;
+      font-weight: 600;
+      position: relative;
+    }
+    nav a:hover { text-decoration: underline; }
+    #gap { display: inline-block; width: 40px; }
+    #gap a { display: none; color: #d62828; }
+    h1 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #023047;
+    }
+    .section {
+      max-width: 700px;
+      margin: 0 auto 30px;
+      background: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    pre { background: #f5f5f5; padding: 10px; border-radius: 4px; overflow-x: auto; }
+    button {
+      padding: 8px 16px;
+      background: #219ebc;
+      border: none;
+      border-radius: 4px;
+      color: #fff;
+      cursor: pointer;
+    }
+    button:hover { background: #126782; }
+    iframe { border: 0; width: 100%; max-width: 640px; height: 360px; display: block; margin: 0 auto; }
+  </style>
+</head>
+<body>
+  <nav>
+    <a id="coding" href="index.html">Coding</a>
+    <span id="gap"><a id="contestLink" href="bitbyte_contest_solution.html">Contest Page</a></span>
+    <a id="ee" href="electrical.html">Electrical Engineering</a> |
+    <a href="physics.html">Physics</a> |
+    <a href="math.html">Math</a>
+  </nav>
+
+  <h1>1st Bit and Byte Magazine Contest Solution (Easy)</h1>
+
+  <div class="section">
+    <h2>Question</h2>
+    <p>For each number 66, 55, 120, and 37, determine if there exist integers <em>a</em> and <em>b</em> such that:</p>
+    <pre>0 &lt; a ≤ b ≤ x
+a × b = x
+a / b ≥ 0.5</pre>
+  </div>
+
+  <div class="section">
+    <h2>Solution</h2>
+    <p>The algorithm below checks the condition and prints <code>1</code> when a number is right-coupled, otherwise <code>0</code>.</p>
+    <pre id="results"></pre>
+    <button onclick="checkNumbers()">Run Check</button>
+  </div>
+
+  <div class="section">
+    <h2>Walkthrough Video</h2>
+    <iframe src="https://drive.google.com/file/d/18Nt2uaia9Kmkrbc8IQiHuwDk2QHuqPbh/preview" allow="autoplay"></iframe>
+  </div>
+
+  <div class="section">
+    <h2>Download PDF</h2>
+    <p><a href="https://drive.google.com/uc?export=download&id=11re_Tq-vQZ8ouYReBfsrs2AHmsy1gKM3">1st Bit and Byte Contest Solution PDF</a></p>
+  </div>
+
+  <script>
+    const gap = document.getElementById('gap');
+    const contestLink = document.getElementById('contestLink');
+    gap.addEventListener('mouseenter', () => contestLink.style.display = 'inline');
+    gap.addEventListener('mouseleave', () => contestLink.style.display = 'none');
+
+    function isRightCoupled(x) {
+      for (let a = 1; a * a <= x; a++) {
+        if (x % a === 0) {
+          let b = x / a;
+          if (a <= b && a / b >= 0.5) return true;
+        }
+      }
+      return false;
+    }
+    function checkNumbers() {
+      const nums = [66, 55, 120, 37];
+      const outputs = nums.map(n => `${n}: ${isRightCoupled(n) ? 1 : 0}`);
+      document.getElementById('results').textContent = outputs.join('\n');
+    }
+  </script>
+</body>
+</html>
