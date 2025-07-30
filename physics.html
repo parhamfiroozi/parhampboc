@@ -35,6 +35,8 @@
       font-weight: 600;
       display: inline-block;
     }
+    #gap { display: inline-block; width: 40px; }
+    #gap a { display: none; color: #d62828; }
 
     .header {
       text-align: center;
@@ -168,8 +170,9 @@
 <body>
 
   <nav>
-    <a href="index.html">Coding</a> |
-    <a href="electrical.html">Electrical Engineering</a> |
+    <a id="coding" href="index.html">Coding</a>
+    <span id="gap"><a id="contestLink" href="bitbyte_contest_solution.html">Contest Page</a></span>
+    <a id="ee" href="electrical.html">Electrical Engineering</a> |
     <a href="physics.html">Physics</a> |
     <a href="math.html">Math</a>
   </nav>
@@ -360,5 +363,13 @@
 
   <!-- Link to your toggle logic + update timestamps -->
   <script src="update-handler.js" defer></script>
+  <script>
+    const gap = document.getElementById('gap');
+    const contestLink = document.getElementById('contestLink');
+    if (gap && contestLink) {
+      gap.addEventListener('mouseenter', () => contestLink.style.display = 'inline');
+      gap.addEventListener('mouseleave', () => contestLink.style.display = 'none');
+    }
+  </script>
 </body>
 </html>
