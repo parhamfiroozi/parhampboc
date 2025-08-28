@@ -294,18 +294,39 @@ nav a {
     </div>
 
     <!-- Electromagnetics -->
-    <div class="skill" data-id="emagnetics">
-      <span class="skill-title">
-        Electromagnetics <span class="last-updated-inline"></span>
-      </span>
-      <div class="progress-bar">
-        <div class="progress-fill emagnet" style="width: 40%;">40%</div>
-      </div>
-      <div class="last-updated"></div>
-      <div class="comment-box">
-        I made use of Dr. Mohajeri's classes during my studies of this subject.
-      </div>
-    </div>
+<div class="skill" data-id="emagnetics">
+  <span class="skill-title" onclick="toggleContent('emagnetics-content', this)">
+    Electromagnetics
+    <span class="chevron">▼</span>
+    <span class="last-updated-inline"></span>
+  </span>
+  <div class="progress-bar" onclick="toggleContent('emagnetics-content', this.parentElement.querySelector('.skill-title'))">
+    <div class="progress-fill emagnet" style="width: 40%;">40%</div>
+  </div>
+
+  <div id="emagnetics-content" class="content-list">
+    <ul>
+      <li data-id="em_math_pack">
+        <a href="electromagnetics.html">Electromagnetics: Essential Math (1–29)</a>
+        <span class="last-updated"></span>
+      </li>
+    </ul>
+
+    <!-- optional: small preview thumbnail that also links -->
+    <a href="electromagnetics.html" style="display:block; margin-top:10px;">
+      <img
+        src="https://i.postimg.cc/xJFq1zxX/All-the-math-we-need-for-Electromagnetics-1.jpg"
+        alt="Electromagnetics preview"
+        style="width:100%; max-width:420px; border-radius:8px; box-shadow:0 0 10px rgba(0,255,255,0.18);"
+      />
+    </a>
+  </div>
+
+  <div class="comment-box">
+    I made use of Dr. Mohajeri's classes during my studies of this subject.
+  </div>
+</div>
+
 
     <!-- Control Systems -->
     <div class="skill" data-id="control">
